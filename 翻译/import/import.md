@@ -11,9 +11,19 @@
 
 #internal
 [internal/]
-目录=\exec
-新地址=github.com/888go/gosdk/exec/internal/
+目录=\
+新地址=github.com/888go/gosdk/internal/
+
 
 [os/exec/internal/]
 目录=\exec
-新地址=github.com/888go/gosdk/exec/exec/internal/
+新地址=github.com/888go/gosdk/exec/internal/
+
+
+[os/exec]
+目录=\exec
+新地址=github.com/888go/gosdk/exec
+
+[runtime/internal/]
+目录=\runtime
+新地址=github.com/888go/gosdk/runtime/internal/
