@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?> 
  <trees>
-     <tree path="/internal" title="内部调用方法"/>
-     <tree path="/exec/internal" title="内部调用方法"/>
+     <tree path="/strings" title="文本类"/>
  </trees>
