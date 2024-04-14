@@ -162,6 +162,8 @@
 //	n < 0：返回所有子串
 //
 // 对于s和sep的边缘情况（如空字符串），处理方式与SplitAfter函数文档中所述一致。
+//
+// 翻译备注: 和SplitN方法的区别是, 本方法返回的数组包含分隔符,如["你好,", "世界,编程,学习"]
 # <翻译结束>
 
 
@@ -214,6 +216,8 @@
 // 若 sep 为空，SplitAfter 将在每个 UTF-8 序列后进行切分。若 s 和 sep 同时为空，SplitAfter 返回一个空切片。
 //
 // 它等同于使用计数为 -1 的 [SplitAfterN]。
+//
+// 翻译备注: 和Split方法的区别是, 本方法返回的数组包含分隔符,如["你好,", "世界,编程,学习"]
 # <翻译结束>
 
 
@@ -304,6 +308,9 @@
 
 # <翻译开始>
 // ToUpper返回s，其中所有Unicode字母均映射为大写。
+//
+// 翻译备注: ToTitle作用和 ToUpper 类似，所有字符全部变成大写，而不只是首字母。不过 ToTitle 和 ToUpper 的区别特别微小，Stackoverflow 上有相关讨论 ，它们的区别是 Unicode 规定的区别。
+// https://stackoverflow.com/questions/18559587/confusing-toupper-and-totitle
 # <翻译结束>
 
 
@@ -323,6 +330,9 @@
 
 # <翻译开始>
 // ToTitle返回一个字符串s的副本，其中所有Unicode字母均映射至其Unicode标题大小写。
+//
+// 翻译备注: ToTitle作用和 ToUpper 类似，所有字符全部变成大写，而不只是首字母。不过 ToTitle 和 ToUpper 的区别特别微小，Stackoverflow 上有相关讨论 ，它们的区别是 Unicode 规定的区别。
+// https://stackoverflow.com/questions/18559587/confusing-toupper-and-totitle
 # <翻译结束>
 
 
@@ -352,8 +362,8 @@
 <原文结束>
 
 # <翻译开始>
-// ToTitleSpecial 返回字符串 s 的副本，其中所有 Unicode 字母都映射到其
-// Unicode 标题大小写形式，并优先考虑特殊大小写规则。
+// ToTitleSpecial函数返回s的所有Unicode字母均被映射为它们的Unicode标题形式的副本，
+// 优先考虑特殊的大小写规则。
 # <翻译结束>
 
 
