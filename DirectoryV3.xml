@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?> 
  <trees>
      <tree path="/strings" title="文本类"/>
+     <tree path="/strings/clone.go" title="副本"/>
+     <tree path="/strings/compare.go" title="比较"/>
+     <tree path="/strings/strings.go" title="文本方法"/>
+     <tree path="place.go" title="替换"/>
+     <tree path="/strings/replace.go" title="替换"/>
  </trees>
