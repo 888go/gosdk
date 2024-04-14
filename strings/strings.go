@@ -342,7 +342,7 @@ func TrimFunc(s string, f func(rune) bool) string { //md5:f83f48e3eb47b62b7e1ecd
 }
 
 // IndexFunc返回s中第一个满足f(c)的Unicode码点的索引，如果不存在满足条件的码点，则返回-1。
-// 取字符索引FUNC
+
 // ff:
 // f:回调函数
 // s:原文本
@@ -352,8 +352,8 @@ func IndexFunc(s string, f func(rune) bool) int { //md5:22c6b63d2713ff3020a8ced7
 
 // LastIndexFunc返回s中最后一个满足f(c)的Unicode码点的索引，若无满足条件的码点，则返回-1。
 
-// ff:取字符最后索引FUNC
-// f:回调函数
+// ff:
+// f:
 // s:原文本
 func LastIndexFunc(s string, f func(rune) bool) int { //md5:c29da2b69561585e838689d903e72dac
 	return strings.LastIndexFunc(s, f)
@@ -361,9 +361,9 @@ func LastIndexFunc(s string, f func(rune) bool) int { //md5:c29da2b69561585e8386
 
 // Trim返回字符串s的一个切片，其中包含的所有在cutset中的前导和尾部Unicode字符码点已被移除。
 
-// ff:删首尾任意字符
-// cutset:字符s
-// s:原文本
+// ff:
+// cutset:
+// s:
 func Trim(s, cutset string) string { //md5:d4e63cddca34d67410bbe36516a460d4
 	return strings.Trim(s, cutset)
 }
@@ -373,9 +373,9 @@ func Trim(s, cutset string) string { //md5:d4e63cddca34d67410bbe36516a460d4
 //
 // 要移除前缀，请使用[TrimPrefix]代替。
 
-// ff:删首任意字符
-// cutset:字符s
-// s:原文本
+// ff:
+// cutset:
+// s:
 func TrimLeft(s, cutset string) string { //md5:900b2617ce88019f221e18c5d48d88af
 	return strings.TrimLeft(s, cutset)
 }
@@ -384,8 +384,8 @@ func TrimLeft(s, cutset string) string { //md5:900b2617ce88019f221e18c5d48d88af
 //
 // 要移除后缀，应使用[TrimSuffix]代替。
 
-// ff:删尾任意字符
-// cutset:字符s
+// ff:
+// cutset:
 // s:原文本
 func TrimRight(s, cutset string) string { //md5:5264a3ff78fb7d36909186e6a8dbef64
 	return strings.TrimRight(s, cutset)
