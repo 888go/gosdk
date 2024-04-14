@@ -385,7 +385,7 @@ func TrimLeft(s, cutset string) string { //md5:900b2617ce88019f221e18c5d48d88af
 // 要移除后缀，应使用[TrimSuffix]代替。
 
 // ff:
-// cutset:
+// cutset:1
 // s:原文本
 func TrimRight(s, cutset string) string { //md5:5264a3ff78fb7d36909186e6a8dbef64
 	return strings.TrimRight(s, cutset)

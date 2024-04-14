@@ -40,6 +40,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="ff08bdde-a4a3-4c26-a175-43cbbefb37c1" />
+  </component>
   <component name="GoVcsConfiguration">
     <option name="GO_FMT" value="false" />
   </component>
@@ -88,7 +91,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "go.vgo"
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
   <component name="RunManager" selected="Go 测试.github.com/888go/gosdk/strings 中的 ExampleFieldsFunc">
