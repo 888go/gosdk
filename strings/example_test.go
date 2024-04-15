@@ -1,6 +1,6 @@
-// Copyright 2012 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 该许可证可在 LICENSE 文件中找到。
 
 package strings_test
 
@@ -71,8 +71,8 @@ func ExampleContainsAny() {
 }
 
 func ExampleContainsRune() {
-	// Finds whether a string contains a particular Unicode code point.
-	// The code point for the lowercase letter "a", for example, is 97.
+// 查找字符串中是否包含特定的Unicode码点。
+// 例如，小写字母"a"的码点为97。
 	fmt.Println(strings.ContainsRune("aardvark", 97))
 	fmt.Println(strings.ContainsRune("timeout", 97))
 	// Output:
@@ -93,7 +93,7 @@ func ExampleContainsFunc() {
 
 func ExampleCount() {
 	fmt.Println(strings.Count("cheese", "e"))
-	fmt.Println(strings.Count("five", "")) // before & after each rune
+	fmt.Println(strings.Count("five", "")) // 每个rune的前后
 	// Output:
 	// 3
 	// 5
@@ -141,8 +141,8 @@ func ExampleCutSuffix() {
 
 func ExampleEqualFold() {
 	fmt.Println(strings.EqualFold("Go", "go"))
-	fmt.Println(strings.EqualFold("AB", "ab")) // true because comparison uses simple case-folding
-	fmt.Println(strings.EqualFold("ß", "ss"))  // false because comparison does not use full case-folding
+	fmt.Println(strings.EqualFold("AB", "ab")) // 为真，因为比较使用了简单大小写折叠
+	fmt.Println(strings.EqualFold("ß", "ss"))  // 译：判断未使用全大小写折叠，故结果为假
 	// Output:
 	// true
 	// true
@@ -325,7 +325,7 @@ func ExampleSplitAfterN() {
 }
 
 func ExampleTitle() {
-	// Compare this example to the ToTitle example.
+	// 请将此示例与 ToTitle 示例进行比较
 	fmt.Println(strings.Title("her royal highness"))
 	fmt.Println(strings.Title("loud noises"))
 	fmt.Println(strings.Title("хлеб"))
@@ -336,7 +336,7 @@ func ExampleTitle() {
 }
 
 func ExampleToTitle() {
-	// Compare this example to the Title example.
+	// 将此示例与 Title 示例进行比较
 	fmt.Println(strings.ToTitle("her royal highness"))
 	fmt.Println(strings.ToTitle("loud noises"))
 	fmt.Println(strings.ToTitle("хлеб"))

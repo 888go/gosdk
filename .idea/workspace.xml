@@ -4,7 +4,52 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12" />
+    <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
+      <change afterPath="$PROJECT_DIR$/exec/bench_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/dot_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/env_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/example_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/exec.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/exec_linux_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/exec_other_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/exec_posix_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/exec_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/exec_unix_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/exec_windows_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/internal/fdtest/exists_plan9.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/internal/fdtest/exists_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/internal/fdtest/exists_unix.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/internal/fdtest/exists_windows.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/internal_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/lp_linux_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/lp_plan9.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/lp_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/lp_unix_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/lp_windows_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/bench_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/dot_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/env_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/example_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/exec_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/exec_linux_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/exec_other_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/exec_posix_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/exec_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/exec_unix_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/exec_windows_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/internal/fdtest/exists_plan9_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/internal/fdtest/exists_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/internal/fdtest/exists_unix_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/internal/fdtest/exists_windows_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/internal_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/lp_linux_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/lp_plan9_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/lp_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/lp_unix_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/lp_windows_test_GO.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DirectoryV3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DirectoryV3.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,44 +85,53 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Go 构建.go build github.com/888go/gosdk/strings.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 构建.go build strings (1).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 构建.go build strings (2).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 构建.go build strings.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/strings 中的 ExampleContainsFunc.executor&quot;: &quot;Debug&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/strings 中的 ExampleFieldsFunc.executor&quot;: &quot;Debug&quot;,
-    &quot;Go 测试.go test github.com/888go/gosdk/strings (1).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test github.com/888go/gosdk/strings.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.go test strings (1).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test strings.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/SVN/GO/code/gosdk&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Go 构建.go build github.com/888go/gosdk/exec.executor": "Coverage",
+    "Go 构建.go build github.com/888go/gosdk/strings.executor": "Coverage",
+    "Go 构建.go build strings (1).executor": "Coverage",
+    "Go 构建.go build strings (2).executor": "Coverage",
+    "Go 构建.go build strings.executor": "Coverage",
+    "Go 测试.github.com/888go/gosdk/strings 中的 ExampleContainsFunc.executor": "Debug",
+    "Go 测试.github.com/888go/gosdk/strings 中的 ExampleFieldsFunc.executor": "Debug",
+    "Go 测试.go test github.com/888go/gosdk/strings (1).executor": "Coverage",
+    "Go 测试.go test github.com/888go/gosdk/strings.executor": "Run",
+    "Go 测试.go test strings (1).executor": "Coverage",
+    "Go 测试.go test strings.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "E:/SVN/GO/code/gosdk",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
-}</component>
-  <component name="RunManager" selected="Go 测试.github.com/888go/gosdk/strings 中的 ExampleFieldsFunc">
+}]]></component>
+  <component name="RunManager" selected="Go 构建.go build github.com/888go/gosdk/exec">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gosdk" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="FILE" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build github.com/888go/gosdk/exec" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="gosdk" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/888go/gosdk/exec" />
+      <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
     <configuration name="go build github.com/888go/gosdk/strings" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
@@ -121,17 +175,6 @@
       <pattern value="^\QExampleFieldsFunc\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="go test github.com/888go/gosdk/strings (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="gosdk" />
-      <working_directory value="$PROJECT_DIR$/strings" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="github.com/888go/gosdk/strings" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <method v="2" />
-    </configuration>
     <configuration name="go test strings (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gosdk" />
       <working_directory value="$PROJECT_DIR$/strings" />
@@ -145,11 +188,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 构建.go build github.com/888go/gosdk/exec" />
         <item itemvalue="Go 测试.github.com/888go/gosdk/strings 中的 ExampleFieldsFunc" />
         <item itemvalue="Go 测试.github.com/888go/gosdk/strings 中的 ExampleContainsFunc" />
         <item itemvalue="Go 测试.go test strings (1)" />
         <item itemvalue="Go 构建.go build github.com/888go/gosdk/strings" />
-        <item itemvalue="Go 测试.go test github.com/888go/gosdk/strings (1)" />
       </list>
     </recent_temporary>
   </component>

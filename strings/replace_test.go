@@ -1,6 +1,6 @@
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2009 Go作者。保留所有权利。
+// 本源代码的使用受BSD风格
+// 许可证约束，该许可证可在LICENSE文件中找到。
 
 package strings_test
 
@@ -27,7 +27,7 @@ var htmlUnescaper = NewReplacer(
 	"&apos;", "'",
 )
 
-// The http package's old HTML escaping function.
+// http 包中的旧版 HTML 转义函数。
 func oldHTMLEscape(s string) string {
 	s = Replace(s, "&", "&amp;", -1)
 	s = Replace(s, "<", "&lt;", -1)
@@ -39,7 +39,7 @@ func oldHTMLEscape(s string) string {
 
 var capitalLetters = NewReplacer("a", "A", "b", "B")
 
-// TestReplacer tests the replacer implementations.
+// TestReplacer 测试替换器实现。
 func TestReplacer(t *testing.T) {
 	type testCase struct {
 		r       *Replacer
@@ -47,20 +47,26 @@ func TestReplacer(t *testing.T) {
 	}
 	var testCases []testCase
 
-	// str converts 0xff to "\xff". This isn't just string(b) since that converts to UTF-8.
+	// str 将 0xff 转换为 "\xff"。这不仅仅是使用 string(b) 进行转换，因为后者会转为 UTF-8 格式。
 	str := func(b byte) string {
 		return string([]byte{b})
 	}
 	var s []string
 
-	// inc maps "\x00"->"\x01", ..., "a"->"b", "b"->"c", ..., "\xff"->"\x00".
+	// inc 将字符按以下规则进行映射：
+//   "\x00" -> "\x01"
+//   ...
+//   "a" -> "b"
+//   "b" -> "c"
+//   ...
+//   "\xff" -> "\x00"
 	s = nil
 	for i := 0; i < 256; i++ {
 		s = append(s, str(byte(i)), str(byte(i+1)))
 	}
 	inc := NewReplacer(s...)
 
-	// Test cases with 1-byte old strings, 1-byte new strings.
+	// 测试用例，包含1字节的旧字符串和1字节的新字符串
 	testCases = append(testCases,
 		testCase{capitalLetters, "brad", "BrAd"},
 		testCase{capitalLetters, Repeat("a", (32<<10)+123), Repeat("A", (32<<10)+123)},
@@ -73,7 +79,7 @@ func TestReplacer(t *testing.T) {
 		testCase{NewReplacer("a", "1", "a", "2"), "brad", "br1d"},
 	)
 
-	// repeat maps "a"->"a", "b"->"bb", "c"->"ccc", ...
+	// repeat 将 "a" 映射为 "a"，"b" 映射为 "bb"，"c" 映射为 "ccc"，以此类推
 	s = nil
 	for i := 0; i < 256; i++ {
 		n := i + 1 - 'a'
@@ -84,7 +90,7 @@ func TestReplacer(t *testing.T) {
 	}
 	repeat := NewReplacer(s...)
 
-	// Test cases with 1-byte old strings, variable length new strings.
+	// 测试用例，含1字节长度的旧字符串，及可变长度的新字符串。
 	testCases = append(testCases,
 		testCase{htmlEscaper, "No changes", "No changes"},
 		testCase{htmlEscaper, "I <3 escaping & stuff", "I &lt;3 escaping &amp; stuff"},
@@ -98,7 +104,7 @@ func TestReplacer(t *testing.T) {
 		testCase{NewReplacer("a", "11", "a", "22"), "brad", "br11d"},
 	)
 
-	// The remaining test cases have variable length old strings.
+	// 剩余的测试用例具有可变长度的旧字符串。
 
 	testCases = append(testCases,
 		testCase{htmlUnescaper, "&amp;amp;", "&amp;"},
@@ -112,8 +118,7 @@ func TestReplacer(t *testing.T) {
 		testCase{NewReplacer("aaa", "3", "aa", "2", "a", "1"), "aaaa", "31"},
 	)
 
-	// gen1 has multiple old strings of variable length. There is no
-	// overall non-empty common prefix, but some pairwise common prefixes.
+// gen1 包含多个长度可变的旧字符串。它们之间不存在非空的整体公共前缀，但存在一些两两之间的公共前缀。
 	gen1 := NewReplacer(
 		"aaa", "3[aaa]",
 		"aa", "2[aa]",
@@ -135,7 +140,7 @@ func TestReplacer(t *testing.T) {
 		testCase{gen1, "", ""},
 	)
 
-	// gen2 has multiple old strings with no pairwise common prefix.
+	// gen2包含多个无两两共同前缀的旧字符串。
 	gen2 := NewReplacer(
 		"roses", "red",
 		"violets", "blue",
@@ -146,7 +151,7 @@ func TestReplacer(t *testing.T) {
 		testCase{gen2, "", ""},
 	)
 
-	// gen3 has multiple old strings with an overall common prefix.
+	// gen3 含有多个具有共同前缀的旧字符串
 	gen3 := NewReplacer(
 		"abracadabra", "poof",
 		"abracadabrakazam", "splat",
@@ -161,8 +166,7 @@ func TestReplacer(t *testing.T) {
 		testCase{gen3, "", ""},
 	)
 
-	// foo{1,2,3,4} have multiple old strings with an overall common prefix
-	// and 1- or 2- byte extensions from the common prefix.
+// foo{1,2,3,4}具有多个具有共同前缀的旧字符串，且从该公共前缀延伸出1个或2个字节。
 	foo1 := NewReplacer(
 		"foo1", "A",
 		"foo2", "B",
@@ -198,7 +202,7 @@ func TestReplacer(t *testing.T) {
 		testCase{foo4, "", ""},
 	)
 
-	// genAll maps "\x00\x01\x02...\xfe\xff" to "[all]", amongst other things.
+	// genAll 将 "\x00\x01\x02...\xfe\xff" 映射为 "[all]"，同时执行其他操作。
 	allBytes := make([]byte, 256)
 	for i := range allBytes {
 		allBytes[i] = byte(i)
@@ -215,7 +219,7 @@ func TestReplacer(t *testing.T) {
 		testCase{genAll, "", ""},
 	)
 
-	// Test cases with empty old strings.
+	// 测试用例，其中包含空的旧字符串。
 
 	blankToX1 := NewReplacer("", "X")
 	blankToX2 := NewReplacer("", "X", "", "")
@@ -266,7 +270,7 @@ func TestReplacer(t *testing.T) {
 		testCase{abcMatcher, "cabcabcdabca", "c[match][match]d[match]a"},
 	)
 
-	// Issue 6659 cases (more single string replacer)
+	// Issue 6659 示例（更多单字符串替换器）
 
 	noHello := NewReplacer("Hello", "")
 	testCases = append(testCases,
@@ -320,7 +324,7 @@ var algorithmTestCases = []struct {
 	{NewReplacer("a", "1", "b", "12", "cde", "123"), "*strings.genericReplacer"},
 }
 
-// TestPickAlgorithm tests that NewReplacer picks the correct algorithm.
+// TestPickAlgorithm 测试 NewReplacer 选择正确算法的情况
 //func TestPickAlgorithm(t *testing.T) {
 //	for i, tc := range algorithmTestCases {
 //		got := fmt.Sprintf("%T", tc.r.Replacer())
@@ -336,8 +340,7 @@ func (errWriter) Write(p []byte) (n int, err error) {
 	return 0, fmt.Errorf("unwritable")
 }
 
-// TestWriteStringError tests that WriteString returns an error
-// received from the underlying io.Writer.
+// TestWriteStringError 测试 WriteString 函数在接收到底层 io.Writer 传回的错误时能够正常返回该错误
 func TestWriteStringError(t *testing.T) {
 	for i, tc := range algorithmTestCases {
 		n, err := tc.r.WriteString(errWriter{}, "abc")
@@ -347,9 +350,7 @@ func TestWriteStringError(t *testing.T) {
 	}
 }
 
-// TestGenericTrieBuilding verifies the structure of the generated trie. There
-// is one node per line, and the key ending with the current line is in the
-// trie if it ends with a "+".
+// TestGenericTrieBuilding 验证生成的字典树结构。每一行代表一个节点，若当前行以 "+" 结尾，则表示以该行结束的键存在于字典树中。
 //func TestGenericTrieBuilding(t *testing.T) {
 //	testCases := []struct{ in, out string }{
 //		{"abc;abdef;abdefgh;xx;xy;z", `-
@@ -404,7 +405,7 @@ func TestWriteStringError(t *testing.T) {
 //		}
 //
 //		got := NewReplacer(args...).PrintTrie()
-//		// Remove tabs from tc.out
+//		// 从tc.out中移除制表符
 //		wantbuf := make([]byte, 0, len(tc.out))
 //		for i := 0; i < len(tc.out); i++ {
 //			if tc.out[i] != '\t' {
@@ -421,7 +422,7 @@ func TestWriteStringError(t *testing.T) {
 
 func BenchmarkGenericNoMatch(b *testing.B) {
 	str := Repeat("A", 100) + Repeat("B", 100)
-	generic := NewReplacer("a", "A", "b", "B", "12", "123") // varying lengths forces generic
+	generic := NewReplacer("a", "A", "b", "B", "12", "123") // 不同长度强制使用泛型
 	for i := 0; i < b.N; i++ {
 		generic.Replace(str)
 	}
@@ -516,7 +517,7 @@ func BenchmarkByteReplacerWriteString(b *testing.B) {
 	}
 }
 
-// BenchmarkByteByteReplaces compares byteByteImpl against multiple Replaces.
+// BenchmarkByteByteReplaces对比byteByteImpl与多个Replaces的性能。
 func BenchmarkByteByteReplaces(b *testing.B) {
 	str := Repeat("a", 100) + Repeat("b", 100)
 	for i := 0; i < b.N; i++ {
@@ -524,7 +525,7 @@ func BenchmarkByteByteReplaces(b *testing.B) {
 	}
 }
 
-// BenchmarkByteByteMap compares byteByteImpl against Map.
+// BenchmarkByteByteMap 对比 byteByteImpl 与 Map 的性能
 func BenchmarkByteByteMap(b *testing.B) {
 	str := Repeat("a", 100) + Repeat("b", 100)
 	fn := func(r rune) rune {

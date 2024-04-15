@@ -6,4 +6,5 @@
      <tree path="/strings/strings.go" title="文本方法"/>
      <tree path="place.go" title="替换"/>
      <tree path="/strings/replace.go" title="替换"/>
+     <tree path="/exec" title="调用类"/>
  </trees>
