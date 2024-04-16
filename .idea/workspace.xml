@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
-      <change afterPath="$PROJECT_DIR$/exec/exec.rar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exec/lp.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/exec/lp_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exec/exec.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exec/lp_plan9.go" beforeDir="false" />
-    </list>
+    <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
