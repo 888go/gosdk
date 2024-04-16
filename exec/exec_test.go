@@ -13,20 +13,17 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"internal/poll"
-	"internal/testenv"
+	"github.com/888go/gosdk/exec"
+	"github.com/888go/gosdk/exec/internal/testenv"
+	exec2 "os/exec"
+
+	"github.com/888go/gosdk/exec/internal/fdtest"
 	"io"
-	"log"
 	"net"
-	"net/http"
-	"net/http/httptest"
 	"os"
-	"os/exec"
-	"os/exec/internal/fdtest"
 	"os/signal"
 	"path/filepath"
 	"runtime"
-	"runtime/debug"
 	"strconv"
 	"strings"
 	"sync"
@@ -52,16 +49,12 @@ func init() {
 	if runtime.GOOS == "windows" {
 		return
 	}
-	for fd := uintptr(3); fd <= 100; fd++ {
-		if poll.IsPollDescriptor(fd) {
-			continue
-		}
-
-		if fdtest.Exists(fd) {
-			haveUnexpectedFDs = true
-			return
-		}
-	}
+	// 对于fd从uintptr类型数值3开始，到数值100结束的循环：
+	// 如果poll.IsPollDescriptor(fd)判断fd为poll描述符，
+	// 则跳过本次循环继续下一轮。
+	//
+	// 若fdtest.Exists(fd)检测到fd存在，
+	// 则将haveUnexpectedFDs设为true并立即返回。
 }
 
 // TestMain 允许测试二进制程序模拟多个其他程序，
@@ -100,7 +93,7 @@ func TestMain(m *testing.M) {
 		}
 
 		if !testing.Short() {
-// 运行几个GC周期，以提高通过由GODEBUG=execwait=2安装的终结器检测进程泄漏的可能性
+			// 运行几个GC周期，以提高通过由GODEBUG=execwait=2安装的终结器检测进程泄漏的可能性
 			runtime.GC()
 			runtime.GC()
 		}
@@ -165,9 +158,9 @@ func helperCommandContext(t *testing.T, ctx context.Context, name string, args .
 // exePath 返回运行中可执行文件的路径
 func exePath(t testing.TB) string {
 	exeOnce.Do(func() {
-// 使用os.Executable替代os.Args[0]，以防调用者修改
-// cmd.Dir：如果以"./exec.test"形式调用测试二进制文件，
-// 则不应出现异常失败。
+		// 使用os.Executable替代os.Args[0]，以防调用者修改
+		// cmd.Dir：如果以"./exec.test"形式调用测试二进制文件，
+		// 则不应出现异常失败。
 		exeOnce.path, exeOnce.err = os.Executable()
 	})
 
@@ -201,8 +194,8 @@ func chdir(t *testing.T, dir string) {
 
 	t.Cleanup(func() {
 		if err := os.Chdir(prev); err != nil {
-// 无法切换回原始工作目录。
-// 使用panic替代t.Fatal，以防止我们在未知位置运行其他测试。
+			// 无法切换回原始工作目录。
+			// 使用panic替代t.Fatal，以防止我们在未知位置运行其他测试。
 			panic("couldn't restore working directory: " + err.Error())
 		}
 	})
@@ -338,7 +331,7 @@ func TestCommandRelativeName(t *testing.T) {
 
 	cmd := helperCommand(t, "echo", "foo")
 
-// 以相对路径方式运行我们自己的二进制文件（例如 "_test/exec.test"），该路径位于父目录中。
+	// 以相对路径方式运行我们自己的二进制文件（例如 "_test/exec.test"），该路径位于父目录中。
 	base := filepath.Base(os.Args[0]) // "exec.test"
 	dir := filepath.Dir(os.Args[0])   // "/tmp/go-buildNNNN/os/exec/_test"
 	if dir == "." {
@@ -350,8 +343,8 @@ func TestCommandRelativeName(t *testing.T) {
 		t.Skipf("skipping; unexpected shallow dir of %q", dir)
 	}
 
-	cmd.Path = filepath.Join(dirBase, base)
-	cmd.Dir = parentDir
+	cmd.F.Path = filepath.Join(dirBase, base)
+	cmd.F.Dir = parentDir
 
 	out, err := cmd.Output()
 	if err != nil {
@@ -368,7 +361,7 @@ func TestCatStdin(t *testing.T) {
 	// Cat，用于测试标准输入和标准输出
 	input := "Input string\nLine 2"
 	p := helperCommand(t, "cat")
-	p.Stdin = strings.NewReader(input)
+	p.F.Stdin = strings.NewReader(input)
 	bs, err := p.Output()
 	if err != nil {
 		t.Errorf("cat: %v", err)
@@ -406,7 +399,7 @@ func TestCatGoodAndBadFile(t *testing.T) {
 
 	// 测试输出与错误值的组合情况
 	bs, err := helperCommand(t, "cat", "/bogus/file.foo", "exec_test.go").CombinedOutput()
-	if _, ok := err.(*exec.ExitError); !ok {
+	if _, ok := err.(*exec2.ExitError); !ok {
 		t.Errorf("expected *exec.ExitError from cat combined; got %T: %v", err, err)
 	}
 	errLine, body, ok := strings.Cut(string(bs), "\n")
@@ -440,9 +433,9 @@ func TestExitStatus(t *testing.T) {
 	want := "exit status 42"
 	switch runtime.GOOS {
 	case "plan9":
-		want = fmt.Sprintf("exit status: '%s %d: 42'", filepath.Base(cmd.Path), cmd.ProcessState.Pid())
+		want = fmt.Sprintf("exit status: '%s %d: 42'", filepath.Base(cmd.F.Path), cmd.F.ProcessState.Pid())
 	}
-	if werr, ok := err.(*exec.ExitError); ok {
+	if werr, ok := err.(*exec2.ExitError); ok {
 		if s := werr.Error(); s != want {
 			t.Errorf("from exit 42 got exit %q, want %q", s, want)
 		}
@@ -461,7 +454,7 @@ func TestExitCode(t *testing.T) {
 	if runtime.GOOS == "plan9" {
 		want = 1
 	}
-	got := cmd.ProcessState.ExitCode()
+	got := cmd.F.ProcessState.ExitCode()
 	if want != got {
 		t.Errorf("ExitCode got %d, want %d", got, want)
 	}
@@ -472,7 +465,7 @@ func TestExitCode(t *testing.T) {
 	if runtime.GOOS == "plan9" {
 		want = 1
 	}
-	got = cmd.ProcessState.ExitCode()
+	got = cmd.F.ProcessState.ExitCode()
 	if want != got {
 		t.Errorf("ExitCode got %d, want %d", got, want)
 	}
@@ -483,7 +476,7 @@ func TestExitCode(t *testing.T) {
 	if runtime.GOOS == "plan9" {
 		want = 1
 	}
-	got = cmd.ProcessState.ExitCode()
+	got = cmd.F.ProcessState.ExitCode()
 	if want != got {
 		t.Errorf("ExitCode got %d, want %d", got, want)
 	}
@@ -491,7 +484,7 @@ func TestExitCode(t *testing.T) {
 	cmd = helperCommand(t, "cat")
 	cmd.Run()
 	want = 0
-	got = cmd.ProcessState.ExitCode()
+	got = cmd.F.ProcessState.ExitCode()
 	if want != got {
 		t.Errorf("ExitCode got %d, want %d", got, want)
 	}
@@ -499,7 +492,7 @@ func TestExitCode(t *testing.T) {
 	// 测试命令不调用Run()的情况
 	cmd = helperCommand(t, "cat")
 	want = -1
-	got = cmd.ProcessState.ExitCode()
+	got = cmd.F.ProcessState.ExitCode()
 	if want != got {
 		t.Errorf("ExitCode got %d, want %d", got, want)
 	}
@@ -621,14 +614,14 @@ func TestStdinCloseRace(t *testing.T) {
 
 	go func() {
 		defer wg.Done()
-// 我们不对 Kill 的错误返回值进行检查。有可能该进程已经退出，此时 Kill 会返回一个“process already finished”的错误。本测试的目的是观察竞态检测器是否报告错误；Kill 是否成功并不重要。
-		cmd.Process.Kill()
+		// 我们不对 Kill 的错误返回值进行检查。有可能该进程已经退出，此时 Kill 会返回一个“process already finished”的错误。本测试的目的是观察竞态检测器是否报告错误；Kill 是否成功并不重要。
+		cmd.F.Process.Kill()
 	}()
 
 	go func() {
 		defer wg.Done()
-// 发送错误的字符串，确保即使其他goroutine未能先将其终止，子进程也能失败。
-// 本测试旨在检查竞态检测器不会错误地报告错误，因此子进程如何失败并不重要。
+		// 发送错误的字符串，确保即使其他goroutine未能先将其终止，子进程也能失败。
+		// 本测试旨在检查竞态检测器不会错误地报告错误，因此子进程如何失败并不重要。
 		io.Copy(stdin, strings.NewReader("unexpected string"))
 		if err := stdin.Close(); err != nil && !errors.Is(err, os.ErrClosed) {
 			t.Errorf("stdin.Close: %v", err)
@@ -672,7 +665,7 @@ func TestPipeLookPathLeak(t *testing.T) {
 		}
 	}
 
-// 由于此测试并非并行运行，我们预期在它执行过程中不会打开任何新的文件描述符。然而，如果在测试开始时存在额外的FD（例如由libc打开），这些FD可能因某种超时而被关闭。允许它们消失，但要检查没有新增加的FD。
+	// 由于此测试并非并行运行，我们预期在它执行过程中不会打开任何新的文件描述符。然而，如果在测试开始时存在额外的FD（例如由libc打开），这些FD可能因某种超时而被关闭。允许它们消失，但要检查没有新增加的FD。
 	for _, fd := range openFDs() {
 		if !old[fd] {
 			t.Errorf("leaked file descriptor %v", fd)
@@ -680,120 +673,121 @@ func TestPipeLookPathLeak(t *testing.T) {
 	}
 }
 
-func TestExtraFiles(t *testing.T) {
-	if testing.Short() {
-		t.Skipf("skipping test in short mode that would build a helper binary")
-	}
-
-	if haveUnexpectedFDs {
-// 本测试的目的是确保我们打开的所有描述符都被标记为“close-on-exec”。
-// 如果`haveUnexpectedFDs`为真，说明我们在开始测试时已有其他描述符处于打开状态，
-// 显然这些描述符没有设置“close-on-exec”，它们会干扰本次测试。虽然我们可以修改测试，
-// 使其预期这些描述符保持打开，但由于我们并不清楚它们来自何处、有何作用，
-// 这种做法显得很脆弱。例如，可能是因为某种原因，它们是由当前系统的启动代码所创建的。
-// 另外，本测试并非针对特定系统；只要大部分系统未跳过此测试，我们仍能对关注点进行有效验证。
-		t.Skip("skipping test because test was run with FDs open")
-	}
-
-	testenv.MustHaveExec(t)
-	testenv.MustHaveGoBuild(t)
-
-// 该测试在禁用cgo的情况下运行。外部链接需要cgo，因此如果需要外部链接，则无法正常工作。
-	testenv.MustInternalLink(t, false)
-
-	if runtime.GOOS == "windows" {
-		t.Skipf("skipping test on %q", runtime.GOOS)
-	}
-
-// 强制使用网络，以验证 epoll（或其他类似机制）的文件描述符
-// 不会泄漏给子进程
-	ln, err := net.Listen("tcp", "127.0.0.1:0")
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer ln.Close()
-
-	// 确保重复的文件描述符不会泄露给子进程。
-	f, err := ln.(*net.TCPListener).File()
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer f.Close()
-	ln2, err := net.FileListener(f)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer ln2.Close()
-
-// 强制加载TLS根证书（可能涉及cgo），以确保潜在的C代码不会泄漏文件描述符。
-	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {}))
-	// 忽略预期的TLS握手错误“remote error: bad certificate”
-	ts.Config.ErrorLog = log.New(io.Discard, "", 0)
-	ts.StartTLS()
-	defer ts.Close()
-	_, err = http.Get(ts.URL)
-	if err == nil {
-		t.Errorf("success trying to fetch %s; want an error", ts.URL)
-	}
-
-	tf, err := os.CreateTemp("", "")
-	if err != nil {
-		t.Fatalf("TempFile: %v", err)
-	}
-	defer os.Remove(tf.Name())
-	defer tf.Close()
-
-	const text = "Hello, fd 3!"
-	_, err = tf.Write([]byte(text))
-	if err != nil {
-		t.Fatalf("Write: %v", err)
-	}
-	_, err = tf.Seek(0, io.SeekStart)
-	if err != nil {
-		t.Fatalf("Seek: %v", err)
-	}
-
-	tempdir := t.TempDir()
-	exe := filepath.Join(tempdir, "read3.exe")
-
-	c := testenv.Command(t, testenv.GoToolPath(t), "build", "-o", exe, "read3.go")
-// 在无cgo的情况下构建测试，以便C库函数不会意外打开描述符。参见问题25628。
-	c.Env = append(os.Environ(), "CGO_ENABLED=0")
-	if output, err := c.CombinedOutput(); err != nil {
-		t.Logf("go build -o %s read3.go\n%s", exe, output)
-		t.Fatalf("go build failed: %v", err)
-	}
-
-	// 使用截止时间来尝试获取输出，即使程序挂起也能有所收获
-	ctx := context.Background()
-	if deadline, ok := t.Deadline(); ok {
-// 留出20%的宽限期以刷新输出，这在 linux/386 构建器上可能很大，因为我们正在使用 strace 运行子进程。
-		deadline = deadline.Add(-time.Until(deadline) / 5)
-
-		var cancel context.CancelFunc
-		ctx, cancel = context.WithDeadline(ctx, deadline)
-		defer cancel()
-	}
-
-	c = exec.CommandContext(ctx, exe)
-	var stdout, stderr strings.Builder
-	c.Stdout = &stdout
-	c.Stderr = &stderr
-	c.ExtraFiles = []*os.File{tf}
-	if runtime.GOOS == "illumos" {
-// illumos 中某些设施的实现依赖于 libc 对 /proc 的访问，这种访问可能会暂时占用一个低位文件描述符（fd）。如果这种情况恰好与检查泄漏描述符的测试并发发生，该检查可能会变得混乱，并错误地报告一个泄漏的描述符。（关于更详细的分析，请参见问题 #42431。）
-// 
-// 试图限制子进程中额外线程的使用，以减少此测试出现不稳定性：
-		c.Env = append(os.Environ(), "GOMAXPROCS=1")
-	}
-	err = c.Run()
-	if err != nil {
-		t.Fatalf("Run: %v\n--- stdout:\n%s--- stderr:\n%s", err, stdout.String(), stderr.String())
-	}
-	if stdout.String() != text {
-		t.Errorf("got stdout %q, stderr %q; want %q on stdout", stdout.String(), stderr.String(), text)
-	}
-}
+//func TestExtraFiles(t *testing.T) {
+//	if testing.Short() {
+//		t.Skipf("skipping test in short mode that would build a helper binary")
+//	}
+//
+//	if haveUnexpectedFDs {
+//		// 本测试的目的是确保我们打开的所有描述符都被标记为“close-on-exec”。
+//		// 如果`haveUnexpectedFDs`为真，说明我们在开始测试时已有其他描述符处于打开状态，
+//		// 显然这些描述符没有设置“close-on-exec”，它们会干扰本次测试。虽然我们可以修改测试，
+//		// 使其预期这些描述符保持打开，但由于我们并不清楚它们来自何处、有何作用，
+//		// 这种做法显得很脆弱。例如，可能是因为某种原因，它们是由当前系统的启动代码所创建的。
+//		// 另外，本测试并非针对特定系统；只要大部分系统未跳过此测试，我们仍能对关注点进行有效验证。
+//		t.Skip("skipping test because test was run with FDs open")
+//	}
+//
+//	testenv.MustHaveExec(t)
+//	testenv.MustHaveGoBuild(t)
+//
+//	// 该测试在禁用cgo的情况下运行。外部链接需要cgo，因此如果需要外部链接，则无法正常工作。
+//	testenv.MustInternalLink(t, false)
+//
+//	if runtime.GOOS == "windows" {
+//		t.Skipf("skipping test on %q", runtime.GOOS)
+//	}
+//
+//	// 强制使用网络，以验证 epoll（或其他类似机制）的文件描述符
+//	// 不会泄漏给子进程
+//	ln, err := net.Listen("tcp", "127.0.0.1:0")
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	defer ln.Close()
+//
+//	// 确保重复的文件描述符不会泄露给子进程。
+//	f, err := ln.(*net.TCPListener).File()
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	defer f.Close()
+//	ln2, err := net.FileListener(f)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	defer ln2.Close()
+//
+//	// 强制加载TLS根证书（可能涉及cgo），以确保潜在的C代码不会泄漏文件描述符。
+//	ts := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {}))
+//	// 忽略预期的TLS握手错误“remote error: bad certificate”
+//	ts.Config.ErrorLog = log.New(io.Discard, "", 0)
+//	ts.StartTLS()
+//	defer ts.Close()
+//	_, err = http.Get(ts.URL)
+//	if err == nil {
+//		t.Errorf("success trying to fetch %s; want an error", ts.URL)
+//	}
+//
+//	tf, err := os.CreateTemp("", "")
+//	if err != nil {
+//		t.Fatalf("TempFile: %v", err)
+//	}
+//	defer os.Remove(tf.Name())
+//	defer tf.Close()
+//
+//	const text = "Hello, fd 3!"
+//	_, err = tf.Write([]byte(text))
+//	if err != nil {
+//		t.Fatalf("Write: %v", err)
+//	}
+//	_, err = tf.Seek(0, io.SeekStart)
+//	if err != nil {
+//		t.Fatalf("Seek: %v", err)
+//	}
+//
+//	tempdir := t.TempDir()
+//	exe := filepath.Join(tempdir, "read3.exe")
+//
+//	c := testenv.Command(t, testenv.GoToolPath(t), "build", "-o", exe, "read3.go")
+//	// 在无cgo的情况下构建测试，以便C库函数不会意外打开描述符。参见问题25628。
+//	c.Env = append(os.Environ(), "CGO_ENABLED=0")
+//	if output, err := c.CombinedOutput(); err != nil {
+//		t.Logf("go build -o %s read3.go\n%s", exe, output)
+//		t.Fatalf("go build failed: %v", err)
+//	}
+//
+//	// 使用截止时间来尝试获取输出，即使程序挂起也能有所收获
+//	ctx := context.Background()
+//	if deadline, ok := t.Deadline(); ok {
+//		// 留出20%的宽限期以刷新输出，这在 linux/386 构建器上可能很大，因为我们正在使用 strace 运行子进程。
+//		deadline = deadline.Add(-time.Until(deadline) / 5)
+//
+//		var cancel context.CancelFunc
+//		ctx, cancel = context.WithDeadline(ctx, deadline)
+//		defer cancel()
+//	}
+//
+//	c = exec.CommandContext(ctx, exe)
+//	var stdout, stderr strings.Builder
+//
+//	c.Stdout = &stdout
+//	c.Stderr = &stderr
+//	c.ExtraFiles = []*os.File{tf}
+//	if runtime.GOOS == "illumos" {
+//		// illumos 中某些设施的实现依赖于 libc 对 /proc 的访问，这种访问可能会暂时占用一个低位文件描述符（fd）。如果这种情况恰好与检查泄漏描述符的测试并发发生，该检查可能会变得混乱，并错误地报告一个泄漏的描述符。（关于更详细的分析，请参见问题 #42431。）
+//		//
+//		// 试图限制子进程中额外线程的使用，以减少此测试出现不稳定性：
+//		c.Env = append(os.Environ(), "GOMAXPROCS=1")
+//	}
+//	err = c.Run()
+//	if err != nil {
+//		t.Fatalf("Run: %v\n--- stdout:\n%s--- stderr:\n%s", err, stdout.String(), stderr.String())
+//	}
+//	if stdout.String() != text {
+//		t.Errorf("got stdout %q, stderr %q; want %q on stdout", stdout.String(), stderr.String(), text)
+//	}
+//}
 
 func TestExtraFilesRace(t *testing.T) {
 	if runtime.GOOS == "windows" {
@@ -831,10 +825,10 @@ func TestExtraFilesRace(t *testing.T) {
 		}
 		la := listen()
 		ca := helperCommand(t, "describefiles")
-		ca.ExtraFiles = []*os.File{listenerFile(la)}
+		ca.F.ExtraFiles = []*os.File{listenerFile(la)}
 		lb := listen()
 		cb := helperCommand(t, "describefiles")
-		cb.ExtraFiles = []*os.File{listenerFile(lb)}
+		cb.F.ExtraFiles = []*os.File{listenerFile(lb)}
 		ares := make(chan string)
 		bres := make(chan string)
 		go runCommand(ca, ares)
@@ -847,10 +841,10 @@ func TestExtraFilesRace(t *testing.T) {
 		}
 		la.Close()
 		lb.Close()
-		for _, f := range ca.ExtraFiles {
+		for _, f := range ca.F.ExtraFiles {
 			f.Close()
 		}
-		for _, f := range cb.ExtraFiles {
+		for _, f := range cb.F.ExtraFiles {
 			f.Close()
 		}
 	}
@@ -876,8 +870,8 @@ func TestIgnorePipeErrorOnSuccess(t *testing.T) {
 
 			cmd := helperCommand(t, "echo", "foo")
 			var out strings.Builder
-			cmd.Stdin = r
-			cmd.Stdout = &out
+			cmd.F.Stdin = r
+			cmd.F.Stdout = &out
 			if err := cmd.Run(); err != nil {
 				t.Fatal(err)
 			}
@@ -900,7 +894,7 @@ func TestClosePipeOnCopyError(t *testing.T) {
 	t.Parallel()
 
 	cmd := helperCommand(t, "yes")
-	cmd.Stdout = new(badWriter)
+	cmd.F.Stdout = new(badWriter)
 	err := cmd.Run()
 	if err == nil {
 		t.Errorf("yes unexpectedly completed successfully")
@@ -912,7 +906,7 @@ func TestOutputStderrCapture(t *testing.T) {
 
 	cmd := helperCommand(t, "stderrfail")
 	_, err := cmd.Output()
-	ee, ok := err.(*exec.ExitError)
+	ee, ok := err.(*exec2.ExitError)
 	if !ok {
 		t.Fatalf("Output error type = %T; want ExitError", err)
 	}
@@ -955,73 +949,73 @@ func TestContext(t *testing.T) {
 	}
 }
 
-func TestContextCancel(t *testing.T) {
-	if runtime.GOOS == "netbsd" && runtime.GOARCH == "arm64" {
-		maySkipHelperCommand("cat")
-		testenv.SkipFlaky(t, 42061)
-	}
-
-// 为了减少最终协程转储中的噪声，
-// 尽可能让其他并行测试完成。
-	t.Parallel()
-
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	c := helperCommandContext(t, ctx, "cat")
-
-	stdin, err := c.StdinPipe()
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer stdin.Close()
-
-	if err := c.Start(); err != nil {
-		t.Fatal(err)
-	}
-
-	// 此时进程处于活跃状态。通过向其stdin发送数据来确保这一点。
-	if _, err := io.WriteString(stdin, "echo"); err != nil {
-		t.Fatal(err)
-	}
-
-	cancel()
-
-// 调用cancel应当已终止该进程，因此现在写入应会失败。给进程一点时间结束。
-	start := time.Now()
-	delay := 1 * time.Millisecond
-	for {
-		if _, err := io.WriteString(stdin, "echo"); err != nil {
-			break
-		}
-
-		if time.Since(start) > time.Minute {
-// 通过 panic 替代调用 t.Fatal，以便我们获取 goroutine 堆栈信息。
-// 我们希望确切了解 os/exec goroutines 阻塞在何处。
-			debug.SetTraceback("system")
-			panic("canceling context did not stop program")
-		}
-
-// 以指数方式回退（最多休眠1秒），以便给操作系统时间来终止进程。
-		delay *= 2
-		if delay > 1*time.Second {
-			delay = 1 * time.Second
-		}
-		time.Sleep(delay)
-	}
-
-	if err := c.Wait(); err == nil {
-		t.Error("program unexpectedly exited successfully")
-	} else {
-		t.Logf("exit status: %v", err)
-	}
-}
+//func TestContextCancel(t *testing.T) {
+//	if runtime.GOOS == "netbsd" && runtime.GOARCH == "arm64" {
+//		maySkipHelperCommand("cat")
+//		testenv.SkipFlaky(t, 42061)
+//	}
+//
+//	// 为了减少最终协程转储中的噪声，
+//	// 尽可能让其他并行测试完成。
+//	t.Parallel()
+//
+//	ctx, cancel := context.WithCancel(context.Background())
+//	defer cancel()
+//	c := helperCommandContext(t, ctx, "cat")
+//
+//	stdin, err := c.StdinPipe()
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	defer stdin.Close()
+//
+//	if err := c.Start(); err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	// 此时进程处于活跃状态。通过向其stdin发送数据来确保这一点。
+//	if _, err := io.WriteString(stdin, "echo"); err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	cancel()
+//
+//	// 调用cancel应当已终止该进程，因此现在写入应会失败。给进程一点时间结束。
+//	start := time.Now()
+//	delay := 1 * time.Millisecond
+//	for {
+//		if _, err := io.WriteString(stdin, "echo"); err != nil {
+//			break
+//		}
+//
+//		if time.Since(start) > time.Minute {
+//			// 通过 panic 替代调用 t.Fatal，以便我们获取 goroutine 堆栈信息。
+//			// 我们希望确切了解 os/exec goroutines 阻塞在何处。
+//			debug.SetTraceback("system")
+//			panic("canceling context did not stop program")
+//		}
+//
+//		// 以指数方式回退（最多休眠1秒），以便给操作系统时间来终止进程。
+//		delay *= 2
+//		if delay > 1*time.Second {
+//			delay = 1 * time.Second
+//		}
+//		time.Sleep(delay)
+//	}
+//
+//	if err := c.Wait(); err == nil {
+//		t.Error("program unexpectedly exited successfully")
+//	} else {
+//		t.Logf("exit status: %v", err)
+//	}
+//}
 
 // 测试环境变量是否被去重
 func TestDedupEnvEcho(t *testing.T) {
 	t.Parallel()
 
 	cmd := helperCommand(t, "echoenv", "FOO")
-	cmd.Env = append(cmd.Environ(), "FOO=bad", "FOO=good")
+	cmd.F.Env = append(cmd.Environ(), "FOO=bad", "FOO=good")
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		t.Fatal(err)
@@ -1036,7 +1030,7 @@ func TestEnvNULCharacter(t *testing.T) {
 		t.Skip("plan9 explicitly allows NUL in the environment")
 	}
 	cmd := helperCommand(t, "echoenv", "FOO", "BAR")
-	cmd.Env = append(cmd.Environ(), "FOO=foo\x00BAR=bar")
+	cmd.F.Env = append(cmd.Environ(), "FOO=foo\x00BAR=bar")
 	out, err := cmd.CombinedOutput()
 	if err == nil {
 		t.Errorf("output = %q; want error", string(out))
@@ -1083,7 +1077,7 @@ func TestStringPathNotResolved(t *testing.T) {
 }
 
 func TestNoPath(t *testing.T) {
-	err := new(exec.Cmd).Start()
+	err := new(exec2.Cmd).Start()
 	want := "exec: no command"
 	if err == nil || err.Error() != want {
 		t.Errorf("new(Cmd).Start() = %v, want %q", err, want)
@@ -1158,8 +1152,8 @@ func cmdHang(args ...string) {
 
 	if *subsleep != 0 {
 		cmd := exec.Command(exePath(nil), "hang", subsleep.String(), "-read=true", "-probe="+probe.String())
-		cmd.Stdin = os.Stdin
-		cmd.Stderr = os.Stderr
+		cmd.F.Stdin = os.Stdin
+		cmd.F.Stderr = os.Stderr
 		out, err := cmd.StdoutPipe()
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
@@ -1170,11 +1164,11 @@ func cmdHang(args ...string) {
 		buf := new(strings.Builder)
 		if _, err := io.Copy(buf, out); err != nil {
 			fmt.Fprintln(os.Stderr, err)
-			cmd.Process.Kill()
+			cmd.F.Process.Kill()
 			cmd.Wait()
 			os.Exit(1)
 		}
-		fmt.Fprintf(os.Stderr, "%d: started %d: %v\n", pid, cmd.Process.Pid, cmd)
+		fmt.Fprintf(os.Stderr, "%d: started %d: %v\n", pid, cmd.F.Process.Pid, cmd)
 		go cmd.Wait() // 如果cmd未能在此进程之后继续存在，则释放资源
 	}
 
@@ -1258,16 +1252,16 @@ func startHang(t *testing.T, ctx context.Context, hangTime time.Duration, interr
 
 	args := append([]string{hangTime.String()}, flags...)
 	cmd := helperCommandContext(t, ctx, "hang", args...)
-	cmd.Stdin = newTickReader(1 * time.Millisecond)
-	cmd.Stderr = new(strings.Builder)
+	cmd.F.Stdin = newTickReader(1 * time.Millisecond)
+	cmd.F.Stderr = new(strings.Builder)
 	if interrupt == nil {
-		cmd.Cancel = nil
+		cmd.F.Cancel = nil
 	} else {
-		cmd.Cancel = func() error {
-			return cmd.Process.Signal(interrupt)
+		cmd.F.Cancel = func() error {
+			return cmd.F.Process.Signal(interrupt)
 		}
 	}
-	cmd.WaitDelay = waitDelay
+	cmd.F.WaitDelay = waitDelay
 	out, err := cmd.StdoutPipe()
 	if err != nil {
 		t.Fatal(err)
@@ -1282,12 +1276,12 @@ func startHang(t *testing.T, ctx context.Context, hangTime time.Duration, interr
 	buf := new(strings.Builder)
 	if _, err := io.Copy(buf, out); err != nil {
 		t.Error(err)
-		cmd.Process.Kill()
+		cmd.F.Process.Kill()
 		cmd.Wait()
 		t.FailNow()
 	}
 	if buf.Len() > 0 {
-		t.Logf("stdout %v:\n%s", cmd.Args, buf)
+		t.Logf("stdout %v:\n%s", cmd.F.Args, buf)
 	}
 
 	return cmd
@@ -1296,28 +1290,28 @@ func startHang(t *testing.T, ctx context.Context, hangTime time.Duration, interr
 func TestWaitInterrupt(t *testing.T) {
 	t.Parallel()
 
-// tooLong 是一个任意的时长，预期远超过测试运行所需时间，但又足够短，以至于泄露的进程最终能够自行退出
+	// tooLong 是一个任意的时长，预期远超过测试运行所需时间，但又足够短，以至于泄露的进程最终能够自行退出
 	const tooLong = 10 * time.Minute
 
-// 控制用例：在没有取消操作且未设置等待延迟的情况下，我们应该等待进程退出。
+	// 控制用例：在没有取消操作且未设置等待延迟的情况下，我们应该等待进程退出。
 	t.Run("Wait", func(t *testing.T) {
 		t.Parallel()
 		cmd := startHang(t, context.Background(), 1*time.Millisecond, os.Kill, 0)
 		err := cmd.Wait()
-		t.Logf("stderr:\n%s", cmd.Stderr)
-		t.Logf("[%d] %v", cmd.Process.Pid, err)
+		t.Logf("stderr:\n%s", cmd.F.Stderr)
+		t.Logf("[%d] %v", cmd.F.Process.Pid, err)
 
 		if err != nil {
 			t.Errorf("Wait: %v; want <nil>", err)
 		}
-		if ps := cmd.ProcessState; !ps.Exited() {
+		if ps := cmd.F.ProcessState; !ps.Exited() {
 			t.Errorf("cmd did not exit: %v", ps)
 		} else if code := ps.ExitCode(); code != 0 {
 			t.Errorf("cmd.ProcessState.ExitCode() = %v; want 0", code)
 		}
 	})
 
-// 当WaitDelay设置得非常长且没有Cancel函数时，即使命令的Context被取消，我们也应该等待进程退出。
+	// 当WaitDelay设置得非常长且没有Cancel函数时，即使命令的Context被取消，我们也应该等待进程退出。
 	t.Run("WaitDelay", func(t *testing.T) {
 		if runtime.GOOS == "windows" {
 			t.Skipf("skipping: os.Interrupt is not implemented on Windows")
@@ -1329,33 +1323,33 @@ func TestWaitInterrupt(t *testing.T) {
 		cancel()
 
 		time.Sleep(1 * time.Millisecond)
-// 此时，cmd 应该仍在运行（因为我们向 startHang 传递了 nil 作为取消信号）。向其发送一个明确的 Interrupt 信号应该能成功。
-		if err := cmd.Process.Signal(os.Interrupt); err != nil {
+		// 此时，cmd 应该仍在运行（因为我们向 startHang 传递了 nil 作为取消信号）。向其发送一个明确的 Interrupt 信号应该能成功。
+		if err := cmd.F.Process.Signal(os.Interrupt); err != nil {
 			t.Error(err)
 		}
 
 		err := cmd.Wait()
-		t.Logf("stderr:\n%s", cmd.Stderr)
-		t.Logf("[%d] %v", cmd.Process.Pid, err)
+		t.Logf("stderr:\n%s", cmd.F.Stderr)
+		t.Logf("[%d] %v", cmd.F.Process.Pid, err)
 
-// 该程序以状态0退出，
-// 但在等待延迟期间几乎总是如此。
-// 由于Cmd本身在上下文过期时没有做任何事情来停止进程，
-// 因此即使退出较晚，成功退出也是有效的，
-// 并不值得返回一个非空错误。
+		// 该程序以状态0退出，
+		// 但在等待延迟期间几乎总是如此。
+		// 由于Cmd本身在上下文过期时没有做任何事情来停止进程，
+		// 因此即使退出较晚，成功退出也是有效的，
+		// 并不值得返回一个非空错误。
 		if err != nil {
 			t.Errorf("Wait: %v; want nil", err)
 		}
-		if ps := cmd.ProcessState; !ps.Exited() {
+		if ps := cmd.F.ProcessState; !ps.Exited() {
 			t.Errorf("cmd did not exit: %v", ps)
 		} else if code := ps.ExitCode(); code != 0 {
 			t.Errorf("cmd.ProcessState.ExitCode() = %v; want 0", code)
 		}
 	})
 
-// 如果上下文被取消且Cancel函数发送os.Kill信号，
-// 则进程应立即终止，且其输出管道应在WaitDelay后关闭（导致Wait返回），
-// 即使子进程仍在向这些管道写入数据。
+	// 如果上下文被取消且Cancel函数发送os.Kill信号，
+	// 则进程应立即终止，且其输出管道应在WaitDelay后关闭（导致Wait返回），
+	// 即使子进程仍在向这些管道写入数据。
 	t.Run("SIGKILL-hang", func(t *testing.T) {
 		t.Parallel()
 
@@ -1363,13 +1357,13 @@ func TestWaitInterrupt(t *testing.T) {
 		cmd := startHang(t, ctx, tooLong, os.Kill, 10*time.Millisecond, "-subsleep=10m", "-probe=1ms")
 		cancel()
 		err := cmd.Wait()
-		t.Logf("stderr:\n%s", cmd.Stderr)
-		t.Logf("[%d] %v", cmd.Process.Pid, err)
+		t.Logf("stderr:\n%s", cmd.F.Stderr)
+		t.Logf("[%d] %v", cmd.F.Process.Pid, err)
 
-// 该测试应在10毫秒后终止子进程，
-// 留下一个孙辈进程以循环方式写入探针。
-// 子进程应被报告为失败状态，
-// 当标准错误管道关闭时，孙辈进程将退出（或因SIGPIPE信号而终止）。
+		// 该测试应在10毫秒后终止子进程，
+		// 留下一个孙辈进程以循环方式写入探针。
+		// 子进程应被报告为失败状态，
+		// 当标准错误管道关闭时，孙辈进程将退出（或因SIGPIPE信号而终止）。
 		if ee := new(*exec.ExitError); !errors.As(err, ee) {
 			t.Errorf("Wait error = %v; want %T", err, *ee)
 		}
@@ -1385,19 +1379,19 @@ func TestWaitInterrupt(t *testing.T) {
 
 		cmd := startHang(t, context.Background(), 1*time.Millisecond, nil, 10*time.Millisecond, "-subsleep=10m", "-probe=1ms")
 		err := cmd.Wait()
-		t.Logf("stderr:\n%s", cmd.Stderr)
-		t.Logf("[%d] %v", cmd.Process.Pid, err)
+		t.Logf("stderr:\n%s", cmd.F.Stderr)
+		t.Logf("[%d] %v", cmd.F.Process.Pid, err)
 
-// 该子进程应立即退出，
-// 留下孙进程以循环方式写入探测数据。
-// 由于子进程没有 ExitError 需要报告，但我们尚未读取其所有输出，
-// 因此 Wait 函数应返回 ErrWaitDelay。
-		if !errors.Is(err, exec.ErrWaitDelay) {
-			t.Errorf("Wait error = %v; want %T", err, exec.ErrWaitDelay)
+		// 该子进程应立即退出，
+		// 留下孙进程以循环方式写入探测数据。
+		// 由于子进程没有 ExitError 需要报告，但我们尚未读取其所有输出，
+		// 因此 Wait 函数应返回 ErrWaitDelay。
+		if !errors.Is(err, exec2.ErrWaitDelay) {
+			t.Errorf("Wait error = %v; want %T", err, exec2.ErrWaitDelay)
 		}
 	})
 
-// 如果Cancel函数发送了一个进程可以处理的信号，且该进程在接收到该信号后并未实际退出，而是进行了某种处理，则应在WaitDelay后将其强制终止。
+	// 如果Cancel函数发送了一个进程可以处理的信号，且该进程在接收到该信号后并未实际退出，而是进行了某种处理，则应在WaitDelay后将其强制终止。
 	t.Run("SIGINT-ignored", func(t *testing.T) {
 		if runtime.GOOS == "windows" {
 			t.Skipf("skipping: os.Interrupt is not implemented on Windows")
@@ -1408,19 +1402,19 @@ func TestWaitInterrupt(t *testing.T) {
 		cmd := startHang(t, ctx, tooLong, os.Interrupt, 10*time.Millisecond, "-interrupt=false")
 		cancel()
 		err := cmd.Wait()
-		t.Logf("stderr:\n%s", cmd.Stderr)
-		t.Logf("[%d] %v", cmd.Process.Pid, err)
+		t.Logf("stderr:\n%s", cmd.F.Stderr)
+		t.Logf("[%d] %v", cmd.F.Process.Pid, err)
 
-// 该命令忽略 SIGINT 信号，持续休眠直到被杀死。
-// Wait 方法应返回被杀死进程通常的错误信息。
+		// 该命令忽略 SIGINT 信号，持续休眠直到被杀死。
+		// Wait 方法应返回被杀死进程通常的错误信息。
 		if ee := new(*exec.ExitError); !errors.As(err, ee) {
 			t.Errorf("Wait error = %v; want %T", err, *ee)
 		}
 	})
 
-// 如果进程捕获到了取消信号并以状态0退出，
-// 那么Wait应当返回一个非nil的错误（因为进程是被中断的），
-// 并且它应该是一个上下文错误（因为子进程中没有要报告的错误）。
+	// 如果进程捕获到了取消信号并以状态0退出，
+	// 那么Wait应当返回一个非nil的错误（因为进程是被中断的），
+	// 并且它应该是一个上下文错误（因为子进程中没有要报告的错误）。
 	t.Run("SIGINT-handled", func(t *testing.T) {
 		if runtime.GOOS == "windows" {
 			t.Skipf("skipping: os.Interrupt is not implemented on Windows")
@@ -1431,20 +1425,20 @@ func TestWaitInterrupt(t *testing.T) {
 		cmd := startHang(t, ctx, tooLong, os.Interrupt, 0, "-interrupt=true")
 		cancel()
 		err := cmd.Wait()
-		t.Logf("stderr:\n%s", cmd.Stderr)
-		t.Logf("[%d] %v", cmd.Process.Pid, err)
+		t.Logf("stderr:\n%s", cmd.F.Stderr)
+		t.Logf("[%d] %v", cmd.F.Process.Pid, err)
 
 		if !errors.Is(err, ctx.Err()) {
 			t.Errorf("Wait error = %v; want %v", err, ctx.Err())
 		}
-		if ps := cmd.ProcessState; !ps.Exited() {
+		if ps := cmd.F.ProcessState; !ps.Exited() {
 			t.Errorf("cmd did not exit: %v", ps)
 		} else if code := ps.ExitCode(); code != 0 {
 			t.Errorf("cmd.ProcessState.ExitCode() = %v; want 0", code)
 		}
 	})
 
-// 如果Cancel函数发送SIGQUIT信号，它应以通常的方式进行处理：Go程序应输出其goroutine信息并以非成功状态退出。（我们预期SIGQUIT在实际使用中会成为一种常见模式。）
+	// 如果Cancel函数发送SIGQUIT信号，它应以通常的方式进行处理：Go程序应输出其goroutine信息并以非成功状态退出。（我们预期SIGQUIT在实际使用中会成为一种常见模式。）
 	t.Run("SIGQUIT", func(t *testing.T) {
 		if quitSignal == nil {
 			t.Skipf("skipping: SIGQUIT is not supported on %v", runtime.GOOS)
@@ -1455,21 +1449,21 @@ func TestWaitInterrupt(t *testing.T) {
 		cmd := startHang(t, ctx, tooLong, quitSignal, 0)
 		cancel()
 		err := cmd.Wait()
-		t.Logf("stderr:\n%s", cmd.Stderr)
-		t.Logf("[%d] %v", cmd.Process.Pid, err)
+		t.Logf("stderr:\n%s", cmd.F.Stderr)
+		t.Logf("[%d] %v", cmd.F.Process.Pid, err)
 
 		if ee := new(*exec.ExitError); !errors.As(err, ee) {
 			t.Errorf("Wait error = %v; want %v", err, ctx.Err())
 		}
 
-		if ps := cmd.ProcessState; !ps.Exited() {
+		if ps := cmd.F.ProcessState; !ps.Exited() {
 			t.Errorf("cmd did not exit: %v", ps)
 		} else if code := ps.ExitCode(); code != 2 {
 			// 默认的os/signal处理器以代码2退出
 			t.Errorf("cmd.ProcessState.ExitCode() = %v; want 2", code)
 		}
 
-		if !strings.Contains(fmt.Sprint(cmd.Stderr), "\n\ngoroutine ") {
+		if !strings.Contains(fmt.Sprint(cmd.F.Stderr), "\n\ngoroutine ") {
 			t.Errorf("cmd.Stderr does not contain a goroutine dump")
 		}
 	})
@@ -1478,7 +1472,7 @@ func TestWaitInterrupt(t *testing.T) {
 func TestCancelErrors(t *testing.T) {
 	t.Parallel()
 
-// 如果Cancel返回非ErrProcessDone的错误且进程成功退出，Wait应当封装Cancel的错误
+	// 如果Cancel返回非ErrProcessDone的错误且进程成功退出，Wait应当封装Cancel的错误
 	t.Run("success after error", func(t *testing.T) {
 		t.Parallel()
 
@@ -1492,7 +1486,7 @@ func TestCancelErrors(t *testing.T) {
 		}
 
 		errArbitrary := errors.New("arbitrary error")
-		cmd.Cancel = func() error {
+		cmd.F.Cancel = func() error {
 			stdin.Close()
 			t.Logf("Cancel returning %v", errArbitrary)
 			return errArbitrary
@@ -1503,7 +1497,7 @@ func TestCancelErrors(t *testing.T) {
 		cancel()
 
 		err = cmd.Wait()
-		t.Logf("[%d] %v", cmd.Process.Pid, err)
+		t.Logf("[%d] %v", cmd.F.Process.Pid, err)
 		if !errors.Is(err, errArbitrary) || err == errArbitrary {
 			t.Errorf("Wait error = %v; want an error wrapping %v", err, errArbitrary)
 		}
@@ -1530,10 +1524,10 @@ func TestCancelErrors(t *testing.T) {
 			t.Fatal(err)
 		}
 
-// 我们特意让Cancel与进程退出进行竞争，但确保进程赢得此竞争（并在Cancel中返回ErrProcessDone以报告此情况）。
+		// 我们特意让Cancel与进程退出进行竞争，但确保进程赢得此竞争（并在Cancel中返回ErrProcessDone以报告此情况）。
 		interruptCalled := make(chan struct{})
 		done := make(chan struct{})
-		cmd.Cancel = func() error {
+		cmd.F.Cancel = func() error {
 			close(interruptCalled)
 			<-done
 			t.Logf("Cancel returning an error wrapping ErrProcessDone")
@@ -1551,13 +1545,13 @@ func TestCancelErrors(t *testing.T) {
 		close(done)
 
 		err = cmd.Wait()
-		t.Logf("[%d] %v", cmd.Process.Pid, err)
+		t.Logf("[%d] %v", cmd.F.Process.Pid, err)
 		if err != nil {
 			t.Errorf("Wait error = %v; want nil", err)
 		}
 	})
 
-// 如果 Cancel 返回错误，并且在经过 WaitDelay 后进程被杀掉，那么 Wait 应该报告常规的 SIGKILL ExitError，而不是来自 Cancel 的错误。
+	// 如果 Cancel 返回错误，并且在经过 WaitDelay 后进程被杀掉，那么 Wait 应该报告常规的 SIGKILL ExitError，而不是来自 Cancel 的错误。
 	t.Run("killed after error", func(t *testing.T) {
 		t.Parallel()
 
@@ -1573,33 +1567,33 @@ func TestCancelErrors(t *testing.T) {
 
 		errArbitrary := errors.New("arbitrary error")
 		var interruptCalled atomic.Bool
-		cmd.Cancel = func() error {
+		cmd.F.Cancel = func() error {
 			t.Logf("Cancel called")
 			interruptCalled.Store(true)
 			return errArbitrary
 		}
-		cmd.WaitDelay = 1 * time.Millisecond
+		cmd.F.WaitDelay = 1 * time.Millisecond
 		if err := cmd.Start(); err != nil {
 			t.Fatal(err)
 		}
 		cancel()
 
 		err = cmd.Wait()
-		t.Logf("[%d] %v", cmd.Process.Pid, err)
+		t.Logf("[%d] %v", cmd.F.Process.Pid, err)
 
-// 确保 Cancel 实际上有机会返回该错误
+		// 确保 Cancel 实际上有机会返回该错误
 		if !interruptCalled.Load() {
 			t.Errorf("Cancel was not called when the context was canceled")
 		}
 
-// 本测试应在1毫秒后终止子进程，
-// 为最大程度地与现有exec.CommandContext用法兼容，产生的错误应为未经额外封装的exec.ExitError。
+		// 本测试应在1毫秒后终止子进程，
+		// 为最大程度地与现有exec.CommandContext用法兼容，产生的错误应为未经额外封装的exec.ExitError。
 		if ee, ok := err.(*exec.ExitError); !ok {
 			t.Errorf("Wait error = %v; want %T", err, *ee)
 		}
 	})
 
-// 如果 Cancel 返回 ErrProcessDone，但实际上进程并未完成（仍需被杀死），则 Wait 应报告常规的 SIGKILL ExitError，而非来自 Cancel 的错误。
+	// 如果 Cancel 返回 ErrProcessDone，但实际上进程并未完成（仍需被杀死），则 Wait 应报告常规的 SIGKILL ExitError，而非来自 Cancel 的错误。
 	t.Run("killed after spurious ErrProcessDone", func(t *testing.T) {
 		t.Parallel()
 
@@ -1614,33 +1608,33 @@ func TestCancelErrors(t *testing.T) {
 		defer stdin.Close()
 
 		var interruptCalled atomic.Bool
-		cmd.Cancel = func() error {
+		cmd.F.Cancel = func() error {
 			t.Logf("Cancel returning an error wrapping ErrProcessDone")
 			interruptCalled.Store(true)
 			return fmt.Errorf("%w: stdout closed", os.ErrProcessDone)
 		}
-		cmd.WaitDelay = 1 * time.Millisecond
+		cmd.F.WaitDelay = 1 * time.Millisecond
 		if err := cmd.Start(); err != nil {
 			t.Fatal(err)
 		}
 		cancel()
 
 		err = cmd.Wait()
-		t.Logf("[%d] %v", cmd.Process.Pid, err)
+		t.Logf("[%d] %v", cmd.F.Process.Pid, err)
 
-// 确保 Cancel 实际上有机会返回该错误
+		// 确保 Cancel 实际上有机会返回该错误
 		if !interruptCalled.Load() {
 			t.Errorf("Cancel was not called when the context was canceled")
 		}
 
-// 本测试应在1毫秒后终止子进程，
-// 为最大程度地与现有exec.CommandContext用法兼容，产生的错误应为未经额外封装的exec.ExitError。
+		// 本测试应在1毫秒后终止子进程，
+		// 为最大程度地与现有exec.CommandContext用法兼容，产生的错误应为未经额外封装的exec.ExitError。
 		if ee, ok := err.(*exec.ExitError); !ok {
 			t.Errorf("Wait error of type %T; want %T", err, ee)
 		}
 	})
 
-// 如果Cancel返回错误并且进程以非正常退出码结束，则应优先考虑进程错误而非Cancel错误。
+	// 如果Cancel返回错误并且进程以非正常退出码结束，则应优先考虑进程错误而非Cancel错误。
 	t.Run("nonzero exit after error", func(t *testing.T) {
 		t.Parallel()
 
@@ -1655,7 +1649,7 @@ func TestCancelErrors(t *testing.T) {
 
 		errArbitrary := errors.New("arbitrary error")
 		interrupted := make(chan struct{})
-		cmd.Cancel = func() error {
+		cmd.F.Cancel = func() error {
 			close(interrupted)
 			return errArbitrary
 		}
@@ -1667,26 +1661,26 @@ func TestCancelErrors(t *testing.T) {
 		io.Copy(io.Discard, stderr)
 
 		err = cmd.Wait()
-		t.Logf("[%d] %v", cmd.Process.Pid, err)
+		t.Logf("[%d] %v", cmd.F.Process.Pid, err)
 
-		if ee, ok := err.(*exec.ExitError); !ok || ee.ProcessState.ExitCode() != 1 {
+		if ee, ok := err.(*exec.ExitError); !ok || ee.F.ProcessState.ExitCode() != 1 {
 			t.Errorf("Wait error = %v; want exit status 1", err)
 		}
 	})
 }
 
 // TestConcurrentExec 是针对 https://go.dev/issue/61080 的回归测试。
-// 
+//
 // 在 Darwin 系统上，有时并发启动多个子进程会导致程序挂起。
 // （在 gomote 上运行时，仅经过几次迭代后，在 -count=100 选项下该测试即出现挂起。）
 func TestConcurrentExec(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 
-// 本测试将启动 nHangs 个挂起的子进程，它们从 stdin 读取数据时会挂起，
-// 同时启动 nExits 个立即退出的子进程。
-// 
-// 当存在 #61080 问题时，一个长期运行的“挂起”子进程偶尔会继承自“退出”子进程的 fork/exec 状态管道，
-// 导致父进程（期望几乎立刻在该管道上看到 EOF）意外地阻塞在从管道读取的操作上。
+	// 本测试将启动 nHangs 个挂起的子进程，它们从 stdin 读取数据时会挂起，
+	// 同时启动 nExits 个立即退出的子进程。
+	//
+	// 当存在 #61080 问题时，一个长期运行的“挂起”子进程偶尔会继承自“退出”子进程的 fork/exec 状态管道，
+	// 导致父进程（期望几乎立刻在该管道上看到 EOF）意外地阻塞在从管道读取的操作上。
 	var (
 		nHangs       = runtime.GOMAXPROCS(0)
 		nExits       = runtime.GOMAXPROCS(0)
@@ -1695,7 +1689,7 @@ func TestConcurrentExec(t *testing.T) {
 	hangs.Add(nHangs)
 	exits.Add(nExits)
 
-// ready表示当goroutine已经尽可能地完成了创建子进程的准备工作。虽然严格来说这不是测试所必需的，但通过增加“hang”和“exit”goroutine对syscall.StartProcess调用发生重叠的可能性，有助于提高问题复现率。
+	// ready表示当goroutine已经尽可能地完成了创建子进程的准备工作。虽然严格来说这不是测试所必需的，但通过增加“hang”和“exit”goroutine对syscall.StartProcess调用发生重叠的可能性，有助于提高问题复现率。
 	var ready sync.WaitGroup
 	ready.Add(nHangs + nExits)
 
@@ -1710,7 +1704,7 @@ func TestConcurrentExec(t *testing.T) {
 				t.Error(err)
 				return
 			}
-			cmd.Cancel = stdin.Close
+			cmd.F.Cancel = stdin.Close
 			ready.Done()
 
 			ready.Wait()

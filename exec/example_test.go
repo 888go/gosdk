@@ -8,10 +8,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/888go/gosdk/exec"
 	"io"
 	"log"
 	"os"
-	"os/exec"
 	"strings"
 	"time"
 )
@@ -26,9 +26,9 @@ func ExampleLookPath() {
 
 func ExampleCommand() {
 	cmd := exec.Command("tr", "a-z", "A-Z")
-	cmd.Stdin = strings.NewReader("some input")
+	cmd.F.Stdin = strings.NewReader("some input")
 	var out strings.Builder
-	cmd.Stdout = &out
+	cmd.F.Stdout = &out
 	err := cmd.Run()
 	if err != nil {
 		log.Fatal(err)
@@ -38,7 +38,7 @@ func ExampleCommand() {
 
 func ExampleCommand_environment() {
 	cmd := exec.Command("prog")
-	cmd.Env = append(os.Environ(),
+	cmd.F.Env = append(os.Environ(),
 		"FOO=duplicate_value", // ignored
 		"FOO=actual_value",    // this value is used
 	)
@@ -146,9 +146,9 @@ func ExampleCmd_CombinedOutput() {
 func ExampleCmd_Environ() {
 	cmd := exec.Command("pwd")
 
-// 在调用 cmd.Environ 之前设置 Dir，以便在使用 PWD 变量的平台上包含更新后的 PWD 变量。
-	cmd.Dir = ".."
-	cmd.Env = append(cmd.Environ(), "POSIXLY_CORRECT=1")
+	// 在调用 cmd.Environ 之前设置 Dir，以便在使用 PWD 变量的平台上包含更新后的 PWD 变量。
+	cmd.F.Dir = ".."
+	cmd.F.Env = append(cmd.Environ(), "POSIXLY_CORRECT=1")
 
 	out, err := cmd.Output()
 	if err != nil {
@@ -162,6 +162,6 @@ func ExampleCommandContext() {
 	defer cancel()
 
 	if err := exec.CommandContext(ctx, "sleep", "5").Run(); err != nil {
-// 这将在100毫秒后失败。5秒钟的休眠将会被中断。
+		// 这将在100毫秒后失败。5秒钟的休眠将会被中断。
 	}
 }

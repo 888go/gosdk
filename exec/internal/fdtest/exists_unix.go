@@ -12,6 +12,9 @@ import (
 )
 
 // Exists 返回 true，如果 fd 是一个有效的文件描述符。
+
+// ff:
+// fd:
 func Exists(fd uintptr) bool {
 	var s syscall.Stat_t
 	err := syscall.Fstat(int(fd), &s)

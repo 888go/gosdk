@@ -15,7 +15,7 @@ import (
 //}
 
 type Cmd struct {
-	F exec.Cmd
+	F *exec.Cmd
 }
 
 // Command 返回Cmd结构以使用给定参数执行命名程序。
@@ -31,9 +31,13 @@ type Cmd struct {
 // 命令使用与使用CommandLineToArgvW的应用程序兼容的算法（这是最常见的方法）将Args组合并引用到命令行字符串中.
 // 值得注意的例外是msiexec.exe和cmd.exe（以及所有批处理文件）， 它们具有不同的去激励算法。
 // 在这些或其他类似情况下, 您可以自己引用，并在SysProcAttr.CmdLine中提供完整的命令行，将Args留空。
+
+// ff:设置命令
+// arg:命令参数
+// name:进程名
 func Command(name string, arg ...string) *Cmd { //md5:2912017d0548a6188a67825cb0633059
 	return &Cmd{
-		F: *exec.Command(name, arg...),
+		F: exec.Command(name, arg...),
 	}
 }
 
@@ -44,9 +48,14 @@ func Command(name string, arg ...string) *Cmd { //md5:2912017d0548a6188a67825cb0
 //
 // CommandContext 将命令的 Cancel 函数设置为调用其 Process 的 Kill 方法，
 // 并将其 WaitDelay 保持未设置状态。在启动命令之前，调用者可以通过修改这些字段来改变取消行为。
+
+// ff:设置命令并带上下文
+// arg:命令参数
+// name:进程名
+// ctx:上下文
 func CommandContext(ctx context.Context, name string, arg ...string) *Cmd { //md5:6482c2ac4f2da9383d162ac6194f5a52
 	return &Cmd{
-		F: *exec.CommandContext(ctx, name, arg...),
+		F: exec.CommandContext(ctx, name, arg...),
 	}
 }
 
@@ -54,6 +63,8 @@ func CommandContext(ctx context.Context, name string, arg ...string) *Cmd { //md
 // 它仅用于调试目的。
 // 特别地，它不适合用作 shell 的输入。
 // String 的输出可能会在不同的 Go 版本之间有所变化。
+
+// ff:取命令
 func (c *Cmd) String() string { //md5:81f6a84e6ffe77c0a4beb3a6ebcb002f
 	return c.F.String()
 }
@@ -65,6 +76,8 @@ func (c *Cmd) String() string { //md5:81f6a84e6ffe77c0a4beb3a6ebcb002f
 // 如果命令已启动但未成功完成，返回的错误将是*ExitError类型。对于其他情况，可能会返回其他类型的错误。
 //
 // 如果调用goroutine通过runtime.LockOSThread锁定操作系统线程并对任何可继承的操作系统级线程状态进行了修改（例如Linux或Plan 9命名空间），则新进程将继承调用者的线程状态。
+
+// ff:运行
 func (c *Cmd) Run() error { //md5:3c28fe2808b00288feef65a1a9bcc0df
 	return c.F.Run()
 }
@@ -74,17 +87,16 @@ func (c *Cmd) Run() error { //md5:3c28fe2808b00288feef65a1a9bcc0df
 // 若 Start 方法成功返回，则会设置 c.Process 字段。
 //
 // 在成功调用 Start 方法后，必须调用 Wait 方法来释放相关的系统资源。
+
+// ff:运行并按异步
 func (c *Cmd) Start() error { //md5:e4e960bd99b0815c5f1d6601ec662dc4
 	return c.F.Start()
 }
 
-type ExitError struct {
-	F exec.ExitError
-}
-
-func (e *ExitError) Error() string { //md5:e7d8165bbebf499178bc1e1a3a045796
-	return e.F.Error()
-}
+// ff:
+//func (e *ExitError) Error() string { //md5:e7d8165bbebf499178bc1e1a3a045796
+//	return e.F.Error()
+//}
 
 // Wait 等待命令退出，并等待向标准输入复制或从标准输出、标准错误复制的任何操作完成。
 //
@@ -97,6 +109,8 @@ func (e *ExitError) Error() string { //md5:e7d8165bbebf499178bc1e1a3a045796
 // 如果 c.Stdin、c.Stdout 或 c.Stderr 中任何一个不是 *os.File 类型，Wait 还会等待相应进程的 I/O 循环完成复制操作。
 //
 // Wait 释放与 Cmd 关联的所有资源。
+
+// ff:等待运行完成
 func (c *Cmd) Wait() error { //md5:c1cc5cd3a68d4db76704a0a00058acc4
 	return c.F.Wait()
 }
@@ -104,11 +118,15 @@ func (c *Cmd) Wait() error { //md5:c1cc5cd3a68d4db76704a0a00058acc4
 // Output 运行命令并返回其标准输出。
 // 返回的任何错误通常会是 *ExitError 类型。
 // 若 c.Stderr 为 nil，Output 会填充 ExitError.Stderr。
+
+// ff:运行并带返回值
 func (c *Cmd) Output() ([]byte, error) { //md5:6c0c99752f0c5a95d947693df1a82db1
 	return c.F.Output()
 }
 
 // CombinedOutput 执行命令并返回其标准输出和标准错误的合并结果。
+
+// ff:运行并带组合返回值
 func (c *Cmd) CombinedOutput() ([]byte, error) { //md5:fa60c475e01331ed5a06057e7774b761
 	return c.F.CombinedOutput()
 }
@@ -117,6 +135,8 @@ func (c *Cmd) CombinedOutput() ([]byte, error) { //md5:fa60c475e01331ed5a06057e7
 // 当Wait观察到命令退出后，该管道将自动关闭。
 // 调用者只需调用Close即可强制管道提前关闭。
 // 例如，如果运行的命令在标准输入关闭之前不会退出，则调用者必须关闭该管道。
+
+// ff:取Stdin管道
 func (c *Cmd) StdinPipe() (io.WriteCloser, error) { //md5:a46d29cb606f6af4122775095f43f1d6
 	return c.F.StdinPipe()
 }
@@ -124,6 +144,8 @@ func (c *Cmd) StdinPipe() (io.WriteCloser, error) { //md5:a46d29cb606f6af4122775
 // StdoutPipe 返回一个管道，当命令启动时，该管道将与命令的标准输出相连。
 //
 // 当Wait观察到命令退出后，会关闭该管道，因此大多数调用者无需自行关闭管道。因此，在完成从管道的所有读取操作之前调用Wait是不正确的。出于同样的原因，在使用StdoutPipe时调用Run也是不正确的。有关惯用用法，请参阅示例。
+
+// ff:取标准管道
 func (c *Cmd) StdoutPipe() (io.ReadCloser, error) { //md5:ddeb49a7d48e93da480da5299d2eed2b
 	return c.F.StdoutPipe()
 }
@@ -131,11 +153,15 @@ func (c *Cmd) StdoutPipe() (io.ReadCloser, error) { //md5:ddeb49a7d48e93da480da5
 // StderrPipe 返回一个管道，当命令启动时，该管道将与命令的标准错误相连。
 //
 // 当Wait检测到命令退出后，会关闭该管道，因此大多数调用者无需自行关闭管道。因此，在完成从管道的所有读取操作之前调用Wait是不正确的。出于同样的原因，当使用StderrPipe时，调用Run也是不正确的。有关惯用用法，请参阅StdoutPipe示例。
+
+// ff:取Stderr管道
 func (c *Cmd) StderrPipe() (io.ReadCloser, error) { //md5:9b10883945ef55930f9026118bde260b
 	return c.F.StderrPipe()
 }
 
 // Environ 返回当前配置下，命令将要运行的环境副本。
+
+// ff:取环境变量数组
 func (c *Cmd) Environ() []string { //md5:891b61dc22bc81880c267878539c842b
 	return c.F.Environ()
 }

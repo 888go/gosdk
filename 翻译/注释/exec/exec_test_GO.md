@@ -853,3 +853,26 @@
 // TestPathRace 测试 [Cmd.String] 可以与 [Cmd.Start] 并发调用
 # <翻译结束>
 
+
+<原文开始>
+	//for fd := uintptr(3); fd <= 100; fd++ {
+	//	if poll.IsPollDescriptor(fd) {
+	//		continue
+	//	}
+	//
+	//	if fdtest.Exists(fd) {
+	//		haveUnexpectedFDs = true
+	//		return
+	//	}
+	//}
+<原文结束>
+
+# <翻译开始>
+// 对于fd从uintptr类型数值3开始，到数值100结束的循环：
+// 如果poll.IsPollDescriptor(fd)判断fd为poll描述符，
+// 则跳过本次循环继续下一轮。
+//
+// 若fdtest.Exists(fd)检测到fd存在，
+// 则将haveUnexpectedFDs设为true并立即返回。
+# <翻译结束>
+

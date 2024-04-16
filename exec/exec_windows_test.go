@@ -8,10 +8,11 @@ package exec_test
 
 import (
 	"fmt"
-	"internal/testenv"
+	"github.com/888go/gosdk/exec"
+	"github.com/888go/gosdk/exec/internal/testenv"
+
 	"io"
 	"os"
-	"os/exec"
 	"strconv"
 	"strings"
 	"syscall"
@@ -47,7 +48,7 @@ func TestPipePassing(t *testing.T) {
 	}
 	const marker = "arrakis, dune, desert planet"
 	childProc := helperCommand(t, "pipehandle", strconv.FormatUint(uint64(w.Fd()), 16), marker)
-	childProc.SysProcAttr = &syscall.SysProcAttr{AdditionalInheritedHandles: []syscall.Handle{syscall.Handle(w.Fd())}}
+	childProc.F.SysProcAttr = &syscall.SysProcAttr{AdditionalInheritedHandles: []syscall.Handle{syscall.Handle(w.Fd())}}
 	err = childProc.Start()
 	if err != nil {
 		t.Error(err)
@@ -77,8 +78,8 @@ func TestNoInheritHandles(t *testing.T) {
 	if !ok {
 		t.Fatalf("got error %v; want ExitError", err)
 	}
-	if exitError.ExitCode() != 88 {
-		t.Fatalf("got exit code %d; want 88", exitError.ExitCode())
+	if exitError.F.ExitCode() != 88 {
+		t.Fatalf("got exit code %d; want 88", exitError.F.ExitCode())
 	}
 }
 
@@ -96,7 +97,7 @@ func TestChildCriticalEnv(t *testing.T) {
 			env = append(env, kv)
 		}
 	}
-	cmd.Env = env
+	cmd.F.Env = env
 
 	out, err := cmd.CombinedOutput()
 	if err != nil {

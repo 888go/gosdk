@@ -202,3 +202,14 @@
 // Environ 返回当前配置下，命令将要运行的环境副本。
 # <翻译结束>
 
+
+<原文开始>
+// ErrWaitDelay is returned by (*Cmd).Wait if the process exits with a
+// successful status code but its output pipes are not closed before the
+// command's WaitDelay expires.
+<原文结束>
+
+# <翻译开始>
+// ErrWaitDelay 是在以下情况下由 (*Cmd).Wait 返回的错误：如果进程以成功状态退出，但在命令的 WaitDelay 超时之前其输出管道尚未关闭。
+# <翻译结束>
+

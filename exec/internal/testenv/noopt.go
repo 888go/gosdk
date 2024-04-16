@@ -2,16 +2,13 @@
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
-//go:build unix
+//go:build noopt
 
-package exec_test
+package testenv
 
-import (
-	"os"
-	"syscall"
-)
+// OptimizationOff 判断是否禁用了优化
 
-var (
-	quitSignal os.Signal = syscall.SIGQUIT
-	pipeSignal os.Signal = syscall.SIGPIPE
-)
+// ff:
+func OptimizationOff() bool {
+	return true
+}

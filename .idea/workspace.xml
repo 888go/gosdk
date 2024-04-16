@@ -20,6 +20,13 @@
   <component name="CoverageOptionsProvider">
     <option name="myAddOrReplace" value="0" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go Application" />
+      </list>
+    </option>
+  </component>
   <component name="GOROOT" url="file://C:/Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,10 +57,12 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "DefaultGoTemplateProperty": "Go Application",
     "Go 构建.go build github.com/888go/gosdk/exec.executor": "Coverage",
     "Go 构建.go build github.com/888go/gosdk/exec/internal.executor": "Coverage",
     "Go 构建.go build github.com/888go/gosdk/exec/internal/poll.executor": "Coverage",
     "Go 构建.go build github.com/888go/gosdk/strings.executor": "Coverage",
+    "Go 构建.go build github.com/888go/gosdk/tmp.executor": "Run",
     "Go 构建.go build strings (1).executor": "Coverage",
     "Go 构建.go build strings (2).executor": "Coverage",
     "Go 构建.go build strings.executor": "Coverage",
@@ -67,6 +76,7 @@
     "Go 测试.github.com/888go/gosdk/exec 中的 TestEcho.executor": "Run",
     "Go 测试.github.com/888go/gosdk/exec 中的 TestEchoFileRace.executor": "Run",
     "Go 测试.github.com/888go/gosdk/exec 中的 TestExitStatus.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestIgnorePipeErrorOnSuccess.executor": "Run",
     "Go 测试.github.com/888go/gosdk/exec 中的 TestLookPath.executor": "Run",
     "Go 测试.github.com/888go/gosdk/exec 中的 TestNoExistExecutable.executor": "Coverage",
     "Go 测试.github.com/888go/gosdk/exec 中的 TestNoPath.executor": "Run",
@@ -96,7 +106,7 @@
     "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
-  <component name="RunManager" selected="Go 测试.go test strings">
+  <component name="RunManager" selected="Go 构建.go build github.com/888go/gosdk/tmp">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gosdk" />
       <working_directory value="$PROJECT_DIR$" />
@@ -105,12 +115,13 @@
       <filePath value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
-    <configuration name="go build github.com/888go/gosdk/exec" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration name="go build github.com/888go/gosdk/tmp" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="gosdk" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="github.com/888go/gosdk/exec" />
+      <package value="github.com/888go/gosdk/tmp" />
       <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/tmp/main.go" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
@@ -144,15 +155,16 @@
       <pattern value="^\QTestCommand\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="go test exec" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="github.com/888go/gosdk/exec 中的 TestIgnorePipeErrorOnSuccess" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gosdk" />
       <working_directory value="$PROJECT_DIR$/exec" />
       <root_directory value="$PROJECT_DIR$" />
-      <kind value="DIRECTORY" />
+      <kind value="PACKAGE" />
       <package value="github.com/888go/gosdk/exec" />
-      <directory value="$PROJECT_DIR$/exec" />
+      <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
+      <pattern value="^\QTestIgnorePipeErrorOnSuccess\E$" />
       <method v="2" />
     </configuration>
     <configuration name="go test strings" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -168,11 +180,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 构建.go build github.com/888go/gosdk/tmp" />
+        <item itemvalue="Go 测试.github.com/888go/gosdk/exec 中的 TestIgnorePipeErrorOnSuccess" />
         <item itemvalue="Go 测试.go test strings" />
         <item itemvalue="Go 测试.github.com/888go/gosdk/exec 中的 TestCommand" />
         <item itemvalue="Go 测试.exec_test.go" />
-        <item itemvalue="Go 测试.go test exec" />
-        <item itemvalue="Go 构建.go build github.com/888go/gosdk/exec" />
       </list>
     </recent_temporary>
   </component>

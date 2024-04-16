@@ -9,11 +9,13 @@ package exec_test
 import (
 	"errors"
 	"fmt"
-	"internal/testenv"
+	"github.com/888go/gosdk/exec"
+	"github.com/888go/gosdk/exec/internal/testenv"
+	exec2 "os/exec"
+
 	"io"
 	"io/fs"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"slices"
 	"strings"
@@ -156,7 +158,7 @@ var lookPathTests = []lookPathTest{
 		name:      "no extension",
 		files:     []string{`p1\b`, `p2\a`},
 		searchFor: `a`,
-		wantErr:   exec.ErrNotFound,
+		wantErr:   exec2.ErrNotFound,
 	},
 	{
 		name:      "directory, no extension",
@@ -168,13 +170,13 @@ var lookPathTests = []lookPathTest{
 		name:      "no match",
 		files:     []string{`p1\a.exe`, `p2\a.exe`},
 		searchFor: `b`,
-		wantErr:   exec.ErrNotFound,
+		wantErr:   exec2.ErrNotFound,
 	},
 	{
 		name:      "no match with dir",
 		files:     []string{`p1\b.exe`, `p2\a.exe`},
 		searchFor: `p2\b`,
-		wantErr:   exec.ErrNotFound,
+		wantErr:   exec2.ErrNotFound,
 	},
 	{
 		name:      "extensionless file in CWD ignored",
@@ -198,7 +200,7 @@ var lookPathTests = []lookPathTest{
 		name:      "mismatched extension",
 		files:     []string{`p1\a.exe`, `p2\a.exe`},
 		searchFor: `a.com`,
-		wantErr:   exec.ErrNotFound,
+		wantErr:   exec2.ErrNotFound,
 	},
 	{
 		name:      "doubled extension",
@@ -238,7 +240,7 @@ var lookPathTests = []lookPathTest{
 		name:      "ignore dir with PATHEXT extension",
 		files:     []string{`a.exe\`},
 		searchFor: `a`,
-		wantErr:   exec.ErrNotFound,
+		wantErr:   exec2.ErrNotFound,
 	},
 	{
 		name:      "ignore empty PATH entry",
@@ -246,8 +248,8 @@ var lookPathTests = []lookPathTest{
 		PATH:      []string{`p`},
 		searchFor: `a`,
 		want:      `p\a.bat`,
-// 如果cmd.exe版本过旧，可能不支持NoDefaultCurrentDirectoryInExePath选项，
-// 因此跳过该检查。
+		// 如果cmd.exe版本过旧，可能不支持NoDefaultCurrentDirectoryInExePath选项，
+		// 因此跳过该检查。
 		skipCmdExeCheck: true,
 	},
 	{
@@ -256,7 +258,7 @@ var lookPathTests = []lookPathTest{
 		PATH:      []string{`.\p1`, `p2`},
 		searchFor: `a`,
 		want:      `p1\a.bat`,
-		wantErr:   exec.ErrDot,
+		wantErr:   exec2.ErrDot,
 	},
 	{
 		name:      "suppress ErrDot if also found in absolute path",
@@ -270,13 +272,13 @@ var lookPathTests = []lookPathTest{
 func TestLookPathWindows(t *testing.T) {
 	// 非并行：使用了 Chdir 和 Setenv。
 
-// 我们在这里使用“printpath”命令模式来测试exec.Command，
-// 因此我们不会调用helperCommand来解析它。
-// 这可能导致它看似未被使用。
+	// 我们在这里使用“printpath”命令模式来测试exec.Command，
+	// 因此我们不会调用helperCommand来解析它。
+	// 这可能导致它看似未被使用。
 	maySkipHelperCommand("printpath")
 
-// 在开始之前，找出cmd.exe的绝对路径。
-// 在非短模式下，我们将用它来校验测试“want”字段的实际情况。
+	// 在开始之前，找出cmd.exe的绝对路径。
+	// 在非短模式下，我们将用它来校验测试“want”字段的实际情况。
 	cmdExe, err := exec.LookPath("cmd")
 	if err != nil {
 		t.Fatal(err)
@@ -314,8 +316,8 @@ func TestLookPathWindows(t *testing.T) {
 
 			chdir(t, root)
 
-			if !testing.Short() && !(tt.skipCmdExeCheck || errors.Is(tt.wantErr, exec.ErrDot)) {
-// 检查 cmd.exe（作为我们的基准真相来源）是否认同我们的测试用例是正确的。
+			if !testing.Short() && !(tt.skipCmdExeCheck || errors.Is(tt.wantErr, exec2.ErrDot)) {
+				// 检查 cmd.exe（作为我们的基准真相来源）是否认同我们的测试用例是正确的。
 				cmd := testenv.Command(t, cmdExe, "/c", tt.searchFor, "printpath")
 				out, err := cmd.Output()
 				if err == nil {
@@ -329,8 +331,8 @@ func TestLookPathWindows(t *testing.T) {
 						t.Fatalf("%v\n\tresolved to %s\n\twant %s", cmd, gotAbs, wantAbs)
 					}
 				} else if tt.wantErr == nil {
-					if ee, ok := err.(*exec.ExitError); ok && len(ee.Stderr) > 0 {
-						t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
+					if ee, ok := err.(*exec.ExitError); ok && len(ee.F.Stderr) > 0 {
+						t.Fatalf("%v: %v\n%s", cmd, err, ee.F.Stderr)
 					}
 					t.Fatalf("%v: %v", cmd, err)
 				}
@@ -422,17 +424,17 @@ var commandTests = []commandTest{
 	},
 	// 测试命令，如`a.exe`，其中已设置c.Dir
 	{
-// 不应在p中找到a.exe，因为当Command调用LookPath(`a.exe`)时（在设置Dir之前），该操作将失败，且该错误是持久的。
+		// 不应在p中找到a.exe，因为当Command调用LookPath(`a.exe`)时（在设置Dir之前），该操作将失败，且该错误是持久的。
 		name:       "not found before Dir",
 		files:      []string{`p\a.exe`},
 		PATH:       []string{"."},
 		dir:        `p`,
 		arg0:       `a.exe`,
 		want:       `p\a.exe`,
-		wantRunErr: exec.ErrNotFound,
+		wantRunErr: exec2.ErrNotFound,
 	},
 	{
-// LookPath(`a.exe`) 会解析为 `.\a.exe`，但将该路径前缀为目录 `p` 即 `p\a.exe` 时，将指向一个不存在的文件
+		// LookPath(`a.exe`) 会解析为 `.\a.exe`，但将该路径前缀为目录 `p` 即 `p\a.exe` 时，将指向一个不存在的文件
 		name:       "resolved before Dir",
 		files:      []string{`a.exe`, `p\not_important_file`},
 		PATH:       []string{"."},
@@ -443,7 +445,7 @@ var commandTests = []commandTest{
 		wantRunErr: fs.ErrNotExist,
 	},
 	{
-// 类似于上面的做法，但通过将文件安装到所引用的目标位置（这样LookPath(`a.exe`)仍会找到`.\a.exe`，但我们成功执行了`p\a.exe`），使测试成功
+		// 类似于上面的做法，但通过将文件安装到所引用的目标位置（这样LookPath(`a.exe`)仍会找到`.\a.exe`，但我们成功执行了`p\a.exe`），使测试成功
 		name:       "relative to Dir",
 		files:      []string{`a.exe`, `p\a.exe`},
 		PATH:       []string{"."},
@@ -473,7 +475,7 @@ var commandTests = []commandTest{
 		wantErrDot: true,
 	},
 	{
-// 查找 `a.exe`，忽略 Dir，因为 Command 在设置 Dir 之前通过 LookPath 解析完整路径。
+		// 查找 `a.exe`，忽略 Dir，因为 Command 在设置 Dir 之前通过 LookPath 解析完整路径。
 		name:  "from PATH with no match in Dir",
 		files: []string{`p\a.exe`, `p2\a.exe`},
 		PATH:  []string{".", "p2", "p"},
@@ -523,9 +525,9 @@ var commandTests = []commandTest{
 func TestCommand(t *testing.T) {
 	// 非并行：使用了 Chdir 和 Setenv。
 
-// 我们在这里使用“printpath”命令模式来测试exec.Command，
-// 因此我们不会调用helperCommand来解析它。
-// 这可能导致它看似未被使用。
+	// 我们在这里使用“printpath”命令模式来测试exec.Command，
+	// 因此我们不会调用helperCommand来解析它。
+	// 这可能导致它看似未被使用。
 	maySkipHelperCommand("printpath")
 
 	for _, tt := range commandTests {
@@ -544,19 +546,19 @@ func TestCommand(t *testing.T) {
 			chdir(t, root)
 
 			cmd := exec.Command(tt.arg0, "printpath")
-			cmd.Dir = filepath.Join(root, tt.dir)
+			cmd.F.Dir = filepath.Join(root, tt.dir)
 			if tt.wantErrDot {
-				if errors.Is(cmd.Err, exec.ErrDot) {
-					cmd.Err = nil
+				if errors.Is(cmd.F.Err, exec2.ErrDot) {
+					cmd.F.Err = nil
 				} else {
-					t.Fatalf("cmd.Err = %v; want ErrDot", cmd.Err)
+					t.Fatalf("cmd.Err = %v; want ErrDot", cmd.F.Err)
 				}
 			}
 
 			out, err := cmd.Output()
 			if err != nil {
-				if ee, ok := err.(*exec.ExitError); ok && len(ee.Stderr) > 0 {
-					t.Logf("%v: %v\n%s", cmd, err, ee.Stderr)
+				if ee, ok := err.(*exec.ExitError); ok && len(ee.F.Stderr) > 0 {
+					t.Logf("%v: %v\n%s", cmd, err, ee.F.Stderr)
 				} else {
 					t.Logf("%v: %v", cmd, err)
 				}
@@ -577,7 +579,7 @@ func TestCommand(t *testing.T) {
 				t.Errorf("\nran  %#q\nwant %#q", got, tt.want)
 			}
 
-			gotPath := cmd.Path
+			gotPath := cmd.F.Path
 			wantPath := tt.wantPath
 			if wantPath == "" {
 				if strings.Contains(tt.arg0, `\`) {
@@ -598,10 +600,10 @@ func TestCommand(t *testing.T) {
 func TestAbsCommandWithDoubledExtension(t *testing.T) {
 	t.Parallel()
 
-// 我们期望 ".com" 总是包含在 PATHEXT 中，但它也可能出现在 Go 包的导入路径中。如果它位于导入路径的根部，则生成的可执行文件可能被命名为 "example.com.exe"。
-// 
-// 由于 "example.com" 看起来像一个合理的可执行文件名，因此 exec.Command 尝试直接运行它而不重新解析可能是可以接受的。
-// 但是，exec.LookPath 应该更努力地尝试确定它。
+	// 我们期望 ".com" 总是包含在 PATHEXT 中，但它也可能出现在 Go 包的导入路径中。如果它位于导入路径的根部，则生成的可执行文件可能被命名为 "example.com.exe"。
+	//
+	// 由于 "example.com" 看起来像一个合理的可执行文件名，因此 exec.Command 尝试直接运行它而不重新解析可能是可以接受的。
+	// 但是，exec.LookPath 应该更努力地尝试确定它。
 
 	comPath := filepath.Join(t.TempDir(), "example.com")
 	batPath := comPath + ".bat"
