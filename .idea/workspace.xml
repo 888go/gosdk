@@ -119,7 +119,7 @@
     "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
-  <component name="RunManager" selected="Go 测试.go test registry">
+  <component name="RunManager" selected="Go 构建.go build github.com/888go/gosdk/registry">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gosdk" />
       <working_directory value="$PROJECT_DIR$" />
@@ -190,8 +190,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go 测试.go test registry" />
         <item itemvalue="Go 构建.go build github.com/888go/gosdk/registry" />
+        <item itemvalue="Go 测试.go test registry" />
         <item itemvalue="Go 构建.go build github.com/888go/gosdk/tmp" />
         <item itemvalue="Go 测试.github.com/888go/gosdk/exec 中的 TestIgnorePipeErrorOnSuccess" />
         <item itemvalue="Go 测试.go test strings" />
