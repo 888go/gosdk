@@ -9,4 +9,11 @@
      <tree path="/exec" title="调用类"/>
      <tree path="/exec/example_test.go" title="单元测试不通过"/>
      <tree path="/exec/exec_test.go" title="单元测试不通过"/>
- </trees>
+     <tree path="/registry" title="注册表类"/>
+     <tree path="/registry/value.go" title="值"/>
+    <tree path="/registry/key.go" title="表项"/>
+    <tree path="/registry/zsyscall_windows.go" title="内部"/>
+    <tree path="/registry/export_test.go" title="单元测试"/>
+    <tree path="/registry/registry_test.go" title="单元测试"/>
+    <tree path="/registry/syscall.go" title="内部"/>
+</trees>

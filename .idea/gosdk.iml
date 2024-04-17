@@ -6,5 +6,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="src" />
+    <orderEntry type="module" module-name="go_src" />
   </component>
 </module>

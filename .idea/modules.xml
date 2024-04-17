@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../go_src/.idea/go_src.iml" filepath="$PROJECT_DIR$/../go_src/.idea/go_src.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/gosdk.iml" filepath="$PROJECT_DIR$/.idea/gosdk.iml" />
       <module fileurl="file://C:/Go/src/.idea/src.iml" filepath="C:/Go/src/.idea/src.iml" />
     </modules>
