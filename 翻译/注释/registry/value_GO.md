@@ -192,3 +192,102 @@
 // 参数 n 用于控制返回的名称数量，其作用方式类似于 os.File.Readdirnames。
 # <翻译结束>
 
+
+<原文开始>
+// Copyright 2015 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+<原文结束>
+
+# <翻译开始>
+// 版权所有 ? 2015 The Go Authors。保留所有权利。
+// 本源代码的使用受 BSD 风格许可协议约束，
+// 该协议可在 LICENSE 文件中找到。
+# <翻译结束>
+
+
+<原文开始>
+// ErrShortBuffer is returned when the buffer was too short for the operation.
+<原文结束>
+
+# <翻译开始>
+// ErrShortBuffer 表示当缓冲区对于操作而言太短时返回的错误。
+# <翻译结束>
+
+
+<原文开始>
+// ErrNotExist is returned when a registry key or value does not exist.
+<原文结束>
+
+# <翻译开始>
+// ErrNotExist 表示当注册表键或值不存在时返回的错误。
+# <翻译结束>
+
+
+<原文开始>
+// ErrUnexpectedType is returned by Get*Value when the value's type was unexpected.
+<原文结束>
+
+# <翻译开始>
+// ErrUnexpectedType 是在获取值时，若其类型与预期不符，由 Get*Value 函数返回的错误。
+# <翻译结束>
+
+
+<原文开始>
+		// Try to resolve the string value using the system directory as
+		// a DLL search path; this assumes the string value is of the form
+		// @[path]\dllname,-strID but with no path given, e.g. @tzres.dll,-320.
+<原文结束>
+
+# <翻译开始>
+// 尝试使用系统目录作为 DLL 搜索路径解析字符串值。这假设字符串值的格式为
+// @[路径]\dllname,-strID，但未给出路径，例如 @tzres.dll,-320。
+# <翻译结束>
+
+
+<原文开始>
+		// This approach works with tzres.dll but may have to be revised
+		// in the future to allow callers to provide custom search paths.
+<原文结束>
+
+# <翻译开始>
+// 此方法适用于tzres.dll，但未来可能需要进行修订，
+// 以允许调用者提供自定义搜索路径。
+# <翻译结束>
+
+
+<原文开始>
+// Buffer not growing, assume race; break
+<原文结束>
+
+# <翻译开始>
+// 缓冲区未增长，假设存在竞争；中断
+# <翻译结束>
+
+
+<原文开始>
+// remove terminating null
+<原文结束>
+
+# <翻译开始>
+// 移除终止空字符
+# <翻译结束>
+
+
+<原文开始>
+// extra room for terminating null character
+<原文结束>
+
+# <翻译开始>
+// 额外预留终止空字符的空间
+# <翻译结束>
+
+
+<原文开始>
+// Double buffer size and try again.
+<原文结束>
+
+# <翻译开始>
+// 双倍缓冲区大小并尝试再次执行
+# <翻译结束>
+

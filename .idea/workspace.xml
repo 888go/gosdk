@@ -5,23 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
-      <change afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registry/export_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registry/key.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registry/registry.rar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registry/registry_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registry/syscall.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registry/value.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/registry/zsyscall_windows.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/registry/export_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/registry/key_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/registry/registry_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/registry/value_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gosdk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gosdk.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/win_dll.rar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/registry/zsyscall_windows_GO.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DirectoryV3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DirectoryV3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registry/key.go" beforeDir="false" afterPath="$PROJECT_DIR$/registry/key.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registry/registry.rar" beforeDir="false" afterPath="$PROJECT_DIR$/registry/registry.rar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registry/syscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/registry/syscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registry/value.go" beforeDir="false" afterPath="$PROJECT_DIR$/registry/value.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/registry/zsyscall_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/registry/zsyscall_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/注释/registry/value_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/registry/value_GO.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +39,9 @@
   </component>
   <component name="GoVcsConfiguration">
     <option name="GO_FMT" value="false" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/registry/zsyscall_windows.go" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -119,7 +114,7 @@
     "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
-  <component name="RunManager" selected="Go 构建.go build github.com/888go/gosdk/registry">
+  <component name="RunManager" selected="Go 构建.go build github.com/888go/gosdk/tmp">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gosdk" />
       <working_directory value="$PROJECT_DIR$" />
@@ -190,9 +185,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go 构建.go build github.com/888go/gosdk/registry" />
-        <item itemvalue="Go 测试.go test registry" />
         <item itemvalue="Go 构建.go build github.com/888go/gosdk/tmp" />
+        <item itemvalue="Go 测试.go test registry" />
+        <item itemvalue="Go 构建.go build github.com/888go/gosdk/registry" />
         <item itemvalue="Go 测试.github.com/888go/gosdk/exec 中的 TestIgnorePipeErrorOnSuccess" />
         <item itemvalue="Go 测试.go test strings" />
       </list>
@@ -237,13 +232,13 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/gosdk$go_test_github_com_888go_gosdk_strings__1_.out" NAME="go test github.com/888go/gosdk/strings (1) 覆盖结果" MODIFIED="1712970766270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/gosdk$go_build_github_com_888go_gosdk_registry.out" NAME="go build github.com/888go/gosdk/registry 覆盖结果" MODIFIED="1713366207510" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/gosdk$go_build_github_com_888go_gosdk_registry.out" NAME="go build github.com/888go/gosdk/registry 覆盖结果" MODIFIED="1713366524863" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$exec_windows_test_go.out" NAME="exec_windows_test.go 覆盖结果" MODIFIED="1713263686867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_strings__1_.out" NAME="go test strings (1) 覆盖结果" MODIFIED="1712978751404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_build_github_com_888go_gosdk_exec_internal_poll.out" NAME="go build github.com/888go/gosdk/exec/internal/poll 覆盖结果" MODIFIED="1713262494369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_build_strings__2_.out" NAME="go build strings (2) 覆盖结果" MODIFIED="1712935315792" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_build_github_com_888go_gosdk_exec.out" NAME="go build github.com/888go/gosdk/exec 覆盖结果" MODIFIED="1713276150337" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/gosdk$go_test_registry.out" NAME="go test registry 覆盖结果" MODIFIED="1713366211292" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/gosdk$go_test_registry.out" NAME="go test registry 覆盖结果" MODIFIED="1713367674388" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_build_github_com_888go_gosdk_strings.out" NAME="go build github.com/888go/gosdk/strings 覆盖结果" MODIFIED="1712970770654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$github_com_888go_gosdk_exec__TestNoExistExecutable.out" NAME="github.com/888go/gosdk/exec 中的 TestNoExistExecutable 覆盖结果" MODIFIED="1713274379175" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_build_strings__1_.out" NAME="go build strings (1) 覆盖结果" MODIFIED="1712935233471" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

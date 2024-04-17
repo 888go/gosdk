@@ -16,6 +16,8 @@ const (
 	_ERROR_NO_MORE_ITEMS syscall.Errno = 259
 )
 
+
+// ff:
 func LoadRegLoadMUIString() error { //md5:d97a2024fe61c3e084a6983955f54642
 	return registry.LoadRegLoadMUIString()
 }
