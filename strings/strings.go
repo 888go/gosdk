@@ -1,4 +1,4 @@
-package strings
+package strings //bm:文本类
 
 import (
 	"strings"

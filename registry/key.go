@@ -1,6 +1,6 @@
 //go:build windows
 
-package registry
+package registry //bm:注册表类
 
 import (
 	"golang.org/x/sys/windows/registry"

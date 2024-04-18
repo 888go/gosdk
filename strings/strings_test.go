@@ -2,7 +2,7 @@
 // 本源代码的使用受BSD风格
 // 许可证约束，该许可证可在LICENSE文件中找到。
 
-package strings_test
+package strings_test //bm:文本类_test
 
 import (
 	"bytes"
@@ -1409,8 +1409,8 @@ var ContainsTests = []struct {
 	{"abc", "", true},
 	{"", "a", false},
 
-// 用于覆盖runtime/asm_amd64.s中indexShortStr代码的测试用例
-// 2字节 needle
+	// 用于覆盖runtime/asm_amd64.s中indexShortStr代码的测试用例
+	// 2字节 needle
 	{"xxxxxx", "01", false},
 	{"01xxxx", "01", true},
 	{"xx01xx", "01", true},

@@ -40,3 +40,6 @@ ff=取写入时间
 
 [func (k Key) Stat() (*KeyInfo, error) {]
 ff=取对象信息
+
+[func (k Key) Close() error {]
+ff=关闭

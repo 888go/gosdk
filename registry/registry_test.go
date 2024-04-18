@@ -5,7 +5,7 @@
 //go:build windows
 // +build windows
 
-package registry_test
+package registry_test //bm:注册表类_test
 
 import (
 	"bytes"
