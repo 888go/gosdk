@@ -4,30 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/mkwinsyscall/mkwinsyscall_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/mkwinsyscall/mkwinsyscall_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/mkwinsyscall/mkwinsyscall_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/mkwinsyscall/mkwinsyscall_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/registry/export_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/registry/export_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/registry/key_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/registry/key_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/registry/mksyscall_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/registry/mksyscall_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/registry/registry_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/registry/registry_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/registry/syscall_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/registry/syscall_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/setupapi_windows_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/setupapi_windows_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/str_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/str_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/syscall_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/syscall_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/syscall_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/syscall_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/syscall_windows_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/syscall_windows_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/syscall_windows_test_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/syscall_windows_test_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/types_windows_386_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/types_windows_386_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/types_windows_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/types_windows_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/types_windows_amd64_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/types_windows_amd64_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/types_windows_arm64_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/types_windows_arm64_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/types_windows_arm_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/types_windows_arm_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/zerrors_windows_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/zerrors_windows_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/zknownfolderids_windows_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/zknownfolderids_windows_GO.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/注释/windows/zsyscall_windows_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/windows/zsyscall_windows_GO.md" afterDir="false" />
-    </list>
+    <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -142,7 +119,7 @@
     "settings.editor.selected.configurable": "通义灵码"
   }
 }]]></component>
-  <component name="RunManager" selected="Go 测试.go test exec">
+  <component name="RunManager" selected="Go 测试.go test windows">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gosdk" />
       <working_directory value="$PROJECT_DIR$" />
@@ -213,9 +190,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 测试.go test windows" />
         <item itemvalue="Go 测试.go test exec" />
         <item itemvalue="Go 测试.go test strings" />
-        <item itemvalue="Go 测试.go test windows" />
         <item itemvalue="Go 测试.go test windows (3)" />
         <item itemvalue="Go 测试.go test windows (2)" />
       </list>
@@ -277,7 +254,7 @@
     <SUITE FILE_PATH="coverage/gosdk$go_build_strings__2_.out" NAME="go build strings (2) 覆盖结果" MODIFIED="1712935315792" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_windows__1_.out" NAME="go test windows (1) 覆盖结果" MODIFIED="1713617013339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$github_com_888go_gosdk_exec__TestNoExistExecutable.out" NAME="github.com/888go/gosdk/exec 中的 TestNoExistExecutable 覆盖结果" MODIFIED="1713274379175" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/gosdk$go_test_windows.out" NAME="go test windows 覆盖结果" MODIFIED="1713617229187" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/gosdk$go_test_windows.out" NAME="go test windows 覆盖结果" MODIFIED="1713619240015" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_build_strings__1_.out" NAME="go build strings (1) 覆盖结果" MODIFIED="1712935233471" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_build_github_com_888go_gosdk_exec_internal.out" NAME="go build github.com/888go/gosdk/exec/internal 覆盖结果" MODIFIED="1713261948001" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_windows__2_.out" NAME="go test windows (2) 覆盖结果" MODIFIED="1713617160423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
