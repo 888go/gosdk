@@ -5,50 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
-      <change afterPath="$PROJECT_DIR$/tmp/registry.rar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/windows/dll_windows_方法.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/windows/registry/key_package.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/windows/registry/key_方法.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/windows/registry/registry_test_package.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/windows/registry/value_方法.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/函数/windows/syscall_windows_方法.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DirectoryV3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DirectoryV3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/registry/export_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/registry/key.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/registry/registry.rar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/registry/registry_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/registry/syscall.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/registry/value.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/registry/zsyscall_windows.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/windows/dll_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/dll_windows.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/env_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/env_windows.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/exec_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/exec_windows.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/mkwinsyscall/mkwinsyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/mkwinsyscall/mkwinsyscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/registry/key.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/key.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/registry/syscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/syscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/registry/value.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/value.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/security_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/security_windows.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/setupapi_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/setupapi_windows.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/debug/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/debug/log.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/debug/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/debug/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/eventlog/install.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/eventlog/install.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/eventlog/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/eventlog/log.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/example/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/example/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/mgr.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/mgr.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/recovery.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/recovery.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/security.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/security.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/syscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/syscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/syscall_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/syscall_windows.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/types_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/types_windows.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/windows.rar" beforeDir="false" afterPath="$PROJECT_DIR$/windows/windows.rar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/zsyscall_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/zsyscall_windows.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/registry/key_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/registry/key_方法.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/registry/registry_test_package.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/registry/value_方法.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/windows/registry/key_package.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/windows/registry/key_package.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,70 +61,70 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "DefaultGoTemplateProperty": "Go Application",
-    "Go 构建.go build github.com/888go/gosdk.executor": "Coverage",
-    "Go 构建.go build github.com/888go/gosdk/exec.executor": "Coverage",
-    "Go 构建.go build github.com/888go/gosdk/exec/internal.executor": "Coverage",
-    "Go 构建.go build github.com/888go/gosdk/exec/internal/poll.executor": "Coverage",
-    "Go 构建.go build github.com/888go/gosdk/registry.executor": "Coverage",
-    "Go 构建.go build github.com/888go/gosdk/strings.executor": "Coverage",
-    "Go 构建.go build github.com/888go/gosdk/tmp.executor": "Run",
-    "Go 构建.go build github.com/888go/gosdk/windows.executor": "Coverage",
-    "Go 构建.go build github.com/888go/gosdk/windows/mkwinsyscall.executor": "Coverage",
-    "Go 构建.go build strings (1).executor": "Coverage",
-    "Go 构建.go build strings (2).executor": "Coverage",
-    "Go 构建.go build strings.executor": "Coverage",
-    "Go 测试.exec_test.go.executor": "Coverage",
-    "Go 测试.exec_windows_test.go.executor": "Coverage",
-    "Go 测试.github.com/888go/gosdk/exec 中的 BenchmarkExecHostname.executor": "Run",
-    "Go 测试.github.com/888go/gosdk/exec 中的 TestCatGoodAndBadFile.executor": "Run",
-    "Go 测试.github.com/888go/gosdk/exec 中的 TestCatStdin.executor": "Run",
-    "Go 测试.github.com/888go/gosdk/exec 中的 TestCommand.executor": "Run",
-    "Go 测试.github.com/888go/gosdk/exec 中的 TestCommandRelativeName.executor": "Run",
-    "Go 测试.github.com/888go/gosdk/exec 中的 TestEcho.executor": "Run",
-    "Go 测试.github.com/888go/gosdk/exec 中的 TestEchoFileRace.executor": "Run",
-    "Go 测试.github.com/888go/gosdk/exec 中的 TestExitStatus.executor": "Run",
-    "Go 测试.github.com/888go/gosdk/exec 中的 TestIgnorePipeErrorOnSuccess.executor": "Run",
-    "Go 测试.github.com/888go/gosdk/exec 中的 TestLookPath.executor": "Run",
-    "Go 测试.github.com/888go/gosdk/exec 中的 TestNoExistExecutable.executor": "Coverage",
-    "Go 测试.github.com/888go/gosdk/exec 中的 TestNoPath.executor": "Run",
-    "Go 测试.github.com/888go/gosdk/exec 中的 TestOutputStderrCapture.executor": "Run",
-    "Go 测试.github.com/888go/gosdk/exec 中的 TestStdinClose.executor": "Debug",
-    "Go 测试.github.com/888go/gosdk/strings 中的 ExampleContainsFunc.executor": "Debug",
-    "Go 测试.github.com/888go/gosdk/strings 中的 ExampleFieldsFunc.executor": "Debug",
-    "Go 测试.go test exec.executor": "Coverage",
-    "Go 测试.go test github.com/888go/gosdk/strings (1).executor": "Coverage",
-    "Go 测试.go test github.com/888go/gosdk/strings.executor": "Run",
-    "Go 测试.go test gosdk.executor": "Coverage",
-    "Go 测试.go test os.executor": "Coverage",
-    "Go 测试.go test registry.executor": "Coverage",
-    "Go 测试.go test strings (1).executor": "Coverage",
-    "Go 测试.go test strings.executor": "Coverage",
-    "Go 测试.go test windows (1).executor": "Coverage",
-    "Go 测试.go test windows (2).executor": "Coverage",
-    "Go 测试.go test windows (3).executor": "Coverage",
-    "Go 测试.go test windows.executor": "Coverage",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/SVN/GO/code/debug",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "go"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go Application&quot;,
+    &quot;Go 构建.go build github.com/888go/gosdk.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 构建.go build github.com/888go/gosdk/exec.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 构建.go build github.com/888go/gosdk/exec/internal.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 构建.go build github.com/888go/gosdk/exec/internal/poll.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 构建.go build github.com/888go/gosdk/registry.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 构建.go build github.com/888go/gosdk/strings.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 构建.go build github.com/888go/gosdk/tmp.executor&quot;: &quot;Run&quot;,
+    &quot;Go 构建.go build github.com/888go/gosdk/windows.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 构建.go build github.com/888go/gosdk/windows/mkwinsyscall.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 构建.go build strings (1).executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 构建.go build strings (2).executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 构建.go build strings.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.exec_test.go.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.exec_windows_test.go.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 BenchmarkExecHostname.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestCatGoodAndBadFile.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestCatStdin.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestCommand.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestCommandRelativeName.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestEcho.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestEchoFileRace.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestExitStatus.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestIgnorePipeErrorOnSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestLookPath.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestNoExistExecutable.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestNoPath.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestOutputStderrCapture.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestStdinClose.executor&quot;: &quot;Debug&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/strings 中的 ExampleContainsFunc.executor&quot;: &quot;Debug&quot;,
+    &quot;Go 测试.github.com/888go/gosdk/strings 中的 ExampleFieldsFunc.executor&quot;: &quot;Debug&quot;,
+    &quot;Go 测试.go test exec.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.go test github.com/888go/gosdk/strings (1).executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.go test github.com/888go/gosdk/strings.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.go test gosdk.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.go test os.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.go test registry.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.go test strings (1).executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.go test strings.executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.go test windows (1).executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.go test windows (2).executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.go test windows (3).executor&quot;: &quot;Coverage&quot;,
+    &quot;Go 测试.go test windows.executor&quot;: &quot;Coverage&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/SVN/GO/code/debug&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;go&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Go 测试.go test windows">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gosdk" />

@@ -13,4 +13,4 @@
 #     如待替换: type authPair struct { //zz:^type *authPair
 
 [package registry]
-bm=注册表类
+bm=win注册表类
