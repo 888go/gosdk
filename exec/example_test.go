@@ -2,7 +2,8 @@
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
-package exec_test //bm:调用类_test
+//2024-04-17 备注,单元测试通不过, 保留单元测试文件为了方便查看使用方法.
+package exec_test
 
 import (
 	"context"
@@ -15,6 +16,7 @@ import (
 	"strings"
 	"time"
 )
+ 
 
 func ExampleLookPath() {
 	path, err := exec.LookPath("fortune")

@@ -44,9 +44,6 @@ type File struct {
 // 假定 Archive 数据结构是格式良好的：
 // 其中 a.Comment 及所有 a.File[i].Data 不包含文件标记行，
 // 并且所有 a.File[i].Name 非空。
-
-// ff:
-// a:
 func Format(a *Archive) []byte {
 	var buf bytes.Buffer
 	buf.Write(fixNL(a.Comment))
@@ -58,9 +55,6 @@ func Format(a *Archive) []byte {
 }
 
 // ParseFile 以档案格式解析指定名称的文件。
-
-// ff:
-// file:
 func ParseFile(file string) (*Archive, error) {
 	data, err := os.ReadFile(file)
 	if err != nil {
@@ -71,9 +65,6 @@ func ParseFile(file string) (*Archive, error) {
 
 // Parse解析Archive的序列化形式。
 // 返回的Archive持有数据切片。
-
-// ff:
-// data:
 func Parse(data []byte) *Archive {
 	a := new(Archive)
 	var name string

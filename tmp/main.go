@@ -1,13 +1,25 @@
 package main
 
 import (
-	"fmt"
-	"github.com/888go/gosdk/exec"
+	"golang.org/x/sys/windows"
 )
 
-func main() {
-	返回 := exec.Command("go.exe", "env")
-	返回2, _ := 返回.Output()
+var (
+	myLibrary  = windows.NewLazyDLL("MyLibrary.dll")
+	myFunction = myLibrary.NewProc("MyFunction")
+)
 
-	fmt.Println(string(返回2))
+import "golang.org/x/sys/windows"
+
+// DLLError describes reasons for DLL load failures.
+type DLLError struct {
+	F windows.DLLError
+}
+
+func (e *DLLError) Error() string { //md5:a0c3c5d343d274524c4b59351d5bfed2
+	return e.F.Error()
+}
+
+func (e *DLLError) Unwrap() error { //md5:499308a8661bb4bb32282dfd01bf2950
+	return e.F.Unwrap()
 }

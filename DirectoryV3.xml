@@ -16,4 +16,11 @@
     <tree path="/registry/export_test.go" title="单元测试"/>
     <tree path="/registry/registry_test.go" title="单元测试"/>
     <tree path="/registry/syscall.go" title="内部"/>
+    <tree path="/windows/registry" title="win注册表类"/>
+    <tree path="/windows/svc" title="win服务类"/>
+    <tree path="/windows" title="win类"/>
+    <tree path="/windows/testdata" title="测试数据"/>
+    <tree path="/windows/mkwinsyscall" title="dll代码转换工具" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/execabs" title="调用类"/>
 </trees>

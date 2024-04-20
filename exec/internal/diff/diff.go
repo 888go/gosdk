@@ -42,12 +42,6 @@ type pair struct{ x, y int }
 // Second, the name is frequently interpreted as meaning that you have
 // to wait longer (to be patient) for the diff, meaning that it is a slower algorithm,
 // when in fact the algorithm is faster than the standard one.
-
-// ff:
-// new:
-// newName:
-// old:
-// oldName:
 func Diff(oldName string, old []byte, newName string, new []byte) []byte {
 	if bytes.Equal(old, new) {
 		return nil

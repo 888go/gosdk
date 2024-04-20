@@ -7,8 +7,6 @@
 package testenv
 
 // OptimizationOff 判断是否禁用了优化
-
-// ff:
 func OptimizationOff() bool {
 	return false
 }

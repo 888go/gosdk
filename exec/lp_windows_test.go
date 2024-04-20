@@ -4,6 +4,7 @@
 
 // 使用外部测试以避免 os/exec -> internal/testenv -> os/exec 之间的循环依赖关系
 
+//2024-04-17 备注,单元测试通不过, 保留单元测试文件为了方便查看使用方法.
 package exec_test
 
 import (
