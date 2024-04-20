@@ -63,6 +63,9 @@ func toStringSlice(ps *uint16) []string {
 }
 
 // Config 获取服务 s 的配置参数。
+
+// ff:
+// Config:
 func (s *Service) Config() (Config, error) {
 	var p *windows.QUERY_SERVICE_CONFIG
 	n := uint32(1024)
@@ -139,6 +142,9 @@ func updateStartUp(handle windows.Handle, isDelayed bool) error {
 }
 
 // UpdateConfig 更新服务s的配置参数
+
+// ff:
+// c:
 func (s *Service) UpdateConfig(c Config) error {
 	err := windows.ChangeServiceConfig(s.Handle, c.ServiceType, c.StartType,
 		c.ErrorControl, toPtr(c.BinaryPathName), toPtr(c.LoadOrderGroup),

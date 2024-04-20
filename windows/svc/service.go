@@ -271,6 +271,10 @@ loop:
 }
 
 // Run 通过调用相应的处理函数来执行服务名。
+
+// ff:
+// handler:
+// name:
 func Run(name string, handler Handler) error {
 	initCallbacks.Do(func() {
 		ctlHandlerCallback = windows.NewCallback(ctlHandler)
@@ -288,12 +292,17 @@ func Run(name string, handler Handler) error {
 
 // StatusHandle 返回服务状态句柄。在 Handler.Execute 内部调用此函数是安全的，
 // 因为此时可以确保其已被设置。
+
+// ff:
 func StatusHandle() windows.Handle {
 	return theService.h
 }
 
 // DynamicStartReason 返回服务启动的原因。在 Handler.Execute 内部调用此函数是安全的，
 // 因为此时可以确保其已设置。
+
+// ff:
+// StartReason:
 func DynamicStartReason() (StartReason, error) {
 	var allocReason *uint32
 	err := windows.QueryServiceDynamicInformation(theService.h, windows.SERVICE_DYNAMIC_INFORMATION_LEVEL_START_REASON, unsafe.Pointer(&allocReason))

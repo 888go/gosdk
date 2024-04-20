@@ -19,9 +19,9 @@
 //		log.Fatal(err)
 //	}
 //	fmt.Printf("Windows 系统根目录为 %q\n", s)
-// 
+//
 // 译文：
-// 
+//
 // package registry 提供对 Windows 注册表的访问接口。
 //
 // 以下是一个简单的示例，展示如何打开一个注册表键并从中读取一个字符串值。
@@ -47,20 +47,35 @@ import (
 )
 
 const (
-// 注册表键的安全性和访问权限。
-// 详细信息参见 https://msdn.microsoft.com/en-us/library/windows/desktop/ms724878.aspx
-	ALL_ACCESS         = 0xf003f
-	CREATE_LINK        = 0x00020
-	CREATE_SUB_KEY     = 0x00004
-	ENUMERATE_SUB_KEYS = 0x00008
-	EXECUTE            = 0x20019
-	NOTIFY             = 0x00010
-	QUERY_VALUE        = 0x00001
-	READ               = 0x20019
-	SET_VALUE          = 0x00002
-	WOW64_32KEY        = 0x00200
-	WOW64_64KEY        = 0x00100
-	WRITE              = 0x20006
+	// ALL_ACCESS 注册表项安全性和'访问权限'。
+	// 见 https://msdn.microsoft.com/en-us/library/windows/desktop/ms724878.aspx
+	// 详细信息。
+
+	// ALL_ACCESS 合并STANDARD_RIGHTS_REQUIRED、KEY_QUERY_VALUE、KEY_SET_VALUE、KEY_CREATE_SUB_KEY、
+	//KEY_ENUMERATE_SUB_KEYS、KEY_NOTIFY和KEY_CREATE_LINK访问权限。
+	ALL_ACCESS = 0xf003f
+
+	CREATE_LINK        = 0x00020 //预留给系统使用。
+	CREATE_SUB_KEY     = 0x00004 //创建注册表项的子项是必需的。
+	ENUMERATE_SUB_KEYS = 0x00008 //枚举注册表项的子项所必需的。
+	EXECUTE            = 0x20019 //等效于KEY_READ。
+	NOTIFY             = 0x00010 //请求注册表项或注册表项子项的更改通知所必需的。
+	QUERY_VALUE        = 0x00001 //查询注册表项的值所必需的。
+	READ               = 0x20019 //合并STANDARD_RIGHTS_READ、KEY_QUERY_VALUE、KEY_ENUMERATE_SUB_KEYS和KEY_NOTIFY值。
+	SET_VALUE          = 0x00002 //创建、删除或设置注册表值所必需的。
+
+	// WOW64_32KEY 指示 64 位Windows上的应用程序应在 32 位注册表视图中运行。 此标志被 32 位Windows忽略。
+	//有关详细信息，请参阅 访问备用注册表视图。
+	//必须将此标志与此表中查询或访问注册表值的其他标志结合使用。Windows 2000：不支持此标志
+	WOW64_32KEY = 0x00200 //
+
+	// WOW64_64KEY 指示 64 位Windows上的应用程序应在 64 位注册表视图中运行。
+	//此标志被 32 位Windows忽略。 有关详细信息，请参阅 访问备用注册表视图。
+	//必须将此标志与此表中查询或访问注册表值的其他标志结合使用。
+	//Windows 2000：不支持此标志。
+	WOW64_64KEY = 0x00100
+
+	WRITE = 0x20006 //合并STANDARD_RIGHTS_WRITE、KEY_SET_VALUE和KEY_CREATE_SUB_KEY访问权限。
 )
 
 // Key 是对一个已打开的 Windows 注册表键的句柄。
@@ -69,10 +84,10 @@ const (
 type Key syscall.Handle
 
 const (
-// Windows 定义了一些始终处于打开状态的预定义根键。
-// 应用程序可以将这些键作为访问注册表的入口点。
-// 通常，这些键用于 OpenKey 中以打开新的键，
-// 但也可以在需要 Key 的任何地方使用它们。
+	// Windows 定义了一些始终处于打开状态的预定义根键。
+	// 应用程序可以将这些键作为访问注册表的入口点。
+	// 通常，这些键用于 OpenKey 中以打开新的键，
+	// 但也可以在需要 Key 的任何地方使用它们。
 	CLASSES_ROOT     = Key(syscall.HKEY_CLASSES_ROOT)
 	CURRENT_USER     = Key(syscall.HKEY_CURRENT_USER)
 	LOCAL_MACHINE    = Key(syscall.HKEY_LOCAL_MACHINE)
@@ -82,6 +97,8 @@ const (
 )
 
 // Close 关闭已打开的密钥 k。
+
+// ff:关闭
 func (k Key) Close() error {
 	return syscall.RegCloseKey(syscall.Handle(k))
 }
@@ -90,6 +107,16 @@ func (k Key) Close() error {
 // 它接受任何已打开的键，包括 CURRENT_USER 等，
 // 并返回新键和错误信息。
 // 参数 access 指定了对将要打开的键所期望的访问权限。
+//
+// 翻译备注:
+// win64系统上运行32位软件,会被自动定位到32位的注册表, 设置access参数可以指定访问.具体参考精易"注册表操作Ex"类
+// access= WOW64_64KEY | ALL_ACCESS
+
+// ff:打开表项
+// Key:
+// access:访问权限
+// path:路径
+// k:
 func OpenKey(k Key, path string, access uint32) (Key, error) {
 	p, err := syscall.UTF16PtrFromString(path)
 	if err != nil {
@@ -106,6 +133,11 @@ func OpenKey(k Key, path string, access uint32) (Key, error) {
 // OpenRemoteKey 用于在另一台计算机（pcname）上打开一个预定义的注册表键。
 // 待打开的键由参数 k 指定，但其值只能是 LOCAL_MACHINE、PERFORMANCE_DATA 或 USERS 中的一个。
 // 若 pcname 为空字符串（""），则 OpenRemoteKey 将返回本地计算机的键。
+
+// ff:打开远程表项
+// Key:
+// k:
+// pcname:计算机名
 func OpenRemoteKey(pcname string, k Key) (Key, error) {
 	var err error
 	var p *uint16
@@ -125,14 +157,17 @@ func OpenRemoteKey(pcname string, k Key) (Key, error) {
 
 // ReadSubKeyNames 返回键 k 的子键名称。
 // 参数 n 用于控制返回的名称数量，其作用方式与 os.File.Readdirnames 类似。
+
+// ff:取所有子项名称
+// n:
 func (k Key) ReadSubKeyNames(n int) ([]string, error) {
-// 必须反复调用 RegEnumKeyEx 直至完成。在此期间，此goroutine不得从其当前线程迁移。参考 https://golang.org/issue/49320 和 https://golang.org/issue/49466.
+	// 必须反复调用 RegEnumKeyEx 直至完成。在此期间，此goroutine不得从其当前线程迁移。参考 https://golang.org/issue/49320 和 https://golang.org/issue/49466.
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 
 	names := make([]string, 0)
-// 注册表键大小限制为255字节，详情参见：
-// https://msdn.microsoft.com/library/windows/desktop/ms724872.aspx
+	// 注册表键大小限制为255字节，详情参见：
+	// https://msdn.microsoft.com/library/windows/desktop/ms724872.aspx
 	buf := make([]uint16, 256) // 另外预留用于终止零字节的空间
 loopItems:
 	for i := uint32(0); ; i++ {
@@ -170,6 +205,14 @@ loopItems:
 // CreateKey 返回新键以及一个布尔标志，该标志报告
 // 该键是否已存在。
 // 参数 access 指定了要创建的键的访问权限。
+
+// ff:创建表项
+// err:错误
+// openedExisting:是否已存在
+// newk:
+// access:访问权限
+// path:路径
+// k:
 func CreateKey(k Key, path string, access uint32) (newk Key, openedExisting bool, err error) {
 	var h syscall.Handle
 	var d uint32
@@ -182,6 +225,10 @@ func CreateKey(k Key, path string, access uint32) (newk Key, openedExisting bool
 }
 
 // DeleteKey 删除键k的子键路径及其值。
+
+// ff:删除表项
+// path:路径
+// k:
 func DeleteKey(k Key, path string) error {
 	return regDeleteKey(syscall.Handle(k), syscall.StringToUTF16Ptr(path))
 }
@@ -197,11 +244,15 @@ type KeyInfo struct {
 }
 
 // ModTime 返回键的最后写入时间。
+
+// ff:取写入时间
 func (ki *KeyInfo) ModTime() time.Time {
 	return time.Unix(0, ki.lastWriteTime.Nanoseconds())
 }
 
 // Stat 获取关于已打开键 k 的信息。
+
+// ff:取对象信息
 func (k Key) Stat() (*KeyInfo, error) {
 	var ki KeyInfo
 	err := syscall.RegQueryInfoKey(syscall.Handle(k), nil, nil, nil,

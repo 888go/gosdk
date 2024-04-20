@@ -23,4 +23,11 @@
     <tree path="/windows/mkwinsyscall" title="dll代码转换工具" extension="" presentableText="" tooltipTitle="" icon=""
           textColor="" backgroundColor=""/>
     <tree path="/execabs" title="调用类"/>
+    <tree path="/windows/race.go" title="内部方法"/>
+    <tree path="/windows/mksyscall.go" title="内部文件"/>
+    <tree path="/windows/race0.go" title="内部方法"/>
+    <tree path="/windows/empty.s" title="汇编"/>
+    <tree path="/windows/dll_windows.go" title="dll调用" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/windows/str.go" title="内部方法"/>
 </trees>

@@ -20,11 +20,18 @@ type Log struct {
 }
 
 // Open 获取指定事件日志的句柄。
+
+// ff:
+// source:
 func Open(source string) (*Log, error) {
 	return OpenRemote("", source)
 }
 
 // OpenRemote 与 Open 执行相同的操作，但针对的是另一台计算机主机。
+
+// ff:
+// source:
+// host:
 func OpenRemote(host, source string) (*Log, error) {
 	if source == "" {
 		return nil, errors.New("Specify event log source")
@@ -41,6 +48,8 @@ func OpenRemote(host, source string) (*Log, error) {
 }
 
 // Close 关闭事件日志 l。
+
+// ff:
 func (l *Log) Close() error {
 	return windows.DeregisterEventSource(l.Handle)
 }
@@ -52,18 +61,30 @@ func (l *Log) report(etype uint16, eid uint32, msg string) error {
 
 // Info 将带有事件ID eid 的信息事件msg写入事件日志l的末尾。
 // 使用EventCreate.exe时，eid必须介于1和1000之间。
+
+// ff:
+// msg:
+// eid:
 func (l *Log) Info(eid uint32, msg string) error {
 	return l.report(windows.EVENTLOG_INFORMATION_TYPE, eid, msg)
 }
 
 // Warning 在事件日志 l 的末尾写入一个带有事件ID eid 的警告事件消息。
 // 当使用 EventCreate.exe 时，eid 必须介于 1 和 1000 之间。
+
+// ff:
+// msg:
+// eid:
 func (l *Log) Warning(eid uint32, msg string) error {
 	return l.report(windows.EVENTLOG_WARNING_TYPE, eid, msg)
 }
 
 // Error 函数向事件日志 l 的末尾写入一个具有事件ID eid 的错误事件消息。
 // 当使用 EventCreate.exe 时，eid 必须在 1 到 1000 之间。
+
+// ff:
+// msg:
+// eid:
 func (l *Log) Error(eid uint32, msg string) error {
 	return l.report(windows.EVENTLOG_ERROR_TYPE, eid, msg)
 }

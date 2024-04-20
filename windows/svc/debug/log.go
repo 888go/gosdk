@@ -25,11 +25,16 @@ type ConsoleLog struct {
 }
 
 // New 创建新的 ConsoleLog。
+
+// ff:
+// source:
 func New(source string) *ConsoleLog {
 	return &ConsoleLog{Name: source}
 }
 
 // Close 关闭控制台日志 l。
+
+// ff:
 func (l *ConsoleLog) Close() error {
 	return nil
 }
@@ -41,16 +46,28 @@ func (l *ConsoleLog) report(kind string, eid uint32, msg string) error {
 }
 
 // Info 将带有事件ID eid 的信息事件msg写入到控制台l。
+
+// ff:
+// msg:
+// eid:
 func (l *ConsoleLog) Info(eid uint32, msg string) error {
 	return l.report("info", eid, msg)
 }
 
 // Warning 将带有事件ID eid 的警告事件消息写入到控制台l中
+
+// ff:
+// msg:
+// eid:
 func (l *ConsoleLog) Warning(eid uint32, msg string) error {
 	return l.report("warn", eid, msg)
 }
 
 // 将带有事件ID eid 的错误事件消息写入到控制台l中
+
+// ff:
+// msg:
+// eid:
 func (l *ConsoleLog) Error(eid uint32, msg string) error {
 	return l.report("error", eid, msg)
 }

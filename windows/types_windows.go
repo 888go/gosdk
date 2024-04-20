@@ -754,10 +754,16 @@ type Timeval struct {
 	Usec int32
 }
 
+
+// ff:
 func (tv *Timeval) Nanoseconds() int64 {
 	return (int64(tv.Sec)*1e6 + int64(tv.Usec)) * 1e3
 }
 
+
+// ff:
+// tv:
+// nsec:
 func NsecToTimeval(nsec int64) (tv Timeval) {
 	tv.Sec = int32(nsec / 1e9)
 	tv.Usec = int32(nsec % 1e9 / 1e3)
@@ -785,6 +791,8 @@ type Filetime struct {
 }
 
 // Nanoseconds 函数返回 Filetime 结构体 ft 自 Epoch（公元 1970 年 1 月 1 日凌晨 0 点 0 分 0 秒，UTC 时间）以来的纳秒数。
+
+// ff:
 func (ft *Filetime) Nanoseconds() int64 {
 	// 自1601年1月1日起的100纳秒间隔
 	nsec := int64(ft.HighDateTime)<<32 + int64(ft.LowDateTime)
@@ -795,6 +803,10 @@ func (ft *Filetime) Nanoseconds() int64 {
 	return nsec
 }
 
+
+// ff:
+// ft:
+// nsec:
 func NsecToFiletime(nsec int64) (ft Filetime) {
 	// 转换为100纳秒
 	nsec /= 100
@@ -2016,6 +2028,8 @@ type SocketAddress struct {
 }
 
 // IP 返回一个 IPv4 或 IPv6 地址，如果基础 SocketAddress 两者都不是，则返回 nil。
+
+// ff:
 func (addr *SocketAddress) IP() net.IP {
 	if uintptr(addr.SockaddrLength) >= unsafe.Sizeof(RawSockaddrInet4{}) && addr.Sockaddr.Addr.Family == AF_INET {
 		return (*RawSockaddrInet4)(unsafe.Pointer(addr.Sockaddr)).Addr[:]

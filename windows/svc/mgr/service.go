@@ -21,17 +21,24 @@ type Service struct {
 }
 
 // Delete 标记服务 s 以便从服务控制管理器数据库中删除。
+
+// ff:
 func (s *Service) Delete() error {
 	return windows.DeleteService(s.Handle)
 }
 
 // Close 放弃对服务 s 的访问。
+
+// ff:
 func (s *Service) Close() error {
 	return windows.CloseServiceHandle(s.Handle)
 }
 
 // Start 启动服务 s。
 // args 将被传递给 svc.Handler.Execute。
+
+// ff:
+// args:
 func (s *Service) Start(args ...string) error {
 	var p **uint16
 	if len(args) > 0 {
@@ -46,6 +53,9 @@ func (s *Service) Start(args ...string) error {
 
 // Control 向服务 s 发送状态变更请求 c。它返回服务上报给服务控制管理器的最新状态，以及在状态变更请求未被接受时返回的错误。
 // 注意，只有当状态变更请求成功，或者因错误 ERROR_INVALID_SERVICE_CONTROL、ERROR_SERVICE_CANNOT_ACCEPT_CTRL 或 ERROR_SERVICE_NOT_ACTIVE 而失败时，才会设置返回的服务状态。
+
+// ff:
+// c:
 func (s *Service) Control(c svc.Cmd) (svc.Status, error) {
 	var t windows.SERVICE_STATUS
 	err := windows.ControlService(s.Handle, uint32(c), &t)
@@ -62,6 +72,8 @@ func (s *Service) Control(c svc.Cmd) (svc.Status, error) {
 }
 
 // Query 返回服务 s 当前的状态
+
+// ff:
 func (s *Service) Query() (svc.Status, error) {
 	var t windows.SERVICE_STATUS_PROCESS
 	var needed uint32
@@ -79,6 +91,9 @@ func (s *Service) Query() (svc.Status, error) {
 }
 
 // ListDependentServices 返回依赖于服务s且状态与给定状态匹配的服务名称。
+
+// ff:
+// status:
 func (s *Service) ListDependentServices(status svc.ActivityStatus) ([]string, error) {
 	var bytesNeeded, returnedServiceCount uint32
 	var services []windows.ENUM_SERVICE_STATUS

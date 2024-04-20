@@ -17,6 +17,9 @@ import (
 //   - 只有当反斜杠 (\) 立即跟随双引号 (") 时，才将每个反斜杠加倍；
 //   - 用反斜杠对每个双引号 (") 进行转义；
 //   - 最后，只有当 s 内包含空格或制表符时，才将 s 用双引号包裹（即将 arg 转为 "arg"）。
+
+// ff:
+// s:
 func EscapeArg(s string) string {
 	if len(s) == 0 {
 		return `""`
@@ -78,6 +81,9 @@ func EscapeArg(s string) string {
 // ComposeCommandLine 对给定的参数进行转义并拼接，适用于作为 Windows 命令行使用，
 // 用于 CreateProcess 的 CommandLine 参数、CreateService/ChangeServiceConfig 的 BinaryPathName 参数，
 // 或任何使用 CommandLineToArgv 的程序。
+
+// ff:
+// args:
 func ComposeCommandLine(args []string) string {
 	if len(args) == 0 {
 		return ""
@@ -136,6 +142,9 @@ func ComposeCommandLine(args []string) string {
 
 // DecomposeCommandLine使用CommandLineToArgv函数将其参数命令行分解为未转义的部分，这些命令行来自GetCommandLine、QUERY_SERVICE_CONFIG的BinaryPathName参数，或其他任何传递命令行的地方。
 // 若commandLine包含NUL字符，DecomposeCommandLine将返回错误。
+
+// ff:
+// commandLine:
 func DecomposeCommandLine(commandLine string) ([]string, error) {
 	if len(commandLine) == 0 {
 		return []string{}, nil
@@ -165,17 +174,31 @@ func DecomposeCommandLine(commandLine string) ([]string, error) {
 // 需要注意的是，虽然 CommandLineToArgv 的返回类型暗示了可容纳8192个、每个最多8192字符的条目，
 // 实际解析出的参数数量可能超过8192个，并且 CommandLineToArgvW 的文档并未提及单个参数字符串长度的任何限制。
 // （参见 https://go.dev/issue/63236。）
+
+// ff:
+// err:
+// argv:
+// argc:
+// cmd:
 func CommandLineToArgv(cmd *uint16, argc *int32) (argv *[8192]*[8192]uint16, err error) {
 	argp, err := commandLineToArgv(cmd, argc)
 	argv = (*[8192]*[8192]uint16)(unsafe.Pointer(argp))
 	return argv, err
 }
 
+
+// ff:
+// fd:
 func CloseOnExec(fd Handle) {
 	SetHandleInformation(Handle(fd), HANDLE_FLAG_INHERIT, 0)
 }
 
 // FullPath 获取指定文件的完整路径
+
+// ff:
+// err:
+// path:
+// name:
 func FullPath(name string) (path string, err error) {
 	p, err := UTF16PtrFromString(name)
 	if err != nil {
@@ -195,6 +218,9 @@ func FullPath(name string) (path string, err error) {
 }
 
 // NewProcThreadAttributeList 分配一个新的 ProcThreadAttributeListContainer，其包含请求的最大属性数量。
+
+// ff:
+// maxAttrCount:
 func NewProcThreadAttributeList(maxAttrCount uint32) (*ProcThreadAttributeListContainer, error) {
 	var size uintptr
 	err := initializeProcThreadAttributeList(nil, maxAttrCount, 0, &size)
@@ -218,12 +244,19 @@ func NewProcThreadAttributeList(maxAttrCount uint32) (*ProcThreadAttributeListCo
 }
 
 // Update 通过调用 UpdateProcThreadAttribute 函数来修改 ProcThreadAttributeList。
+
+// ff:
+// size:
+// value:
+// attribute:
 func (al *ProcThreadAttributeListContainer) Update(attribute uintptr, value unsafe.Pointer, size uintptr) error {
 	al.pointers = append(al.pointers, value)
 	return updateProcThreadAttribute(al.data, 0, attribute, value, size, nil, nil)
 }
 
 // Delete 释放 ProcThreadAttributeList 的资源。
+
+// ff:
 func (al *ProcThreadAttributeListContainer) Delete() {
 	deleteProcThreadAttributeList(al.data)
 	LocalFree(Handle(unsafe.Pointer(al.data)))
@@ -232,6 +265,8 @@ func (al *ProcThreadAttributeListContainer) Delete() {
 }
 
 // List 返回将传递给 StartupInfoEx 的实际 ProcThreadAttributeList。
+
+// ff:
 func (al *ProcThreadAttributeListContainer) List() *ProcThreadAttributeList {
 	return al.data
 }
