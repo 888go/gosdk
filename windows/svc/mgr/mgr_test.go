@@ -1,6 +1,6 @@
-// Copyright 2012 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 该许可证可在 LICENSE 文件中找到。
 
 //go:build windows
 
@@ -44,8 +44,7 @@ func TestOpenLanManServer(t *testing.T) {
 }
 
 func install(t *testing.T, m *mgr.Mgr, name, exepath string, c mgr.Config) {
-	// Sometimes it takes a while for the service to get
-	// removed after previous test run.
+// 有时在前一次测试运行后，服务需要一段时间才能被移除
 	for i := 0; ; i++ {
 		s, err := m.OpenService(name)
 		if err != nil {
@@ -149,7 +148,7 @@ func testSetRecoveryActions(t *testing.T, s *mgr.Service) {
 		},
 	}
 
-	// 4 recovery actions with reset period
+	// 4种恢复动作，带有复位周期
 	err := s.SetRecoveryActions(r, uint32(10000))
 	if err != nil {
 		t.Fatalf("SetRecoveryActions failed: %v", err)
@@ -171,7 +170,7 @@ func testSetRecoveryActions(t *testing.T, s *mgr.Service) {
 		t.Fatalf("SetRecoveryActions failed with unexpected error message of %q", err)
 	}
 
-	// Delete all recovery actions and reset period
+	// 删除所有恢复动作并重置周期
 	err = s.ResetRecoveryActions()
 	if err != nil {
 		t.Fatalf("ResetRecoveryActions failed: %v", err)
@@ -278,7 +277,7 @@ func remove(t *testing.T, s *mgr.Service) {
 
 func TestMyService(t *testing.T) {
 	if os.Getenv("GO_BUILDER_NAME") == "" {
-		// Don't install services on arbitrary users' machines.
+		// 不要在任意用户的机器上安装服务。
 		t.Skip("skipping test that modifies system services: GO_BUILDER_NAME not set")
 	}
 	if testing.Short() {
@@ -354,7 +353,7 @@ func TestMyService(t *testing.T) {
 	testRebootMessage(t, s, fmt.Sprintf("%s failed", name))
 	testRebootMessage(t, s, "") // delete reboot message
 	testRecoveryCommand(t, s, fmt.Sprintf("sc query %s", name))
-	testRecoveryCommand(t, s, "") // delete recovery command
+	testRecoveryCommand(t, s, "") // 删除恢复命令
 	testRecoveryActionsOnNonCrashFailures(t, s, true)
 	testRecoveryActionsOnNonCrashFailures(t, s, false)
 	testMultipleRecoverySettings(t, s, fmt.Sprintf("%s failed", name), fmt.Sprintf("sc query %s", name), true)
@@ -392,7 +391,7 @@ func TestListDependentServices(t *testing.T) {
 	}
 	defer remove(t, dependentService)
 
-	// test that both the base service and dependent service list the correct dependencies
+	// 测试基础服务和依赖服务列表是否都列出了正确的依赖项
 	dependentServices, err := baseService.ListDependentServices(svc.AnyActivity)
 	if err != nil {
 		t.Fatalf("baseService.ListDependentServices failed: %v", err)

@@ -1,10 +1,10 @@
-// Copyright 2012 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 该许可证可在 LICENSE 文件中找到。
 
 //go:build windows
 
-// Package debug provides facilities to execute svc.Handler on console.
+// Package debug 提供在控制台执行 svc.Handler 的功能。
 package debug
 
 import (
@@ -15,9 +15,8 @@ import (
 	"github.com/888go/gosdk/windows/svc"
 )
 
-// Run executes service name by calling appropriate handler function.
-// The process is running on console, unlike real service. Use Ctrl+C to
-// send "Stop" command to your service.
+// Run通过调用相应的处理函数来执行服务名。
+// 该过程在控制台运行，与实际服务不同。使用Ctrl+C向您的服务发送“停止”命令。
 func Run(name string, handler svc.Handler) error {
 	cmds := make(chan svc.ChangeRequest)
 	changes := make(chan svc.Status)

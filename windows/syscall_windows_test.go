@@ -1,6 +1,6 @@
-// Copyright 2012 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 该许可证可在 LICENSE 文件中找到。
 
 package windows_test
 
@@ -39,7 +39,7 @@ func TestWin32finddata(t *testing.T) {
 		pad [10]byte // to protect ourselves
 
 	}
-	var want byte = 2 // it is unlikely to have this character in the filename
+	var want byte = 2 // 在文件名中出现这个字符的可能性很小
 	x := X{got: want}
 
 	pathp, _ := windows.UTF16PtrFromString(path)
@@ -219,8 +219,7 @@ func TestKnownFolderPath(t *testing.T) {
 func TestRtlGetVersion(t *testing.T) {
 	version := windows.RtlGetVersion()
 	major, minor, build := windows.RtlGetNtVersionNumbers()
-	// Go is not explicitly added to the application compatibility database, so
-	// these two functions should return the same thing.
+// Go并未被明确添加至应用程序兼容性数据库中，因此这两个函数应返回相同的结果。
 	if version.MajorVersion != major || version.MinorVersion != minor || version.BuildNumber != build {
 		t.Fatalf("%d.%d.%d != %d.%d.%d", version.MajorVersion, version.MinorVersion, version.BuildNumber, major, minor, build)
 	}
@@ -407,17 +406,17 @@ func TestGetPreferredUILanguages(t *testing.T) {
 }
 
 func TestProcessWorkingSetSizeEx(t *testing.T) {
-	// Grab a handle to the current process
+	// 获取当前进程的句柄
 	hProcess := windows.CurrentProcess()
 
-	// Allocate memory to store the result of the query
+	// 分配内存以存储查询结果
 	var minimumWorkingSetSize, maximumWorkingSetSize uintptr
 
 	// Make the system-call
 	var flag uint32
 	windows.GetProcessWorkingSetSizeEx(hProcess, &minimumWorkingSetSize, &maximumWorkingSetSize, &flag)
 
-	// Set the new limits to the current ones
+	// 将新限制设置为当前限制
 	if err := windows.SetProcessWorkingSetSizeEx(hProcess, minimumWorkingSetSize, maximumWorkingSetSize, flag); err != nil {
 		t.Error(err)
 	}
@@ -612,23 +611,17 @@ func FuzzComposeCommandLine(f *testing.F) {
 		} else {
 			t.Logf("DecomposeCommandLine: %v", err)
 			if !strings.Contains(s, "\x00") {
-				// The documentation for CommandLineToArgv takes for granted that
-				// the first argument is a valid file path, and doesn't describe any
-				// specific behavior for malformed arguments. Empirically it seems to
-				// tolerate anything we throw at it, but if we discover cases where it
-				// actually returns an error we might need to relax this check.
+// CommandLineToArgv 的文档假设第一个参数为有效的文件路径，并未描述针对格式错误的参数的具体行为。经验表明，它似乎能容忍我们传给它的任何内容，但如果发现其在某些情况下确实返回错误，我们可能需要放宽此检查。
 				t.Fatal("(error unexpected)")
 			}
 
-			// Since DecomposeCommandLine can't handle this string,
-			// interpret it as the raw arguments to ComposeCommandLine.
+// 由于DecomposeCommandLine无法处理此字符串，
+// 将其解释为ComposeCommandLine的原始参数。
 			args = strings.Split(s, "\x00")
 			argsFromSplit = true
 			for i, arg := range args {
 				if !utf8.ValidString(arg) {
-					// We need to encode the arguments as UTF-16 to pass them to
-					// CommandLineToArgvW, so skip inputs that are not valid: they might
-					// have one or more runes converted to replacement characters.
+// 我们需要将参数编码为UTF-16，以便传递给CommandLineToArgvW。因此，跳过无效的输入：它们可能有一个或多个字符被转换为替换字符。
 					t.Skipf("skipping: input %d is not valid UTF-8", i)
 				}
 			}
@@ -637,9 +630,8 @@ func FuzzComposeCommandLine(f *testing.F) {
 			}
 		}
 
-		// It's ok if we compose a different command line than what was read.
-		// Just check that we are able to compose something that round-trips
-		// to the same results as the original.
+// 即使我们构造的命令行与读取的不同，也是可以接受的。
+// 我们只需确保所构造的命令行能够往返处理并得到与原始命令相同的结果。
 		commandLine := windows.ComposeCommandLine(args)
 		t.Logf("ComposeCommandLine(_) = %#q", commandLine)
 
@@ -660,26 +652,18 @@ func FuzzComposeCommandLine(f *testing.F) {
 			want := args[i]
 			if got[i] != want {
 				if i == 0 && argsFromSplit {
-					// It is possible that args[0] cannot be encoded exactly, because
-					// CommandLineToArgvW doesn't unescape that argument in the same way
-					// as the others: since the first argument is assumed to be the name
-					// of the program itself, we only have the option of quoted or not.
-					//
-					// If args[0] contains a space or control character, we must quote it
-					// to avoid it being split into multiple arguments.
-					// If args[0] already starts with a quote character, we have no way
-					// to indicate that that character is part of the literal argument.
-					// In either case, if the string already contains a quote character
-					// we must avoid misinterpriting that character as the end of the
-					// quoted argument string.
-					//
-					// Unfortunately, ComposeCommandLine does not return an error, so we
-					// can't report existing quote characters as errors.
-					// Instead, we strip out the problematic quote characters from the
-					// argument, and quote the remainder.
-					// For paths like C:\"Program Files"\Go\bin\go.exe that is arguably
-					// what the caller intended anyway, and for other strings it seems
-					// less harmful than corrupting the subsequent arguments.
+// 存在可能args[0]无法被精确编码，因为
+// CommandLineToArgvW 对该参数的解码方式与其它参数不同：
+// 由于第一个参数假定为程序自身的名称，我们仅能选择是否加引号。
+//
+// 若 args[0] 包含空格或控制字符，我们必须对其加引号以避免其被解析为多个参数。
+// 若 args[0] 已经以引号字符开头，我们无法表明该字符是该实参的一部分。
+// 在这两种情况下，若字符串中已经包含引号字符，我们必须避免将其误解释为引号包围的参数字符串的结尾。
+//
+// 不幸的是，ComposeCommandLine 函数并未返回错误，因此我们无法将已存在的引号字符作为错误报告。
+// 作为替代，我们将有问题的引号字符从参数中移除，并对剩余部分加引号。
+// 对于类似 C:\"Program Files"\Go\bin\go.exe 的路径，这或许正是调用者所期望的，
+// 而对于其他字符串，这样做相比破坏后续参数也显得危害较小。
 					if got[i] == strings.ReplaceAll(want, `"`, ``) {
 						continue
 					}
@@ -720,7 +704,7 @@ func TestWinVerifyTrust(t *testing.T) {
 		t.Errorf("unable to free verification resources: %v", closeErr)
 	}
 
-	// Now that we've verified the legitimate file verifies, let's corrupt it and see if it correctly fails.
+	// 现在我们已经验证了合法文件的确能通过验证，接下来让我们篡改该文件，看看它是否能正确地失败。
 
 	corruptedEvsignedfile := filepath.Join(t.TempDir(), "corrupted-file")
 	evsignedfileBytes, err := os.ReadFile(evsignedfile)
@@ -771,13 +755,13 @@ func TestEnumProcesses(t *testing.T) {
 		t.Fatalf("unable to enumerate processes: %v", err)
 	}
 
-	// Regression check for go.dev/issue/60223
+	// 对 go.dev/issue/60223 的回归检查
 	if outSize != 8 {
 		t.Errorf("unexpected bytes returned: %d", outSize)
 	}
-	// Most likely, this should be [0, 4].
-	// 0 is the system idle pseudo-process. 4 is the initial system process ID.
-	// This test expects that at least one of the PIDs is not 0.
+// 最有可能的情况是，这应为 [0, 4]。
+// 其中，0 表示系统空闲伪进程。4 表示初始系统进程 ID。
+// 本测试期望至少有一个 PID 不为 0。
 	if pids[0] == 0 && pids[1] == 0 {
 		t.Errorf("all PIDs are 0")
 	}
@@ -788,7 +772,7 @@ func TestProcessModules(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unable to get current process: %v", err)
 	}
-	// NB: Assume that we're always the first module. This technically isn't documented anywhere (that I could find), but seems to always hold.
+	// 注意：假定我们始终是第一个模块。虽然在任何文档（我发现的范围内）中并未明确指出这一点，但似乎总是成立的。
 	var module windows.Handle
 	var cbNeeded uint32
 	err = windows.EnumProcessModules(process, &module, uint32(unsafe.Sizeof(module)), &cbNeeded)
@@ -964,7 +948,7 @@ type fileRenameInformation struct {
 func TestNtCreateFileAndNtSetInformationFile(t *testing.T) {
 	var iosb windows.IO_STATUS_BLOCK
 	var allocSize int64 = 0
-	// Open test directory with NtCreateFile.
+	// 使用NtCreateFile打开测试目录
 	testDirPath := t.TempDir()
 	objectName, err := windows.NewNTUnicodeString("\\??\\" + testDirPath)
 	if err != nil {
@@ -982,7 +966,7 @@ func TestNtCreateFileAndNtSetInformationFile(t *testing.T) {
 		t.Fatalf("NtCreateFile(%v) failed: %v", testDirPath, err)
 	}
 	defer windows.CloseHandle(testDirHandle)
-	// Create a file in test directory with NtCreateFile.
+	// 通过NtCreateFile在测试目录中创建一个文件
 	fileName := "filename"
 	filePath := filepath.Join(testDirPath, fileName)
 	objectName, err = windows.NewNTUnicodeString(fileName)
@@ -1003,7 +987,7 @@ func TestNtCreateFileAndNtSetInformationFile(t *testing.T) {
 	if err != nil {
 		t.Fatalf("cannot stat file created with NtCreatefile: %v", err)
 	}
-	// Rename file with NtSetInformationFile.
+	// 使用NtSetInformationFile重命名文件
 	newName := "newname"
 	newPath := filepath.Join(testDirPath, newName)
 	newNameUTF16, err := windows.UTF16FromString(newName)
@@ -1132,12 +1116,12 @@ func TestProcThreadAttributeHandleList(t *testing.T) {
 	defer pipeR.Close()
 	defer pipeW.Close()
 	func() {
-		// We allocate handles in a closure to provoke a UaF in the case of attributeList.Update being buggy.
+		// 我们在一个闭包中分配句柄，以便在 attributeList.Update 函数存在漏洞的情况下触发 UaF（使用后释放）问题。
 		handles := []windows.Handle{windows.Handle(pipeW.Fd())}
 		attributeList.Update(windows.PROC_THREAD_ATTRIBUTE_HANDLE_LIST, unsafe.Pointer(&handles[0]), uintptr(len(handles))*unsafe.Sizeof(handles[0]))
 		si.Flags |= windows.STARTF_USESTDHANDLES
 		si.StdOutput = handles[0]
-		// Go 1.16's pipe handles aren't inheritable, so mark it explicitly as such here.
+		// Go 1.16 版本的管道句柄不可继承，因此在这里明确将其标记为不可继承。
 		windows.SetHandleInformation(handles[0], windows.HANDLE_FLAG_INHERIT, windows.HANDLE_FLAG_INHERIT)
 	}()
 	pi := new(windows.ProcessInformation)
@@ -1185,13 +1169,13 @@ items_loop:
 		err := windows.WSALookupServiceNext(handle, flags, &n, q)
 		switch err {
 		case windows.WSA_E_NO_MORE, windows.WSAENOMORE:
-			// no more data available - break the loop
+			// 无更多可用数据 - 终止循环
 			break items_loop
 		case windows.WSAEFAULT:
-			// buffer is too small - reallocate and try again
+			// 缓冲区太小 —— 重新分配并尝试再次
 			buf = make([]byte, n)
 		case nil:
-			// found a record - display the item and fetch next item
+			// 找到一条记录 —— 显示该条目并获取下一条
 			var addr string
 			for _, e := range q.SaBuffer.RemoteAddr.Sockaddr.Addr.Data {
 				if e != 0 {
@@ -1219,7 +1203,7 @@ func TestGetStartupInfo(t *testing.T) {
 	var si windows.StartupInfo
 	err := windows.GetStartupInfo(&si)
 	if err != nil {
-		// see https://go.dev/issue/31316
+		// 参见 https://go.dev/issue/31316
 		t.Fatalf("GetStartupInfo: got error %v, want nil", err)
 	}
 }

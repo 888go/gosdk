@@ -6,9 +6,9 @@
 <原文结束>
 
 # <翻译开始>
-// Copyright 2012 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 该许可证可在 LICENSE 文件中找到。
 # <翻译结束>
 
 
@@ -20,10 +20,8 @@
 <原文结束>
 
 # <翻译开始>
-// Package mgr can be used to manage Windows service programs.
-// It can be used to install and remove them. It can also start,
-// stop and pause them. The package can query / change current
-// service state and config parameters.
+// 包 mgr 用于管理 Windows 服务程序。
+// 可以使用它来安装和卸载服务，也可以启动、停止和暂停服务。该包可以查询/更改当前服务状态及配置参数。
 # <翻译结束>
 
 
@@ -32,7 +30,7 @@
 <原文结束>
 
 # <翻译开始>
-// Mgr is used to manage Windows service.
+// Mgr 用于管理 Windows 服务。
 # <翻译结束>
 
 
@@ -41,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// Connect establishes a connection to the service control manager.
+// Connect 建立与服务控制管理器的连接。
 # <翻译结束>
 
 
@@ -51,8 +49,8 @@
 <原文结束>
 
 # <翻译开始>
-// ConnectRemote establishes a connection to the
-// service control manager on computer named host.
+// ConnectRemote 与名为 host 的计算机上的
+// 服务控制管理器建立连接。
 # <翻译结束>
 
 
@@ -61,7 +59,7 @@
 <原文结束>
 
 # <翻译开始>
-// Disconnect closes connection to the service control manager m.
+// Disconnect 关闭与服务控制管理器 m 的连接
 # <翻译结束>
 
 
@@ -70,7 +68,7 @@
 <原文结束>
 
 # <翻译开始>
-// Whether the SCM has been locked.
+// 是否已锁定SCM
 # <翻译结束>
 
 
@@ -79,7 +77,7 @@
 <原文结束>
 
 # <翻译开始>
-// For how long the SCM has been locked.
+// SCM已被锁定的时间长度
 # <翻译结束>
 
 
@@ -88,7 +86,7 @@
 <原文结束>
 
 # <翻译开始>
-// The name of the user who has locked the SCM.
+// SCM被锁定的用户的名称
 # <翻译结束>
 
 
@@ -99,9 +97,7 @@
 <原文结束>
 
 # <翻译开始>
-// LockStatus returns whether the service control manager is locked by
-// the system, for how long, and by whom. A locked SCM indicates that
-// most service actions will block until the system unlocks the SCM.
+// LockStatus 返回服务控制管理器是否被系统锁定、锁定时长以及被谁锁定。SCM 被锁定表明大多数服务操作将阻塞，直至系统解除对 SCM 的锁定。
 # <翻译结束>
 
 
@@ -111,8 +107,7 @@
 <原文结束>
 
 # <翻译开始>
-// toStringBlock terminates strings in ss with 0, and then
-// concatenates them together. It also adds extra 0 at the end.
+// toStringBlock 将 ss 中的字符串以 0 结尾，并将它们拼接在一起。同时，它还会在末尾额外添加一个 0。
 # <翻译结束>
 
 
@@ -127,13 +122,11 @@
 <原文结束>
 
 # <翻译开始>
-// CreateService installs new service name on the system.
-// The service will be executed by running exepath binary.
-// Use config c to specify service parameters.
-// Any args will be passed as command-line arguments when
-// the service is started; these arguments are distinct from
-// the arguments passed to Service.Start or via the "Start
-// parameters" field in the service's Properties dialog box.
+// CreateService 在系统上安装新服务名。
+// 该服务通过运行 exepath 二进制文件来执行。
+// 使用配置 c 指定服务参数。
+// 当服务启动时，任何 args 将作为命令行参数传递；
+// 这些参数与通过 Service.Start 或通过服务“属性”对话框中的“启动参数”字段传递的参数不同。
 # <翻译结束>
 
 
@@ -143,8 +136,7 @@
 <原文结束>
 
 # <翻译开始>
-// OpenService retrieves access to service name, so it can
-// be interrogated and controlled.
+// OpenService 获取对服务名的服务访问权限，以便对其进行查询和控制。
 # <翻译结束>
 
 
@@ -157,10 +149,8 @@
 <原文结束>
 
 # <翻译开始>
-// ListServices enumerates services in the specified
-// service control manager database m.
-// If the caller does not have the SERVICE_QUERY_STATUS
-// access right to a service, the service is silently
-// omitted from the list of services returned.
+// ListServices 在指定的服务控制管理器数据库 m 中枚举服务。
+// 如果调用者没有对某个服务的 SERVICE_QUERY_STATUS 访问权限，
+// 则该服务将被静默地从返回的服务列表中省略。
 # <翻译结束>
 

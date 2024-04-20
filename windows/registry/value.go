@@ -1,6 +1,6 @@
-// Copyright 2015 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2015 The Go Authors。保留所有权利。
+// 本源代码的使用受 BSD 风格许可协议约束，
+// 该协议可在 LICENSE 文件中找到。
 
 //go:build windows
 
@@ -31,26 +31,22 @@ const (
 )
 
 var (
-	// ErrShortBuffer is returned when the buffer was too short for the operation.
+	// ErrShortBuffer 表示当缓冲区对于操作而言太短时返回的错误。
 	ErrShortBuffer = syscall.ERROR_MORE_DATA
 
-	// ErrNotExist is returned when a registry key or value does not exist.
+	// ErrNotExist 表示当注册表键或值不存在时返回的错误。
 	ErrNotExist = syscall.ERROR_FILE_NOT_FOUND
 
-	// ErrUnexpectedType is returned by Get*Value when the value's type was unexpected.
+	// ErrUnexpectedType 是在获取值时，若其类型与预期不符，由 Get*Value 函数返回的错误。
 	ErrUnexpectedType = errors.New("unexpected key value type")
 )
 
-// GetValue retrieves the type and data for the specified value associated
-// with an open key k. It fills up buffer buf and returns the retrieved
-// byte count n. If buf is too small to fit the stored value it returns
-// ErrShortBuffer error along with the required buffer size n.
-// If no buffer is provided, it returns true and actual buffer size n.
-// If no buffer is provided, GetValue returns the value's type only.
-// If the value does not exist, the error returned is ErrNotExist.
+// GetValue 用于从与已打开键 k 关联的指定值中获取类型和数据。它填充缓冲区 buf 并返回所检索到的字节计数 n。如果 buf 太小无法容纳存储的值，它将返回 ErrShortBuffer 错误以及所需的缓冲区大小 n。
+// 如果未提供缓冲区，它将返回 true 和实际缓冲区大小 n。
+// 如果未提供缓冲区，GetValue 仅返回值的类型。
+// 若该值不存在，返回的错误为 ErrNotExist。
 //
-// GetValue is a low level function. If value's type is known, use the appropriate
-// Get*Value function instead.
+// GetValue 是一个低级函数。若已知值的类型，请改用相应的 Get*Value 函数。
 func (k Key) GetValue(name string, buf []byte) (n int, valtype uint32, err error) {
 	pname, err := syscall.UTF16PtrFromString(name)
 	if err != nil {
@@ -90,11 +86,9 @@ func (k Key) getValue(name string, buf []byte) (data []byte, valtype uint32, err
 	}
 }
 
-// GetStringValue retrieves the string value for the specified
-// value name associated with an open key k. It also returns the value's type.
-// If value does not exist, GetStringValue returns ErrNotExist.
-// If value is not SZ or EXPAND_SZ, it will return the correct value
-// type and ErrUnexpectedType.
+// GetStringValue 用于从已打开的键 k 中获取与指定值名称关联的字符串值。同时返回该值的类型。
+// 若值不存在，GetStringValue 将返回 ErrNotExist 错误。
+// 若值并非 SZ 或 EXPAND_SZ 类型，它将返回正确的值类型以及 ErrUnexpectedType 错误。
 func (k Key) GetStringValue(name string) (val string, valtype uint32, err error) {
 	data, typ, err2 := k.getValue(name, make([]byte, 64))
 	if err2 != nil {
@@ -112,13 +106,9 @@ func (k Key) GetStringValue(name string) (val string, valtype uint32, err error)
 	return syscall.UTF16ToString(u), typ, nil
 }
 
-// GetMUIStringValue retrieves the localized string value for
-// the specified value name associated with an open key k.
-// If the value name doesn't exist or the localized string value
-// can't be resolved, GetMUIStringValue returns ErrNotExist.
-// GetMUIStringValue panics if the system doesn't support
-// regLoadMUIString; use LoadRegLoadMUIString to check if
-// regLoadMUIString is supported before calling this function.
+// GetMUIStringValue 用于获取与已打开键 k 关联的指定值名所对应的本地化字符串值。
+// 若该值名不存在，或者无法解析其本地化字符串值，则 GetMUIStringValue 返回 ErrNotExist。
+// 当系统不支持 regLoadMUIString 时，GetMUIStringValue 将引发恐慌。因此在调用此函数前，请使用 LoadRegLoadMUIString 检查系统是否支持 regLoadMUIString。
 func (k Key) GetMUIStringValue(name string) (string, error) {
 	pname, err := syscall.UTF16PtrFromString(name)
 	if err != nil {
@@ -132,12 +122,11 @@ func (k Key) GetMUIStringValue(name string) (string, error) {
 	err = regLoadMUIString(syscall.Handle(k), pname, &buf[0], uint32(len(buf)), &buflen, 0, pdir)
 	if err == syscall.ERROR_FILE_NOT_FOUND { // Try fallback path
 
-		// Try to resolve the string value using the system directory as
-		// a DLL search path; this assumes the string value is of the form
-		// @[path]\dllname,-strID but with no path given, e.g. @tzres.dll,-320.
+// 尝试使用系统目录作为 DLL 搜索路径解析字符串值。这假设字符串值的格式为
+// @[路径]\dllname,-strID，但未给出路径，例如 @tzres.dll,-320。
 
-		// This approach works with tzres.dll but may have to be revised
-		// in the future to allow callers to provide custom search paths.
+// 此方法适用于tzres.dll，但未来可能需要进行修订，
+// 以允许调用者提供自定义搜索路径。
 
 		var s string
 		s, err = ExpandString("%SystemRoot%\\system32\\")
@@ -154,7 +143,7 @@ func (k Key) GetMUIStringValue(name string) (string, error) {
 
 	for err == syscall.ERROR_MORE_DATA { // Grow buffer if needed
 		if buflen <= uint32(len(buf)) {
-			break // Buffer not growing, assume race; break
+			break // 缓冲区未增长，假设存在竞争；中断
 		}
 		buf = make([]uint16, buflen)
 		err = regLoadMUIString(syscall.Handle(k), pname, &buf[0], uint32(len(buf)), &buflen, 0, pdir)
@@ -167,9 +156,8 @@ func (k Key) GetMUIStringValue(name string) (string, error) {
 	return syscall.UTF16ToString(buf), nil
 }
 
-// ExpandString expands environment-variable strings and replaces
-// them with the values defined for the current user.
-// Use ExpandString to expand EXPAND_SZ strings.
+// ExpandString 将环境变量字符串展开，并用当前用户定义的值替换它们。
+// 使用 ExpandString 来展开 EXPAND_SZ 类型的字符串。
 func ExpandString(value string) (string, error) {
 	if value == "" {
 		return "", nil
@@ -191,11 +179,9 @@ func ExpandString(value string) (string, error) {
 	}
 }
 
-// GetStringsValue retrieves the []string value for the specified
-// value name associated with an open key k. It also returns the value's type.
-// If value does not exist, GetStringsValue returns ErrNotExist.
-// If value is not MULTI_SZ, it will return the correct value
-// type and ErrUnexpectedType.
+// GetStringsValue 用于获取与已打开键 k 关联的指定值名称所对应的 []string 值。同时返回该值的类型。
+// 若该值不存在，则 GetStringsValue 返回 ErrNotExist 错误。
+// 若该值并非 MULTI_SZ 类型，它将返回正确的值类型以及 ErrUnexpectedType 错误。
 func (k Key) GetStringsValue(name string) (val []string, valtype uint32, err error) {
 	data, typ, err2 := k.getValue(name, make([]byte, 64))
 	if err2 != nil {
@@ -212,7 +198,7 @@ func (k Key) GetStringsValue(name string) (val []string, valtype uint32, err err
 		return nil, typ, nil
 	}
 	if p[len(p)-1] == 0 {
-		p = p[:len(p)-1] // remove terminating null
+		p = p[:len(p)-1] // 移除终止空字符
 	}
 	val = make([]string, 0, 5)
 	from := 0
@@ -225,11 +211,9 @@ func (k Key) GetStringsValue(name string) (val []string, valtype uint32, err err
 	return val, typ, nil
 }
 
-// GetIntegerValue retrieves the integer value for the specified
-// value name associated with an open key k. It also returns the value's type.
-// If value does not exist, GetIntegerValue returns ErrNotExist.
-// If value is not DWORD or QWORD, it will return the correct value
-// type and ErrUnexpectedType.
+// GetIntegerValue 用于从已打开键 k 中获取与指定值名称关联的整数值。同时返回该值的类型。
+// 若该值不存在，GetIntegerValue 将返回 ErrNotExist 错误。
+// 若该值非 DWORD 或 QWORD 类型，它将返回正确的值类型及 ErrUnexpectedType 错误。
 func (k Key) GetIntegerValue(name string) (val uint64, valtype uint32, err error) {
 	data, typ, err2 := k.getValue(name, make([]byte, 8))
 	if err2 != nil {
@@ -254,11 +238,9 @@ func (k Key) GetIntegerValue(name string) (val uint64, valtype uint32, err error
 	}
 }
 
-// GetBinaryValue retrieves the binary value for the specified
-// value name associated with an open key k. It also returns the value's type.
-// If value does not exist, GetBinaryValue returns ErrNotExist.
-// If value is not BINARY, it will return the correct value
-// type and ErrUnexpectedType.
+// GetBinaryValue 用于获取与已打开键 k 关联的指定值名的二进制值。同时返回该值的类型。
+// 若该值不存在，GetBinaryValue 将返回 ErrNotExist 错误。
+// 若该值并非 BINARY 类型，它将返回正确的值类型及 ErrUnexpectedType 错误。
 func (k Key) GetBinaryValue(name string) (val []byte, valtype uint32, err error) {
 	data, typ, err2 := k.getValue(name, make([]byte, 64))
 	if err2 != nil {
@@ -281,14 +263,12 @@ func (k Key) setValue(name string, valtype uint32, data []byte) error {
 	return regSetValueEx(syscall.Handle(k), p, 0, valtype, &data[0], uint32(len(data)))
 }
 
-// SetDWordValue sets the data and type of a name value
-// under key k to value and DWORD.
+// SetDWordValue 将键 k 下的某个名称值的数据和类型设置为 value 和 DWORD。
 func (k Key) SetDWordValue(name string, value uint32) error {
 	return k.setValue(name, DWORD, (*[4]byte)(unsafe.Pointer(&value))[:])
 }
 
-// SetQWordValue sets the data and type of a name value
-// under key k to value and QWORD.
+// SetQWordValue 将键 k 下的名称值的数据和类型设置为 value 和 QWORD。
 func (k Key) SetQWordValue(name string, value uint64) error {
 	return k.setValue(name, QWORD, (*[8]byte)(unsafe.Pointer(&value))[:])
 }
@@ -302,21 +282,17 @@ func (k Key) setStringValue(name string, valtype uint32, value string) error {
 	return k.setValue(name, valtype, buf)
 }
 
-// SetStringValue sets the data and type of a name value
-// under key k to value and SZ. The value must not contain a zero byte.
+// SetStringValue 将键 k 下的名称值的数据和类型设置为 value 和 SZ。value 中不得包含零字节。
 func (k Key) SetStringValue(name, value string) error {
 	return k.setStringValue(name, SZ, value)
 }
 
-// SetExpandStringValue sets the data and type of a name value
-// under key k to value and EXPAND_SZ. The value must not contain a zero byte.
+// SetExpandStringValue 用于设置键 k 下名为 value 的数据及其类型为 EXPAND_SZ。该值中不得包含零字节。
 func (k Key) SetExpandStringValue(name, value string) error {
 	return k.setStringValue(name, EXPAND_SZ, value)
 }
 
-// SetStringsValue sets the data and type of a name value
-// under key k to value and MULTI_SZ. The value strings
-// must not contain a zero byte.
+// SetStringsValue 将键 k 下名为 name 的值的数据类型及内容设置为 value 和 MULTI_SZ。value 字符串中不得包含零字节。
 func (k Key) SetStringsValue(name string, value []string) error {
 	ss := ""
 	for _, s := range value {
@@ -332,27 +308,25 @@ func (k Key) SetStringsValue(name string, value []string) error {
 	return k.setValue(name, MULTI_SZ, buf)
 }
 
-// SetBinaryValue sets the data and type of a name value
-// under key k to value and BINARY.
+// SetBinaryValue 将键 k 下名为 value 的数据及其类型设置为 BINARY。
 func (k Key) SetBinaryValue(name string, value []byte) error {
 	return k.setValue(name, BINARY, value)
 }
 
-// DeleteValue removes a named value from the key k.
+// DeleteValue 从键 k 中删除指定名称的值。
 func (k Key) DeleteValue(name string) error {
 	return regDeleteValue(syscall.Handle(k), syscall.StringToUTF16Ptr(name))
 }
 
-// ReadValueNames returns the value names of key k.
-// The parameter n controls the number of returned names,
-// analogous to the way os.File.Readdirnames works.
+// ReadValueNames 返回键 k 的值名列表。
+// 参数 n 用于控制返回的名称数量，其作用方式类似于 os.File.Readdirnames。
 func (k Key) ReadValueNames(n int) ([]string, error) {
 	ki, err := k.Stat()
 	if err != nil {
 		return nil, err
 	}
 	names := make([]string, 0, ki.ValueCount)
-	buf := make([]uint16, ki.MaxValueNameLen+1) // extra room for terminating null character
+	buf := make([]uint16, ki.MaxValueNameLen+1) // 额外预留终止空字符的空间
 loopItems:
 	for i := uint32(0); ; i++ {
 		if n > 0 {
@@ -367,7 +341,7 @@ loopItems:
 				break
 			}
 			if err == syscall.ERROR_MORE_DATA {
-				// Double buffer size and try again.
+				// 双倍缓冲区大小并尝试再次执行
 				l = uint32(2 * len(buf))
 				buf = make([]uint16, l)
 				continue

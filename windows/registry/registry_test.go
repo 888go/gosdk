@@ -1,6 +1,6 @@
-// Copyright 2015 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2015 The Go Authors。保留所有权利。
+// 本源代码的使用受 BSD 风格许可协议约束，
+// 该协议可在 LICENSE 文件中找到。
 
 //go:build windows
 
@@ -41,7 +41,7 @@ func TestReadSubKeyNames(t *testing.T) {
 	}
 	var foundStdOle bool
 	for _, name := range names {
-		// Every PC has "stdole 2.0 OLE Automation" library installed.
+		// 每台PC都预装了“stdole 2.0 OLE 自动化”库
 		if name == "{00020430-0000-0000-C000-000000000046}" {
 			foundStdOle = true
 		}
@@ -319,7 +319,7 @@ func testGetValue(t *testing.T, k registry.Key, test ValueTest, size int) {
 	if size <= 0 {
 		return
 	}
-	// read data with no buffer
+	// 无缓冲地读取数据
 	gotsize, gottype, err := k.GetValue(test.Name, nil)
 	if err != nil {
 		t.Errorf("GetValue(%s, [%d]byte) failed: %v", test.Name, size, err)
@@ -333,7 +333,7 @@ func testGetValue(t *testing.T, k registry.Key, test ValueTest, size int) {
 		t.Errorf("want %s value type %v, got %v", test.Name, test.Type, gottype)
 		return
 	}
-	// read data with short buffer
+	// 使用短缓冲区读取数据
 	gotsize, gottype, err = k.GetValue(test.Name, make([]byte, size-1))
 	if err == nil {
 		t.Errorf("GetValue(%s, [%d]byte) should fail, but succeeded", test.Name, size-1)
@@ -365,7 +365,7 @@ func testGetValue(t *testing.T, k registry.Key, test ValueTest, size int) {
 		t.Errorf("want %s value type %v, got %v", test.Name, test.Type, gottype)
 		return
 	}
-	// check GetValue returns ErrNotExist as required
+	// 检查 GetValue 是否如要求般返回 ErrNotExist
 	_, _, err = k.GetValue(test.Name+"_not_there", make([]byte, size))
 	if err == nil {
 		t.Errorf("GetValue(%q) should not succeed", test.Name)
@@ -388,9 +388,9 @@ func testValues(t *testing.T, k registry.Key) {
 				testGetStringValue(t, k, test)
 				_, gottype, err := k.GetIntegerValue(test.Name)
 				testErrUnexpectedType(t, test, gottype, err)
-				// Size of utf16 string in bytes is not perfect,
-				// but correct for current test values.
-				// Size also includes terminating 0.
+// utf16字符串的字节大小并不完美，
+// 但对于当前测试值是正确的。
+// 大小还包括终止的0。
 				testGetValue(t, k, test, (len(test.Value.(string))+1)*2)
 			}
 			_, _, err := k.GetStringValue(test.Name + "_string_not_created")
@@ -426,7 +426,7 @@ func testValues(t *testing.T, k registry.Key) {
 					size += len(s) + 1 // nil terminated
 				}
 				size += 1 // extra nil at the end
-				size *= 2 // count bytes, not uint16
+				size *= 2 // 统计字节，而非 uint16
 				testGetValue(t, k, test, size)
 			}
 			_, _, err := k.GetStringsValue(test.Name + "_strings_not_created")

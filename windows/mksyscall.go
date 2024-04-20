@@ -1,6 +1,6 @@
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2009 Go作者。保留所有权利。
+// 本源代码的使用受BSD风格
+// 许可证约束，该许可证可在LICENSE文件中找到。
 
 //go:build generate
 

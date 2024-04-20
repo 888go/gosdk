@@ -1,6 +1,6 @@
-// Copyright 2012 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 该许可证可在 LICENSE 文件中找到。
 
 //go:build windows
 
@@ -15,34 +15,33 @@ import (
 
 const (
 	// Service start types.
-	StartManual    = windows.SERVICE_DEMAND_START // the service must be started manually
-	StartAutomatic = windows.SERVICE_AUTO_START   // the service will start by itself whenever the computer reboots
-	StartDisabled  = windows.SERVICE_DISABLED     // the service cannot be started
+	StartManual    = windows.SERVICE_DEMAND_START // 该服务必须手动启动
+	StartAutomatic = windows.SERVICE_AUTO_START   // 该服务会在计算机重启时自动启动
+	StartDisabled  = windows.SERVICE_DISABLED     // 服务无法启动
 
-	// The severity of the error, and action taken,
-	// if this service fails to start.
+// 该服务启动失败时的错误严重性及已采取的行动
 	ErrorCritical = windows.SERVICE_ERROR_CRITICAL
 	ErrorIgnore   = windows.SERVICE_ERROR_IGNORE
 	ErrorNormal   = windows.SERVICE_ERROR_NORMAL
 	ErrorSevere   = windows.SERVICE_ERROR_SEVERE
 )
 
-// TODO(brainman): Password is not returned by windows.QueryServiceConfig, not sure how to get it.
+// TODO(brainman)：windows.QueryServiceConfig并未返回密码，尚不清楚如何获取。
 
 type Config struct {
 	ServiceType      uint32
 	StartType        uint32
 	ErrorControl     uint32
-	BinaryPathName   string // fully qualified path to the service binary file, can also include arguments for an auto-start service
+	BinaryPathName   string // 完全限定的服务二进制文件路径，也可包含用于自动启动服务的参数
 	LoadOrderGroup   string
 	TagId            uint32
 	Dependencies     []string
-	ServiceStartName string // name of the account under which the service should run
+	ServiceStartName string // 服务应以哪个账户的名称运行
 	DisplayName      string
 	Password         string
 	Description      string
-	SidType          uint32 // one of SERVICE_SID_TYPE, the type of sid to use for the service
-	DelayedAutoStart bool   // the service is started after other auto-start services are started plus a short delay
+	SidType          uint32 // SERVICE_SID_TYPE中的一个，用于指定服务的sid类型
+	DelayedAutoStart bool   // 该服务在其他自动启动的服务启动后，加上短暂延迟再开始
 }
 
 func toStringSlice(ps *uint16) []string {
@@ -63,7 +62,7 @@ func toStringSlice(ps *uint16) []string {
 	return r
 }
 
-// Config retrieves service s configuration paramteres.
+// Config 获取服务 s 的配置参数。
 func (s *Service) Config() (Config, error) {
 	var p *windows.QUERY_SERVICE_CONFIG
 	n := uint32(1024)
@@ -139,7 +138,7 @@ func updateStartUp(handle windows.Handle, isDelayed bool) error {
 		windows.SERVICE_CONFIG_DELAYED_AUTO_START_INFO, (*byte)(unsafe.Pointer(&d)))
 }
 
-// UpdateConfig updates service s configuration parameters.
+// UpdateConfig 更新服务s的配置参数
 func (s *Service) UpdateConfig(c Config) error {
 	err := windows.ChangeServiceConfig(s.Handle, c.ServiceType, c.StartType,
 		c.ErrorControl, toPtr(c.BinaryPathName), toPtr(c.LoadOrderGroup),
@@ -161,7 +160,7 @@ func (s *Service) UpdateConfig(c Config) error {
 	return updateDescription(s.Handle, c.Description)
 }
 
-// queryServiceConfig2 calls Windows QueryServiceConfig2 with infoLevel parameter and returns retrieved service configuration information.
+// queryServiceConfig2 调用 Windows 的 QueryServiceConfig2 函数，并以 infoLevel 参数指定信息级别，返回所获取的服务配置信息。
 func (s *Service) queryServiceConfig2(infoLevel uint32) ([]byte, error) {
 	n := uint32(1024)
 	for {

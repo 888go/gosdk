@@ -1,6 +1,6 @@
-// Copyright 2012 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 该许可证可在 LICENSE 文件中找到。
 
 //go:build windows
 
@@ -48,18 +48,17 @@ func waitState(t *testing.T, s *mgr.Service, want svc.State) {
 	}
 }
 
-// stopAndDeleteIfInstalled stops and deletes service name,
-// if the service is running and / or installed.
+// stopAndDeleteIfInstalled 如果服务正在运行和/或已安装，则停止并删除名为name的服务
 func stopAndDeleteIfInstalled(t *testing.T, m *mgr.Mgr, name string) {
 	s, err := m.OpenService(name)
 	if err != nil {
-		// Service is not installed.
+		// 服务未安装。
 		return
 
 	}
 	defer s.Close()
 
-	// Make sure the service is not running, otherwise we won't be able to delete it.
+	// 确保服务未在运行，否则我们将无法删除它。
 	if getState(t, s) == svc.Running {
 		_, err = s.Control(svc.Stop)
 		if err != nil {
@@ -76,7 +75,7 @@ func stopAndDeleteIfInstalled(t *testing.T, m *mgr.Mgr, name string) {
 
 func TestExample(t *testing.T) {
 	if os.Getenv("GO_BUILDER_NAME") == "" {
-		// Don't install services on arbitrary users' machines.
+		// 不要在任意用户的机器上安装服务。
 		t.Skip("skipping test that modifies system services: GO_BUILDER_NAME not set")
 	}
 	if testing.Short() {
@@ -115,7 +114,7 @@ func TestExample(t *testing.T) {
 	waitState(t, s, svc.Running)
 	time.Sleep(1 * time.Second)
 
-	// testing deadlock from issues 4.
+	// 测试源于 issue 4 的死锁
 	_, err = s.Control(svc.Interrogate)
 	if err != nil {
 		t.Fatalf("Control(%s) failed: %s", s.Name, err)
@@ -142,7 +141,7 @@ func TestExample(t *testing.T) {
 		t.Fatalf("wevtutil failed: %v\n%v", err, string(out))
 	}
 	want := strings.Join(append([]string{name}, args...), "-")
-	// Test context passing (see servicemain in sys_386.s and sys_amd64.s).
+	// 测试上下文传递（参见 sys_386.s 和 sys_amd64.s 中的 servicemain）。
 	want += "-123456"
 	if !strings.Contains(string(out), want) {
 		t.Errorf("%q string does not contain %q", out, want)
@@ -173,7 +172,7 @@ func TestIsWindowsServiceWhenParentExits(t *testing.T) {
 	if os.Getenv("GO_WANT_HELPER_PROCESS") == "parent" {
 		// in parent process
 
-		// Start the child and exit quickly.
+		// 启动子进程并迅速退出
 		child := exec.Command(os.Args[0], "-test.run=^TestIsWindowsServiceWhenParentExits$")
 		child.Env = append(os.Environ(), "GO_WANT_HELPER_PROCESS=child")
 		err := child.Start()
@@ -188,8 +187,7 @@ func TestIsWindowsServiceWhenParentExits(t *testing.T) {
 		// in child process
 		dumpPath := os.Getenv("GO_WANT_HELPER_PROCESS_FILE")
 		if dumpPath == "" {
-			// We cannot report this error. But main test will notice
-			// that we did not create dump file.
+// 我们无法报告这个错误。但主测试会注意到我们没有创建转储文件。
 			os.Exit(1)
 		}
 		var msg string
@@ -202,14 +200,13 @@ func TestIsWindowsServiceWhenParentExits(t *testing.T) {
 		}
 		err = os.WriteFile(dumpPath, []byte(msg), 0644)
 		if err != nil {
-			// We cannot report this error. But main test will notice
-			// that we did not create dump file.
+// 我们无法报告这个错误。但主测试会注意到我们没有创建转储文件。
 			os.Exit(2)
 		}
 		os.Exit(0)
 	}
 
-	// Run in a loop until it fails.
+	// 以循环方式运行，直到失败为止。
 	for i := 0; i < 10; i++ {
 		childDumpPath := filepath.Join(t.TempDir(), "issvc.txt")
 

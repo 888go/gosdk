@@ -1,6 +1,6 @@
-// Copyright 2012 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 该许可证可在 LICENSE 文件中找到。
 
 //go:build windows
 
@@ -11,7 +11,7 @@ import (
 	"strconv"
 )
 
-// Log interface allows different log implementations to be used.
+// Log接口允许使用不同的日志实现。
 type Log interface {
 	Close() error
 	Info(eid uint32, msg string) error
@@ -19,17 +19,17 @@ type Log interface {
 	Error(eid uint32, msg string) error
 }
 
-// ConsoleLog provides access to the console.
+// ConsoleLog 提供对控制台的访问。
 type ConsoleLog struct {
 	Name string
 }
 
-// New creates new ConsoleLog.
+// New 创建新的 ConsoleLog。
 func New(source string) *ConsoleLog {
 	return &ConsoleLog{Name: source}
 }
 
-// Close closes console log l.
+// Close 关闭控制台日志 l。
 func (l *ConsoleLog) Close() error {
 	return nil
 }
@@ -40,17 +40,17 @@ func (l *ConsoleLog) report(kind string, eid uint32, msg string) error {
 	return err
 }
 
-// Info writes an information event msg with event id eid to the console l.
+// Info 将带有事件ID eid 的信息事件msg写入到控制台l。
 func (l *ConsoleLog) Info(eid uint32, msg string) error {
 	return l.report("info", eid, msg)
 }
 
-// Warning writes an warning event msg with event id eid to the console l.
+// Warning 将带有事件ID eid 的警告事件消息写入到控制台l中
 func (l *ConsoleLog) Warning(eid uint32, msg string) error {
 	return l.report("warn", eid, msg)
 }
 
-// Error writes an error event msg with event id eid to the console l.
+// 将带有事件ID eid 的错误事件消息写入到控制台l中
 func (l *ConsoleLog) Error(eid uint32, msg string) error {
 	return l.report("error", eid, msg)
 }

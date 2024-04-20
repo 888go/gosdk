@@ -6,9 +6,9 @@
 <原文结束>
 
 # <翻译开始>
-// Copyright 2011 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 2011 The Go 作者。保留所有权利。
+// 本源代码的使用受 BSD 风格许可协议约束，
+// 该协议可在 LICENSE 文件中找到。
 # <翻译结束>
 
 
@@ -18,8 +18,7 @@
 <原文结束>
 
 # <翻译开始>
-// NTStatus corresponds with NTSTATUS, error values returned by ntdll.dll and
-// other native functions.
+// NTStatus 与 NTSTATUS 相对应，是 ntdll.dll 及其他原生函数返回的错误值。
 # <翻译结束>
 
 
@@ -28,7 +27,7 @@
 <原文结束>
 
 # <翻译开始>
-// Invented values to support what package os expects.
+// 为满足package os所期望的特性而设计的虚构值
 # <翻译结束>
 
 
@@ -37,7 +36,7 @@
 <原文结束>
 
 # <翻译开始>
-// More invented values for signals
+// 更多用于信号的虚构值
 # <翻译结束>
 
 
@@ -46,7 +45,7 @@
 <原文结束>
 
 # <翻译开始>
-// Access rights for process.
+// 进程访问权限
 # <翻译结束>
 
 
@@ -55,7 +54,7 @@
 <原文结束>
 
 # <翻译开始>
-// Access rights for thread.
+// 线程访问权限
 # <翻译结束>
 
 
@@ -64,7 +63,7 @@
 <原文结束>
 
 # <翻译开始>
-// Windows reserves errors >= 1<<29 for application use.
+// Windows将错误值预留>= 1<<29供应用程序使用。
 # <翻译结束>
 
 
@@ -73,7 +72,7 @@
 <原文结束>
 
 # <翻译开始>
-// Process creation flags.
+// 进程创建标志
 # <翻译结束>
 
 
@@ -82,7 +81,7 @@
 <原文结束>
 
 # <翻译开始>
-// attributes for ProcThreadAttributeList
+// ProcThreadAttributeList的属性
 # <翻译结束>
 
 
@@ -91,7 +90,7 @@
 <原文结束>
 
 # <翻译开始>
-// flags for CreateToolhelp32Snapshot
+// CreateToolhelp32Snapshot函数的标志
 # <翻译结束>
 
 
@@ -100,7 +99,7 @@
 <原文结束>
 
 # <翻译开始>
-// flags for EnumProcessModulesEx
+// EnumProcessModulesEx的标志
 # <翻译结束>
 
 
@@ -109,7 +108,7 @@
 <原文结束>
 
 # <翻译开始>
-// filters for ReadDirectoryChangesW and FindFirstChangeNotificationW
+// 用于 ReadDirectoryChangesW 和 FindFirstChangeNotificationW 的过滤器
 # <翻译结束>
 
 
@@ -123,12 +122,9 @@
 <原文结束>
 
 # <翻译开始>
-// Pointer represents a pointer to an arbitrary Windows type.
-//
-// Pointer-typed fields may point to one of many different types. It's
-// up to the caller to provide a pointer to the appropriate type, cast
-// to Pointer. The caller must obey the unsafe.Pointer rules while
-// doing so.
+// Pointer 表示指向任意 Windows 类型的指针。
+// 
+// Pointer 类型字段可能指向多种不同类型的其中之一。调用者需要提供一个已转换为 Pointer 类型的、适当类型的指针。在进行此操作时，调用者必须遵循 unsafe.Pointer 的相关规则。
 # <翻译结束>
 
 
@@ -138,8 +134,7 @@
 <原文结束>
 
 # <翻译开始>
-// Nanoseconds returns Filetime ft in nanoseconds
-// since Epoch (00:00:00 UTC, January 1, 1970).
+// Nanoseconds 函数返回 Filetime 结构体 ft 自 Epoch（公元 1970 年 1 月 1 日凌晨 0 点 0 分 0 秒，UTC 时间）以来的纳秒数。
 # <翻译结束>
 
 
@@ -148,7 +143,7 @@
 <原文结束>
 
 # <翻译开始>
-// 100-nanosecond intervals since January 1, 1601
+// 自1601年1月1日起的100纳秒间隔
 # <翻译结束>
 
 
@@ -157,7 +152,7 @@
 <原文结束>
 
 # <翻译开始>
-// change starting time to the Epoch (00:00:00 UTC, January 1, 1970)
+// 将起始时间更改为纪元（UTC时间1970年1月1日00:00:00）
 # <翻译结束>
 
 
@@ -166,7 +161,7 @@
 <原文结束>
 
 # <翻译开始>
-// convert into nanoseconds
+// 转换为纳秒
 # <翻译结束>
 
 
@@ -175,7 +170,7 @@
 <原文结束>
 
 # <翻译开始>
-// convert into 100-nanosecond
+// 转换为100纳秒
 # <翻译结束>
 
 
@@ -184,7 +179,7 @@
 <原文结束>
 
 # <翻译开始>
-// change starting time to January 1, 1601
+// 将起始时间更改为1601年1月1日
 # <翻译结束>
 
 
@@ -194,8 +189,8 @@
 <原文结束>
 
 # <翻译开始>
-// This is the actual system call structure.
-// Win32finddata is what we committed to in Go 1.
+// 这是实际的系统调用结构。
+// Win32finddata 是我们在 Go 1 中承诺采用的
 # <翻译结束>
 
 
@@ -204,7 +199,7 @@
 <原文结束>
 
 # <翻译开始>
-// The src is 1 element bigger than dst, but it must be NUL.
+// src比dst大1个元素，但该元素必须为NUL
 # <翻译结束>
 
 
@@ -218,12 +213,10 @@
 <原文结束>
 
 # <翻译开始>
-// ProcThreadAttributeList is a placeholder type to represent a PROC_THREAD_ATTRIBUTE_LIST.
+// ProcThreadAttributeList 是一个占位符类型，用于表示 PROC_THREAD_ATTRIBUTE_LIST。
 //
-// To create a *ProcThreadAttributeList, use NewProcThreadAttributeList, update
-// it with ProcThreadAttributeListContainer.Update, free its memory using
-// ProcThreadAttributeListContainer.Delete, and access the list itself using
-// ProcThreadAttributeListContainer.List.
+// 要创建一个 *ProcThreadAttributeList，请使用 NewProcThreadAttributeList，通过 ProcThreadAttributeListContainer.Update 更新它，
+// 使用 ProcThreadAttributeListContainer.Delete 释放其内存，并通过 ProcThreadAttributeListContainer.List 访问列表本身。
 # <翻译结束>
 
 
@@ -232,7 +225,7 @@
 <原文结束>
 
 # <翻译开始>
-// cf. http://support.microsoft.com/default.aspx?scid=kb;en-us;257460
+// 参见: http://support.microsoft.com/default.aspx?scid=kb;en-us;257460
 # <翻译结束>
 
 
@@ -241,7 +234,7 @@
 <原文结束>
 
 # <翻译开始>
-// flags inside DNSRecord.Dw
+// DNSRecord.Dw内部的标志
 # <翻译结束>
 
 
@@ -250,7 +243,7 @@
 <原文结束>
 
 # <翻译开始>
-// flags of WSALookupService
+// WSALookupService的标志
 # <翻译结束>
 
 
@@ -259,7 +252,7 @@
 <原文结束>
 
 # <翻译开始>
-// values of WSAQUERYSET's namespace
+// WSAQUERYSET 结构体的 namespace 值
 # <翻译结束>
 
 
@@ -269,8 +262,8 @@
 <原文结束>
 
 # <翻译开始>
-// TODO(mattn): SockaddrGen is union of sockaddr/sockaddr_in/sockaddr_in6_old.
-// will be fixed to change variable type as suitable.
+// TODO(mattn): SockaddrGen 是 sockaddr、sockaddr_in 和 sockaddr_in6_old 的联合体。
+// 将修复以将变量类型更改为合适的类型。
 # <翻译结束>
 
 
@@ -279,7 +272,7 @@
 <原文结束>
 
 # <翻译开始>
-// IP returns an IPv4 or IPv6 address, or nil if the underlying SocketAddress is neither.
+// IP 返回一个 IPv4 或 IPv6 地址，如果基础 SocketAddress 两者都不是，则返回 nil。
 # <翻译结束>
 
 
@@ -289,8 +282,8 @@
 <原文结束>
 
 # <翻译开始>
-// Console related constants used for the mode parameter to SetConsoleMode. See
-// https://docs.microsoft.com/en-us/windows/console/setconsolemode for details.
+// 用于传递给 SetConsoleMode 函数作为 mode 参数的控制台相关常量。详细信息请参阅
+// https://docs.microsoft.com/zh-cn/windows/console/setconsolemode 。
 # <翻译结束>
 
 
@@ -300,8 +293,7 @@
 <原文结束>
 
 # <翻译开始>
-// Pseudo console related constants used for the flags parameter to
-// CreatePseudoConsole. See: https://learn.microsoft.com/en-us/windows/console/createpseudoconsole
+// 用于作为参数传递给CreatePseudoConsole函数的标志位所涉及的伪控制台相关常量。参考：https://learn.microsoft.com/en-us/windows/console/createpseudoconsole
 # <翻译结束>
 
 
@@ -313,10 +305,8 @@
 <原文结束>
 
 # <翻译开始>
-// Used with GetConsoleScreenBuffer to retrieve information about a console
-// screen buffer. See
+// 用于与 GetConsoleScreenBuffer 配合使用，以检索有关控制台屏幕缓冲区的信息。详情参见
 // https://docs.microsoft.com/en-us/windows/console/console-screen-buffer-info-str
-// for details.
 # <翻译结束>
 
 
@@ -325,7 +315,7 @@
 <原文结束>
 
 # <翻译开始>
-// flags for JOBOBJECT_BASIC_LIMIT_INFORMATION.LimitFlags
+// 用于 JOBOBJECT_BASIC_LIMIT_INFORMATION.LimitFlags 的标志
 # <翻译结束>
 
 
@@ -334,7 +324,7 @@
 <原文结束>
 
 # <翻译开始>
-// JobObjectInformationClass for QueryInformationJobObject and SetInformationJobObject
+// JobObjectInformationClass 用于 QueryInformationJobObject 和 SetInformationJobObject
 # <翻译结束>
 
 
@@ -343,7 +333,7 @@
 <原文结束>
 
 # <翻译开始>
-// Flags used for GetModuleHandleEx
+// 用于GetModuleHandleEx的标志
 # <翻译结束>
 
 
@@ -352,7 +342,7 @@
 <原文结束>
 
 # <翻译开始>
-// MUI function flag values
+// MUI函数标志值
 # <翻译结束>
 
 
@@ -361,7 +351,7 @@
 <原文结束>
 
 # <翻译开始>
-// FILE_INFO_BY_HANDLE_CLASS constants for SetFileInformationByHandle/GetFileInformationByHandleEx
+// FILE_INFO_BY_HANDLE_CLASS 常量，用于 SetFileInformationByHandle/GetFileInformationByHandleEx 函数
 # <翻译结束>
 
 
@@ -370,7 +360,7 @@
 <原文结束>
 
 # <翻译开始>
-// LoadLibrary flags for determining from where to search for a DLL
+// LoadLibrary标志，用于确定从何处搜索DLL
 # <翻译结束>
 
 
@@ -379,7 +369,7 @@
 <原文结束>
 
 # <翻译开始>
-// RegNotifyChangeKeyValue notifyFilter flags.
+// RegNotifyChangeKeyValue 注册表变更通知过滤标志
 # <翻译结束>
 
 
@@ -388,7 +378,7 @@
 <原文结束>
 
 # <翻译开始>
-// REG_NOTIFY_CHANGE_NAME notifies the caller if a subkey is added or deleted.
+// REG_NOTIFY_CHANGE_NAME 通知调用者如果子键被添加或删除。
 # <翻译结束>
 
 
@@ -397,7 +387,7 @@
 <原文结束>
 
 # <翻译开始>
-// REG_NOTIFY_CHANGE_ATTRIBUTES notifies the caller of changes to the attributes of the key, such as the security descriptor information.
+// REG_NOTIFY_CHANGE_ATTRIBUTES 通知调用者密钥属性的更改，例如安全描述符信息。
 # <翻译结束>
 
 
@@ -406,7 +396,7 @@
 <原文结束>
 
 # <翻译开始>
-// REG_NOTIFY_CHANGE_LAST_SET notifies the caller of changes to a value of the key. This can include adding or deleting a value, or changing an existing value.
+// REG_NOTIFY_CHANGE_LAST_SET 通知调用者键值的更改情况。这包括添加或删除某个值，以及修改已有值。
 # <翻译结束>
 
 
@@ -415,7 +405,7 @@
 <原文结束>
 
 # <翻译开始>
-// REG_NOTIFY_CHANGE_SECURITY notifies the caller of changes to the security descriptor of the key.
+// REG_NOTIFY_CHANGE_SECURITY 通知调用者密钥安全描述符发生更改的情况。
 # <翻译结束>
 
 
@@ -424,7 +414,7 @@
 <原文结束>
 
 # <翻译开始>
-// REG_NOTIFY_THREAD_AGNOSTIC indicates that the lifetime of the registration must not be tied to the lifetime of the thread issuing the RegNotifyChangeKeyValue call. Note: This flag value is only supported in Windows 8 and later.
+// REG_NOTIFY_THREAD_AGNOSTIC 表示注册的生命周期不得与发出 RegNotifyChangeKeyValue 调用的线程的生命周期相关联。注意：此标志值仅在 Windows 8 及更高版本中支持。
 # <翻译结束>
 
 
@@ -433,7 +423,7 @@
 <原文结束>
 
 # <翻译开始>
-// NTUnicodeString is a UTF-16 string for NT native APIs, corresponding to UNICODE_STRING.
+// NTUnicodeString 是用于 NT 本机 API 的 UTF-16 字符串，对应于 UNICODE_STRING。
 # <翻译结束>
 
 
@@ -442,7 +432,7 @@
 <原文结束>
 
 # <翻译开始>
-// NTString is an ANSI string for NT native APIs, corresponding to STRING.
+// NTString 是用于 NT 本机 API 的 ANSI 字符串，对应于 STRING 类型。
 # <翻译结束>
 
 
@@ -451,7 +441,7 @@
 <原文结束>
 
 # <翻译开始>
-// Values for the Attributes member of OBJECT_ATTRIBUTES.
+// OBJECT_ATTRIBUTES成员的Attributes值。
 # <翻译结束>
 
 
@@ -460,7 +450,7 @@
 <原文结束>
 
 # <翻译开始>
-// CreateDisposition flags for NtCreateFile and NtCreateNamedPipeFile.
+// CreateDisposition 标志，用于 NtCreateFile 和 NtCreateNamedPipeFile。
 # <翻译结束>
 
 
@@ -469,7 +459,7 @@
 <原文结束>
 
 # <翻译开始>
-// CreateOptions flags for NtCreateFile and NtCreateNamedPipeFile.
+// CreateOptions 标志，用于 NtCreateFile 和 NtCreateNamedPipeFile。
 # <翻译结束>
 
 
@@ -478,7 +468,7 @@
 <原文结束>
 
 # <翻译开始>
-// Parameter constants for NtCreateNamedPipeFile.
+// NtCreateNamedPipeFile函数的参数常量
 # <翻译结束>
 
 
@@ -487,7 +477,7 @@
 <原文结束>
 
 # <翻译开始>
-// FileInformationClass for NtSetInformationFile
+// 文件信息类，用于NtSetInformationFile
 # <翻译结束>
 
 
@@ -496,7 +486,7 @@
 <原文结束>
 
 # <翻译开始>
-// Flags for FILE_RENAME_INFORMATION
+// FILE_RENAME_INFORMATION 的标志
 # <翻译结束>
 
 
@@ -505,7 +495,7 @@
 <原文结束>
 
 # <翻译开始>
-// Flags for FILE_DISPOSITION_INFORMATION_EX
+// FILE_DISPOSITION_INFORMATION_EX的标志
 # <翻译结束>
 
 
@@ -514,7 +504,7 @@
 <原文结束>
 
 # <翻译开始>
-// Flags for FILE_CASE_SENSITIVE_INFORMATION
+// FILE_CASE_SENSITIVE_INFORMATION标志
 # <翻译结束>
 
 
@@ -523,7 +513,7 @@
 <原文结束>
 
 # <翻译开始>
-// Flags for FILE_LINK_INFORMATION
+// FILE_LINK_INFORMATION 的标志
 # <翻译结束>
 
 
@@ -532,7 +522,7 @@
 <原文结束>
 
 # <翻译开始>
-// ProcessInformationClasses for NtQueryInformationProcess and NtSetInformationProcess.
+// ProcessInformationClasses 用于 NtQueryInformationProcess 和 NtSetInformationProcess。
 # <翻译结束>
 
 
@@ -541,7 +531,7 @@
 <原文结束>
 
 # <翻译开始>
-// SystemInformationClasses for NtQuerySystemInformation and NtSetSystemInformation
+// SystemInformationClasses 用于 NtQuerySystemInformation 和 NtSetSystemInformation
 # <翻译结束>
 
 
@@ -550,7 +540,7 @@
 <原文结束>
 
 # <翻译开始>
-// Constants for LocalAlloc flags.
+// 本地分配标志常量
 # <翻译结束>
 
 
@@ -559,7 +549,7 @@
 <原文结束>
 
 # <翻译开始>
-// Constants for the CreateNamedPipe-family of functions.
+// 用于CreateNamedPipe系列函数的常量
 # <翻译结束>
 
 
@@ -568,7 +558,7 @@
 <原文结束>
 
 # <翻译开始>
-// Constants for security attributes when opening named pipes.
+// 常量定义了打开命名管道时的安全属性。
 # <翻译结束>
 
 
@@ -577,7 +567,7 @@
 <原文结束>
 
 # <翻译开始>
-// ResourceID represents a 16-bit resource identifier, traditionally created with the MAKEINTRESOURCE macro.
+// ResourceID 代表一个16位的资源标识符，传统上使用MAKEINTRESOURCE宏来创建。
 # <翻译结束>
 
 
@@ -587,8 +577,9 @@
 <原文结束>
 
 # <翻译开始>
-// ResourceIDOrString must be either a ResourceID, to specify a resource or resource type by ID,
-// or a string, to specify a resource or resource type by name.
+// ResourceIDOrString 必须是以下两者之一：
+// 1. ResourceID：通过ID指定资源或资源类型；
+// 2. string：通过名称指定资源或资源类型。
 # <翻译结束>
 
 
@@ -597,7 +588,7 @@
 <原文结束>
 
 # <翻译开始>
-// Predefined resource names and types.
+// 预定义的资源名称和类型
 # <翻译结束>
 
 
@@ -606,6 +597,6 @@
 <原文结束>
 
 # <翻译开始>
-// Flag for QueryFullProcessImageName.
+// QueryFullProcessImageName的标志
 # <翻译结束>
 
