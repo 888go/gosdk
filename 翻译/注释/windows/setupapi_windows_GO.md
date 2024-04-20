@@ -486,7 +486,7 @@
 <原文结束>
 
 # <翻译开始>
-// Don't run AddReg and DelReg for device's software (driver) key.
+// 不要为设备的软件（驱动）键运行 AddReg 和 DelReg。
 # <翻译结束>
 
 
@@ -495,7 +495,7 @@
 <原文结束>
 
 # <翻译开始>
-// Installation is occurring during initial system setup.
+// 正在进行初始系统设置时的安装
 # <翻译结束>
 
 
@@ -504,7 +504,7 @@
 <原文结束>
 
 # <翻译开始>
-// Driver came from Windows Update
+// 驱动程序来自Windows更新
 # <翻译结束>
 
 
@@ -513,7 +513,7 @@
 <原文结束>
 
 # <翻译开始>
-// Cause SetupDiBuildDriverInfoList to append a new driver list to an existing list.
+// 令 SetupDiBuildDriverInfoList 将一个新驱动列表追加至现有列表。
 # <翻译结束>
 
 
@@ -522,7 +522,7 @@
 <原文结束>
 
 # <翻译开始>
-// build driver list from INF(s) retrieved from URL specified in SP_DEVINSTALL_PARAMS.DriverPath (empty string means Windows Update website)
+// 从 SP_DEVINSTALL_PARAMS.DriverPath 指定的 URL（空字符串表示 Windows Update 网站）获取的 INF 文件中构建驱动程序列表
 # <翻译结束>
 
 
@@ -531,7 +531,7 @@
 <原文结束>
 
 # <翻译开始>
-// class installer added their own power page
+// 类安装程序添加了它们自己的电源页面
 # <翻译结束>
 
 
@@ -540,7 +540,7 @@
 <原文结束>
 
 # <翻译开始>
-// only include similar drivers in class list
+// 只在类别列表中包含相似的驱动程序
 # <翻译结束>
 
 
