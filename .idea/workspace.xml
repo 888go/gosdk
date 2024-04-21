@@ -5,99 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
-      <change afterPath="$PROJECT_DIR$/os/dir.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/env.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/env_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/env_unix_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/error.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/error_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/error_unix_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/error_windows_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/example_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/exec.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/exec_unix_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/exec_windows_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/executable.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/executable_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/export_linux_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/export_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/export_unix_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/export_windows_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/fifo_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/file.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/getwd.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/os_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/os_unix_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/os_windows_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/path.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/path_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/path_windows_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/pipe_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/proc.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/rawconn_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/read_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/readfrom_linux_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/removeall_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/stat.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/stat_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/sys.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/tempfile.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/tempfile_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/testdata/dirfs/a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/testdata/dirfs/b" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/testdata/dirfs/dir/x" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/testdata/hello" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/testdata/issue37161/a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/testdata/issue37161/b" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/testdata/issue37161/c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/timeout_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/types.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/os/writeto_linux_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/windows/windows.rar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/包装/os/包装配置.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/dir_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/env_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/env_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/env_unix_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/error_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/error_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/error_unix_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/error_windows_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/example_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/exec_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/exec_unix_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/exec_windows_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/executable_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/executable_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/export_linux_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/export_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/export_unix_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/export_windows_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/fifo_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/file_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/getwd_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/os_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/os_unix_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/os_windows_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/path_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/path_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/path_windows_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/pipe_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/proc_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/rawconn_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/read_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/readfrom_linux_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/removeall_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/stat_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/stat_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/sys_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/tempfile_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/tempfile_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/timeout_test_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/types_GO.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/注释/os/writeto_linux_test_GO.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DirectoryV3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DirectoryV3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/dir.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/dir.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/env_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/env_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/env_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/env_unix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/error_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/error_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/error_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/error_unix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/error_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/error_windows_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/exec_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/exec_unix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/exec_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/exec_windows_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/executable_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/executable_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/fifo_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/fifo_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/os_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/os_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/os_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/os_unix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/os_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/os_windows_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/path_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/path_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/path_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/path_windows_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/pipe_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/pipe_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/rawconn_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/rawconn_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/read_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/read_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/readfrom_linux_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/readfrom_linux_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/removeall_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/removeall_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/stat_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/stat_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/tempfile_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/tempfile_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/timeout_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/timeout_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/types.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/writeto_linux_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/writeto_linux_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -1,5 +1,15 @@
 package os
 
+// Process 存储了通过 StartProcess 创建的进程的信息。
+type Process struct { //md5:1853bd128399ed63025af6e19df5e5e9
+
+}
+
+// ProcAttr 保存了将应用于通过 StartProcess 启动的新进程的属性
+type ProcAttr struct { //md5:8961e05ca2979cd28c54469a8c4cd56e
+
+}
+
 // Getpid 返回调用者（caller）的进程ID。
 func Getpid() int { //md5:d89d2f571caee3ac85abcebdcb43f584
 
@@ -85,6 +95,11 @@ func (p *ProcessState) Sys() any { //md5:29c81811e323269d0e7953fc4fe5598b
 
 // SysUsage 返回关于退出进程的系统依赖的资源使用信息。将其转换为适当的底层类型，如 Unix 中的 *syscall.Rusage，以访问其内容。（在 Unix 上，*syscall.Rusage 与 getrusage(2) 手册页中定义的 struct rusage 相匹配。）
 func (p *ProcessState) SysUsage() any { //md5:34d570db1d021dcc42e0d59d9b97763d
+
+}
+
+// ProcessState 存储了由 Wait 方法报告的进程信息。
+type ProcessState struct { //md5:47f04d3d87bb0ee5c5f2cc6218fd1203
 
 }
 

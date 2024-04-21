@@ -731,3 +731,13 @@
 // Fd 返回引用打开文件的 Windows 处理。如果 f 关闭，文件描述符将变为无效。如果 f 被垃圾回收，清理器可能会关闭文件描述符，使其无效；有关何时运行清理器的更多信息，请参阅 runtime.SetFinalizer。在 Unix 系统上，这将导致 SetDeadline 方法停止工作。
 # <翻译结束>
 
+
+<原文开始>
+// LinkError records an error during a link or symlink or rename
+// system call and the paths that caused it.
+<原文结束>
+
+# <翻译开始>
+// LinkError 记录链接、符号链接或重命名系统调用期间发生的错误，以及导致错误的路径。
+# <翻译结束>
+

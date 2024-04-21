@@ -1,5 +1,10 @@
 package os
 
+// LinkError 记录链接、符号链接或重命名系统调用期间发生的错误，以及导致错误的路径。
+type LinkError struct { //md5:e482108b96c3226d02e9e4db482a6af0
+
+}
+
 // Name 返回传递给 Open 的文件名。
 func (f *File) Name() string { //md5:797d96c447cb1cd703eea2eba5e775ca
 

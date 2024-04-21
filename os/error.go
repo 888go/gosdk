@@ -1,5 +1,15 @@
 package os
 
+// PathError 记录了一个错误，以及导致该错误的操作和文件路径。
+type PathError = fs.PathError //md5:e10fdcf70552a8f7904823850e701b25
+
+
+
+// SyscallError 记录来自特定系统调用的错误。
+type SyscallError struct { //md5:629fa3dd95978e22325ca4574ef483c6
+
+}
+
 
 func (e *SyscallError) Error() string { //md5:12b20881dc68d5f1c98411209aca4a3a
 

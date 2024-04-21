@@ -86,3 +86,21 @@
 // 该函数早于 errors.Is 出现，错误是否表示超时的概念可能有歧义。例如，Unix 错误 EWOULDBLOCK 有时表示超时，有时则不表示。新代码应使用 errors.Is，并传入与返回错误的调用相关的适当值，如 os.ErrDeadlineExceeded。
 # <翻译结束>
 
+
+<原文开始>
+// PathError records an error and the operation and file path that caused it.
+<原文结束>
+
+# <翻译开始>
+// PathError 记录了一个错误，以及导致该错误的操作和文件路径。
+# <翻译结束>
+
+
+<原文开始>
+// SyscallError records an error from a specific system call.
+<原文结束>
+
+# <翻译开始>
+// SyscallError 记录来自特定系统调用的错误。
+# <翻译结束>
+

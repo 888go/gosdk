@@ -186,3 +186,31 @@
 // ExitCode 返回退出的进程的退出代码，如果进程尚未退出或被信号终止，则返回 -1。
 # <翻译结束>
 
+
+<原文开始>
+// Process stores the information about a process created by StartProcess.
+<原文结束>
+
+# <翻译开始>
+// Process 存储了通过 StartProcess 创建的进程的信息。
+# <翻译结束>
+
+
+<原文开始>
+// ProcAttr holds the attributes that will be applied to a new process
+// started by StartProcess.
+<原文结束>
+
+# <翻译开始>
+// ProcAttr 保存了将应用于通过 StartProcess 启动的新进程的属性
+# <翻译结束>
+
+
+<原文开始>
+// ProcessState stores information about a process, as reported by Wait.
+<原文结束>
+
+# <翻译开始>
+// ProcessState 存储了由 Wait 方法报告的进程信息。
+# <翻译结束>
+

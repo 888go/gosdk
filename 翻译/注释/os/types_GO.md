@@ -25,3 +25,37 @@
 // 在其他情况下，它会返回false。
 # <翻译结束>
 
+
+<原文开始>
+// File represents an open file descriptor.
+<原文结束>
+
+# <翻译开始>
+// File 代表一个打开的文件描述符。
+# <翻译结束>
+
+
+<原文开始>
+// A FileInfo describes a file and is returned by Stat and Lstat.
+<原文结束>
+
+# <翻译开始>
+// FileInfo 用于描述一个文件，由 Stat 和 Lstat 函数返回。
+# <翻译结束>
+
+
+<原文开始>
+// A FileMode represents a file's mode and permission bits.
+// The bits have the same definition on all systems, so that
+// information about files can be moved from one system
+// to another portably. Not all bits apply to all systems.
+// The only required bit is ModeDir for directories.
+<原文结束>
+
+# <翻译开始>
+// FileMode 表示文件的模式和权限位。
+// 这些位在所有系统上的定义相同，以便可以将文件的信息
+// 从一个系统移植到另一个系统。并非所有位都适用于所有系统。
+// 必须有的位是 ModeDir，表示目录。
+# <翻译结束>
+

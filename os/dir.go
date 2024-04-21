@@ -1,5 +1,10 @@
 package os
 
+// DirEntry 是从目录中读取的一个条目（通过使用 ReadDir 函数或 File 的 ReadDir 方法）。
+type DirEntry = fs.DirEntry //md5:34ff733f235d44c78ee530088f976138
+
+
+
 // Readdir 读取与文件关联的目录内容，并返回一个最多包含 n 个 FileInfo 值的切片，这些值如同通过 Lstat 返回的一样，按目录顺序排列。对同一文件的后续调用将返回更多的 FileInfo。
 // 
 // 若 n > 0，Readdir 最多返回 n 个 FileInfo 结构。在这种情况下，若 Readdir 返回一个空切片，它会同时返回一个非 nil 错误以解释原因。在目录末尾，错误为 io.EOF。

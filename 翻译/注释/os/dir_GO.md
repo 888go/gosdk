@@ -99,3 +99,13 @@
 // ReadDir 将返回在该错误发生前所成功读取的所有条目以及该错误。
 # <翻译结束>
 
+
+<原文开始>
+// A DirEntry is an entry read from a directory
+// (using the ReadDir function or a File's ReadDir method).
+<原文结束>
+
+# <翻译开始>
+// DirEntry 是从目录中读取的一个条目（通过使用 ReadDir 函数或 File 的 ReadDir 方法）。
+# <翻译结束>
+
