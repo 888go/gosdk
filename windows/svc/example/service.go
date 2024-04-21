@@ -1,4 +1,4 @@
-// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 版权所有 2012 The Go 作者。保留所有权利。
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
@@ -20,8 +20,6 @@ var elog debug.Log
 
 type exampleService struct{}
 
-
-// ff:
 func (m *exampleService) Execute(args []string, r <-chan svc.ChangeRequest, changes chan<- svc.Status) (ssec bool, errno uint32) {
 	const cmdsAccepted = svc.AcceptStop | svc.AcceptShutdown | svc.AcceptPauseAndContinue
 	changes <- svc.Status{State: svc.StartPending}
@@ -43,7 +41,7 @@ loop:
 				time.Sleep(100 * time.Millisecond)
 				changes <- c.CurrentStatus
 			case svc.Stop, svc.Shutdown:
-				// golang.org/x/sys/windows/svc.TestExample 正在验证此输出。
+				// golang.org/x/sys/windows/svc.TestExample 用于验证此输出。
 				testOutput := strings.Join(args, "-")
 				testOutput += fmt.Sprintf("-%d", c.Context)
 				elog.Info(1, testOutput)

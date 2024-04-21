@@ -4,6 +4,6 @@
 <原文结束>
 
 # <翻译开始>
-// 代码由'mkknownfolderids.bash'生成；请勿编辑。
+// 代码由 'mkknownfolderids.bash' 生成；请勿编辑。
 # <翻译结束>
 

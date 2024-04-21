@@ -1,4 +1,4 @@
-// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 版权所有 2012 The Go 作者。保留所有权利。
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
@@ -52,7 +52,7 @@ func waitState(t *testing.T, s *mgr.Service, want svc.State) {
 func stopAndDeleteIfInstalled(t *testing.T, m *mgr.Mgr, name string) {
 	s, err := m.OpenService(name)
 	if err != nil {
-		// 服务未安装。
+		// 服务未安装
 		return
 
 	}
@@ -75,7 +75,7 @@ func stopAndDeleteIfInstalled(t *testing.T, m *mgr.Mgr, name string) {
 
 func TestExample(t *testing.T) {
 	if os.Getenv("GO_BUILDER_NAME") == "" {
-		// 不要在任意用户的机器上安装服务。
+		// 不要在任意用户机器上安装服务
 		t.Skip("skipping test that modifies system services: GO_BUILDER_NAME not set")
 	}
 	if testing.Short() {
@@ -114,7 +114,7 @@ func TestExample(t *testing.T) {
 	waitState(t, s, svc.Running)
 	time.Sleep(1 * time.Second)
 
-	// 测试源于 issue 4 的死锁
+	// 测试来自问题4的死锁
 	_, err = s.Control(svc.Interrogate)
 	if err != nil {
 		t.Fatalf("Control(%s) failed: %s", s.Name, err)
@@ -172,7 +172,7 @@ func TestIsWindowsServiceWhenParentExits(t *testing.T) {
 	if os.Getenv("GO_WANT_HELPER_PROCESS") == "parent" {
 		// in parent process
 
-		// 启动子进程并迅速退出
+		// 启动子进程并快速退出
 		child := exec.Command(os.Args[0], "-test.run=^TestIsWindowsServiceWhenParentExits$")
 		child.Env = append(os.Environ(), "GO_WANT_HELPER_PROCESS=child")
 		err := child.Start()
@@ -206,7 +206,7 @@ func TestIsWindowsServiceWhenParentExits(t *testing.T) {
 		os.Exit(0)
 	}
 
-	// 以循环方式运行，直到失败为止。
+	// 以循环方式运行，直到出现失败为止。
 	for i := 0; i < 10; i++ {
 		childDumpPath := filepath.Join(t.TempDir(), "issvc.txt")
 

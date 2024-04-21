@@ -1,4 +1,4 @@
-// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 版权所有 2012 The Go 作者。保留所有权利。
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
@@ -44,7 +44,7 @@ func TestOpenLanManServer(t *testing.T) {
 }
 
 func install(t *testing.T, m *mgr.Mgr, name, exepath string, c mgr.Config) {
-// 有时在前一次测试运行后，服务需要一段时间才能被移除
+// 有时在上一次测试运行后，服务需要一段时间才能被移除
 	for i := 0; ; i++ {
 		s, err := m.OpenService(name)
 		if err != nil {
@@ -148,7 +148,7 @@ func testSetRecoveryActions(t *testing.T, s *mgr.Service) {
 		},
 	}
 
-	// 4种恢复动作，带有复位周期
+	// 4种恢复动作，带有重置周期
 	err := s.SetRecoveryActions(r, uint32(10000))
 	if err != nil {
 		t.Fatalf("SetRecoveryActions failed: %v", err)
@@ -277,7 +277,7 @@ func remove(t *testing.T, s *mgr.Service) {
 
 func TestMyService(t *testing.T) {
 	if os.Getenv("GO_BUILDER_NAME") == "" {
-		// 不要在任意用户的机器上安装服务。
+		// 不要在任意用户机器上安装服务
 		t.Skip("skipping test that modifies system services: GO_BUILDER_NAME not set")
 	}
 	if testing.Short() {
@@ -391,7 +391,7 @@ func TestListDependentServices(t *testing.T) {
 	}
 	defer remove(t, dependentService)
 
-	// 测试基础服务和依赖服务列表是否都列出了正确的依赖项
+	// 测试基础服务和依赖服务列表是否都正确列出了依赖项
 	dependentServices, err := baseService.ListDependentServices(svc.AnyActivity)
 	if err != nil {
 		t.Fatalf("baseService.ListDependentServices failed: %v", err)

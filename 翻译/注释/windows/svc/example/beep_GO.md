@@ -6,7 +6,7 @@
 <原文结束>
 
 # <翻译开始>
-// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 版权所有 2012 The Go 作者。保留所有权利。
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 # <翻译结束>
@@ -18,7 +18,7 @@
 <原文结束>
 
 # <翻译开始>
-// BUG(brainman): 在Windows 7系统上，MessageBeep Windows API 存在问题，
-// 因此该示例在Windows 7上以服务方式运行时无法发出蜂鸣声。
+// BUG(brainman)：MessageBeep Windows API 在 Windows 7 上存在故障，
+// 导致此示例在以服务形式运行于 Windows 7 时无法发出蜂鸣声。
 # <翻译结束>
 

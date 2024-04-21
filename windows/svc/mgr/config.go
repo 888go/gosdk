@@ -1,4 +1,4 @@
-// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 版权所有 2012 The Go 作者。保留所有权利。
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
@@ -16,7 +16,7 @@ import (
 const (
 	// Service start types.
 	StartManual    = windows.SERVICE_DEMAND_START // 该服务必须手动启动
-	StartAutomatic = windows.SERVICE_AUTO_START   // 该服务会在计算机重启时自动启动
+	StartAutomatic = windows.SERVICE_AUTO_START   // 该服务会在计算机重启时自行启动
 	StartDisabled  = windows.SERVICE_DISABLED     // 服务无法启动
 
 // 该服务启动失败时的错误严重性及已采取的行动
@@ -32,16 +32,16 @@ type Config struct {
 	ServiceType      uint32
 	StartType        uint32
 	ErrorControl     uint32
-	BinaryPathName   string // 完全限定的服务二进制文件路径，也可包含用于自动启动服务的参数
+	BinaryPathName   string // 完全限定的服务二进制文件路径，也可以包含用于自动启动服务的参数
 	LoadOrderGroup   string
 	TagId            uint32
 	Dependencies     []string
-	ServiceStartName string // 服务应以哪个账户的名称运行
+	ServiceStartName string // 服务应以哪个账户的名义运行
 	DisplayName      string
 	Password         string
 	Description      string
-	SidType          uint32 // SERVICE_SID_TYPE中的一个，用于指定服务的sid类型
-	DelayedAutoStart bool   // 该服务在其他自动启动的服务启动后，加上短暂延迟再开始
+	SidType          uint32 // SERVICE_SID_TYPE中的一个，用于服务的sid类型
+	DelayedAutoStart bool   // 该服务在其他自动启动的服务启动后，加上短暂延迟即开始
 }
 
 func toStringSlice(ps *uint16) []string {
@@ -63,9 +63,6 @@ func toStringSlice(ps *uint16) []string {
 }
 
 // Config 获取服务 s 的配置参数。
-
-// ff:
-// Config:
 func (s *Service) Config() (Config, error) {
 	var p *windows.QUERY_SERVICE_CONFIG
 	n := uint32(1024)
@@ -141,10 +138,7 @@ func updateStartUp(handle windows.Handle, isDelayed bool) error {
 		windows.SERVICE_CONFIG_DELAYED_AUTO_START_INFO, (*byte)(unsafe.Pointer(&d)))
 }
 
-// UpdateConfig 更新服务s的配置参数
-
-// ff:
-// c:
+// UpdateConfig 更新服务s的配置参数。
 func (s *Service) UpdateConfig(c Config) error {
 	err := windows.ChangeServiceConfig(s.Handle, c.ServiceType, c.StartType,
 		c.ErrorControl, toPtr(c.BinaryPathName), toPtr(c.LoadOrderGroup),
@@ -166,7 +160,7 @@ func (s *Service) UpdateConfig(c Config) error {
 	return updateDescription(s.Handle, c.Description)
 }
 
-// queryServiceConfig2 调用 Windows 的 QueryServiceConfig2 函数，并以 infoLevel 参数指定信息级别，返回所获取的服务配置信息。
+// queryServiceConfig2 调用 Windows QueryServiceConfig2 函数，其中包含 infoLevel 参数，并返回所获取的服务配置信息。
 func (s *Service) queryServiceConfig2(infoLevel uint32) ([]byte, error) {
 	n := uint32(1024)
 	for {

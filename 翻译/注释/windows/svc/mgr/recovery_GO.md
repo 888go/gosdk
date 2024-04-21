@@ -6,9 +6,9 @@
 <原文结束>
 
 # <翻译开始>
-// 版权所有 ? 2018 The Go 作者。保留所有权利。
-// 本源代码的使用受 BSD 风格许可协议约束，
-// 该协议可在 LICENSE 文件中找到。
+// 版权所有 2018 The Go Authors。保留所有权利。
+// 使用本源代码须遵循 BSD 风格许可证，
+// 该许可证可在 LICENSE 文件中找到。
 # <翻译结束>
 
 
@@ -27,7 +27,7 @@
 <原文结束>
 
 # <翻译开始>
-// RecoveryAction 表示当服务失败时，服务控制管理器可以执行的操作。
+// RecoveryAction 表示服务控制管理器在服务失败时可执行的操作。
 // 当服务在未向服务控制器报告 SERVICE_STOPPED 状态的情况下终止时，视为该服务已失败。
 # <翻译结束>
 
@@ -37,7 +37,7 @@
 <原文结束>
 
 # <翻译开始>
-// 可为 NoAction、ComputerReboot、ServiceRestart 或 RunCommand 其中之一
+// 可为 NoAction、ComputerReboot、ServiceRestart 或 RunCommand 中的一种
 # <翻译结束>
 
 

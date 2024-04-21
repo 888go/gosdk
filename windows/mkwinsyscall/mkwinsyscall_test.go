@@ -1,6 +1,6 @@
 // 版权所有 2023 The Go Authors。保留所有权利。
-// 本源代码的使用受 BSD 风格许可协议约束，
-// 该协议可在 LICENSE 文件中找到。
+// 使用本源代码须遵循 BSD 风格的许可证，
+// 该许可证可在 LICENSE 文件中找到。
 
 package main
 
@@ -32,7 +32,7 @@ func TestDLLFilenameEscaping(t *testing.T) {
 				t.Fatal(err)
 			}
 
-// 确保解析、生成和格式化操作能够无误运行。
+// 确保解析、生成和格式化操作能无误运行。
 // 这足以说明转义功能正常工作。
 			src, err := ParseFiles([]string{name})
 			if err != nil {
@@ -91,7 +91,7 @@ func TestSyscallXGeneration(t *testing.T) {
 				t.Fatal(err)
 			}
 
-// 确保解析、生成和格式化操作能够无误运行。
+// 确保解析、生成和格式化操作能无误运行。
 // 这足以说明转义功能正常工作。
 			src, err := ParseFiles([]string{name})
 			if err != nil {

@@ -6,9 +6,9 @@
 <原文结束>
 
 # <翻译开始>
-// 版权所有 ? 2015 The Go Authors。保留所有权利。
-// 本源代码的使用受 BSD 风格许可协议约束，
-// 该协议可在 LICENSE 文件中找到。
+// 版权所有 ? 2015 The Go 作者。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 该许可证可在 LICENSE 文件中找到。
 # <翻译结束>
 
 
@@ -17,7 +17,7 @@
 <原文结束>
 
 # <翻译开始>
-// ErrShortBuffer 表示当缓冲区对于操作而言太短时返回的错误。
+// ErrShortBuffer 表示当缓冲区对于操作而言过短时返回的错误。
 # <翻译结束>
 
 
@@ -35,7 +35,7 @@
 <原文结束>
 
 # <翻译开始>
-// ErrUnexpectedType 是在获取值时，若其类型与预期不符，由 Get*Value 函数返回的错误。
+// ErrUnexpectedType 会在获取值时遇到类型不符预期的情况时返回。
 # <翻译结束>
 
 
@@ -53,12 +53,14 @@
 <原文结束>
 
 # <翻译开始>
-// GetValue 用于从与已打开键 k 关联的指定值中获取类型和数据。它填充缓冲区 buf 并返回所检索到的字节计数 n。如果 buf 太小无法容纳存储的值，它将返回 ErrShortBuffer 错误以及所需的缓冲区大小 n。
-// 如果未提供缓冲区，它将返回 true 和实际缓冲区大小 n。
+// GetValue 用于从与已打开键 k 关联的指定值中检索类型和数据。
+// 它将数据填充到缓冲区 buf 中，并返回获取的字节数 n。
+// 如果 buf 太小无法容纳存储的值，它将返回 ErrShortBuffer 错误以及所需的缓冲区大小 n。
+// 如果未提供缓冲区，它将返回 true 以及实际缓冲区大小 n。
 // 如果未提供缓冲区，GetValue 仅返回值的类型。
 // 若该值不存在，返回的错误为 ErrNotExist。
 //
-// GetValue 是一个低级函数。若已知值的类型，请改用相应的 Get*Value 函数。
+// GetValue 是一个低级函数。若已知值的类型，请使用相应的 Get*Value 函数代替。
 # <翻译结束>
 
 
@@ -71,9 +73,9 @@
 <原文结束>
 
 # <翻译开始>
-// GetStringValue 用于从已打开的键 k 中获取与指定值名称关联的字符串值。同时返回该值的类型。
-// 若值不存在，GetStringValue 将返回 ErrNotExist 错误。
-// 若值并非 SZ 或 EXPAND_SZ 类型，它将返回正确的值类型以及 ErrUnexpectedType 错误。
+// GetStringValue 用于获取与已打开键 k 关联的指定值名的字符串值。同时返回该值的类型。
+// 若该值不存在，GetStringValue 将返回 ErrNotExist 错误。
+// 若该值非 SZ 或 EXPAND_SZ 类型，它将返回正确的值类型以及 ErrUnexpectedType 错误。
 # <翻译结束>
 
 
@@ -89,8 +91,8 @@
 
 # <翻译开始>
 // GetMUIStringValue 用于获取与已打开键 k 关联的指定值名所对应的本地化字符串值。
-// 若该值名不存在，或者无法解析其本地化字符串值，则 GetMUIStringValue 返回 ErrNotExist。
-// 当系统不支持 regLoadMUIString 时，GetMUIStringValue 将引发恐慌。因此在调用此函数前，请使用 LoadRegLoadMUIString 检查系统是否支持 regLoadMUIString。
+// 若该值名不存在，或无法解析其本地化字符串值，则 GetMUIStringValue 返回 ErrNotExist。
+// 若系统不支持 regLoadMUIString，GetMUIStringValue 将引发恐慌。因此在调用此函数前，请使用 LoadRegLoadMUIString 检查系统是否支持 regLoadMUIString。
 # <翻译结束>
 
 
@@ -101,8 +103,9 @@
 <原文结束>
 
 # <翻译开始>
-// 尝试使用系统目录作为 DLL 搜索路径解析字符串值。这假设字符串值的格式为
-// @[路径]\dllname,-strID，但未给出路径，例如 @tzres.dll,-320。
+// 尝试使用系统目录作为 DLL 搜索路径解析字符串值；
+// 这种方式假设字符串值形如 @[路径]\dllname,-strID，但未给出具体路径，
+// 例如：@tzres.dll,-320
 # <翻译结束>
 
 
@@ -113,7 +116,7 @@
 
 # <翻译开始>
 // 此方法适用于tzres.dll，但未来可能需要进行修订，
-// 以允许调用者提供自定义搜索路径。
+// 以便调用者能够提供自定义搜索路径。
 # <翻译结束>
 
 
@@ -133,8 +136,8 @@
 <原文结束>
 
 # <翻译开始>
-// ExpandString 将环境变量字符串展开，并用当前用户定义的值替换它们。
-// 使用 ExpandString 来展开 EXPAND_SZ 类型的字符串。
+// ExpandString 将环境变量字符串展开，并用当前用户所定义的值进行替换。
+// 对于 EXPAND_SZ 类型的字符串，应使用 ExpandString 进行展开。
 # <翻译结束>
 
 
@@ -147,9 +150,9 @@
 <原文结束>
 
 # <翻译开始>
-// GetStringsValue 用于获取与已打开键 k 关联的指定值名称所对应的 []string 值。同时返回该值的类型。
-// 若该值不存在，则 GetStringsValue 返回 ErrNotExist 错误。
-// 若该值并非 MULTI_SZ 类型，它将返回正确的值类型以及 ErrUnexpectedType 错误。
+// GetStringsValue 用于从与已打开键 k 关联的指定值名中检索 []string 值。同时返回该值的类型。
+// 若值不存在，GetStringsValue 返回 ErrNotExist 错误。
+// 若值并非 MULTI_SZ 类型，它将返回正确的值类型及 ErrUnexpectedType 错误。
 # <翻译结束>
 
 
@@ -171,9 +174,9 @@
 <原文结束>
 
 # <翻译开始>
-// GetIntegerValue 用于从已打开键 k 中获取与指定值名称关联的整数值。同时返回该值的类型。
+// GetIntegerValue 用于获取与已打开键 k 关联的指定值名的整数值。同时返回该值的类型。
 // 若该值不存在，GetIntegerValue 将返回 ErrNotExist 错误。
-// 若该值非 DWORD 或 QWORD 类型，它将返回正确的值类型及 ErrUnexpectedType 错误。
+// 若该值不是 DWORD 或 QWORD 类型，它将返回正确的值类型以及 ErrUnexpectedType 错误。
 # <翻译结束>
 
 
@@ -186,9 +189,9 @@
 <原文结束>
 
 # <翻译开始>
-// GetBinaryValue 用于获取与已打开键 k 关联的指定值名的二进制值。同时返回该值的类型。
+// GetBinaryValue 用于获取与已打开键 k 关联的指定值名称的二进制值。同时返回该值的类型。
 // 若该值不存在，GetBinaryValue 将返回 ErrNotExist 错误。
-// 若该值并非 BINARY 类型，它将返回正确的值类型及 ErrUnexpectedType 错误。
+// 若该值并非 BINARY 类型，它将返回正确的值类型以及 ErrUnexpectedType 错误。
 # <翻译结束>
 
 
@@ -208,7 +211,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetQWordValue 将键 k 下的名称值的数据和类型设置为 value 和 QWORD。
+// SetQWordValue 将键 k 下名为 value 的数据及其类型设置为 QWORD。
 # <翻译结束>
 
 
@@ -218,7 +221,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetStringValue 将键 k 下的名称值的数据和类型设置为 value 和 SZ。value 中不得包含零字节。
+// SetStringValue 将键 k 下的 name 值的数据和类型设置为 value 和 SZ。该值中不得包含零字节。
 # <翻译结束>
 
 
@@ -228,7 +231,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetExpandStringValue 用于设置键 k 下名为 value 的数据及其类型为 EXPAND_SZ。该值中不得包含零字节。
+// SetExpandStringValue 用于设置键 k 下名称值的数据和类型为 value 和 EXPAND_SZ。value 中不得包含零字节。
 # <翻译结束>
 
 
@@ -239,7 +242,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetStringsValue 将键 k 下名为 name 的值的数据类型及内容设置为 value 和 MULTI_SZ。value 字符串中不得包含零字节。
+// SetStringsValue 将键 k 下名为 value 的值的数据类型及内容设置为 MULTI_SZ。其中，value 字符串中不得包含零字节。
 # <翻译结束>
 
 
@@ -249,7 +252,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetBinaryValue 将键 k 下名为 value 的数据及其类型设置为 BINARY。
+// SetBinaryValue 将键 k 下名为 name 的值的数据和类型设置为 value 和 BINARY。
 # <翻译结束>
 
 
@@ -258,7 +261,7 @@
 <原文结束>
 
 # <翻译开始>
-// DeleteValue 从键 k 中删除指定名称的值。
+// DeleteValue 从键 k 中移除一个命名值。
 # <翻译结束>
 
 
@@ -269,8 +272,8 @@
 <原文结束>
 
 # <翻译开始>
-// ReadValueNames 返回键 k 的值名列表。
-// 参数 n 用于控制返回的名称数量，其作用方式类似于 os.File.Readdirnames。
+// ReadValueNames 返回键 k 的值名称。
+// 参数 n 用于控制返回的名称数量，其作用方式与 os.File.Readdirnames 类似。
 # <翻译结束>
 
 
@@ -288,6 +291,6 @@
 <原文结束>
 
 # <翻译开始>
-// 双倍缓冲区大小并尝试再次执行
+// 双倍缓冲区大小并重新尝试
 # <翻译结束>
 

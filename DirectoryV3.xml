@@ -30,4 +30,6 @@
     <tree path="/windows/dll_windows.go" title="dll调用" extension="" presentableText="" tooltipTitle="" icon=""
           textColor="" backgroundColor=""/>
     <tree path="/windows/str.go" title="内部方法"/>
+    <tree path="/windows/env_windows.go" title="环境变量"/>
+    <tree path="/windows/env_windows_test.go" title="单元测试"/>
 </trees>

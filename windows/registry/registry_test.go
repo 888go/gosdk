@@ -1,6 +1,6 @@
-// 版权所有 ? 2015 The Go Authors。保留所有权利。
-// 本源代码的使用受 BSD 风格许可协议约束，
-// 该协议可在 LICENSE 文件中找到。
+// 版权所有 ? 2015 The Go 作者。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 该许可证可在 LICENSE 文件中找到。
 
 //go:build windows
 
@@ -41,7 +41,7 @@ func TestReadSubKeyNames(t *testing.T) {
 	}
 	var foundStdOle bool
 	for _, name := range names {
-		// 每台PC都预装了“stdole 2.0 OLE 自动化”库
+		// 每台PC上都安装有“stdole 2.0 OLE 自动化”库
 		if name == "{00020430-0000-0000-C000-000000000046}" {
 			foundStdOle = true
 		}
@@ -333,7 +333,7 @@ func testGetValue(t *testing.T, k registry.Key, test ValueTest, size int) {
 		t.Errorf("want %s value type %v, got %v", test.Name, test.Type, gottype)
 		return
 	}
-	// 使用短缓冲区读取数据
+	// 用短缓冲区读取数据
 	gotsize, gottype, err = k.GetValue(test.Name, make([]byte, size-1))
 	if err == nil {
 		t.Errorf("GetValue(%s, [%d]byte) should fail, but succeeded", test.Name, size-1)
@@ -365,7 +365,7 @@ func testGetValue(t *testing.T, k registry.Key, test ValueTest, size int) {
 		t.Errorf("want %s value type %v, got %v", test.Name, test.Type, gottype)
 		return
 	}
-	// 检查 GetValue 是否如要求般返回 ErrNotExist
+	// 检查 GetValue 是否按要求返回 ErrNotExist
 	_, _, err = k.GetValue(test.Name+"_not_there", make([]byte, size))
 	if err == nil {
 		t.Errorf("GetValue(%q) should not succeed", test.Name)

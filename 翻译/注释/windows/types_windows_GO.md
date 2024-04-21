@@ -6,7 +6,7 @@
 <原文结束>
 
 # <翻译开始>
-// 版权所有 2011 The Go 作者。保留所有权利。
+// 版权所有 2011 Go 作者。保留所有权利。
 // 本源代码的使用受 BSD 风格许可协议约束，
 // 该协议可在 LICENSE 文件中找到。
 # <翻译结束>
@@ -27,7 +27,7 @@
 <原文结束>
 
 # <翻译开始>
-// 为满足package os所期望的特性而设计的虚构值
+// 为满足package os所期望的内容而设定的虚构值
 # <翻译结束>
 
 
@@ -63,7 +63,7 @@
 <原文结束>
 
 # <翻译开始>
-// Windows将错误值预留>= 1<<29供应用程序使用。
+// Windows将错误值预留为>= 1<<29，供应用程序使用。
 # <翻译结束>
 
 
@@ -122,9 +122,10 @@
 <原文结束>
 
 # <翻译开始>
-// Pointer 表示指向任意 Windows 类型的指针。
+// Pointer 代表指向任意 Windows 类型的指针。
 // 
-// Pointer 类型字段可能指向多种不同类型的其中之一。调用者需要提供一个已转换为 Pointer 类型的、适当类型的指针。在进行此操作时，调用者必须遵循 unsafe.Pointer 的相关规则。
+// Pointer 类型的字段可能指向多种不同类型的其中之一。调用者需提供已转换为 Pointer 类型的相应类型指针。
+// 调用者在进行此操作时必须遵守 unsafe.Pointer 的规则。
 # <翻译结束>
 
 
@@ -134,7 +135,7 @@
 <原文结束>
 
 # <翻译开始>
-// Nanoseconds 函数返回 Filetime 结构体 ft 自 Epoch（公元 1970 年 1 月 1 日凌晨 0 点 0 分 0 秒，UTC 时间）以来的纳秒数。
+// Nanoseconds 函数返回 Filetime 结构体 ft 自 Unix 纪元（UTC 时间 1970年1月1日 00:00:00）以来的纳秒数。
 # <翻译结束>
 
 
@@ -190,7 +191,7 @@
 
 # <翻译开始>
 // 这是实际的系统调用结构。
-// Win32finddata 是我们在 Go 1 中承诺采用的
+// Win32finddata 是我们在 Go 1 中承诺采用的。
 # <翻译结束>
 
 
@@ -213,10 +214,9 @@
 <原文结束>
 
 # <翻译开始>
-// ProcThreadAttributeList 是一个占位符类型，用于表示 PROC_THREAD_ATTRIBUTE_LIST。
+// ProcThreadAttributeList 是一个占位符类型，用于表示一个 PROC_THREAD_ATTRIBUTE_LIST。
 //
-// 要创建一个 *ProcThreadAttributeList，请使用 NewProcThreadAttributeList，通过 ProcThreadAttributeListContainer.Update 更新它，
-// 使用 ProcThreadAttributeListContainer.Delete 释放其内存，并通过 ProcThreadAttributeListContainer.List 访问列表本身。
+// 要创建一个 *ProcThreadAttributeList，可使用 NewProcThreadAttributeList，通过 ProcThreadAttributeListContainer.Update 更新它，使用 ProcThreadAttributeListContainer.Delete 释放其内存，并通过 ProcThreadAttributeListContainer.List 访问列表本身。
 # <翻译结束>
 
 
@@ -234,7 +234,7 @@
 <原文结束>
 
 # <翻译开始>
-// DNSRecord.Dw内部的标志
+// DNSRecord.Dw内的标志
 # <翻译结束>
 
 
@@ -252,7 +252,7 @@
 <原文结束>
 
 # <翻译开始>
-// WSAQUERYSET 结构体的 namespace 值
+// WSAQUERYSET 结构体的命名空间值
 # <翻译结束>
 
 
@@ -263,7 +263,7 @@
 
 # <翻译开始>
 // TODO(mattn): SockaddrGen 是 sockaddr、sockaddr_in 和 sockaddr_in6_old 的联合体。
-// 将修复以将变量类型更改为合适的类型。
+// 将会被修复以适当地更改变量类型。
 # <翻译结束>
 
 
@@ -282,8 +282,8 @@
 <原文结束>
 
 # <翻译开始>
-// 用于传递给 SetConsoleMode 函数作为 mode 参数的控制台相关常量。详细信息请参阅
-// https://docs.microsoft.com/zh-cn/windows/console/setconsolemode 。
+// 以下为与控制台相关的常量，用于`SetConsoleMode`函数的`mode`参数。具体信息请参阅
+// https://docs.microsoft.com/en-us/windows/console/setconsolemode 。
 # <翻译结束>
 
 
@@ -293,7 +293,7 @@
 <原文结束>
 
 # <翻译开始>
-// 用于作为参数传递给CreatePseudoConsole函数的标志位所涉及的伪控制台相关常量。参考：https://learn.microsoft.com/en-us/windows/console/createpseudoconsole
+// 用于作为参数传递给CreatePseudoConsole函数的标志位所涉及的伪控制台相关常量。参见：https://learn.microsoft.com/en-us/windows/console/createpseudoconsole
 # <翻译结束>
 
 
@@ -305,8 +305,8 @@
 <原文结束>
 
 # <翻译开始>
-// 用于与 GetConsoleScreenBuffer 配合使用，以检索有关控制台屏幕缓冲区的信息。详情参见
-// https://docs.microsoft.com/en-us/windows/console/console-screen-buffer-info-str
+// 用于与 GetConsoleScreenBuffer 配合使用，以检索有关控制台屏幕缓冲区的信息。
+// 详情请参阅 https://docs.microsoft.com/en-us/windows/console/console-screen-buffer-info-str
 # <翻译结束>
 
 
@@ -315,7 +315,7 @@
 <原文结束>
 
 # <翻译开始>
-// 用于 JOBOBJECT_BASIC_LIMIT_INFORMATION.LimitFlags 的标志
+// JOBOBJECT_BASIC_LIMIT_INFORMATION结构体中LimitFlags字段的标志
 # <翻译结束>
 
 
@@ -333,7 +333,7 @@
 <原文结束>
 
 # <翻译开始>
-// 用于GetModuleHandleEx的标志
+// 用于 GetModuleHandleEx 函数的标志
 # <翻译结束>
 
 
@@ -369,7 +369,7 @@
 <原文结束>
 
 # <翻译开始>
-// RegNotifyChangeKeyValue 注册表变更通知过滤标志
+// RegNotifyChangeKeyValue 注册表更改通知过滤标志
 # <翻译结束>
 
 
@@ -387,7 +387,7 @@
 <原文结束>
 
 # <翻译开始>
-// REG_NOTIFY_CHANGE_ATTRIBUTES 通知调用者密钥属性的更改，例如安全描述符信息。
+// REG_NOTIFY_CHANGE_ATTRIBUTES 通知调用者键属性的更改，例如安全描述符信息。
 # <翻译结束>
 
 
@@ -396,7 +396,7 @@
 <原文结束>
 
 # <翻译开始>
-// REG_NOTIFY_CHANGE_LAST_SET 通知调用者键值的更改情况。这包括添加或删除某个值，以及修改已有值。
+// REG_NOTIFY_CHANGE_LAST_SET 通知调用者键值发生更改。这包括添加或删除某个值，以及更改现有值。
 # <翻译结束>
 
 
@@ -405,7 +405,7 @@
 <原文结束>
 
 # <翻译开始>
-// REG_NOTIFY_CHANGE_SECURITY 通知调用者密钥安全描述符发生更改的情况。
+// REG_NOTIFY_CHANGE_SECURITY 通知调用者密钥安全描述符发生更改。
 # <翻译结束>
 
 
@@ -414,7 +414,7 @@
 <原文结束>
 
 # <翻译开始>
-// REG_NOTIFY_THREAD_AGNOSTIC 表示注册的生命周期不得与发出 RegNotifyChangeKeyValue 调用的线程的生命周期相关联。注意：此标志值仅在 Windows 8 及更高版本中支持。
+// REG_NOTIFY_THREAD_AGNOSTIC 表示注册的生命周期不得与发出 RegNotifyChangeKeyValue 调用的线程的生命周期相关联。注意：此标志值仅在 Windows 8 及更高版本中受支持。
 # <翻译结束>
 
 
@@ -423,7 +423,7 @@
 <原文结束>
 
 # <翻译开始>
-// NTUnicodeString 是用于 NT 本机 API 的 UTF-16 字符串，对应于 UNICODE_STRING。
+// NTUnicodeString 是一个用于 NT 本地 API 的 UTF-16 字符串，对应于 UNICODE_STRING。
 # <翻译结束>
 
 
@@ -432,7 +432,7 @@
 <原文结束>
 
 # <翻译开始>
-// NTString 是用于 NT 本机 API 的 ANSI 字符串，对应于 STRING 类型。
+// NTString 是一个用于 NT 本地 API 的 ANSI 字符串，与 STRING 类型相对应。
 # <翻译结束>
 
 
@@ -477,7 +477,7 @@
 <原文结束>
 
 # <翻译开始>
-// 文件信息类，用于NtSetInformationFile
+// FileInformationClass 用于 NtSetInformationFile
 # <翻译结束>
 
 
@@ -486,7 +486,7 @@
 <原文结束>
 
 # <翻译开始>
-// FILE_RENAME_INFORMATION 的标志
+// FILE_RENAME_INFORMATION的标志
 # <翻译结束>
 
 
@@ -522,7 +522,7 @@
 <原文结束>
 
 # <翻译开始>
-// ProcessInformationClasses 用于 NtQueryInformationProcess 和 NtSetInformationProcess。
+// ProcessInformationClasses 用于 NtQueryInformationProcess 和 NtSetInformationProcess.
 # <翻译结束>
 
 
@@ -540,7 +540,7 @@
 <原文结束>
 
 # <翻译开始>
-// 本地分配标志常量
+// 用于LocalAlloc标志的常量
 # <翻译结束>
 
 
@@ -558,7 +558,7 @@
 <原文结束>
 
 # <翻译开始>
-// 常量定义了打开命名管道时的安全属性。
+// 常量，用于命名管道打开时的安全属性
 # <翻译结束>
 
 
@@ -567,7 +567,7 @@
 <原文结束>
 
 # <翻译开始>
-// ResourceID 代表一个16位的资源标识符，传统上使用MAKEINTRESOURCE宏来创建。
+// ResourceID 表示一个16位的资源标识符，传统上通过使用 MAKEINTRESOURCE 宏来创建。
 # <翻译结束>
 
 
@@ -577,9 +577,9 @@
 <原文结束>
 
 # <翻译开始>
-// ResourceIDOrString 必须是以下两者之一：
-// 1. ResourceID：通过ID指定资源或资源类型；
-// 2. string：通过名称指定资源或资源类型。
+// ResourceIDOrString 必须为以下两者之一：
+//   - ResourceID，用于通过ID指定资源或资源类型；
+//   - 字符串，用于通过名称指定资源或资源类型。
 # <翻译结束>
 
 

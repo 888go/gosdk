@@ -1,4 +1,4 @@
-// 代码由'mkknownfolderids.bash'生成；请勿编辑。
+// 代码由 'mkknownfolderids.bash' 生成；请勿编辑。
 
 package windows
 

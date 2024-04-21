@@ -1,4 +1,4 @@
-// 版权所有 2011 The Go 作者。保留所有权利。
+// 版权所有 2011 Go 作者。保留所有权利。
 // 本源代码的使用受 BSD 风格许可协议约束，
 // 该协议可在 LICENSE 文件中找到。
 
@@ -14,7 +14,7 @@ import (
 type NTStatus uint32
 
 const (
-	// 为满足package os所期望的特性而设计的虚构值
+	// 为满足package os所期望的内容而设定的虚构值
 	O_RDONLY   = 0x00000
 	O_WRONLY   = 0x00001
 	O_RDWR     = 0x00002
@@ -212,7 +212,7 @@ const (
 	CTRL_LOGOFF_EVENT   = 5
 	CTRL_SHUTDOWN_EVENT = 6
 
-	// Windows将错误值预留>= 1<<29供应用程序使用。
+	// Windows将错误值预留为>= 1<<29，供应用程序使用。
 	APPLICATION_ERROR = 1 << 29
 )
 
@@ -743,27 +743,22 @@ var (
 	}
 )
 
-// Pointer 表示指向任意 Windows 类型的指针。
+// Pointer 代表指向任意 Windows 类型的指针。
 // 
-// Pointer 类型字段可能指向多种不同类型的其中之一。调用者需要提供一个已转换为 Pointer 类型的、适当类型的指针。在进行此操作时，调用者必须遵循 unsafe.Pointer 的相关规则。
+// Pointer 类型的字段可能指向多种不同类型的其中之一。调用者需提供已转换为 Pointer 类型的相应类型指针。
+// 调用者在进行此操作时必须遵守 unsafe.Pointer 的规则。
 type Pointer *struct{}
 
-// 为满足package os所期望的特性而设计的虚构值
+// 为满足package os所期望的内容而设定的虚构值
 type Timeval struct {
 	Sec  int32
 	Usec int32
 }
 
-
-// ff:
 func (tv *Timeval) Nanoseconds() int64 {
 	return (int64(tv.Sec)*1e6 + int64(tv.Usec)) * 1e3
 }
 
-
-// ff:
-// tv:
-// nsec:
 func NsecToTimeval(nsec int64) (tv Timeval) {
 	tv.Sec = int32(nsec / 1e9)
 	tv.Usec = int32(nsec % 1e9 / 1e3)
@@ -790,9 +785,7 @@ type Filetime struct {
 	HighDateTime uint32
 }
 
-// Nanoseconds 函数返回 Filetime 结构体 ft 自 Epoch（公元 1970 年 1 月 1 日凌晨 0 点 0 分 0 秒，UTC 时间）以来的纳秒数。
-
-// ff:
+// Nanoseconds 函数返回 Filetime 结构体 ft 自 Unix 纪元（UTC 时间 1970年1月1日 00:00:00）以来的纳秒数。
 func (ft *Filetime) Nanoseconds() int64 {
 	// 自1601年1月1日起的100纳秒间隔
 	nsec := int64(ft.HighDateTime)<<32 + int64(ft.LowDateTime)
@@ -803,10 +796,6 @@ func (ft *Filetime) Nanoseconds() int64 {
 	return nsec
 }
 
-
-// ff:
-// ft:
-// nsec:
 func NsecToFiletime(nsec int64) (ft Filetime) {
 	// 转换为100纳秒
 	nsec /= 100
@@ -832,7 +821,7 @@ type Win32finddata struct {
 }
 
 // 这是实际的系统调用结构。
-// Win32finddata 是我们在 Go 1 中承诺采用的
+// Win32finddata 是我们在 Go 1 中承诺采用的。
 type win32finddata1 struct {
 	FileAttributes    uint32
 	CreationTime      Filetime
@@ -941,10 +930,9 @@ type StartupInfoEx struct {
 	ProcThreadAttributeList *ProcThreadAttributeList
 }
 
-// ProcThreadAttributeList 是一个占位符类型，用于表示 PROC_THREAD_ATTRIBUTE_LIST。
+// ProcThreadAttributeList 是一个占位符类型，用于表示一个 PROC_THREAD_ATTRIBUTE_LIST。
 //
-// 要创建一个 *ProcThreadAttributeList，请使用 NewProcThreadAttributeList，通过 ProcThreadAttributeListContainer.Update 更新它，
-// 使用 ProcThreadAttributeListContainer.Delete 释放其内存，并通过 ProcThreadAttributeListContainer.List 访问列表本身。
+// 要创建一个 *ProcThreadAttributeList，可使用 NewProcThreadAttributeList，通过 ProcThreadAttributeListContainer.Update 更新它，使用 ProcThreadAttributeListContainer.Delete 释放其内存，并通过 ProcThreadAttributeListContainer.List 访问列表本身。
 type ProcThreadAttributeList struct{}
 
 type ProcThreadAttributeListContainer struct {
@@ -1161,7 +1149,7 @@ const (
 	WSA_FLAG_REGISTERED_IO          = 0x100
 )
 
-// 为满足package os所期望的特性而设计的虚构值
+// 为满足package os所期望的内容而设定的虚构值
 const (
 	S_IFMT   = 0x1f000
 	S_IFIFO  = 0x1000
@@ -1268,7 +1256,7 @@ const (
 )
 
 const (
-	// DNSRecord.Dw内部的标志
+	// DNSRecord.Dw内的标志
 	DnsSectionQuestion   = 0x0000
 	DnsSectionAnswer     = 0x0001
 	DnsSectionAuthority  = 0x0002
@@ -1310,7 +1298,7 @@ const (
 )
 
 const (
-	// WSAQUERYSET 结构体的 namespace 值
+	// WSAQUERYSET 结构体的命名空间值
 	NS_ALL       = 0
 	NS_DNS       = 12
 	NS_NLA       = 15
@@ -1381,7 +1369,7 @@ const (
 const SIO_GET_INTERFACE_LIST = 0x4004747F
 
 // TODO(mattn): SockaddrGen 是 sockaddr、sockaddr_in 和 sockaddr_in6_old 的联合体。
-// 将修复以将变量类型更改为合适的类型。
+// 将会被修复以适当地更改变量类型。
 
 type SockaddrGen [24]byte
 
@@ -2028,8 +2016,6 @@ type SocketAddress struct {
 }
 
 // IP 返回一个 IPv4 或 IPv6 地址，如果基础 SocketAddress 两者都不是，则返回 nil。
-
-// ff:
 func (addr *SocketAddress) IP() net.IP {
 	if uintptr(addr.SockaddrLength) >= unsafe.Sizeof(RawSockaddrInet4{}) && addr.Sockaddr.Addr.Family == AF_INET {
 		return (*RawSockaddrInet4)(unsafe.Pointer(addr.Sockaddr)).Addr[:]
@@ -2151,8 +2137,8 @@ const (
 	IfOperStatusLowerLayerDown = 7
 )
 
-// 用于传递给 SetConsoleMode 函数作为 mode 参数的控制台相关常量。详细信息请参阅
-// https://docs.microsoft.com/zh-cn/windows/console/setconsolemode 。
+// 以下为与控制台相关的常量，用于`SetConsoleMode`函数的`mode`参数。具体信息请参阅
+// https://docs.microsoft.com/en-us/windows/console/setconsolemode 。
 
 const (
 	ENABLE_PROCESSED_INPUT        = 0x1
@@ -2173,7 +2159,7 @@ const (
 	ENABLE_LVB_GRID_WORLDWIDE          = 0x10
 )
 
-// 用于作为参数传递给CreatePseudoConsole函数的标志位所涉及的伪控制台相关常量。参考：https://learn.microsoft.com/en-us/windows/console/createpseudoconsole
+// 用于作为参数传递给CreatePseudoConsole函数的标志位所涉及的伪控制台相关常量。参见：https://learn.microsoft.com/en-us/windows/console/createpseudoconsole
 const (
 	PSEUDOCONSOLE_INHERIT_CURSOR = 0x1
 )
@@ -2190,8 +2176,8 @@ type SmallRect struct {
 	Bottom int16
 }
 
-// 用于与 GetConsoleScreenBuffer 配合使用，以检索有关控制台屏幕缓冲区的信息。详情参见
-// https://docs.microsoft.com/en-us/windows/console/console-screen-buffer-info-str
+// 用于与 GetConsoleScreenBuffer 配合使用，以检索有关控制台屏幕缓冲区的信息。
+// 详情请参阅 https://docs.microsoft.com/en-us/windows/console/console-screen-buffer-info-str
 
 type ConsoleScreenBufferInfo struct {
 	Size              Coord
@@ -2204,7 +2190,7 @@ type ConsoleScreenBufferInfo struct {
 const UNIX_PATH_MAX = 108 // defined in afunix.h
 
 const (
-	// 用于 JOBOBJECT_BASIC_LIMIT_INFORMATION.LimitFlags 的标志
+	// JOBOBJECT_BASIC_LIMIT_INFORMATION结构体中LimitFlags字段的标志
 	JOB_OBJECT_LIMIT_ACTIVE_PROCESS             = 0x00000008
 	JOB_OBJECT_LIMIT_AFFINITY                   = 0x00000010
 	JOB_OBJECT_LIMIT_BREAKAWAY_OK               = 0x00000800
@@ -2375,7 +2361,7 @@ const (
 	SHUTDOWN_NORETRY = 0x1
 )
 
-// 用于GetModuleHandleEx的标志
+// 用于 GetModuleHandleEx 函数的标志
 const (
 	GET_MODULE_HANDLE_EX_FLAG_PIN                = 1
 	GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT = 2
@@ -2463,21 +2449,21 @@ const (
 	LOAD_LIBRARY_OS_INTEGRITY_CONTINUITY      = 0x00008000
 )
 
-// RegNotifyChangeKeyValue 注册表变更通知过滤标志
+// RegNotifyChangeKeyValue 注册表更改通知过滤标志
 const (
 	// REG_NOTIFY_CHANGE_NAME 通知调用者如果子键被添加或删除。
 	REG_NOTIFY_CHANGE_NAME = 0x00000001
 
-	// REG_NOTIFY_CHANGE_ATTRIBUTES 通知调用者密钥属性的更改，例如安全描述符信息。
+	// REG_NOTIFY_CHANGE_ATTRIBUTES 通知调用者键属性的更改，例如安全描述符信息。
 	REG_NOTIFY_CHANGE_ATTRIBUTES = 0x00000002
 
-	// REG_NOTIFY_CHANGE_LAST_SET 通知调用者键值的更改情况。这包括添加或删除某个值，以及修改已有值。
+	// REG_NOTIFY_CHANGE_LAST_SET 通知调用者键值发生更改。这包括添加或删除某个值，以及更改现有值。
 	REG_NOTIFY_CHANGE_LAST_SET = 0x00000004
 
-	// REG_NOTIFY_CHANGE_SECURITY 通知调用者密钥安全描述符发生更改的情况。
+	// REG_NOTIFY_CHANGE_SECURITY 通知调用者密钥安全描述符发生更改。
 	REG_NOTIFY_CHANGE_SECURITY = 0x00000008
 
-	// REG_NOTIFY_THREAD_AGNOSTIC 表示注册的生命周期不得与发出 RegNotifyChangeKeyValue 调用的线程的生命周期相关联。注意：此标志值仅在 Windows 8 及更高版本中支持。
+	// REG_NOTIFY_THREAD_AGNOSTIC 表示注册的生命周期不得与发出 RegNotifyChangeKeyValue 调用的线程的生命周期相关联。注意：此标志值仅在 Windows 8 及更高版本中受支持。
 	REG_NOTIFY_THREAD_AGNOSTIC = 0x10000000
 )
 
@@ -2489,14 +2475,14 @@ type CommTimeouts struct {
 	WriteTotalTimeoutConstant   uint32
 }
 
-// NTUnicodeString 是用于 NT 本机 API 的 UTF-16 字符串，对应于 UNICODE_STRING。
+// NTUnicodeString 是一个用于 NT 本地 API 的 UTF-16 字符串，对应于 UNICODE_STRING。
 type NTUnicodeString struct {
 	Length        uint16
 	MaximumLength uint16
 	Buffer        *uint16
 }
 
-// NTString 是用于 NT 本机 API 的 ANSI 字符串，对应于 STRING 类型。
+// NTString 是一个用于 NT 本地 API 的 ANSI 字符串，与 STRING 类型相对应。
 type NTString struct {
 	Length        uint16
 	MaximumLength uint16
@@ -2705,7 +2691,7 @@ const (
 )
 
 const (
-	// 文件信息类，用于NtSetInformationFile
+	// FileInformationClass 用于 NtSetInformationFile
 	FileBasicInformation                         = 4
 	FileRenameInformation                        = 10
 	FileDispositionInformation                   = 13
@@ -2721,7 +2707,7 @@ const (
 	FileCaseSensitiveInformationForceAccessCheck = 75
 	FileKnownFolderInformation                   = 76
 
-	// FILE_RENAME_INFORMATION 的标志
+	// FILE_RENAME_INFORMATION的标志
 	FILE_RENAME_REPLACE_IF_EXISTS                    = 0x00000001
 	FILE_RENAME_POSIX_SEMANTICS                      = 0x00000002
 	FILE_RENAME_SUPPRESS_PIN_STATE_INHERITANCE       = 0x00000004
@@ -2758,7 +2744,7 @@ const (
 	FILE_LINK_FORCE_RESIZE_SR                      = 0x00000180
 )
 
-// ProcessInformationClasses 用于 NtQueryInformationProcess 和 NtSetInformationProcess。
+// ProcessInformationClasses 用于 NtQueryInformationProcess 和 NtSetInformationProcess.
 const (
 	ProcessBasicInformation = iota
 	ProcessQuotaLimits
@@ -3108,7 +3094,7 @@ type RTL_PROCESS_MODULES struct {
 	Modules         [1]RTL_PROCESS_MODULE_INFORMATION
 }
 
-// 本地分配标志常量
+// 用于LocalAlloc标志的常量
 const (
 	LMEM_FIXED          = 0x0
 	LMEM_MOVEABLE       = 0x2
@@ -3146,7 +3132,7 @@ const (
 	PIPE_UNLIMITED_INSTANCES = 255
 )
 
-// 常量定义了打开命名管道时的安全属性。
+// 常量，用于命名管道打开时的安全属性
 const (
 	SECURITY_ANONYMOUS      = SecurityAnonymous << 16
 	SECURITY_IDENTIFICATION = SecurityIdentification << 16
@@ -3160,12 +3146,12 @@ const (
 	SECURITY_VALID_SQOS_FLAGS = 0x1f0000
 )
 
-// ResourceID 代表一个16位的资源标识符，传统上使用MAKEINTRESOURCE宏来创建。
+// ResourceID 表示一个16位的资源标识符，传统上通过使用 MAKEINTRESOURCE 宏来创建。
 type ResourceID uint16
 
-// ResourceIDOrString 必须是以下两者之一：
-// 1. ResourceID：通过ID指定资源或资源类型；
-// 2. string：通过名称指定资源或资源类型。
+// ResourceIDOrString 必须为以下两者之一：
+//   - ResourceID，用于通过ID指定资源或资源类型；
+//   - 字符串，用于通过名称指定资源或资源类型。
 type ResourceIDOrString interface{}
 
 // 预定义的资源名称和类型

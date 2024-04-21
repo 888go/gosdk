@@ -6,40 +6,9 @@
 <原文结束>
 
 # <翻译开始>
-// 版权所有 2013 The Go Authors。保留所有权利。
-// 使用本源代码受 BSD 风格许可协议约束，
+// 版权所有 ? 2013 The Go 作者。保留所有权利。
+// 本源代码的使用受 BSD 风格许可协议约束，
 // 该协议可在 LICENSE 文件中找到。
-# <翻译结束>
-
-
-<原文开始>
-//sys is replaced by func, but:
-<原文结束>
-
-# <翻译开始>
-//sys 被替换为 func，但是：
-# <翻译结束>
-
-
-<原文开始>
-//sys LoadLibrary(libname string) (handle uint32, err error) = LoadLibraryA
-<原文结束>
-
-# <翻译开始>
-//sys LoadLibrary(libname string) (handle uint32, err error) = LoadLibraryA
-// 
-// 系统调用 LoadLibrary 接收一个字符串参数 libname，返回一个无符号整数类型的句柄（handle）和一个错误对象（err）。该函数等同于 LoadLibraryA。
-# <翻译结束>
-
-
-<原文开始>
-//sys LoadLibrary(libname string) (handle uint32, err error) [failretval==-1] = LoadLibraryA
-<原文结束>
-
-# <翻译开始>
-//sys LoadLibrary(libname string) (handle uint32, err error) [failretval==-1] = LoadLibraryA
-// 
-// 系统调用 LoadLibrary 接收一个字符串参数 libname，返回一个无符号整数类型的句柄（handle）和一个错误对象（err）。若函数执行失败，返回的句柄值应为-1。该函数实际绑定到名为 LoadLibraryA 的系统调用。
 # <翻译结束>
 
 
@@ -57,7 +26,7 @@
 <原文结束>
 
 # <翻译开始>
-// tmpVar 返回一个临时变量名，该变量将用于在系统调用期间表示 p。
+// tmpVar 返回一个临时变量名，该变量将在系统调用期间用于表示 p。
 # <翻译结束>
 
 
@@ -75,7 +44,7 @@
 <原文结束>
 
 # <翻译开始>
-// BoolPointerTmpVarCode 返回用于布尔临时变量的源代码
+// BoolPointerTmpVarCode 返回用于布尔型临时变量的源代码
 # <翻译结束>
 
 
@@ -84,7 +53,7 @@
 <原文结束>
 
 # <翻译开始>
-// SliceTmpVarCode 返回用于切片临时变量的源代码
+// SliceTmpVarCode 返回切片临时变量的源代码
 # <翻译结束>
 
 
@@ -102,7 +71,7 @@
 <原文结束>
 
 # <翻译开始>
-// TmpVarCode 返回用于临时变量的源代码
+// TmpVarCode 返回临时变量的源代码
 # <翻译结束>
 
 
@@ -111,7 +80,7 @@
 <原文结束>
 
 # <翻译开始>
-// TmpVarReadbackCode 返回用于将临时变量回读到原始变量的源代码
+// TmpVarReadbackCode 返回用于将临时变量回读到原变量的源代码
 # <翻译结束>
 
 
@@ -131,8 +100,8 @@
 <原文结束>
 
 # <翻译开始>
-// SyscallArgList 返回表示 syscall 中 p 参数的源代码片段。
-// 切片会被转化为两个系统调用参数：指向首个元素的指针和长度。
+// SyscallArgList 返回表示在系统调用中p参数的源代码片段。
+// 切片被转化为两个系统调用参数：指向第一个元素的指针和长度。
 # <翻译结束>
 
 
@@ -162,7 +131,7 @@
 
 # <翻译开始>
 // join 函数通过 sep 分隔符将参数 ps 连接成一个字符串。
-// 在进行拼接之前，每个参数都会通过应用 fn 函数转化为字符串形式。
+// 在进行拼接前，每个参数都会通过应用 fn 函数转换为字符串形式。
 # <翻译结束>
 
 
@@ -180,7 +149,7 @@
 <原文结束>
 
 # <翻译开始>
-// ErrorVarName 为 r 返回错误变量名。
+// ErrorVarName 返回错误变量名给r
 # <翻译结束>
 
 
@@ -208,7 +177,7 @@
 <原文结束>
 
 # <翻译开始>
-// PrintList 返回与系统调用返回值对应的跟踪打印部分的源代码
+// PrintList 返回与系统调用返回值相对应的跟踪打印部分的源代码
 # <翻译结束>
 
 
@@ -217,7 +186,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetReturnValuesCode 返回用于接收系统调用返回值的源代码
+// SetReturnValuesCode 返回接受系统调用返回值的源代码
 # <翻译结束>
 
 
@@ -273,7 +242,7 @@
 <原文结束>
 
 # <翻译开始>
-// extractSection 从字符串 s 中提取起始于 start 之后、终止于 end 之前的文本。返回值 found 用于指示操作是否成功，而 prefix、body 和 suffix 将分别包含 s 字符串中对应的各部分。
+// extractSection 从字符串 s 中提取始于 start 之后、止于 end 之前的文本。返回值 found 用于指示操作是否成功，prefix、body 和 suffix 将分别包含字符串 s 中对应的各部分。
 # <翻译结束>
 
 
@@ -282,7 +251,7 @@
 <原文结束>
 
 # <翻译开始>
-// newFn 用于解析字符串 s，并返回已创建的函数 Fn。
+// newFn解析字符串s并返回创建的函数Fn
 # <翻译结束>
 
 
@@ -318,7 +287,7 @@
 <原文结束>
 
 # <翻译开始>
-// DLLFuncName 为函数 f 返回 DLL 函数名。
+// DLLFuncName 返回函数f在DLL中的函数名
 # <翻译结束>
 
 
@@ -327,7 +296,7 @@
 <原文结束>
 
 # <翻译开始>
-// ParamList 返回函数f参数的源代码
+// ParamList 返回函数 f 参数的源代码
 # <翻译结束>
 
 
@@ -336,7 +305,7 @@
 <原文结束>
 
 # <翻译开始>
-// HelperParamList 返回辅助函数f参数的源代码
+// HelperParamList 返回用于辅助函数f的参数源代码
 # <翻译结束>
 
 
@@ -365,7 +334,8 @@
 <原文结束>
 
 # <翻译开始>
-// SyscallParamCount 用于确定应使用 Syscall、Syscall6、Syscall9 等中的哪个版本。它返回相应 SyscallX 函数的参数个数。
+// SyscallParamCount 用于确定使用哪个版本的 Syscall、Syscall6、Syscall9 等函数。
+// 它返回相应 SyscallX 函数的参数个数。
 # <翻译结束>
 
 
@@ -383,7 +353,7 @@
 <原文结束>
 
 # <翻译开始>
-// SyscallParamList 为函数 f 生成用于 SyscallX 的参数源代码
+// SyscallParamList 为函数 f 返回用于 SyscallX 的参数源代码
 # <翻译结束>
 
 
@@ -392,7 +362,7 @@
 <原文结束>
 
 # <翻译开始>
-// HelperCallParamList 返回对函数f辅助方法的调用源代码
+// HelperCallParamList 返回调用函数f辅助工具的源代码
 # <翻译结束>
 
 
@@ -420,7 +390,7 @@
 <原文结束>
 
 # <翻译开始>
-// StrconvFunc 返回 Go 字符串到操作系统字符串函数的名称，该函数对应于 f。
+// StrconvFunc 为 f 返回 Go 字符串转操作系统字符串函数的名称。
 # <翻译结束>
 
 
@@ -429,7 +399,7 @@
 <原文结束>
 
 # <翻译开始>
-// StrconvType 返回用于操作系统字符串表示 f 的 Go 类型名称
+// StrconvType 返回用于操作系统字符串表示f的Go类型名
 # <翻译结束>
 
 
@@ -439,8 +409,8 @@
 <原文结束>
 
 # <翻译开始>
-// HasStringParam为真，当f至少有一个字符串参数时。
-// 否则为假。
+// HasStringParam为true表示f至少有一个字符串参数。
+// 否则，其为false。
 # <翻译结束>
 
 
@@ -449,7 +419,7 @@
 <原文结束>
 
 # <翻译开始>
-// HelperName 返回函数f的辅助函数名
+// HelperName 返回函数f的辅助函数名称
 # <翻译结束>
 
 
@@ -459,7 +429,7 @@
 <原文结束>
 
 # <翻译开始>
-// DLL 是一个 DLL 文件名，以及一个在 Go 标识符中有效的字符串，该字符串应被用于命名引用该 DLL 的变量。
+// DLL 是一个 DLL 文件名以及一个在 Go 标识符中有效的字符串，该字符串应在命名引用此 DLL 的变量时使用。
 # <翻译结束>
 
 
@@ -479,7 +449,7 @@
 <原文结束>
 
 # <翻译开始>
-// ParseFiles 解析 fs 中列出的文件，并从 sys 注释中提取所有 syscall 函数。若解析成功，返回包含源文件和函数集合的 *Source 对象。
+// ParseFiles解析fs中列出的文件，并从sys注释中提取所有syscall函数。若成功，返回包含源文件和函数集合的*Source。
 # <翻译结束>
 
 
@@ -488,7 +458,7 @@
 <原文结束>
 
 # <翻译开始>
-// DLLs 返回给定源集合src的dll名称。
+// DLLs 返回源集合src对应的dll名称。
 # <翻译结束>
 
 
@@ -497,7 +467,7 @@
 <原文结束>
 
 # <翻译开始>
-// ParseFile 向源代码集合 src 中添加额外的文件路径。
+// ParseFile 向源码集合 src 中添加额外的文件路径。
 # <翻译结束>
 
 
@@ -533,7 +503,7 @@
 <原文结束>
 
 # <翻译开始>
-// TODO：这需要比仅仅使用包名更合理的逻辑
+// TODO：此处需要比单纯使用包名更合理的逻辑
 # <翻译结束>
 
 
@@ -542,7 +512,7 @@
 <原文结束>
 
 # <翻译开始>
-// 待办事项：在以下模板中使用println进行打印
+// 待办：在以下模板中使用println进行打印
 # <翻译结束>
 
 
@@ -571,7 +541,7 @@
 <原文结束>
 
 # <翻译开始>
-// errnoErr 返回常见的装箱 Errno 值，以防止运行时的分配。
+// errnoErr 函数返回常见的已封装 Errno 值，旨在避免运行时的内存分配。
 # <翻译结束>
 
 
@@ -582,6 +552,6 @@
 <原文结束>
 
 # <翻译开始>
-// TODO: 在收集到Windows上常见的错误值数据后，此处应添加更多内容。（或许在运行all.bat时？）
+// TODO: 在收集到Windows上常见的错误值数据后，此处应添加更多内容。（可能在运行all.bat时进行？）
 # <翻译结束>
 

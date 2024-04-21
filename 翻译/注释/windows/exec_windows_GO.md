@@ -6,9 +6,9 @@
 <原文结束>
 
 # <翻译开始>
-// 版权所有 ? 2009 Go作者。保留所有权利。
-// 本源代码的使用受BSD风格
-// 许可证约束，该许可证可在LICENSE文件中找到。
+// 版权所有 ? 2009 Go 作者。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 此许可证可在 LICENSE 文件中找到。
 # <翻译结束>
 
 
@@ -25,12 +25,12 @@
 <原文结束>
 
 # <翻译开始>
-// EscapeArg 按照 http://msdn.microsoft.com/en-us/library/ms880421 中所规定的规则重写命令行参数 s。
-// 若 s 为空，则此函数返回空字符串（即 ""）。
-// 否则，将进行如下转换：
-//   - 只有当反斜杠 (\) 立即跟随双引号 (") 时，才将每个反斜杠加倍；
+// EscapeArg 按照 http://msdn.microsoft.com/en-us/library/ms880421 中所规定的方式重写命令行参数 s。
+// 如果 s 为空，此函数返回 ""（两个双引号）。
+// 另外，进行如下转换：
+//   - 若反斜杠 (\) 立即跟随双引号 (")，则将每个反斜杠加倍；
 //   - 用反斜杠对每个双引号 (") 进行转义；
-//   - 最后，只有当 s 内包含空格或制表符时，才将 s 用双引号包裹（即将 arg 转为 "arg"）。
+//   - 最后，仅当 s 内包含空格或制表符时，用双引号包裹 s（将 arg 转换为 "arg"）。
 # <翻译结束>
 
 
@@ -50,9 +50,9 @@
 <原文结束>
 
 # <翻译开始>
-// ComposeCommandLine 对给定的参数进行转义并拼接，适用于作为 Windows 命令行使用，
-// 用于 CreateProcess 的 CommandLine 参数、CreateService/ChangeServiceConfig 的 BinaryPathName 参数，
-// 或任何使用 CommandLineToArgv 的程序。
+// ComposeCommandLine 对给定的参数进行转义并拼接，生成适用于作为Windows命令行的结果，
+// 可用于CreateProcess函数的CommandLine参数、CreateService/ChangeServiceConfig函数的BinaryPathName参数，
+// 或任何使用CommandLineToArgv函数的程序。
 # <翻译结束>
 
 
@@ -65,9 +65,9 @@
 <原文结束>
 
 # <翻译开始>
-// 强制对非仅ASCII空格和制表符（如MSDN文章所述）进行引号处理，还包括ASCII控制字符。
-// CommandLineToArgvW函数的文档并未说明当第一个参数不是有效的程序名时会发生什么，
-// 但实证表明，它似乎会忽略未加引号的控制字符。
+// 强制对以下字符使用引号：不仅包括MSDN文章中描述的ASCII空格和制表符，还包括ASCII控制字符。
+// CommandLineToArgvW函数的文档并未说明当第一个参数不是有效的程序名时会发生什么情况，但经实测，
+// 该函数似乎会舍弃未加引号的控制字符。
 # <翻译结束>
 
 
@@ -78,7 +78,7 @@
 <原文结束>
 
 # <翻译开始>
-// 该引号会与我们周围的引号产生冲突。
+// 此引号会与我们周围的引号冲突。
 // 我们无法报告错误，因此只需移除
 // 有问题的字符即可。
 # <翻译结束>
@@ -102,8 +102,8 @@
 <原文结束>
 
 # <翻译开始>
-// TODO(bcmills): 既然我们已在向切片追加内容，最好能避免 EscapeArg 的中间分配过程。
-// 或许我们可以提取出一个 appendEscapedArg 函数。
+// TODO(bcmills): 既然我们已在向切片追加内容，那么能避免 `EscapeArg` 的中间分配操作就很好了。
+// 或许我们可以提取出一个 `appendEscapedArg` 函数。
 # <翻译结束>
 
 
@@ -115,8 +115,8 @@
 <原文结束>
 
 # <翻译开始>
-// DecomposeCommandLine使用CommandLineToArgv函数将其参数命令行分解为未转义的部分，这些命令行来自GetCommandLine、QUERY_SERVICE_CONFIG的BinaryPathName参数，或其他任何传递命令行的地方。
-// 若commandLine包含NUL字符，DecomposeCommandLine将返回错误。
+// DecomposeCommandLine 将其参数 command line 使用 CommandLineToArgv 拆分为未转义的部分，这些部分可从 GetCommandLine、QUERY_SERVICE_CONFIG 的 BinaryPathName 参数或其他传递命令行的途径获取。
+// 若 commandLine 包含 NUL 字符，DecomposeCommandLine 将返回错误。
 # <翻译结束>
 
 
@@ -134,12 +134,12 @@
 <原文结束>
 
 # <翻译开始>
-// CommandLineToArgv 函数解析一个Unicode格式的命令行字符串，并将解析得到的参数个数设置到 argc 中。
+// CommandLineToArgv 函数解析一个 Unicode 格式的命令行字符串，并将解析得到的参数个数设置到 argc 中。
 //
-// 返回的内存应当使用一次 LocalFree 调用进行释放。
+// 返回的内存应当使用一次 LocalFree 调用来释放。
 //
-// 需要注意的是，虽然 CommandLineToArgv 的返回类型暗示了可容纳8192个、每个最多8192字符的条目，
-// 实际解析出的参数数量可能超过8192个，并且 CommandLineToArgvW 的文档并未提及单个参数字符串长度的任何限制。
+// 需要注意的是，尽管 CommandLineToArgv 的返回类型表明其可以容纳 8192 个长度不超过 8192 字符的条目，
+// 实际解析得到的参数数量可能超过 8192，且 CommandLineToArgvW 文档并未提及单个参数字符串长度有任何限制。
 // （参见 https://go.dev/issue/63236。）
 # <翻译结束>
 
@@ -158,7 +158,7 @@
 <原文结束>
 
 # <翻译开始>
-// NewProcThreadAttributeList 分配一个新的 ProcThreadAttributeListContainer，其包含请求的最大属性数量。
+// NewProcThreadAttributeList 分配一个具有所请求最大属性数量的新 ProcThreadAttributeListContainer。
 # <翻译结束>
 
 

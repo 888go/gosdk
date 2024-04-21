@@ -1,12 +1,12 @@
-// 版权所有 ? 2009 Go作者。保留所有权利。
-// 本源代码的使用受BSD风格
-// 许可证约束，该许可证可在LICENSE文件中找到。
+// 版权所有 ? 2009 Go 作者。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 此许可证可在 LICENSE 文件中找到。
 
 //go:build windows
 
 package windows
 
-func itoa(val int) string { // 为避免依赖，于此处执行而非使用fmt
+func itoa(val int) string { // 在此处执行而非使用 fmt，以避免依赖
 	if val < 0 {
 		return "-" + itoa(-val)
 	}

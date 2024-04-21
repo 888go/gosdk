@@ -6,9 +6,9 @@
 <原文结束>
 
 # <翻译开始>
-// 版权所有 ? 2021 Go作者。保留所有权利。
-// 本源代码的使用受 BSD 风格许可证约束，
-// 该许可证可在 LICENSE 文件中找到。
+// 版权所有 ? 2021 The Go 作者。保留所有权利。
+// 本源代码的使用受 BSD 风格许可协议约束，
+// 该许可协议可在 LICENSE 文件中找到。
 # <翻译结束>
 
 
@@ -21,9 +21,9 @@
 <原文结束>
 
 # <翻译开始>
-// 本文件包含对SetupAPI.dll和CfgMgr32.dll的封装函数，
-// 这些是用于管理硬件设备、驱动程序及PnP树的核心系统功能。
-// 可在以下链接获取关于这些API的信息：
+// 本文件包含对SetupAPI.dll与CfgMgr32.dll的封装函数，
+// 这两个核心系统库负责硬件设备、驱动程序及PnP树的管理。
+// 关于这些API的详细信息可参见：
 //     https://docs.microsoft.com/zh-cn/windows-hardware/drivers/install/setupapi
 //     https://docs.microsoft.com/zh-cn/windows/win32/devinst/cfgmgr32-
 # <翻译结束>
@@ -34,7 +34,7 @@
 <原文结束>
 
 # <翻译开始>
-// 38个字符 + 终止符空字符
+// 38个字符 + 终止空字符
 # <翻译结束>
 
 
@@ -52,7 +52,7 @@
 <原文结束>
 
 # <翻译开始>
-// Windows 9x 兼容的最大可显示字符串长度，该字符串来自设备 INF。
+// 适用于从设备INF获取的可显示字符串的Windows 9x兼容最大值
 # <翻译结束>
 
 
@@ -61,7 +61,7 @@
 <原文结束>
 
 # <翻译开始>
-// 实际INF字符串（包括字符串替换）的最大尺寸
+// 实际INF字符串（包括字符串替换）的最大尺寸。
 # <翻译结束>
 
 
@@ -70,7 +70,7 @@
 <原文结束>
 
 # <翻译开始>
-// 为了与Windows 9x兼容，INF节名称应限制为32个字符。
+// 为了兼容Windows 9x系统，INF章节名称应限制为32个字符。
 # <翻译结束>
 
 
@@ -79,7 +79,7 @@
 <原文结束>
 
 # <翻译开始>
-// SP_MAX_MACHINENAME_LENGTH 定义了以 ConfigMgr32 CM_Connect_Machine 接收格式表示的机器名的最大长度（即，“\\\\MachineName\\0”）。
+// SP_MAX_MACHINENAME_LENGTH 定义了 ConfigMgr32 中 CM_Connect_Machine 期望的机器名格式（即，“\\\\MachineName\\0”）的最大长度。
 # <翻译结束>
 
 
@@ -97,7 +97,7 @@
 <原文结束>
 
 # <翻译开始>
-// DevInfo 用于保存设备信息集的引用
+// DevInfo 保存对设备信息集的引用
 # <翻译结束>
 
 
@@ -106,7 +106,7 @@
 <原文结束>
 
 # <翻译开始>
-// DEVINST 是一个句柄，通常被 cfgmgr32 API 接口所识别
+// DEVINST 是一个通常被 cfgmgr32 API 接口所识别的句柄
 # <翻译结束>
 
 
@@ -115,7 +115,7 @@
 <原文结束>
 
 # <翻译开始>
-// DevInfoData 是一个设备信息结构（引用了作为设备信息集合成员的设备实例）
+// DevInfoData 是一个设备信息结构（引用了作为设备信息集成员的设备实例）
 # <翻译结束>
 
 
@@ -124,7 +124,7 @@
 <原文结束>
 
 # <翻译开始>
-// DevInfoListDetailData 是一个用于设备信息集详细信息的结构体（用于 SetupDiGetDeviceInfoListDetail，该函数取代了 SetupDiGetDeviceInfoListClass 的功能）。
+// DevInfoListDetailData 是一种用于设备信息集详细信息的结构（用于 SetupDiGetDeviceInfoListDetail，该函数取代了 SetupDiGetDeviceInfoListClass 的功能）。
 # <翻译结束>
 
 
@@ -133,7 +133,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用unsafeSizeOf方法
+// 使用 unsafeSizeOf 方法
 # <翻译结束>
 
 
@@ -142,7 +142,7 @@
 <原文结束>
 
 # <翻译开始>
-// Windows 在 pshpack1.h 中声明了这一点
+// Windows 在 pshpack1.h 中声明了此内容
 # <翻译结束>
 
 
@@ -160,7 +160,7 @@
 <原文结束>
 
 # <翻译开始>
-// DevInstallParams 是设备安装参数结构（与特定的设备信息项关联，或全局与设备信息集关联）
+// DevInstallParams 是设备安装参数结构（与特定的设备信息元素关联，或全局与设备信息集合关联）
 # <翻译结束>
 
 
@@ -205,7 +205,7 @@
 <原文结束>
 
 # <翻译开始>
-// 同时显示类与兼容列表
+// 显示类与兼容列表
 # <翻译结束>
 
 
@@ -232,7 +232,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果可能，资源不使用UI
+// 尽可能避免为资源提供UI
 # <翻译结束>
 
 
@@ -322,7 +322,7 @@
 <原文结束>
 
 # <翻译开始>
-// 标志，表示应使用INF文件中的排序。
+// 标志用于指示应使用INF文件中的排序。
 # <翻译结束>
 
 
@@ -331,7 +331,7 @@
 <原文结束>
 
 # <翻译开始>
-// 标志用于指示仅应搜索由 SP_DEVINSTALL_PARAMS.DriverPath 指定的 INF。
+// 标志用于指示仅应搜索由 SP_DEVINSTALL_PARAMS.DriverPath 指定的 INF
 # <翻译结束>
 
 
@@ -341,7 +341,7 @@
 <原文结束>
 
 # <翻译开始>
-// 防止ConfigMgr在设备注册、安装和删除期间移除或重新枚举设备的标志。
+// 阻止ConfigMgr在设备注册、安装和删除期间移除/重新枚举设备的标志。
 # <翻译结束>
 
 
@@ -350,7 +350,7 @@
 <原文结束>
 
 # <翻译开始>
-// 以下标志可用于安装一个禁用的设备
+// 以下标志可用于安装一个禁用状态的设备
 # <翻译结束>
 
 
@@ -369,7 +369,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果应使用类安装参数，则设置此标志
+// 如果应使用类安装参数，则设置此标志。
 # <翻译结束>
 
 
@@ -450,7 +450,7 @@
 <原文结束>
 
 # <翻译开始>
-// 类/共同安装程序希望在客户端上下文中获取一个 DIF_FINISH_INSTALL 动作
+// 类/共同安装程序希望在客户端上下文中获取 DIF_FINISH_INSTALL 动作
 # <翻译结束>
 
 
@@ -486,7 +486,7 @@
 <原文结束>
 
 # <翻译开始>
-// 不要为设备的软件（驱动）键运行 AddReg 和 DelReg。
+// 不为设备的软件（驱动）键运行 AddReg 和 DelReg。
 # <翻译结束>
 
 
@@ -495,7 +495,7 @@
 <原文结束>
 
 # <翻译开始>
-// 正在进行初始系统设置时的安装
+// 正在进行初始系统设置期间的安装
 # <翻译结束>
 
 
@@ -504,7 +504,7 @@
 <原文结束>
 
 # <翻译开始>
-// 驱动程序来自Windows更新
+// 驱动程序来自Windows Update
 # <翻译结束>
 
 
@@ -513,7 +513,7 @@
 <原文结束>
 
 # <翻译开始>
-// 令 SetupDiBuildDriverInfoList 将一个新驱动列表追加至现有列表。
+// 令SetupDiBuildDriverInfoList将一个新驱动列表追加至已存在的列表。
 # <翻译结束>
 
 
@@ -531,7 +531,7 @@
 <原文结束>
 
 # <翻译开始>
-// 类安装程序添加了它们自己的电源页面
+// 类安装程序添加了他们自己的电源页面
 # <翻译结束>
 
 
@@ -549,7 +549,7 @@
 <原文结束>
 
 # <翻译开始>
-// 只将已安装的驱动添加到类或兼容驱动列表中。用于对SetupDiBuildDriverInfoList的调用
+// 只将已安装的驱动添加到类或兼容驱动列表中。用于对 SetupDiBuildDriverInfoList 的调用
 # <翻译结束>
 
 
@@ -576,7 +576,7 @@
 <原文结束>
 
 # <翻译开始>
-// 告诉 SetupDiBuildDriverInfoList 进行递归搜索
+// 告诉 SetupDiBuildDriverInfoList 执行递归搜索
 # <翻译结束>
 
 
@@ -594,7 +594,7 @@
 <原文结束>
 
 # <翻译开始>
-// ClassInstallHeader 是任何类安装参数结构的第一个成员。它包含了定义该安装参数结构其余部分格式的设备安装请求代码。
+// ClassInstallHeader 是任何类安装参数结构体的第一个成员。它包含了定义该安装参数结构体剩余部分格式的设备安装请求代码。
 # <翻译结束>
 
 
@@ -603,7 +603,7 @@
 <原文结束>
 
 # <翻译开始>
-// DICS_STATE 定义了一系列值，用于指示设备状态的变更
+// DICS_STATE 定义了表示设备状态变化的值
 # <翻译结束>
 
 
@@ -621,7 +621,7 @@
 <原文结束>
 
 # <翻译开始>
-// 设备正在被禁用。
+// 设备正在被禁用
 # <翻译结束>
 
 
@@ -666,7 +666,7 @@
 <原文结束>
 
 # <翻译开始>
-// 在所有硬件配置文件中进行更改
+// 在所有硬件配置中进行更改
 # <翻译结束>
 
 
@@ -675,7 +675,7 @@
 <原文结束>
 
 # <翻译开始>
-// 只在指定配置文件中做出更改
+// 只在指定配置文件中进行更改
 # <翻译结束>
 
 
@@ -684,7 +684,7 @@
 <原文结束>
 
 # <翻译开始>
-// 后续跟随 1 个或多个硬件配置特定的变更（已废弃）
+// 后续跟随 1 个或多个硬件配置文件特定的更改（已废弃）
 # <翻译结束>
 
 
@@ -693,7 +693,7 @@
 <原文结束>
 
 # <翻译开始>
-// PropChangeParams 是与 DIF_PROPERTYCHANGE 安装函数对应的一个结构体。
+// PropChangeParams 是与 DIF_PROPERTYCHANGE 安装函数对应的结构体。
 # <翻译结束>
 
 
@@ -702,7 +702,7 @@
 <原文结束>
 
 # <翻译开始>
-// DI_REMOVEDEVICE 指定了设备移除的范围
+// DI_REMOVEDEVICE 指定设备移除的范围
 # <翻译结束>
 
 
@@ -711,7 +711,7 @@
 <原文结束>
 
 # <翻译开始>
-// 在所有硬件配置中进行此更改。从注册表中删除该设备的相关信息。
+// 在所有硬件配置中进行此更改。从注册表中移除该设备的相关信息。
 # <翻译结束>
 
 
@@ -720,8 +720,7 @@
 <原文结束>
 
 # <翻译开始>
-// 对指定由 HwProfile 的硬件配置文件做出此更改。此标志仅适用于根枚举设备。
-// 当 Windows 从设备最后被配置的硬件配置文件中移除该设备时，Windows 将执行全局移除操作。
+// 对指定由 HwProfile 的硬件配置文件执行此更改。此标志仅适用于根枚举设备。当 Windows 从设备所配置的最后一个硬件配置文件中移除该设备时，Windows 将执行全局移除。
 # <翻译结束>
 
 
@@ -730,7 +729,7 @@
 <原文结束>
 
 # <翻译开始>
-// RemoveDeviceParams 是与 DIF_REMOVE 安装函数对应的一个结构体。
+// RemoveDeviceParams 是一种与 DIF_REMOVE 安装函数相对应的结构。
 # <翻译结束>
 
 
@@ -739,7 +738,7 @@
 <原文结束>
 
 # <翻译开始>
-// DrvInfoData 是驱动程序信息结构（属于可能与特定设备实例关联，或（全局）与设备信息集关联的驱动程序信息列表的成员）
+// DrvInfoData 是驱动程序信息结构（可能与特定设备实例关联，或（全局）与设备信息集关联的驱动程序信息列表的成员）
 # <翻译结束>
 
 
@@ -766,7 +765,7 @@
 <原文结束>
 
 # <翻译开始>
-// IsCompatible 方法用于检测给定的硬件ID是否与驱动程序匹配，或者是否列在兼容ID列表中。
+// IsCompatible 方法用于检测给定的硬件ID是否与驱动程序匹配，或者是否出现在兼容ID列表中。
 # <翻译结束>
 
 
@@ -784,7 +783,7 @@
 <原文结束>
 
 # <翻译开始>
-// SUOI 标志用于控制 SetupUninstallOEMInf
+// SUOI 标志控制 SetupUninstallOEMInf
 # <翻译结束>
 
 
@@ -795,8 +794,8 @@
 <原文结束>
 
 # <翻译开始>
-// SPDIT标志用于区分类驱动程序和设备驱动程序。
-// （作为“DriverType”参数传递给驱动程序信息列表API）
+// SPDIT标志用于区分类驱动程序与设备驱动程序。
+// （作为驱动程序信息列表API中“DriverType”参数传入）
 # <翻译结束>
 
 
@@ -805,7 +804,7 @@
 <原文结束>
 
 # <翻译开始>
-// DIGCF 标志用于控制由 SetupDiGetClassDevs 函数构建的设备信息集中所包含的内容
+// DIGCF 标志控制由 SetupDiGetClassDevs 创建的设备信息集中所包含的内容
 # <翻译结束>
 
 
@@ -823,7 +822,7 @@
 <原文结束>
 
 # <翻译开始>
-// DIREG 指定用于 SetupDiCreateDevRegKey、SetupDiOpenDevRegKey 和 SetupDiDeleteDevRegKey 的值。
+// DIREG 指定 SetupDiCreateDevRegKey、SetupDiOpenDevRegKey 和 SetupDiDeleteDevRegKey 函数的值。
 # <翻译结束>
 
 
@@ -867,11 +866,12 @@
 
 # <翻译开始>
 // SPDRP 定义设备注册表属性代码
-// （标注为只读（R）的代码仅可用于 SetupDiGetDeviceRegistryProperty）
+// （标记为只读（R）的代码只能用于
+// SetupDiGetDeviceRegistryProperty）
 //
-// 这些值应覆盖由 cfgmgr32.h 中定义的 CM_DRP 代码所表示的相同注册表属性集合。
+// 这些值应涵盖由 cfgmgr32.h 中定义的 CM_DRP 代码所表示的相同注册表属性集合。
 //
-// 注意：SPDRP 代码从零开始编号，而 CM_DRP 代码从一开始编号！
+// 注意，SPDRP 代码基于零，而 CM_DRP 代码基于一！
 # <翻译结束>
 
 
@@ -880,7 +880,7 @@
 <原文结束>
 
 # <翻译开始>
-// 类（与ClassGUID关联的R-）
+// 类（与ClassGUID关联的R--）
 # <翻译结束>
 
 
@@ -889,7 +889,7 @@
 <原文结束>
 
 # <翻译开始>
-// LocationInformation（可读/可写）
+// LocationInformation (可读/可写)
 # <翻译结束>
 
 
@@ -916,7 +916,7 @@
 <原文结束>
 
 # <翻译开始>
-// 设备为独占访问（读/写）
+// Device为独占访问（读/写）
 # <翻译结束>
 
 
@@ -934,7 +934,9 @@
 <原文结束>
 
 # <翻译开始>
-// UiNumberDescFormat (可读/写)
+// UiNumberDescFormat (R/W)
+// 
+// UiNumberDescFormat 是一个可读写属性
 # <翻译结束>
 
 
@@ -961,7 +963,7 @@
 <原文结束>
 
 # <翻译开始>
-// 设备安装状态 (只读)
+// 设备安装状态 (R)
 # <翻译结束>
 
 
@@ -970,7 +972,7 @@
 <原文结束>
 
 # <翻译开始>
-// 设备位置路径 (只读)
+// 设备位置路径 (R)
 # <翻译结束>
 
 
@@ -979,7 +981,7 @@
 <原文结束>
 
 # <翻译开始>
-// 对序数的上限
+// 对序数的上界
 # <翻译结束>
 
 
@@ -998,7 +1000,7 @@
 <原文结束>
 
 # <翻译开始>
-// DEVPROPGUID 定义了一个属性类别。
+// DEVPROPGUID 指定一个属性类别。
 # <翻译结束>
 
 
@@ -1007,7 +1009,7 @@
 <原文结束>
 
 # <翻译开始>
-// DEVPROPID 用于唯一标识属性类别内的属性。
+// DEVPROPID 用于在属性类别中唯一标识该属性。
 # <翻译结束>
 
 
@@ -1035,7 +1037,7 @@
 <原文结束>
 
 # <翻译开始>
-// 仅包含当前“活跃”的设备接口
+// 仅当前“活跃”的设备接口
 # <翻译结束>
 
 
@@ -1053,7 +1055,7 @@
 <原文结束>
 
 # <翻译开始>
-// 是否已注册设备驱动
+// 具有 Register_Device_Driver
 # <翻译结束>
 
 
@@ -1170,7 +1172,7 @@
 <原文结束>
 
 # <翻译开始>
-// 该Devnode正常工作需要系统重启
+// 为了使该Devnode正常工作，系统需要重新启动
 # <翻译结束>
 
 
@@ -1179,7 +1181,7 @@
 <原文结束>
 
 # <翻译开始>
-// 一个或多个驱动程序被阻止为此 Devnode 加载
+// 一个或多个驱动程序因该设备节点而被阻止加载
 # <翻译结束>
 
 
@@ -1188,7 +1190,7 @@
 <原文结束>
 
 # <翻译开始>
-// 该设备正在使用一个旧版驱动程序
+// 该设备正在使用一个遗留驱动程序
 # <翻译结束>
 
 
@@ -1197,7 +1199,7 @@
 <原文结束>
 
 # <翻译开始>
-// 一个或多个子元素具有无效ID
+// 一个或多个子元素具有无效的ID
 # <翻译结束>
 
 
@@ -1224,27 +1226,7 @@
 <原文结束>
 
 # <翻译开始>
-// 设备当前正忙于处理一个查询-移除IRP
-# <翻译结束>
-
-
-<原文开始>
-//sys	setupDiCreateDeviceInfoListEx(classGUID *GUID, hwndParent uintptr, machineName *uint16, reserved uintptr) (handle DevInfo, err error) [failretval==DevInfo(InvalidHandle)] = setupapi.SetupDiCreateDeviceInfoListExW
-<原文结束>
-
-# <翻译开始>
-//sys	创建设备信息列表（扩展版），参数如下：
-//		classGUID：指向设备类GUID的指针；
-//		hwndParent：父窗口句柄（uintptr类型）；
-//		machineName：目标计算机名称（以UTF-16编码的uint16类型指针）；
-//		reserved：保留参数，目前未使用（uintptr类型）。
-// 返回值：
-//		handle：成功时返回一个有效的DevInfo句柄，表示新创建的设备信息列表；
-//		err：若出错则返回相应的错误信息。
-// 备注：
-//		当函数失败时，其返回的DevInfo句柄应等于DevInfo(InvalidHandle)。
-// 导入符号：
-//		本函数直接映射到setupapi库中的SetupDiCreateDeviceInfoListExW函数。
+// Device当前正忙于处理一个查询-移除IRP
 # <翻译结束>
 
 
@@ -1253,16 +1235,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetupDiCreateDeviceInfoListEx 函数在远程或本地计算机上创建一个空的设备信息集合，并可选择性地将该集合与设备安装类相关联。
-# <翻译结束>
-
-
-<原文开始>
-//sys	setupDiGetDeviceInfoListDetail(deviceInfoSet DevInfo, deviceInfoSetDetailData *DevInfoListDetailData) (err error) = setupapi.SetupDiGetDeviceInfoListDetailW
-<原文结束>
-
-# <翻译开始>
-//sys	获取设备信息列表详细信息(deviceInfoSet DevInfo, deviceInfoSetDetailData *DevInfoListDetailData) (错误 error) = setupapi.SetupDiGetDeviceInfoListDetailW
+// SetupDiCreateDeviceInfoListEx 函数在远程或本地计算机上创建一个空的设备信息集，并可选择性地将此集与设备安装类关联。
 # <翻译结束>
 
 
@@ -1271,7 +1244,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetupDiGetDeviceInfoListDetail 函数用于获取与设备信息集关联的信息，包括类 GUID、远程计算机句柄以及远程计算机名称。
+// SetupDiGetDeviceInfoListDetail 函数用于获取与设备信息集关联的信息，包括类 GUID、远程计算机句柄以及远程计算机名。
 # <翻译结束>
 
 
@@ -1285,31 +1258,11 @@
 
 
 <原文开始>
-//sys	setupDiCreateDeviceInfo(deviceInfoSet DevInfo, DeviceName *uint16, classGUID *GUID, DeviceDescription *uint16, hwndParent uintptr, CreationFlags DICD, deviceInfoData *DevInfoData) (err error) = setupapi.SetupDiCreateDeviceInfoW
-<原文结束>
-
-# <翻译开始>
-//sys	创建设备信息（setupDiCreateDeviceInfo）用于在指定的deviceInfoSet中，根据给定的DeviceName、classGUID、DeviceDescription、hwndParent和CreationFlags参数，新建一个设备项。函数返回一个错误（err），如果操作成功则为nil。该函数为setupapi包中的SetupDiCreateDeviceInfoW函数的封装。
-// 
-// 参数说明：
-// - deviceInfoSet DevInfo：表示已打开的设备信息集合句柄。
-// - DeviceName *uint16：指向设备名称的指针，以UTF-16编码表示。
-// - classGUID *GUID：指向设备类别的GUID指针。
-// - DeviceDescription *uint16：指向设备描述的指针，以UTF-16编码表示。
-// - hwndParent uintptr：父窗口的句柄，通常用于显示与设备安装相关的用户界面。
-// - CreationFlags DICD：创建设备信息时使用的标志，如DICD_GENERATE_ID等。
-// - deviceInfoData *DevInfoData：输出参数，用于接收新创建设备项的相关信息。
-// 
-// 该注释定义了一个名为setupDiCreateDeviceInfo的系统调用，它封装了Windows API函数setupapi.SetupDiCreateDeviceInfoW，并提供了Go语言友好的接口。通过调用此函数，开发者可以在指定的设备信息集中添加一个新的设备项，同时指定其名称、类别、描述以及创建选项。函数执行结果通过返回的错误值反映，若成功则返回nil；否则返回具体的错误信息。此外，新创建的设备项详细数据将填充到传入的deviceInfoData参数所指向的结构体中。
-# <翻译结束>
-
-
-<原文开始>
 // SetupDiCreateDeviceInfo function creates a new device information element and adds it as a new member to the specified device information set.
 <原文结束>
 
 # <翻译开始>
-// SetupDiCreateDeviceInfo函数用于创建一个新的设备信息项，并将其作为新成员添加到指定的设备信息集中。
+// SetupDiCreateDeviceInfo 函数用于创建一个新的设备信息元素，并将其作为新成员添加到指定的设备信息集中。
 # <翻译结束>
 
 
@@ -1318,21 +1271,7 @@
 <原文结束>
 
 # <翻译开始>
-// CreateDeviceInfo 方法用于创建一个新的设备信息元素，并将其作为新成员添加到指定的设备信息集中。
-# <翻译结束>
-
-
-<原文开始>
-//sys	setupDiEnumDeviceInfo(deviceInfoSet DevInfo, memberIndex uint32, deviceInfoData *DevInfoData) (err error) = setupapi.SetupDiEnumDeviceInfo
-<原文结束>
-
-# <翻译开始>
-//sys	枚举设备信息（setupDiEnumDeviceInfo）函数，接受以下参数：
-//  - deviceInfoSet：一个DevInfo类型的句柄，表示要从中进行设备枚举的信息集合。
-//  - memberIndex：一个uint32类型的整数，指定要获取的设备信息在集合中的索引位置。
-//  - deviceInfoData：指向DevInfoData结构体的指针，用于接收所枚举到的设备信息。
-//
-// 函数调用setupapi库中的SetupDiEnumDeviceInfo函数，并返回一个错误类型（err），表示执行结果。
+// CreateDeviceInfo 方法创建一个新的设备信息元素，并将其作为新成员添加到指定的设备信息集中。
 # <翻译结束>
 
 
@@ -1341,7 +1280,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetupDiEnumDeviceInfo 函数返回一个 DevInfoData 结构，该结构用于指定设备信息集中的一项设备信息元素。
+// SetupDiEnumDeviceInfo 函数返回一个 DevInfoData 结构，该结构用于指定设备信息集中某个设备信息元素。
 # <翻译结束>
 
 
@@ -1355,41 +1294,11 @@
 
 
 <原文开始>
-// SetupDiDestroyDeviceInfoList function deletes a device information set and frees all associated memory.
-//sys	SetupDiDestroyDeviceInfoList(deviceInfoSet DevInfo) (err error) = setupapi.SetupDiDestroyDeviceInfoList
-<原文结束>
-
-# <翻译开始>
-// SetupDiDestroyDeviceInfoList 函数用于删除一个设备信息集，并释放与其关联的所有内存。
-//sys	SetupDiDestroyDeviceInfoList(deviceInfoSet DevInfo) (err error) = setupapi.SetupDiDestroyDeviceInfoList
-# <翻译结束>
-
-
-<原文开始>
 // Close method deletes a device information set and frees all associated memory.
 <原文结束>
 
 # <翻译开始>
-// Close方法用于删除一个设备信息集并释放所有相关的内存。
-# <翻译结束>
-
-
-<原文开始>
-//sys	SetupDiBuildDriverInfoList(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverType SPDIT) (err error) = setupapi.SetupDiBuildDriverInfoList
-<原文结束>
-
-# <翻译开始>
-//sys	SetupDiBuildDriverInfoList(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverType SPDIT) (err error) = setupapi.SetupDiBuildDriverInfoList
-// 
-// 系统调用 SetupDiBuildDriverInfoList，用于构建设备信息集（deviceInfoSet）中指定设备（deviceInfoData）的驱动程序信息列表。参数说明如下：
-//   - deviceInfoSet：类型为 DevInfo 的设备信息集合句柄。
-//   - deviceInfoData：指向 DevInfoData 结构体的指针，该结构体包含了要为其构建驱动程序信息列表的设备相关信息。
-//   - driverType：枚举类型 SPDIT，表示要构建的驱动程序信息类型。
-// 
-// 函数返回值：
-//   - err：表示函数执行过程中是否发生错误。如果没有错误，返回 nil；否则，返回具体的错误信息。
-// 
-// 本函数为对 Windows SDK 中 setupapi 库中的 SetupDiBuildDriverInfoList 函数的封装。
+// Close 方法用于删除一个设备信息集并释放所有相关内存。
 # <翻译结束>
 
 
@@ -1398,18 +1307,7 @@
 <原文结束>
 
 # <翻译开始>
-// BuildDriverInfoList 方法用于为特定设备或设备信息集中全局类驱动列表构建关联的驱动程序列表。
-# <翻译结束>
-
-
-<原文开始>
-//sys	SetupDiCancelDriverInfoSearch(deviceInfoSet DevInfo) (err error) = setupapi.SetupDiCancelDriverInfoSearch
-<原文结束>
-
-# <翻译开始>
-//sys	SetupDiCancelDriverInfoSearch(deviceInfoSet DevInfo) (err error) = setupapi.SetupDiCancelDriverInfoSearch
-// 
-// 系统调用 SetupDiCancelDriverInfoSearch，接收一个 deviceInfoSet 类型的参数 DevInfo，并返回一个错误 err。该函数等同于使用 setupapi 库中的 SetupDiCancelDriverInfoSearch 函数。
+// BuildDriverInfoList 方法用于为特定设备或设备信息集中与全局类驱动程序列表关联的驱动程序构建一个列表。
 # <翻译结束>
 
 
@@ -1418,16 +1316,7 @@
 <原文结束>
 
 # <翻译开始>
-// CancelDriverInfoSearch 方法用于取消在另一个线程中正在进行的驾驶员信息列表搜索。
-# <翻译结束>
-
-
-<原文开始>
-//sys	setupDiEnumDriverInfo(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverType SPDIT, memberIndex uint32, driverInfoData *DrvInfoData) (err error) = setupapi.SetupDiEnumDriverInfoW
-<原文结束>
-
-# <翻译开始>
-//sys	枚举设备驱动信息(设备信息集 deviceInfoSet, 设备信息数据指针 deviceInfoData, 驱动类型 driverType, 成员索引 memberIndex, 驱动信息数据指针 driverInfoData) (返回错误 err) = setupapi.SetupDiEnumDriverInfoW
+// CancelDriverInfoSearch 方法取消在另一个线程中正在进行的驾驶员信息列表搜索。
 # <翻译结束>
 
 
@@ -1445,16 +1334,7 @@
 <原文结束>
 
 # <翻译开始>
-// EnumDriverInfo 方法枚举驱动程序列表中的成员。
-# <翻译结束>
-
-
-<原文开始>
-//sys	setupDiGetSelectedDriver(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverInfoData *DrvInfoData) (err error) = setupapi.SetupDiGetSelectedDriverW
-<原文结束>
-
-# <翻译开始>
-//sys	设置Di获取选中的驱动程序（deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverInfoData *DrvInfoData）(返回错误 err) = setupapi.SetupDiGetSelectedDriverW
+// EnumDriverInfo 方法枚举驱动列表中的成员。
 # <翻译结束>
 
 
@@ -1463,7 +1343,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetupDiGetSelectedDriver 函数用于为设备信息集或特定设备信息元素检索所选驱动程序。
+// SetupDiGetSelectedDriver 函数用于为设备信息集或特定设备信息元素获取所选驱动程序。
 # <翻译结束>
 
 
@@ -1472,18 +1352,7 @@
 <原文结束>
 
 # <翻译开始>
-// SelectedDriver 方法用于获取设备信息集或特定设备信息项中已选择的驱动程序。
-# <翻译结束>
-
-
-<原文开始>
-//sys	SetupDiSetSelectedDriver(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverInfoData *DrvInfoData) (err error) = setupapi.SetupDiSetSelectedDriverW
-<原文结束>
-
-# <翻译开始>
-//sys	SetupDiSetSelectedDriver(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverInfoData *DrvInfoData) (err error) = setupapi.SetupDiSetSelectedDriverW
-// 
-// 系统调用 SetupDiSetSelectedDriver 用于为指定的设备信息集（deviceInfoSet）中的设备（由 deviceInfoData 指针指向其相关信息）设置选中的驱动程序。该驱动程序的相关信息由 driverInfoData 指针所指向。此函数为 Windows API 中 setupapi 库的一部分，具体对应于名为 SetupDiSetSelectedDriverW 的函数。函数执行结果返回一个错误值（err），用于表示操作是否成功。
+// SelectedDriver 方法用于检索设备信息集或特定设备信息元素所选中的驱动程序。
 # <翻译结束>
 
 
@@ -1492,16 +1361,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetSelectedDriver 方法用于设置或重置设备信息元素的选定驱动程序，或为设备信息集设置选定的类驱动程序。
-# <翻译结束>
-
-
-<原文开始>
-//sys	setupDiGetDriverInfoDetail(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverInfoData *DrvInfoData, driverInfoDetailData *DrvInfoDetailData, driverInfoDetailDataSize uint32, requiredSize *uint32) (err error) = setupapi.SetupDiGetDriverInfoDetailW
-<原文结束>
-
-# <翻译开始>
-//sys	设置Di获取驱动信息详细（deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverInfoData *DrvInfoData, driverInfoDetailData *DrvInfoDetailData, driverInfoDetailDataSize uint32, requiredSize *uint32）(err error) = setupapi.SetupDiGetDriverInfoDetailW
+// SetSelectedDriver 方法用于设置或重置设备信息元素的已选驱动程序，或者为设备信息集合设置已选类驱动程序。
 # <翻译结束>
 
 
@@ -1510,7 +1370,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetupDiGetDriverInfoDetail 函数用于为设备信息集中或该集合中特定设备信息元素获取驱动程序详细信息。
+// SetupDiGetDriverInfoDetail 函数用于为设备信息集中或设备信息集中的特定设备信息元素获取驱动程序信息详细内容。
 # <翻译结束>
 
 
@@ -1519,23 +1379,7 @@
 <原文结束>
 
 # <翻译开始>
-// DriverInfoDetail 方法用于检索设备信息集中某个设备信息项的驱动程序详细信息，或者为设备信息集中的特定设备信息元素获取驱动程序信息。
-# <翻译结束>
-
-
-<原文开始>
-//sys	SetupDiDestroyDriverInfoList(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverType SPDIT) (err error) = setupapi.SetupDiDestroyDriverInfoList
-<原文结束>
-
-# <翻译开始>
-//sys	SetupDiDestroyDriverInfoList(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverType SPDIT) (err error) = setupapi.SetupDiDestroyDriverInfoList
-// 
-// 系统调用 SetupDiDestroyDriverInfoList，用于销毁与指定设备信息集（deviceInfoSet）关联的驱动程序信息列表。参数说明如下：
-//   - deviceInfoSet：类型为 DevInfo，表示需要销毁其驱动程序信息列表的设备信息集。
-//   - deviceInfoData：类型为 *DevInfoData，指向包含设备特定配置信息的结构体指针。此参数用于确定要销毁的驱动程序信息列表。
-//   - driverType：类型为 SPDIT，定义了要销毁的驱动程序信息类型的枚举值。
-// 
-// 此函数映射到名为 setupapi.SetupDiDestroyDriverInfoList 的 WinAPI 函数，执行后返回一个错误（err），用于指示操作是否成功完成。
+// DriverInfoDetail 方法用于获取设备信息集中某个设备信息元素的驱动程序详细信息，或直接为整个设备信息集获取此类信息。
 # <翻译结束>
 
 
@@ -1549,46 +1393,11 @@
 
 
 <原文开始>
-//sys	setupDiGetClassDevsEx(classGUID *GUID, Enumerator *uint16, hwndParent uintptr, Flags DIGCF, deviceInfoSet DevInfo, machineName *uint16, reserved uintptr) (handle DevInfo, err error) [failretval==DevInfo(InvalidHandle)] = setupapi.SetupDiGetClassDevsExW
-<原文结束>
-
-# <翻译开始>
-//sys	setupDiGetClassDevsEx(classGUID *GUID, Enumerator *uint16, hwndParent uintptr, Flags DIGCF, deviceInfoSet DevInfo, machineName *uint16, reserved uintptr) (handle DevInfo, err error) [failretval==DevInfo(InvalidHandle)] = setupapi.SetupDiGetClassDevsExW
-// 
-// 系统调用 setupDiGetClassDevsEx，参数如下：
-//   - classGUID：指向 GUID 类型的指针，表示设备类或接口类的唯一标识。
-//   - Enumerator：指向 uint16 类型的指针，包含枚举器的名称（可选）。
-//   - hwndParent：窗口句柄（uintptr 类型），指定父窗口（可选）。
-//   - Flags：DIGCF 类型的标志位，用于指定获取设备信息集的方式。
-//   - deviceInfoSet：DevInfo 类型，表示设备信息集合的句柄（可选，通常为零以创建新的集合）。
-//   - machineName：指向 uint16 类型的指针，包含目标计算机的名称（可选，本地系统默认）。
-//   - reserved：保留参数（uintptr 类型），必须为零。
-// 
-// 函数返回：
-//   - handle：DevInfo 类型，成功时返回设备信息集合的有效句柄。
-//   - err：error 类型，若操作失败则返回相应的错误。
-// 
-// 当函数返回值（handle）等于 DevInfo(InvalidHandle) 时，表示操作失败。本系统调用对应于 Windows API 函数 `setupapi.SetupDiGetClassDevsExW`。
-# <翻译结束>
-
-
-<原文开始>
 // SetupDiGetClassDevsEx function returns a handle to a device information set that contains requested device information elements for a local or a remote computer.
 <原文结束>
 
 # <翻译开始>
-// SetupDiGetClassDevsEx函数返回一个设备信息集的句柄，该集合包含了针对本地或远程计算机请求的设备信息元素。
-# <翻译结束>
-
-
-<原文开始>
-// SetupDiCallClassInstaller function calls the appropriate class installer, and any registered co-installers, with the specified installation request (DIF code).
-//sys	SetupDiCallClassInstaller(installFunction DI_FUNCTION, deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (err error) = setupapi.SetupDiCallClassInstaller
-<原文结束>
-
-# <翻译开始>
-// SetupDiCallClassInstaller 函数以指定的安装请求（DIF 代码）调用相应类安装程序及所有已注册的协同安装程序。
-//sys	SetupDiCallClassInstaller(installFunction DI_FUNCTION, deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (err error) = setupapi.SetupDiCallClassInstaller
+// SetupDiGetClassDevsEx 函数返回一个设备信息集的句柄，该集合包含了为本地或远程计算机请求的设备信息元素。
 # <翻译结束>
 
 
@@ -1597,37 +1406,7 @@
 <原文结束>
 
 # <翻译开始>
-// CallClassInstaller 成员调用相应类安装程序及已注册的所有共同安装程序，同时指定了安装请求（DIF 代码）。
-# <翻译结束>
-
-
-<原文开始>
-// SetupDiOpenDevRegKey function opens a registry key for device-specific configuration information.
-//sys	SetupDiOpenDevRegKey(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, Scope DICS_FLAG, HwProfile uint32, KeyType DIREG, samDesired uint32) (key Handle, err error) [failretval==InvalidHandle] = setupapi.SetupDiOpenDevRegKey
-<原文结束>
-
-# <翻译开始>
-// SetupDiOpenDevRegKey 函数用于打开一个注册表键，以便访问设备特定的配置信息。
-//sys	SetupDiOpenDevRegKey(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, Scope DICS_FLAG, HwProfile uint32, KeyType DIREG, samDesired uint32) (key Handle, err error) [failretval==InvalidHandle] = setupapi.SetupDiOpenDevRegKey
-// 
-// 注释翻译如下：
-// 
-// **SetupDiOpenDevRegKey** 函数用于打开一个与设备相关的注册表键，以获取设备特定的配置信息。
-// 
-// **函数参数说明**：
-// - **deviceInfoSet**：一个 DevInfo 类型的变量，表示设备信息集。
-// - **deviceInfoData**：指向 DevInfoData 结构体的指针，包含特定设备的相关数据。
-// - **Scope**：DICS_FLAG 类型的枚举值，指定设备配置信息的范围（如系统范围、当前硬件配置等）。
-// - **HwProfile**：无符号整型值，表示硬件配置索引。
-// - **KeyType**：DIREG 类型的枚举值，指定要打开的注册表键类型（如设备类键、设备实例键等）。
-// - **samDesired**：无符号整型值，定义了对所请求注册表键的访问权限。
-// 
-// **函数返回值**：
-// - **key**：返回一个 Handle 类型的变量，表示已成功打开的注册表键句柄。
-// - **err**：返回一个错误变量。如果没有错误发生，返回 nil；否则，返回具体的错误信息。
-// 
-// **附加说明**：
-// [failretval==InvalidHandle] 表示当函数执行失败时，返回的 key 值应为 InvalidHandle。此函数在内部调用了名为 `setupapi.SetupDiOpenDevRegKey` 的系统库函数。
+// CallClassInstaller 成员调用相应类安装程序以及所有已注册的共同安装程序，同时传递指定的安装请求（DIF代码）。
 # <翻译结束>
 
 
@@ -1641,54 +1420,11 @@
 
 
 <原文开始>
-//sys	setupDiGetDeviceProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, propertyKey *DEVPROPKEY, propertyType *DEVPROPTYPE, propertyBuffer *byte, propertyBufferSize uint32, requiredSize *uint32, flags uint32) (err error) = setupapi.SetupDiGetDevicePropertyW
-<原文结束>
-
-# <翻译开始>
-//sys	setupDiGetDeviceProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, propertyKey *DEVPROPKEY, propertyType *DEVPROPTYPE, propertyBuffer *byte, propertyBufferSize uint32, requiredSize *uint32, flags uint32) (err error) = setupapi.SetupDiGetDevicePropertyW
-// 
-// 翻译成中文为：
-// 
-//sys	通过setupapi.SetupDiGetDevicePropertyW调用实现setupDiGetDeviceProperty函数，其参数如下：
-//  deviceInfoSet：DevInfo类型的设备信息集；
-//  deviceInfoData：指向DevInfoData结构体的指针，包含设备信息数据；
-//  propertyKey：指向DEVPROPKEY结构体的指针，表示要获取的设备属性键；
-//  propertyType：指向DEVPROPTYPE变量的指针，用于接收所获取属性的数据类型；
-//  propertyBuffer：指向字节型缓冲区的指针，用于存储获取到的属性值；
-//  propertyBufferSize：uint32类型的变量，表示propertyBuffer的大小（以字节为单位）；
-//  requiredSize：指向uint32变量的指针，用于接收实际所需的缓冲区大小（若propertyBuffer太小，不足以容纳属性值，则返回所需大小）；
-//  flags：uint32类型的标志位，指定获取属性时的附加选项；
-//  返回值：返回一个错误对象(err error)，表示执行过程中的错误状态。
-# <翻译结束>
-
-
-<原文开始>
 // SetupDiGetDeviceProperty function retrieves a specified device instance property.
 <原文结束>
 
 # <翻译开始>
-// SetupDiGetDeviceProperty 函数用于检索指定设备实例的属性。
-# <翻译结束>
-
-
-<原文开始>
-//sys	setupDiGetDeviceRegistryProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, property SPDRP, propertyRegDataType *uint32, propertyBuffer *byte, propertyBufferSize uint32, requiredSize *uint32) (err error) = setupapi.SetupDiGetDeviceRegistryPropertyW
-<原文结束>
-
-# <翻译开始>
-//sys	设置设备注册表属性（setupDiGetDeviceRegistryProperty）函数，用于获取设备信息集（deviceInfoSet）中指定设备（deviceInfoData）的特定注册表属性（property）。参数包括：
-//	1. deviceInfoSet：设备信息集句柄。
-//	2. deviceInfoData：指向包含目标设备信息的DevInfoData结构指针。
-//	3. property：指定要查询的设备注册表属性（SPDRP枚举类型值）。
-//	4. propertyRegDataType：指向一个uint32变量的指针，用于接收所查询属性的数据类型。
-//	5. propertyBuffer：指向缓冲区的指针，用于接收查询到的属性值。若为nil，则仅计算所需缓冲区大小。
-//	6. propertyBufferSize：提供的属性值缓冲区大小，以字节为单位。
-//	7. requiredSize：指向一个uint32变量的指针，用于接收查询属性值所需的最小缓冲区大小。
-// 
-// 函数返回值：
-//	1. err：表示执行结果的错误信息。若无错误发生，返回nil；否则返回具体错误。
-// 
-// 本函数是封装对Windows系统API函数`setupapi.SetupDiGetDeviceRegistryPropertyW`的调用。
+// SetupDiGetDeviceProperty 函数用于检索指定的设备实例属性。
 # <翻译结束>
 
 
@@ -1729,28 +1465,11 @@
 
 
 <原文开始>
-//sys	setupDiSetDeviceRegistryProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, property SPDRP, propertyBuffer *byte, propertyBufferSize uint32) (err error) = setupapi.SetupDiSetDeviceRegistryPropertyW
-<原文结束>
-
-# <翻译开始>
-//sys	setupDiSetDeviceRegistryProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, property SPDRP, propertyBuffer *byte, propertyBufferSize uint32) (err error) = setupapi.SetupDiSetDeviceRegistryPropertyW
-// 
-// 系统调用setupDiSetDeviceRegistryProperty，用于设置设备注册表属性。参数说明如下：
-//   deviceInfoSet：一个DevInfo类型的句柄，标识设备信息集。
-//   deviceInfoData：指向DevInfoData结构体的指针，包含要设置其注册表属性的设备相关信息。
-//   property：SPDRP类型的枚举值，指定要设置的设备注册表属性。
-//   propertyBuffer：指向字节数据的指针，提供待写入注册表的属性值。
-//   propertyBufferSize：uint32类型，表示propertyBuffer指向的数据大小（以字节为单位）。
-// 函数返回一个错误接口(err error)，用于报告执行结果。此系统调用对应于Windows API函数setupapi.SetupDiSetDeviceRegistryPropertyW。
-# <翻译结束>
-
-
-<原文开始>
 // SetupDiSetDeviceRegistryProperty function sets a Plug and Play device property for a device.
 <原文结束>
 
 # <翻译开始>
-// SetupDiSetDeviceRegistryProperty 函数用于为设备设置即插即用设备属性。
+// SetupDiSetDeviceRegistryProperty 函数为设备设置即插即用设备属性。
 # <翻译结束>
 
 
@@ -1773,15 +1492,6 @@
 
 
 <原文开始>
-//sys	setupDiGetDeviceInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, deviceInstallParams *DevInstallParams) (err error) = setupapi.SetupDiGetDeviceInstallParamsW
-<原文结束>
-
-# <翻译开始>
-//sys	获取设备安装参数（setupDiGetDeviceInstallParams）函数通过deviceInfoSet（设备信息集）、deviceInfoData（设备信息数据指针）和deviceInstallParams（设备安装参数指针）三个参数，从setupapi库中调用SetupDiGetDeviceInstallParamsW方法，返回操作结果的错误信息（err）。
-# <翻译结束>
-
-
-<原文开始>
 // SetupDiGetDeviceInstallParams function retrieves device installation parameters for a device information set or a particular device information element.
 <原文结束>
 
@@ -1796,21 +1506,6 @@
 
 # <翻译开始>
 // DeviceInstallParams 方法用于获取设备信息集或特定设备信息元素的设备安装参数。
-# <翻译结束>
-
-
-<原文开始>
-//sys	setupDiGetDeviceInstanceId(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, instanceId *uint16, instanceIdSize uint32, instanceIdRequiredSize *uint32) (err error) = setupapi.SetupDiGetDeviceInstanceIdW
-<原文结束>
-
-# <翻译开始>
-//sys	获取设备实例ID（setupDiGetDeviceInstanceId）函数，接收如下参数：
-//		deviceInfoSet：一个DevInfo类型的设备信息集合；
-//		deviceInfoData：指向DevInfoData结构体的指针，用于存储设备相关信息；
-//		instanceId：指向uint16类型的指针，用于接收设备实例ID字符串；
-//		instanceIdSize：一个uint32类型的变量，表示instanceId缓冲区的大小（以字节为单位）；
-//		instanceIdRequiredSize：指向uint32类型的指针，用于返回实际所需的instanceId缓冲区大小。
-//此函数是封装了setupapi库中的SetupDiGetDeviceInstanceIdW函数，并可能返回一个错误（err）。
 # <翻译结束>
 
 
@@ -1833,43 +1528,11 @@
 
 
 <原文开始>
-// SetupDiGetClassInstallParams function retrieves class installation parameters for a device information set or a particular device information element.
-//sys	SetupDiGetClassInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, classInstallParams *ClassInstallHeader, classInstallParamsSize uint32, requiredSize *uint32) (err error) = setupapi.SetupDiGetClassInstallParamsW
-<原文结束>
-
-# <翻译开始>
-// SetupDiGetClassInstallParams 函数用于为设备信息集或特定设备信息元素检索类安装参数。
-//sys	SetupDiGetClassInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, classInstallParams *ClassInstallHeader, classInstallParamsSize uint32, requiredSize *uint32) (err error) = setupapi.SetupDiGetClassInstallParamsW
-# <翻译结束>
-
-
-<原文开始>
 // ClassInstallParams method retrieves class installation parameters for a device information set or a particular device information element.
 <原文结束>
 
 # <翻译开始>
-// ClassInstallParams 方法用于为设备信息集或特定设备信息元素检索类安装参数。
-# <翻译结束>
-
-
-<原文开始>
-//sys	SetupDiSetDeviceInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, deviceInstallParams *DevInstallParams) (err error) = setupapi.SetupDiSetDeviceInstallParamsW
-<原文结束>
-
-# <翻译开始>
-//sys	SetupDiSetDeviceInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, deviceInstallParams *DevInstallParams) (err error) = setupapi.SetupDiSetDeviceInstallParamsW
-// 
-// 系统调用 SetupDiSetDeviceInstallParams 用于设置设备安装参数。具体说明如下：
-// 
-// 参数说明：
-//   - deviceInfoSet（DevInfo 类型）：表示设备信息集合，它包含了待操作的设备相关信息。
-//   - deviceInfoData (*DevInfoData)：指向一个 DevInfoData 结构体的指针，该结构体包含了目标设备的具体信息。
-//   - deviceInstallParams (*DevInstallParams)：指向一个 DevInstallParams 结构体的指针，该结构体中包含要为设备设置的安装参数。
-// 
-// 返回值：
-//   - err (error)：如果函数执行成功，返回 nil；否则，返回描述错误情况的对象。
-// 
-// 本系统调用对应于 Windows API 中的 "setupapi.SetupDiSetDeviceInstallParamsW" 函数，用于在 Unicode 编码环境下设置设备安装参数。
+// ClassInstallParams 方法用于为一个设备信息集或特定的设备信息元素检索类安装参数。
 # <翻译结束>
 
 
@@ -1878,18 +1541,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetDeviceInstallParams 成员为设备信息集或特定设备信息元素设置设备安装参数。
-# <翻译结束>
-
-
-<原文开始>
-// SetupDiSetClassInstallParams function sets or clears class install parameters for a device information set or a particular device information element.
-//sys	SetupDiSetClassInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, classInstallParams *ClassInstallHeader, classInstallParamsSize uint32) (err error) = setupapi.SetupDiSetClassInstallParamsW
-<原文结束>
-
-# <翻译开始>
-// SetupDiSetClassInstallParams 函数用于为设备信息集或特定设备信息元素设置或清除类安装参数。
-//sys	SetupDiSetClassInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, classInstallParams *ClassInstallHeader, classInstallParamsSize uint32) (err error) = setupapi.SetupDiSetClassInstallParamsW
+// SetDeviceInstallParams 成员为一个设备信息集或特定的设备信息元素设置设备安装参数。
 # <翻译结束>
 
 
@@ -1903,29 +1555,11 @@
 
 
 <原文开始>
-//sys	setupDiClassNameFromGuidEx(classGUID *GUID, className *uint16, classNameSize uint32, requiredSize *uint32, machineName *uint16, reserved uintptr) (err error) = setupapi.SetupDiClassNameFromGuidExW
-<原文结束>
-
-# <翻译开始>
-//sys	根据给定的类GUID、目标类名缓冲区、类名缓冲区大小、返回所需缓冲区大小指针、目标计算机名和预留参数，使用setupapi.SetupDiClassNameFromGuidExW函数获取类名，并返回可能的错误。
-# <翻译结束>
-
-
-<原文开始>
 // SetupDiClassNameFromGuidEx function retrieves the class name associated with a class GUID. The class can be installed on a local or remote computer.
 <原文结束>
 
 # <翻译开始>
-// SetupDiClassNameFromGuidEx 函数用于获取与类GUID关联的类名。此类可以安装在本地或远程计算机上。
-# <翻译结束>
-
-
-<原文开始>
-//sys	setupDiClassGuidsFromNameEx(className *uint16, classGuidList *GUID, classGuidListSize uint32, requiredSize *uint32, machineName *uint16, reserved uintptr) (err error) = setupapi.SetupDiClassGuidsFromNameExW
-<原文结束>
-
-# <翻译开始>
-//sys	根据给定的类名（className）在指定计算机（machineName）上获取类GUID列表，将结果存储于classGuidList中。classGuidListSize参数指示classGuidList的容量（以GUID为单位）。requiredSize用于返回实际需要的GUID数量。若machineName为空，表示在本地计算机查询。reserved参数保留供将来使用。此函数为setupapi库中的SetupDiClassGuidsFromNameExW函数的封装，并在出错时返回错误信息（err）。
+// SetupDiClassNameFromGuidEx 函数用于获取与类GUID关联的类名。该类可以安装在本地计算机或远程计算机上。
 # <翻译结束>
 
 
@@ -1934,22 +1568,7 @@
 <原文结束>
 
 # <翻译开始>
-// SetupDiClassGuidsFromNameEx 函数从指定的类名中检索关联的 GUID。返回的列表包含了当前安装在本地或远程计算机上的此类别。
-# <翻译结束>
-
-
-<原文开始>
-//sys	setupDiGetSelectedDevice(deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (err error) = setupapi.SetupDiGetSelectedDevice
-<原文结束>
-
-# <翻译开始>
-//sys	setupDiGetSelectedDevice(deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (err error) = setupapi.SetupDiGetSelectedDevice
-// 
-// 系统调用 setupDiGetSelectedDevice，用于获取指定设备信息集合（deviceInfoSet）中已被选中的设备信息。参数说明如下：
-//   - deviceInfoSet：类型为 DevInfo 的变量，表示要从中获取选中设备的设备信息集合。
-//   - deviceInfoData：指向 DevInfoData 结构体的指针，用于接收所选设备的相关信息。
-// 
-// 该函数返回一个错误值（err），若操作成功则返回 nil；否则返回具体错误。该函数与 Windows API 函数 `setupapi.SetupDiGetSelectedDevice` 对应。
+// SetupDiClassGuidsFromNameEx 函数用于获取与指定类名关联的 GUID。返回的列表包含本地或远程计算机上当前已安装的此类别。
 # <翻译结束>
 
 
@@ -1972,37 +1591,11 @@
 
 
 <原文开始>
-// SetupDiSetSelectedDevice function sets a device information element as the selected member of a device information set. This function is typically used by an installation wizard.
-//sys	SetupDiSetSelectedDevice(deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (err error) = setupapi.SetupDiSetSelectedDevice
-<原文结束>
-
-# <翻译开始>
-// SetupDiSetSelectedDevice 函数将一个设备信息元素设置为设备信息集中被选中的成员。此函数通常由安装向导使用。
-//sys	SetupDiSetSelectedDevice(deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (err error) = setupapi.SetupDiSetSelectedDevice
-# <翻译结束>
-
-
-<原文开始>
 // SetSelectedDevice method sets a device information element as the selected member of a device information set. This function is typically used by an installation wizard.
 <原文结束>
 
 # <翻译开始>
-// SetSelectedDevice 方法将一个设备信息元素设置为设备信息集的选定成员。此函数通常由安装向导使用。
-# <翻译结束>
-
-
-<原文开始>
-//sys	setupUninstallOEMInf(infFileName *uint16, flags SUOI, reserved uintptr) (err error) = setupapi.SetupUninstallOEMInfW
-<原文结束>
-
-# <翻译开始>
-//sys	setupUninstallOEMInf(infFileName *uint16, flags SUOI, reserved uintptr) (err error) = setupapi.SetupUninstallOEMInfW
-// 
-// 系统调用 setupUninstallOEMInf，用于卸载OEM信息文件。参数说明如下：
-// - infFileName: 指向包含OEM信息文件名的 uint16 类型指针。
-// - flags: 类型为 SUOI 的标志位，用于指定卸载操作的相关选项或行为。
-// - reserved: 类型为 uintptr 的保留参数，目前未使用，应传入零值。
-// 该函数等同于调用 setupapi 库中的 SetupUninstallOEMInfW 函数。
+// SetSelectedDevice 方法用于将一个设备信息元素设置为设备信息集的选定成员。此函数通常由安装向导使用。
 # <翻译结束>
 
 
@@ -2012,63 +1605,5 @@
 
 # <翻译开始>
 // SetupUninstallOEMInf 卸载指定的驱动程序
-# <翻译结束>
-
-
-<原文开始>
-//sys cm_MapCrToWin32Err(configRet CONFIGRET, defaultWin32Error Errno) (ret Errno) = CfgMgr32.CM_MapCrToWin32Err
-<原文结束>
-
-# <翻译开始>
-//sys cm_MapCrToWin32Err(configRet CONFIGRET, defaultWin32Error Errno) (ret Errno) = CfgMgr32.CM_MapCrToWin32Err
-// 
-// 系统调用 cm_MapCrToWin32Err，将 CONFIGRET 类型的 configRet 映射到对应的 Win32 错误码。如果映射失败，使用 Errno 类型的 defaultWin32Error 作为默认返回值。该函数等价于调用 CfgMgr32 库中的 CM_MapCrToWin32Err 函数，并返回 Errno 类型的结果 ret。
-# <翻译结束>
-
-
-<原文开始>
-//sys cm_Get_Device_Interface_List_Size(len *uint32, interfaceClass *GUID, deviceID *uint16, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_Device_Interface_List_SizeW
-//sys cm_Get_Device_Interface_List(interfaceClass *GUID, deviceID *uint16, buffer *uint16, bufferLen uint32, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_Device_Interface_ListW
-<原文结束>
-
-# <翻译开始>
-//sys cm_Get_Device_Interface_List_Size(len *uint32, interfaceClass *GUID, deviceID *uint16, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_Device_Interface_List_SizeW
-//sys cm_Get_Device_Interface_List(interfaceClass *GUID, deviceID *uint16, buffer *uint16, bufferLen uint32, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_Device_Interface_ListW
-// 
-// 翻译成中文为：
-// 
-//sys cm_Get_Device_Interface_List_Size(len *uint32, interfaceClass *GUID, deviceID *uint16, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_Device_Interface_List_SizeW
-//sys cm_Get_Device_Interface_List(interfaceClass *GUID, deviceID *uint16, buffer *uint16, bufferLen uint32, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_Device_Interface_ListW
-// 
-// （注：以上为原文，由于原文为Go语言的系统调用声明，其内容已为英文注释形式，无需再进行翻译。）
-# <翻译结束>
-
-
-<原文开始>
-//sys cm_Get_DevNode_Status(status *uint32, problemNumber *uint32, devInst DEVINST, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_DevNode_Status
-<原文结束>
-
-# <翻译开始>
-//sys cm_Get_DevNode_Status(status *uint32, problemNumber *uint32, devInst DEVINST, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_DevNode_Status
-// 
-// 系统调用 cm_Get_DevNode_Status，其参数如下：
-//   - status：指向一个 uint32 类型的指针，用于接收设备节点的状态信息。
-//   - problemNumber：指向一个 uint32 类型的指针，用于接收设备问题编号。
-//   - devInst：DEVINST 类型的设备实例句柄。
-//   - flags：uint32 类型的标志位。
-// 
-// 该函数调用 CfgMgr32 库中的 CM_Get_DevNode_Status 函数，并返回 CONFIGRET 类型的结果。
-// 
-// 注释翻译成中文：
-// 
-//sys cm_Get_DevNode_Status(status *uint32, problemNumber *uint32, devInst DEVINST, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_DevNode_Status
-// 
-// 系统调用 cm_Get_DevNode_Status，其参数说明如下：
-//   - status：指向一个 uint32 类型变量的指针，用于存储获取到的设备节点状态信息。
-//   - problemNumber：指向一个 uint32 类型变量的指针，用于存储设备的问题编号。
-//   - devInst：表示设备实例的 DEVINST 类型句柄。
-//   - flags：uint32 类型的标志位，用于指定额外的操作选项或模式。
-// 
-// 该函数实际调用了 CfgMgr32 库中的 CM_Get_DevNode_Status 函数，并返回一个 CONFIGRET 类型的值作为执行结果。
 # <翻译结束>
 

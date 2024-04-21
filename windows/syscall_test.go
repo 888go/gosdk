@@ -1,5 +1,5 @@
-// 版权所有 2013 The Go Authors。保留所有权利。
-// 使用本源代码受 BSD 风格许可协议约束，
+// 版权所有 ? 2013 The Go 作者。保留所有权利。
+// 本源代码的使用受 BSD 风格许可协议约束，
 // 该协议可在 LICENSE 文件中找到。
 
 //go:build windows
@@ -35,7 +35,8 @@ func TestEnv(t *testing.T) {
 }
 
 func TestGetProcAddressByOrdinal(t *testing.T) {
-// 尝试通过序数调用 shlwapi.dll:IsOS，这在以下网址中被建议：
+// 尝试调用 shlwapi.dll 中的 IsOS 函数，通过序数进行解析，如
+// 下文所示：
 // https://msdn.microsoft.com/en-us/library/windows/desktop/bb773795.aspx
 	h, err := windows.LoadLibrary("shlwapi.dll")
 	if err != nil {
@@ -79,7 +80,8 @@ func TestGetWindowsDirectory(t *testing.T) {
 	}
 }
 func TestFindProcByOrdinal(t *testing.T) {
-// 尝试通过序数调用 shlwapi.dll:IsOS，这在以下网址中被建议：
+// 尝试调用 shlwapi.dll 中的 IsOS 函数，通过序数进行解析，如
+// 下文所示：
 // https://msdn.microsoft.com/en-us/library/windows/desktop/bb773795.aspx
 	dll, err := windows.LoadDLL("shlwapi.dll")
 	if err != nil {
