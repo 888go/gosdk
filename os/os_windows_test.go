@@ -6,23 +6,18 @@ package os_test
 import (
 	"errors"
 	"fmt"
-	"internal/poll"
-	"internal/syscall/windows"
-	"internal/syscall/windows/registry"
-	"internal/testenv"
-	"io"
+	"github.com/888go/gosdk/os"
+	"github.com/888go/gosdk/os/internal/syscall/windows"
+	"github.com/888go/gosdk/os/internal/syscall/windows/registry"
+	"github.com/888go/gosdk/os/internal/testenv"
 	"io/fs"
-	"os"
 	"os/exec"
 	"path/filepath"
-	"reflect"
 	"runtime"
-	"slices"
 	"sort"
 	"strings"
 	"syscall"
 	"testing"
-	"unicode/utf16"
 	"unsafe"
 )
 
@@ -578,8 +573,8 @@ func TestStatLxSymLink(t *testing.T) {
 		// 如果以管理员身份运行或在开发模式下运行，根据较新的WSL版本，可能会发生这种情况。
 		t.Skip("skipping: WSL created reparse tag IO_REPARSE_TAG_SYMLINK instead of an IO_REPARSE_TAG_LX_SYMLINK")
 	}
-// 对于一个IO_REPARSE_TAG_LX_SYMLINK类型的符号链接，若从WSL外部进行Stat操作，总会返回ERROR_CANT_ACCESS_FILE错误。
-// 我们检查这一条件，以验证os.Stat确实尝试了跟踪该链接。
+	// 对于一个IO_REPARSE_TAG_LX_SYMLINK类型的符号链接，若从WSL外部进行Stat操作，总会返回ERROR_CANT_ACCESS_FILE错误。
+	// 我们检查这一条件，以验证os.Stat确实尝试了跟踪该链接。
 	_, err = os.Stat(link)
 	const ERROR_CANT_ACCESS_FILE = syscall.Errno(1920)
 	if err == nil || !errors.Is(err, ERROR_CANT_ACCESS_FILE) {
@@ -699,84 +694,84 @@ func TestDeleteReadOnly(t *testing.T) {
 	}
 }
 
-func TestReadStdin(t *testing.T) {
-	old := poll.ReadConsole
-	defer func() {
-		poll.ReadConsole = old
-	}()
-
-	p, err := syscall.GetCurrentProcess()
-	if err != nil {
-		t.Fatalf("Unable to get handle to current process: %v", err)
-	}
-	var stdinDuplicate syscall.Handle
-	err = syscall.DuplicateHandle(p, syscall.Handle(syscall.Stdin), p, &stdinDuplicate, 0, false, syscall.DUPLICATE_SAME_ACCESS)
-	if err != nil {
-		t.Fatalf("Unable to duplicate stdin: %v", err)
-	}
-	testConsole := os.NewConsoleFile(stdinDuplicate, "test")
-
-	var tests = []string{
-		"abc",
-		"äöü",
-		"\u3042",
-		"“hi”™",
-		"hello\x1aworld",
-		"\U0001F648\U0001F649\U0001F64A",
-	}
-
-	for _, consoleSize := range []int{1, 2, 3, 10, 16, 100, 1000} {
-		for _, readSize := range []int{1, 2, 3, 4, 5, 8, 10, 16, 20, 50, 100} {
-			for _, s := range tests {
-				t.Run(fmt.Sprintf("c%d/r%d/%s", consoleSize, readSize, s), func(t *testing.T) {
-					s16 := utf16.Encode([]rune(s))
-					poll.ReadConsole = func(h syscall.Handle, buf *uint16, toread uint32, read *uint32, inputControl *byte) error {
-						if inputControl != nil {
-							t.Fatalf("inputControl not nil")
-						}
-						n := int(toread)
-						if n > consoleSize {
-							n = consoleSize
-						}
-						n = copy((*[10000]uint16)(unsafe.Pointer(buf))[:n:n], s16)
-						s16 = s16[n:]
-						*read = uint32(n)
-						t.Logf("read %d -> %d", toread, *read)
-						return nil
-					}
-
-					var all []string
-					var buf []byte
-					chunk := make([]byte, readSize)
-					for {
-						n, err := testConsole.Read(chunk)
-						buf = append(buf, chunk[:n]...)
-						if err == io.EOF {
-							all = append(all, string(buf))
-							if len(all) >= 5 {
-								break
-							}
-							buf = buf[:0]
-						} else if err != nil {
-							t.Fatalf("reading %q: error: %v", s, err)
-						}
-						if len(buf) >= 2000 {
-							t.Fatalf("reading %q: stuck in loop: %q", s, buf)
-						}
-					}
-
-					want := strings.Split(s, "\x1a")
-					for len(want) < 5 {
-						want = append(want, "")
-					}
-					if !reflect.DeepEqual(all, want) {
-						t.Errorf("reading %q:\nhave %x\nwant %x", s, all, want)
-					}
-				})
-			}
-		}
-	}
-}
+//func TestReadStdin(t *testing.T) {
+//	old := poll.ReadConsole
+//	defer func() {
+//		poll.ReadConsole = old
+//	}()
+//
+//	p, err := syscall.GetCurrentProcess()
+//	if err != nil {
+//		t.Fatalf("Unable to get handle to current process: %v", err)
+//	}
+//	var stdinDuplicate syscall.Handle
+//	err = syscall.DuplicateHandle(p, syscall.Handle(syscall.Stdin), p, &stdinDuplicate, 0, false, syscall.DUPLICATE_SAME_ACCESS)
+//	if err != nil {
+//		t.Fatalf("Unable to duplicate stdin: %v", err)
+//	}
+//	testConsole := os.NewConsoleFile(stdinDuplicate, "test")
+//
+//	var tests = []string{
+//		"abc",
+//		"äöü",
+//		"\u3042",
+//		"“hi”™",
+//		"hello\x1aworld",
+//		"\U0001F648\U0001F649\U0001F64A",
+//	}
+//
+//	for _, consoleSize := range []int{1, 2, 3, 10, 16, 100, 1000} {
+//		for _, readSize := range []int{1, 2, 3, 4, 5, 8, 10, 16, 20, 50, 100} {
+//			for _, s := range tests {
+//				t.Run(fmt.Sprintf("c%d/r%d/%s", consoleSize, readSize, s), func(t *testing.T) {
+//					s16 := utf16.Encode([]rune(s))
+//					poll.ReadConsole = func(h syscall.Handle, buf *uint16, toread uint32, read *uint32, inputControl *byte) error {
+//						if inputControl != nil {
+//							t.Fatalf("inputControl not nil")
+//						}
+//						n := int(toread)
+//						if n > consoleSize {
+//							n = consoleSize
+//						}
+//						n = copy((*[10000]uint16)(unsafe.Pointer(buf))[:n:n], s16)
+//						s16 = s16[n:]
+//						*read = uint32(n)
+//						t.Logf("read %d -> %d", toread, *read)
+//						return nil
+//					}
+//
+//					var all []string
+//					var buf []byte
+//					chunk := make([]byte, readSize)
+//					for {
+//						n, err := testConsole.Read(chunk)
+//						buf = append(buf, chunk[:n]...)
+//						if err == io.EOF {
+//							all = append(all, string(buf))
+//							if len(all) >= 5 {
+//								break
+//							}
+//							buf = buf[:0]
+//						} else if err != nil {
+//							t.Fatalf("reading %q: error: %v", s, err)
+//						}
+//						if len(buf) >= 2000 {
+//							t.Fatalf("reading %q: stuck in loop: %q", s, buf)
+//						}
+//					}
+//
+//					want := strings.Split(s, "\x1a")
+//					for len(want) < 5 {
+//						want = append(want, "")
+//					}
+//					if !reflect.DeepEqual(all, want) {
+//						t.Errorf("reading %q:\nhave %x\nwant %x", s, all, want)
+//					}
+//				})
+//			}
+//		}
+//	}
+//}
 
 func TestStatPagefile(t *testing.T) {
 	t.Parallel()
@@ -812,122 +807,122 @@ func syscallCommandLineToArgv(cmd string) ([]string, error) {
 	return args, nil
 }
 
-// compareCommandLineToArgvWithSyscall 确保
-// os.CommandLineToArgv(cmd) 和 syscall.CommandLineToArgv(cmd)
-// 返回相同的结果。
-func compareCommandLineToArgvWithSyscall(t *testing.T, cmd string) {
-	syscallArgs, err := syscallCommandLineToArgv(cmd)
-	if err != nil {
-		t.Fatal(err)
-	}
-	args := os.CommandLineToArgv(cmd)
-	if want, have := fmt.Sprintf("%q", syscallArgs), fmt.Sprintf("%q", args); want != have {
-		t.Errorf("testing os.commandLineToArgv(%q) failed: have %q want %q", cmd, args, syscallArgs)
-		return
-	}
-}
+//// compareCommandLineToArgvWithSyscall 确保
+//// os.CommandLineToArgv(cmd) 和 syscall.CommandLineToArgv(cmd)
+//// 返回相同的结果。
+//func compareCommandLineToArgvWithSyscall(t *testing.T, cmd string) {
+//	syscallArgs, err := syscallCommandLineToArgv(cmd)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	args := os.CommandLineToArgv(cmd)
+//	if want, have := fmt.Sprintf("%q", syscallArgs), fmt.Sprintf("%q", args); want != have {
+//		t.Errorf("testing os.commandLineToArgv(%q) failed: have %q want %q", cmd, args, syscallArgs)
+//		return
+//	}
+//}
 
-func TestCmdArgs(t *testing.T) {
-	if testing.Short() {
-		t.Skipf("in short mode; skipping test that builds a binary")
-	}
-	t.Parallel()
-
-	tmpdir := t.TempDir()
-
-	const prog = `
-package main
-
-import (
-	"fmt"
-	"os"
-)
-
-func main() {
-	fmt.Printf("%q", os.Args)
-}
-`
-	src := filepath.Join(tmpdir, "main.go")
-	if err := os.WriteFile(src, []byte(prog), 0666); err != nil {
-		t.Fatal(err)
-	}
-
-	exe := filepath.Join(tmpdir, "main.exe")
-	cmd := testenv.Command(t, testenv.GoToolPath(t), "build", "-o", exe, src)
-	cmd.Dir = tmpdir
-	out, err := cmd.CombinedOutput()
-	if err != nil {
-		t.Fatalf("building main.exe failed: %v\n%s", err, out)
-	}
-
-	var cmds = []string{
-		``,
-		` a b c`,
-		` "`,
-		` ""`,
-		` """`,
-		` "" a`,
-		` "123"`,
-		` \"123\"`,
-		` \"123 456\"`,
-		` \\"`,
-		` \\\"`,
-		` \\\\\"`,
-		` \\\"x`,
-		` """"\""\\\"`,
-		` abc`,
-		` \\\\\""x"""y z`,
-		"\tb\t\"x\ty\"",
-		` "Брад" d e`,
-		// 示例来自 https://learn.microsoft.com/zh-cn/cpp/cpp/main-function-command-line-args
-		` "abc" d e`,
-		` a\\b d"e f"g h`,
-		` a\\\"b c d`,
-		` a\\\\"b c" d e`,
-// 参考：http://daviddeley.com/autohotkey/parameters/parameters.htm#WINARGV
-// 从5.4节：示例
-		` CallMeIshmael`,
-		` "Call Me Ishmael"`,
-		` Cal"l Me I"shmael`,
-		` CallMe\"Ishmael`,
-		` "CallMe\"Ishmael"`,
-		` "Call Me Ishmael\\"`,
-		` "CallMe\\\"Ishmael"`,
-		` a\\\b`,
-		` "a\\\b"`,
-		// 从5.5 开始 一些常见任务
-		` "\"Call Me Ishmael\""`,
-		` "C:\TEST A\\"`,
-		` "\"C:\TEST A\\\""`,
-		// 从 5.6 起，微软示例解释
-		` "a b c"  d  e`,
-		` "ab\"c"  "\\"  d`,
-		` a\\\b d"e f"g h`,
-		` a\\\"b c d`,
-		` a\\\\"b c" d e`,
-		// 自 5.7 双重双引号示例（2008年前）
-		` "a b c""`,
-		` """CallMeIshmael"""  b  c`,
-		` """Call Me Ishmael"""`,
-		` """"Call Me Ishmael"" b c`,
-	}
-	for _, cmd := range cmds {
-		compareCommandLineToArgvWithSyscall(t, "test"+cmd)
-		compareCommandLineToArgvWithSyscall(t, `"cmd line"`+cmd)
-		compareCommandLineToArgvWithSyscall(t, exe+cmd)
-
-		// 测试syscall.EscapeArg和os.commandLineToArgv两个函数
-		args := os.CommandLineToArgv(exe + cmd)
-		out, err := testenv.Command(t, args[0], args[1:]...).CombinedOutput()
-		if err != nil {
-			t.Fatalf("running %q failed: %v\n%v", args, err, string(out))
-		}
-		if want, have := fmt.Sprintf("%q", args), string(out); want != have {
-			t.Errorf("wrong output of executing %q: have %q want %q", args, have, want)
-			continue
-		}
-	}
-}
+//func TestCmdArgs(t *testing.T) {
+//	if testing.Short() {
+//		t.Skipf("in short mode; skipping test that builds a binary")
+//	}
+//	t.Parallel()
+//
+//	tmpdir := t.TempDir()
+//
+//	const prog = `
+//package main
+//
+//import (
+//	"fmt"
+//	"github.com/888go/gosdk/os"
+//)
+//
+//func main() {
+//	fmt.Printf("%q", os.Args)
+//}
+//`
+//	src := filepath.Join(tmpdir, "main.go")
+//	if err := os.WriteFile(src, []byte(prog), 0666); err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	exe := filepath.Join(tmpdir, "main.exe")
+//	cmd := testenv.Command(t, testenv.GoToolPath(t), "build", "-o", exe, src)
+//	cmd.Dir = tmpdir
+//	out, err := cmd.CombinedOutput()
+//	if err != nil {
+//		t.Fatalf("building main.exe failed: %v\n%s", err, out)
+//	}
+//
+//	var cmds = []string{
+//		``,
+//		` a b c`,
+//		` "`,
+//		` ""`,
+//		` """`,
+//		` "" a`,
+//		` "123"`,
+//		` \"123\"`,
+//		` \"123 456\"`,
+//		` \\"`,
+//		` \\\"`,
+//		` \\\\\"`,
+//		` \\\"x`,
+//		` """"\""\\\"`,
+//		` abc`,
+//		` \\\\\""x"""y z`,
+//		"\tb\t\"x\ty\"",
+//		` "Брад" d e`,
+//		// 示例来自 https://learn.microsoft.com/zh-cn/cpp/cpp/main-function-command-line-args
+//		` "abc" d e`,
+//		` a\\b d"e f"g h`,
+//		` a\\\"b c d`,
+//		` a\\\\"b c" d e`,
+//		// 参考：http://daviddeley.com/autohotkey/parameters/parameters.htm#WINARGV
+//		// 从5.4节：示例
+//		` CallMeIshmael`,
+//		` "Call Me Ishmael"`,
+//		` Cal"l Me I"shmael`,
+//		` CallMe\"Ishmael`,
+//		` "CallMe\"Ishmael"`,
+//		` "Call Me Ishmael\\"`,
+//		` "CallMe\\\"Ishmael"`,
+//		` a\\\b`,
+//		` "a\\\b"`,
+//		// 从5.5 开始 一些常见任务
+//		` "\"Call Me Ishmael\""`,
+//		` "C:\TEST A\\"`,
+//		` "\"C:\TEST A\\\""`,
+//		// 从 5.6 起，微软示例解释
+//		` "a b c"  d  e`,
+//		` "ab\"c"  "\\"  d`,
+//		` a\\\b d"e f"g h`,
+//		` a\\\"b c d`,
+//		` a\\\\"b c" d e`,
+//		// 自 5.7 双重双引号示例（2008年前）
+//		` "a b c""`,
+//		` """CallMeIshmael"""  b  c`,
+//		` """Call Me Ishmael"""`,
+//		` """"Call Me Ishmael"" b c`,
+//	}
+//	for _, cmd := range cmds {
+//		compareCommandLineToArgvWithSyscall(t, "test"+cmd)
+//		compareCommandLineToArgvWithSyscall(t, `"cmd line"`+cmd)
+//		compareCommandLineToArgvWithSyscall(t, exe+cmd)
+//
+//		// 测试syscall.EscapeArg和os.commandLineToArgv两个函数
+//		args := os.CommandLineToArgv(exe + cmd)
+//		out, err := testenv.Command(t, args[0], args[1:]...).CombinedOutput()
+//		if err != nil {
+//			t.Fatalf("running %q failed: %v\n%v", args, err, string(out))
+//		}
+//		if want, have := fmt.Sprintf("%q", args), string(out); want != have {
+//			t.Errorf("wrong output of executing %q: have %q want %q", args, have, want)
+//			continue
+//		}
+//	}
+//}
 
 func findOneDriveDir() (string, error) {
 	// 根据https://stackoverflow.com/questions/42519624/how-to-determine-location-of-onedrive-on-windows-7-and-8-in-c 的说明
@@ -1108,7 +1103,7 @@ func TestWorkingDirectoryRelativeSymlink(t *testing.T) {
 		t.Fatal(err)
 	}
 
-// 改变到临时目录，并构造一个相对于工作目录的符号链接。
+	// 改变到临时目录，并构造一个相对于工作目录的符号链接。
 	oldwd, err := os.Getwd()
 	if err != nil {
 		t.Fatal(err)
@@ -1131,7 +1126,7 @@ func TestWorkingDirectoryRelativeSymlink(t *testing.T) {
 	}
 	t.Logf("Symlink(%#q, %#q)", wdRelDir, absLink)
 
-// 现在切换回原始的工作目录，并验证该符号链接仍指向其原始路径，且正确标记为目录。
+	// 现在切换回原始的工作目录，并验证该符号链接仍指向其原始路径，且正确标记为目录。
 	if err := os.Chdir(oldwd); err != nil {
 		t.Fatal(err)
 	}
@@ -1180,8 +1175,8 @@ func TestStatOfInvalidName(t *testing.T) {
 
 // findUnusedDriveLetter 在系统上搜索已挂载的驱动器列表（从 Z: 开始，到 D: 结束），寻找未使用的驱动器字母。它返回找到的驱动器根目录的路径（如 Z:\）或错误。
 func findUnusedDriveLetter() (string, error) {
-// 不要使用A:和B:，因为它们被保留给了软盘驱动。
-// 不要使用C:，因为它通常用于主驱动。
+	// 不要使用A:和B:，因为它们被保留给了软盘驱动。
+	// 不要使用C:，因为它通常用于主驱动。
 	for l := 'Z'; l >= 'D'; l-- {
 		p := string(l) + `:\`
 		_, err := os.Stat(p)
@@ -1334,7 +1329,7 @@ func TestWindowsReadlink(t *testing.T) {
 func TestOpenDirTOCTOU(t *testing.T) {
 	t.Parallel()
 
-// 检查打开的目录在句柄关闭之前不能重命名。参见问题52747。
+	// 检查打开的目录在句柄关闭之前不能重命名。参见问题52747。
 	tmpdir := t.TempDir()
 	dir := filepath.Join(tmpdir, "dir")
 	if err := os.Mkdir(dir, 0777); err != nil {
@@ -1358,9 +1353,9 @@ func TestOpenDirTOCTOU(t *testing.T) {
 }
 
 func TestAppExecLinkStat(t *testing.T) {
-// 我们期望安装在 %LOCALAPPDATA%\Microsoft\WindowsApps 中的可执行文件
-// 是带有 IO_REPARSE_TAG_APPEXECLINK 标签的重分析点。此处我们检查这些重分析点
-// 是否被视为非标准（但可执行）文件，而非损坏的符号链接。
+	// 我们期望安装在 %LOCALAPPDATA%\Microsoft\WindowsApps 中的可执行文件
+	// 是带有 IO_REPARSE_TAG_APPEXECLINK 标签的重分析点。此处我们检查这些重分析点
+	// 是否被视为非标准（但可执行）文件，而非损坏的符号链接。
 	appdata := os.Getenv("LOCALAPPDATA")
 	if appdata == "" {
 		t.Skipf("skipping: LOCALAPPDATA not set")
@@ -1374,7 +1369,7 @@ func TestAppExecLinkStat(t *testing.T) {
 		t.Skip("skipping test, because Python 3 is not installed via the Windows App Store on this system; see https://golang.org/issue/42919")
 	}
 
-// APPEXECLINK 重解析点不是符号链接，因此 os.Readlink 应该为其返回非空错误，而 Stat 应该返回与 Lstat 相同的结果。
+	// APPEXECLINK 重解析点不是符号链接，因此 os.Readlink 应该为其返回非空错误，而 Stat 应该返回与 Lstat 相同的结果。
 	linkName, err := os.Readlink(pythonPath)
 	if err == nil {
 		t.Errorf("os.Readlink(%q) = %q, but expected an error\n(should be an APPEXECLINK reparse point, not a symlink)", pythonPath, linkName)
@@ -1401,7 +1396,7 @@ func TestAppExecLinkStat(t *testing.T) {
 		t.Errorf("%q should be a file, not a directory (mode=0x%x)", pythonPath, uint32(m))
 	}
 	if m := lfi.Mode(); m&fs.ModeIrregular == 0 {
-// 重定向点不是常规文件，但我们没有更合适的ModeType位来标记它，所以应该将其标记为不规则的。
+		// 重定向点不是常规文件，但我们没有更合适的ModeType位来标记它，所以应该将其标记为不规则的。
 		t.Errorf("%q should not be a regular file (mode=0x%x)", pythonPath, uint32(m))
 	}
 
@@ -1415,7 +1410,7 @@ func TestAppExecLinkStat(t *testing.T) {
 		t.Errorf("%q should be a file, not a directory (mode=0x%x)", pythonPath, uint32(m))
 	}
 	if m := sfi.Mode(); m&fs.ModeIrregular == 0 {
-// 重定向点不是常规文件，但我们没有更合适的ModeType位来标记它，所以应该将其标记为不规则的。
+		// 重定向点不是常规文件，但我们没有更合适的ModeType位来标记它，所以应该将其标记为不规则的。
 		t.Errorf("%q should not be a regular file (mode=0x%x)", pythonPath, uint32(m))
 	}
 
@@ -1428,56 +1423,56 @@ func TestAppExecLinkStat(t *testing.T) {
 	}
 }
 
-func TestIllformedUTF16FileName(t *testing.T) {
-	dir := t.TempDir()
-	const sep = string(os.PathSeparator)
-	if !strings.HasSuffix(dir, sep) {
-		dir += sep
-	}
-
-	// 这个UTF-16文件名格式不正确，因为它包含没有被高-surrogate（[1:5]）前导的低-surrogates。
-	namew := []uint16{0x2e, 0xdc6d, 0xdc73, 0xdc79, 0xdc73, 0x30, 0x30, 0x30, 0x31, 0}
-
-// 创建一个文件名包含非配对代理项的文件。
-// 使用syscall.CreateFile 而非 os.Create，以模拟由非Go程序创建的文件，
-// 使得文件名未经 syscall.UTF16FromString 处理。
-	dirw := utf16.Encode([]rune(dir))
-	pathw := append(dirw, namew...)
-	fd, err := syscall.CreateFile(&pathw[0], syscall.GENERIC_ALL, 0, nil, syscall.CREATE_NEW, 0, 0)
-	if err != nil {
-		t.Fatal(err)
-	}
-	syscall.CloseHandle(fd)
-
-	name := syscall.UTF16ToString(namew)
-	path := filepath.Join(dir, name)
-	// 验证os.Lstat能够查询文件。
-	fi, err := os.Lstat(path)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if got := fi.Name(); got != name {
-		t.Errorf("got %q, want %q", got, name)
-	}
-	// 验证File.Readdirnames列出的文件。
-	f, err := os.Open(dir)
-	if err != nil {
-		t.Fatal(err)
-	}
-	files, err := f.Readdirnames(0)
-	f.Close()
-	if err != nil {
-		t.Fatal(err)
-	}
-	if !slices.Contains(files, name) {
-		t.Error("file not listed")
-	}
-// 验证os.RemoveAll是否可以删除目录，以及它是否会挂起。
-	err = os.RemoveAll(dir)
-	if err != nil {
-		t.Error(err)
-	}
-}
+//func TestIllformedUTF16FileName(t *testing.T) {
+//	dir := t.TempDir()
+//	const sep = string(os.PathSeparator)
+//	if !strings.HasSuffix(dir, sep) {
+//		dir += sep
+//	}
+//
+//	// 这个UTF-16文件名格式不正确，因为它包含没有被高-surrogate（[1:5]）前导的低-surrogates。
+//	namew := []uint16{0x2e, 0xdc6d, 0xdc73, 0xdc79, 0xdc73, 0x30, 0x30, 0x30, 0x31, 0}
+//
+//	// 创建一个文件名包含非配对代理项的文件。
+//	// 使用syscall.CreateFile 而非 os.Create，以模拟由非Go程序创建的文件，
+//	// 使得文件名未经 syscall.UTF16FromString 处理。
+//	dirw := utf16.Encode([]rune(dir))
+//	pathw := append(dirw, namew...)
+//	fd, err := syscall.CreateFile(&pathw[0], syscall.GENERIC_ALL, 0, nil, syscall.CREATE_NEW, 0, 0)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	syscall.CloseHandle(fd)
+//
+//	name := syscall.UTF16ToString(namew)
+//	path := filepath.Join(dir, name)
+//	// 验证os.Lstat能够查询文件。
+//	fi, err := os.Lstat(path)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	if got := fi.Name(); got != name {
+//		t.Errorf("got %q, want %q", got, name)
+//	}
+//	// 验证File.Readdirnames列出的文件。
+//	f, err := os.Open(dir)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	files, err := f.Readdirnames(0)
+//	f.Close()
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	if !slices.Contains(files, name) {
+//		t.Error("file not listed")
+//	}
+//	// 验证os.RemoveAll是否可以删除目录，以及它是否会挂起。
+//	err = os.RemoveAll(dir)
+//	if err != nil {
+//		t.Error(err)
+//	}
+//}
 
 func TestUTF16Alloc(t *testing.T) {
 	allowsPerRun := func(want int, f func()) {

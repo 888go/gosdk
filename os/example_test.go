@@ -8,9 +8,10 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"github.com/888go/gosdk/os"
 	"io/fs"
 	"log"
-	"os"
+	os2 "os"
 	"path/filepath"
 	"sync"
 	"time"
@@ -180,7 +181,7 @@ func ExampleMkdirTemp_suffix() {
 	}
 	defer os.RemoveAll(logsDir) // clean up
 
-// 如果需要，可以通过搜索以 *-logs 结尾的目录来提前清理日志。
+	// 如果需要，可以通过搜索以 *-logs 结尾的目录来提前清理日志。
 	globPattern := filepath.Join(os.TempDir(), "*-logs")
 	matches, err := filepath.Glob(globPattern)
 	if err != nil {
@@ -301,7 +302,7 @@ func ExampleReadlink() {
 		dstAbs = filepath.Join(filepath.Dir(linkPath), dst)
 	}
 
-// 通过比较目标与原始目标路径上的os.Stat来检查目标是否正确。
+	// 通过比较目标与原始目标路径上的os.Stat来检查目标是否正确。
 	dstInfo, err := os.Stat(dstAbs)
 	if err != nil {
 		log.Fatal(err)
@@ -326,7 +327,7 @@ func ExampleUserCacheDir() {
 
 	getCache := func(name string) ([]byte, error) {
 		if dirErr != nil {
-			return nil, &os.PathError{Op: "getCache", Path: name, Err: os.ErrNotExist}
+			return nil, &os.PathError{Op: "getCache", Path: name, Err: os2.ErrNotExist}
 		}
 		return os.ReadFile(filepath.Join(dir, name))
 	}
@@ -364,7 +365,7 @@ func ExampleUserConfigDir() {
 		var err error
 		origConfig, err = os.ReadFile(configPath)
 		if err != nil && !os.IsNotExist(err) {
-// 用户有一个配置文件，但我们无法读取它。 // 相反于忽略他们的配置，我们应该报告这个错误。
+			// 用户有一个配置文件，但我们无法读取它。 // 相反于忽略他们的配置，我们应该报告这个错误。
 			log.Fatal(err)
 		}
 	}

@@ -6,7 +6,7 @@ package os_test
 
 import (
 	"bytes"
-	. "os"
+	. "github.com/888go/gosdk/os"
 	"path/filepath"
 	"runtime"
 	"testing"

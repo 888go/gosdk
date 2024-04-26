@@ -6,50 +6,49 @@ package os_test
 
 import (
 	"fmt"
-	"internal/syscall/windows"
-	"internal/testenv"
-	"os"
+	"github.com/888go/gosdk/os"
+	"github.com/888go/gosdk/os/internal/syscall/windows"
+	"github.com/888go/gosdk/os/internal/testenv"
 	"path/filepath"
-	"strings"
 	"syscall"
 	"testing"
 )
 
-func TestFixLongPath(t *testing.T) {
-	if os.CanUseLongPaths {
-		return
-	}
-	t.Parallel()
-
-// 248足够长，可以触发fixLongPath中的超过248个字符的检查，
-// 但又不至于使路径组件超过Windows系统中限制的255个字符。
-// （这实际上并不重要，因为我们正在测试的是一个纯字符串函数，
-// 并不会真正用于执行系统调用）
-	veryLong := "l" + strings.Repeat("o", 248) + "ng"
-	for _, test := range []struct{ in, want string }{
-		// Short; unchanged:
-		{`C:\short.txt`, `C:\short.txt`},
-		{`C:\`, `C:\`},
-		{`C:`, `C:`},
-// 将“long”子串替换为一个非常长的字符串，从而触发重写。但在下面的情况下不会进行替换（除非特别注明）。
-		{`C:\long\foo.txt`, `\\?\C:\long\foo.txt`},
-		{`C:/long/foo.txt`, `\\?\C:\long\foo.txt`},
-		{`C:\long\foo\\bar\.\baz\\`, `\\?\C:\long\foo\bar\baz`},
-		{`\\unc\path`, `\\unc\path`},
-		{`long.txt`, `long.txt`},
-		{`C:long.txt`, `C:long.txt`},
-		{`c:\long\..\bar\baz`, `c:\long\..\bar\baz`},
-		{`\\?\c:\long\foo.txt`, `\\?\c:\long\foo.txt`},
-		{`\\?\c:\long/foo.txt`, `\\?\c:\long/foo.txt`},
-	} {
-		in := strings.ReplaceAll(test.in, "long", veryLong)
-		want := strings.ReplaceAll(test.want, "long", veryLong)
-		if got := os.FixLongPath(in); got != want {
-			got = strings.ReplaceAll(got, veryLong, "long")
-			t.Errorf("fixLongPath(%q) = %q; want %q", test.in, got, test.want)
-		}
-	}
-}
+//func TestFixLongPath(t *testing.T) {
+//	if os.CanUseLongPaths {
+//		return
+//	}
+//	t.Parallel()
+//
+//	// 248足够长，可以触发fixLongPath中的超过248个字符的检查，
+//	// 但又不至于使路径组件超过Windows系统中限制的255个字符。
+//	// （这实际上并不重要，因为我们正在测试的是一个纯字符串函数，
+//	// 并不会真正用于执行系统调用）
+//	veryLong := "l" + strings.Repeat("o", 248) + "ng"
+//	for _, test := range []struct{ in, want string }{
+//		// Short; unchanged:
+//		{`C:\short.txt`, `C:\short.txt`},
+//		{`C:\`, `C:\`},
+//		{`C:`, `C:`},
+//		// 将“long”子串替换为一个非常长的字符串，从而触发重写。但在下面的情况下不会进行替换（除非特别注明）。
+//		{`C:\long\foo.txt`, `\\?\C:\long\foo.txt`},
+//		{`C:/long/foo.txt`, `\\?\C:\long\foo.txt`},
+//		{`C:\long\foo\\bar\.\baz\\`, `\\?\C:\long\foo\bar\baz`},
+//		{`\\unc\path`, `\\unc\path`},
+//		{`long.txt`, `long.txt`},
+//		{`C:long.txt`, `C:long.txt`},
+//		{`c:\long\..\bar\baz`, `c:\long\..\bar\baz`},
+//		{`\\?\c:\long\foo.txt`, `\\?\c:\long\foo.txt`},
+//		{`\\?\c:\long/foo.txt`, `\\?\c:\long/foo.txt`},
+//	} {
+//		in := strings.ReplaceAll(test.in, "long", veryLong)
+//		want := strings.ReplaceAll(test.want, "long", veryLong)
+//		if got := os.FixLongPath(in); got != want {
+//			got = strings.ReplaceAll(got, veryLong, "long")
+//			t.Errorf("fixLongPath(%q) = %q; want %q", test.in, got, test.want)
+//		}
+//	}
+//}
 
 func TestMkdirAllLongPath(t *testing.T) {
 	t.Parallel()

@@ -104,3 +104,39 @@
 // SyscallError 记录来自特定系统调用的错误。
 # <翻译结束>
 
+
+<原文开始>
+// Portable analogs of some common system call errors.
+//
+// Errors returned from this package may be tested against these errors
+// with errors.Is.
+<原文结束>
+
+# <翻译开始>
+// 可移植版本的某些常见系统调用错误。
+//
+// 从本包返回的错误可通过使用 errors.Is 与下列错误进行比较检测。
+# <翻译结束>
+
+
+<原文开始>
+	// ErrInvalid indicates an invalid argument.
+	// Methods on File will return this error when the receiver is nil.
+<原文结束>
+
+# <翻译开始>
+// ErrInvalid 表示一个无效的参数。
+// 当接收者为nil时，File类型的方法将返回此错误。
+# <翻译结束>
+
+
+<原文开始>
+	//ErrNoDeadline       = errNoDeadline()       // "file type does not support deadline"
+	//ErrDeadlineExceeded = errDeadlineExceeded() // "i/o timeout"
+<原文结束>
+
+# <翻译开始>
+// ErrNoDeadline       = errNoDeadline()       // "文件类型不支持超时截止"
+// ErrDeadlineExceeded = errDeadlineExceeded() // "I/O超时"
+# <翻译结束>
+

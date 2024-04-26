@@ -8,9 +8,9 @@ package os_test
 
 import (
 	"fmt"
+	"github.com/888go/gosdk/os"
 	"io"
 	"math/rand"
-	"os"
 	"os/signal"
 	"runtime"
 	"sync"
@@ -20,7 +20,7 @@ import (
 )
 
 func TestNonpollableDeadline(t *testing.T) {
-// 在BSD系统中，似乎普通文件是可被轮询的，因此只在Linux上运行这个测试。
+	// 在BSD系统中，似乎普通文件是可被轮询的，因此只在Linux上运行这个测试。
 	if runtime.GOOS != "linux" {
 		t.Skipf("skipping on %s", runtime.GOOS)
 	}
@@ -51,7 +51,7 @@ var readTimeoutTests = []struct {
 	timeout time.Duration
 	xerrs   [2]error // 预期在转换中出现的错误
 }{
-// 测试读取超时是否起作用，即使已经有数据可以读取。
+	// 测试读取超时是否起作用，即使已经有数据可以读取。
 	{-5 * time.Second, [2]error{os.ErrDeadlineExceeded, os.ErrDeadlineExceeded}},
 
 	{50 * time.Millisecond, [2]error{nil, os.ErrDeadlineExceeded}},
@@ -143,7 +143,7 @@ var writeTimeoutTests = []struct {
 	timeout time.Duration
 	xerrs   [2]error // 预期在转换中出现的错误
 }{
-// 测试写入截止日期有效，即使有可用的缓冲区空间进行写入。
+	// 测试写入截止日期有效，即使有可用的缓冲区空间进行写入。
 	{-5 * time.Second, [2]error{os.ErrDeadlineExceeded, os.ErrDeadlineExceeded}},
 
 	{10 * time.Millisecond, [2]error{nil, os.ErrDeadlineExceeded}},
@@ -233,14 +233,14 @@ func TestWriteTimeoutMustNotReturn(t *testing.T) {
 }
 
 const (
-// minDynamicTimeout是自动增加超时时间直到成功的测试尝试的最小超时时间。
-// 
-// 如果值接近真实最小值，较小的值可能会让测试更快成功。但如果超时设置得太低，可能需要更多迭代（并且在失败的尝试中浪费更多的时间和CPU资源）。
+	// minDynamicTimeout是自动增加超时时间直到成功的测试尝试的最小超时时间。
+	//
+	// 如果值接近真实最小值，较小的值可能会让测试更快成功。但如果超时设置得太低，可能需要更多迭代（并且在失败的尝试中浪费更多的时间和CPU资源）。
 	minDynamicTimeout = 1 * time.Millisecond
 
-// maxDynamicTimeout 是自动增加超时时间直到成功的测试尝试的最大超时时间。
-// 
-// 这应该是一个严格的上限，即使在运行缓慢或负载过重的机器上，也需要达到准确触发超时所需的延迟。如果测试会将超时时间增加到此值之上，那么测试将失败。
+	// maxDynamicTimeout 是自动增加超时时间直到成功的测试尝试的最大超时时间。
+	//
+	// 这应该是一个严格的上限，即使在运行缓慢或负载过重的机器上，也需要达到准确触发超时所需的延迟。如果测试会将超时时间增加到此值之上，那么测试将失败。
 	maxDynamicTimeout = 4 * time.Second
 )
 
@@ -248,14 +248,14 @@ const (
 func timeoutUpperBound(d time.Duration) time.Duration {
 	switch runtime.GOOS {
 	case "openbsd", "netbsd":
-// NetBSD和OpenBSD似乎无法在长时间的绝对期限内可靠地满足期限。
-// 在https://build.golang.org/log/c34f8685d020b98377dd4988cd38f0c5bd72267e中，
-// 我们观察到一个openbsd-amd64-68构建器在2.983020682s的超时时限中花费了4.090948779s（37.1%的开销）。
-// （有关更多详细信息，请参阅https://go.dev/issue/50189。）
-// 为了补偿，给他们留出大量的余地。
+		// NetBSD和OpenBSD似乎无法在长时间的绝对期限内可靠地满足期限。
+		// 在https://build.golang.org/log/c34f8685d020b98377dd4988cd38f0c5bd72267e中，
+		// 我们观察到一个openbsd-amd64-68构建器在2.983020682s的超时时限中花费了4.090948779s（37.1%的开销）。
+		// （有关更多详细信息，请参阅https://go.dev/issue/50189。）
+		// 为了补偿，给他们留出大量的余地。
 		return d * 3 / 2
 	}
-// 其他平台似乎更可靠地满足其截止日期，至少当它们足够长以覆盖调度抖动时。
+	// 其他平台似乎更可靠地满足其截止日期，至少当它们足够长以覆盖调度抖动时。
 	return d * 11 / 10
 }
 
@@ -264,7 +264,7 @@ func nextTimeout(actual time.Duration) (next time.Duration, ok bool) {
 	if actual >= maxDynamicTimeout {
 		return maxDynamicTimeout, false
 	}
-// 由于上一次尝试已耗时actual，我们无法期望在显著程度上超过该耗时。对下一次尝试使用该耗时之上的一个任意因子，以便我们的增长曲线至少为指数级。
+	// 由于上一次尝试已耗时actual，我们无法期望在显著程度上超过该耗时。对下一次尝试使用该耗时之上的一个任意因子，以便我们的增长曲线至少为指数级。
 	next = actual * 5 / 4
 	if next > maxDynamicTimeout {
 		return maxDynamicTimeout, true
@@ -312,7 +312,7 @@ func TestReadTimeoutFluctuation(t *testing.T) {
 			if !ok {
 				t.Fatalf("Read took %s; expected at most %v", actual, want)
 			}
-// 可能这台机器的性能太慢，无法在请求的时间内可靠地调度goroutines。增加超时时间并重试。
+			// 可能这台机器的性能太慢，无法在请求的时间内可靠地调度goroutines。增加超时时间并重试。
 			t.Logf("Read took %s (expected %s); trying with longer timeout", actual, d)
 			d = next
 			continue
@@ -372,7 +372,7 @@ func TestWriteTimeoutFluctuation(t *testing.T) {
 				// bytes to it without blocking.
 				t.Logf("Wrote %d bytes into send buffer; retrying until buffer is full", n)
 				if d <= maxDynamicTimeout/2 {
-// 如果缓冲区已满，我们不知道实际写入循环会花多长时间，所以猜测一下并将其持续时间翻倍，这样下一次尝试就可以向填充缓冲区进更多步。
+					// 如果缓冲区已满，我们不知道实际写入循环会花多长时间，所以猜测一下并将其持续时间翻倍，这样下一次尝试就可以向填充缓冲区进更多步。
 					d *= 2
 				}
 			} else if next, ok := nextTimeout(actual); !ok {
@@ -433,8 +433,8 @@ func testVariousDeadlines(t *testing.T) {
 	}
 
 	handler := func(w *os.File, pasvch chan result) {
-// 该写入器自身无任何超时设置，
-// 尽可能快速地向客户端发送字节。
+		// 该写入器自身无任何超时设置，
+		// 尽可能快速地向客户端发送字节。
 		t0 := time.Now()
 		n, err := io.Copy(w, neverEnding('a'))
 		dt := time.Since(t0)
@@ -665,9 +665,9 @@ func TestTTYClose(t *testing.T) {
 		f.Read(buf[:])
 	}()
 
-// 让goroutine有机会进入读取阶段。
-// 如果偶尔未能做到这一点没有太大关系，
-// 我们不会测试到我们想要的，但测试会通过。
+	// 让goroutine有机会进入读取阶段。
+	// 如果偶尔未能做到这一点没有太大关系，
+	// 我们不会测试到我们想要的，但测试会通过。
 	time.Sleep(time.Millisecond)
 
 	c := make(chan bool)
@@ -682,6 +682,6 @@ func TestTTYClose(t *testing.T) {
 		t.Error("timed out waiting for close")
 	}
 
-// 在某些系统中，goroutine 可能会挂起。
-// 对此我们无能为力。
+	// 在某些系统中，goroutine 可能会挂起。
+	// 对此我们无能为力。
 }

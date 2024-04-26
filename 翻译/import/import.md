@@ -15,3 +15,5 @@
  ["golang.org/x/sys/]
  目录=\windows
  新地址="github.com/888go/gosdk/
+
+ 

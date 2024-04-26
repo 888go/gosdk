@@ -39,3 +39,21 @@
 // IsPathSeparator 判断字符 c 是否为目录分隔符。
 # <翻译结束>
 
+
+<原文开始>
+// OS-specific path separator
+<原文结束>
+
+# <翻译开始>
+// 操作系统特定的路径分隔符
+# <翻译结束>
+
+
+<原文开始>
+// OS-specific path list separator
+<原文结束>
+
+# <翻译开始>
+// 操作系统特定的路径列表分隔符
+# <翻译结束>
+

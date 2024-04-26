@@ -7,8 +7,8 @@ package os_test
 import (
 	"bytes"
 	"fmt"
-	"internal/testenv"
-	. "os"
+	. "github.com/888go/gosdk/os"
+	"github.com/888go/gosdk/os/internal/testenv"
 	"path/filepath"
 	"runtime"
 	"strconv"
@@ -97,9 +97,9 @@ func TestRemoveAll(t *testing.T) {
 			t.Fatalf("Chmod %q 0: %s", dpath, err)
 		}
 
-// 在这里不进行错误检查：RemoveAll 或许能够移除 dpath，或许不能；无论如何，我们都想知道它是否能移除 fpath 和 path/zzz。RemoveAll 也可能会成功移除 dpath 的原因包括：
-// * 以 root 身份运行
-// * 在没有权限的文件系统（如 FAT）上运行
+		// 在这里不进行错误检查：RemoveAll 或许能够移除 dpath，或许不能；无论如何，我们都想知道它是否能移除 fpath 和 path/zzz。RemoveAll 也可能会成功移除 dpath 的原因包括：
+		// * 以 root 身份运行
+		// * 在没有权限的文件系统（如 FAT）上运行
 		RemoveAll(path)
 		Chmod(dpath, 0777)
 
@@ -253,7 +253,7 @@ func TestRemoveReadOnlyDir(t *testing.T) {
 		t.Fatal(err)
 	}
 
-// 如果发生错误，设法提高删除临时目录成功的可能性。
+	// 如果发生错误，设法提高删除临时目录成功的可能性。
 	defer Chmod(subdir, 0777)
 
 	if err := RemoveAll(subdir); err != nil {
@@ -317,7 +317,7 @@ func TestRemoveAllButReadOnlyAndPathError(t *testing.T) {
 			t.Fatal(err)
 		}
 
-// 延迟恢复原模式，以便于后续执行的deferred RemoveAll(tempDir)能够成功。
+		// 延迟恢复原模式，以便于后续执行的deferred RemoveAll(tempDir)能够成功。
 		defer Chmod(d, 0777)
 	}
 
@@ -326,8 +326,8 @@ func TestRemoveAllButReadOnlyAndPathError(t *testing.T) {
 		t.Fatal("RemoveAll succeeded unexpectedly")
 	}
 
-// 错误应为类型 *PathError。
-// 有关详细信息，请参阅问题 30491。
+	// 错误应为类型 *PathError。
+	// 有关详细信息，请参阅问题 30491。
 	if pathErr, ok := err.(*PathError); ok {
 		want := filepath.Join(tempDir, "b", "y")
 		if pathErr.Path != want {
@@ -399,13 +399,13 @@ func TestRemoveAllWithMoreErrorThanReqSize(t *testing.T) {
 		fd.Close()
 	}
 
-// 将父目录设置为只读。在某些平台上，这是阻止Remove删除该目录内文件的原因。
+	// 将父目录设置为只读。在某些平台上，这是阻止Remove删除该目录内文件的原因。
 	if err := Chmod(path, 0555); err != nil {
 		t.Fatal(err)
 	}
 	defer Chmod(path, 0755)
 
-// 此调用不应阻塞，即使在不允许从只读目录中删除文件的平台上也是如此
+	// 此调用不应阻塞，即使在不允许从只读目录中删除文件的平台上也是如此
 	err := RemoveAll(path)
 
 	if Getuid() == 0 {
@@ -414,9 +414,9 @@ func TestRemoveAllWithMoreErrorThanReqSize(t *testing.T) {
 	}
 	if err == nil {
 		if runtime.GOOS == "windows" || runtime.GOOS == "wasip1" {
-// 在Windows中，将目录标记为只读并不能阻止RemoveAll在其中创建或删除文件。
-//
-// 对于wasip1，没有文件权限支持，因此我们无法阻止RemoveAll删除文件。
+			// 在Windows中，将目录标记为只读并不能阻止RemoveAll在其中创建或删除文件。
+			//
+			// 对于wasip1，没有文件权限支持，因此我们无法阻止RemoveAll删除文件。
 			return
 		}
 		t.Fatal("RemoveAll(<read-only directory>) = nil; want error")
@@ -447,8 +447,8 @@ func TestRemoveAllNoFcntl(t *testing.T) {
 		return
 	}
 
-// 只在Linux上进行测试，这样我们就可以假设我们有strace工具。
-// 该代码是跨平台的，所以如果在Linux上通过了，那么在其他Unix系统上也应该通过。
+	// 只在Linux上进行测试，这样我们就可以假设我们有strace工具。
+	// 该代码是跨平台的，所以如果在Linux上通过了，那么在其他Unix系统上也应该通过。
 	if runtime.GOOS != "linux" {
 		t.Skipf("skipping test on %s", runtime.GOOS)
 	}
@@ -460,8 +460,8 @@ func TestRemoveAllNoFcntl(t *testing.T) {
 		t.Skipf("skipping because Executable failed: %v", err)
 	}
 
-// 创建100个目录。
-// 测试目标是我们可以在不针对每个目录调用fcntl的情况下将其删除。
+	// 创建100个目录。
+	// 测试目标是我们可以在不针对每个目录调用fcntl的情况下将其删除。
 	tmpdir := t.TempDir()
 	subdir := filepath.Join(tmpdir, "subdir")
 	if err := Mkdir(subdir, 0o755); err != nil {

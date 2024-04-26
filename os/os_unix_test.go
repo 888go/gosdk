@@ -7,9 +7,9 @@
 package os_test
 
 import (
-	"internal/testenv"
+	. "github.com/888go/gosdk/os"
+	"github.com/888go/gosdk/os/internal/testenv"
 	"io"
-	. "os"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -45,7 +45,7 @@ func TestChown(t *testing.T) {
 	}
 	t.Parallel()
 
-// 使用TempDir()来确保我们在本地文件系统上，这样Getgroups返回的组ID将被允许应用于文件。在NFS上，Getgroups获取的组基本上没有用。
+	// 使用TempDir()来确保我们在本地文件系统上，这样Getgroups返回的组ID将被允许应用于文件。在NFS上，Getgroups获取的组基本上没有用。
 	f := newFile("TestChown", t)
 	defer Remove(f.Name())
 	defer f.Close()
@@ -54,7 +54,7 @@ func TestChown(t *testing.T) {
 		t.Fatalf("stat %s: %s", f.Name(), err)
 	}
 
-// 如果不是root用户，不能改变uid，但可以尝试改变gid。首先尝试使用当前组。
+	// 如果不是root用户，不能改变uid，但可以尝试改变gid。首先尝试使用当前组。
 	gid := Getgid()
 	t.Log("gid:", gid)
 	if err = Chown(f.Name(), -1, gid); err != nil {
@@ -95,7 +95,7 @@ func TestFileChown(t *testing.T) {
 	}
 	t.Parallel()
 
-// 使用TempDir()来确保我们在本地文件系统上，这样Getgroups返回的组ID将被允许应用于文件。在NFS上，Getgroups获取的组基本上没有用。
+	// 使用TempDir()来确保我们在本地文件系统上，这样Getgroups返回的组ID将被允许应用于文件。在NFS上，Getgroups获取的组基本上没有用。
 	f := newFile("TestFileChown", t)
 	defer Remove(f.Name())
 	defer f.Close()
@@ -104,7 +104,7 @@ func TestFileChown(t *testing.T) {
 		t.Fatalf("stat %s: %s", f.Name(), err)
 	}
 
-// 如果不是root用户，不能改变uid，但可以尝试改变gid。首先尝试使用当前组。
+	// 如果不是root用户，不能改变uid，但可以尝试改变gid。首先尝试使用当前组。
 	gid := Getgid()
 	t.Log("gid:", gid)
 	if err = f.Chown(-1, gid); err != nil {
@@ -143,7 +143,7 @@ func TestLchown(t *testing.T) {
 	testenv.MustHaveSymlink(t)
 	t.Parallel()
 
-// 使用TempDir()来确保我们在本地文件系统上，这样Getgroups返回的组ID将被允许应用于文件。在NFS上，Getgroups获取的组基本上没有用。
+	// 使用TempDir()来确保我们在本地文件系统上，这样Getgroups返回的组ID将被允许应用于文件。在NFS上，Getgroups获取的组基本上没有用。
 	f := newFile("TestLchown", t)
 	defer Remove(f.Name())
 	defer f.Close()
@@ -161,7 +161,7 @@ func TestLchown(t *testing.T) {
 	}
 	defer Remove(linkname)
 
-// 如果不是root用户，不能改变uid，但可以尝试改变gid。首先尝试使用当前组。
+	// 如果不是root用户，不能改变uid，但可以尝试改变gid。首先尝试使用当前组。
 	gid := Getgid()
 	t.Log("gid:", gid)
 	if err = Lchown(linkname, -1, gid); err != nil {
@@ -308,8 +308,8 @@ func newFileTest(t *testing.T, blocking bool) {
 	timeToWrite := 100 * time.Millisecond
 	timeToDeadline := 1 * time.Millisecond
 	if !blocking {
-// 使用较长的时间以避免出现异常。
-// 无论如何我们都不会等待这么长时间。
+		// 使用较长的时间以避免出现异常。
+		// 无论如何我们都不会等待这么长时间。
 		timeToWrite = 1 * time.Second
 	}
 
@@ -412,8 +412,8 @@ func TestIssue60181(t *testing.T) {
 	bb := NewFile(uintptr(bfd), b.Name())
 	defer bb.Close()
 
-// 在Linux上，如果使用了copy_file_range系统调用，此操作将失败，因为它不支持以O_APPEND打开的目标文件，详情见
-// https://man7.org/linux/man-pages/man2/copy_file_range.2.html#ERRORS
+	// 在Linux上，如果使用了copy_file_range系统调用，此操作将失败，因为它不支持以O_APPEND打开的目标文件，详情见
+	// https://man7.org/linux/man-pages/man2/copy_file_range.2.html#ERRORS
 	_, err = io.Copy(aa, bb)
 	if err != nil {
 		t.Fatal(err)

@@ -933,3 +933,215 @@
 // 测试对管道同时调用Close方法是正常的
 # <翻译结束>
 
+
+<原文开始>
+//func testStartProcess(dir, cmd string, args []string, expect string) func(t *testing.T) {
+//	return func(t *testing.T) {
+//		t.Parallel()
+//
+//		r, w, err := Pipe()
+//		if err != nil {
+//			t.Fatalf("Pipe: %v", err)
+//		}
+//		defer r.Close()
+//
+//		attr := &ProcAttr{Dir: dir, Files: []*File{nil, w, Stderr}}
+//		p, err := StartProcess(cmd, args, attr)
+//		if err != nil {
+//			t.Fatalf("StartProcess: %v", err)
+//		}
+//		w.Close()
+//
+//		var b strings.Builder
+//		io.Copy(&b, r)
+//		output := b.String()
+//
+//		fi1, _ := Stat(strings.TrimSpace(output))
+//		fi2, _ := Stat(expect)
+//		if !SameFile(fi1, fi2) {
+//			t.Errorf("exec %q returned %q wanted %q",
+//				strings.Join(append([]string{cmd}, args...), " "), output, expect)
+//		}
+//		p.Wait()
+//	}
+//}
+<原文结束>
+
+# <翻译开始>
+//func testStartProcess(dir, cmd string, args []string, expect string) func(t *testing.T) {
+//	return func(t *testing.T) {
+//		t.Parallel()
+//
+//		r, w, err := Pipe()
+//		if err != nil {
+//			t.Fatalf("Pipe: %v", err)
+//		}
+//		defer r.Close()
+//
+//		attr := &ProcAttr{Dir: dir, Files: []*File{nil, w, Stderr}}
+//		p, err := StartProcess(cmd, args, attr)
+//		if err != nil {
+//			t.Fatalf("StartProcess: %v", err)
+//		}
+//		w.Close()
+//
+//		var b strings.Builder
+//		io.Copy(&b, r)
+//		output := b.String()
+//
+//		fi1, _ := Stat(strings.TrimSpace(output))
+//		fi2, _ := Stat(expect)
+//		if !SameFile(fi1, fi2) {
+//			t.Errorf("exec %q returned %q wanted %q",
+//				strings.Join(append([]string{cmd}, args...), " "), output, expect)
+//		}
+//		p.Wait()
+//	}
+//}
+# <翻译结束>
+
+
+<原文开始>
+//func TestStartProcess(t *testing.T) {
+//	testenv.MustHaveExec(t)
+//	t.Parallel()
+//
+//	var dir, cmd string
+//	var args []string
+//	switch runtime.GOOS {
+//	case "android":
+//		t.Skip("android doesn't have /bin/pwd")
+//	case "windows":
+//		cmd = Getenv("COMSPEC")
+//		dir = Getenv("SystemRoot")
+//		args = []string{"/c", "cd"}
+//	default:
+//		var err error
+//		cmd, err = exec.LookPath("pwd")
+//		if err != nil {
+//			t.Fatalf("Can't find pwd: %v", err)
+//		}
+//		dir = "/"
+//		args = []string{}
+//		t.Logf("Testing with %v", cmd)
+//	}
+//	cmddir, cmdbase := filepath.Split(cmd)
+//	args = append([]string{cmdbase}, args...)
+//	t.Run("absolute", testStartProcess(dir, cmd, args, dir))
+//	t.Run("relative", testStartProcess(cmddir, cmdbase, args, cmddir))
+//}
+<原文结束>
+
+# <翻译开始>
+// ```go
+//func TestStartProcess(t *testing.T) {
+// 测试环境必须支持执行命令
+//testenv.MustHaveExec(t)
+// 并行执行测试
+//t.Parallel()
+// 
+// 根据操作系统设置变量
+//var dir, cmd string
+//var args []string
+// 判断当前操作系统
+//switch runtime.GOOS {
+// 如果是Android，跳过测试（因为没有/bin/pwd）
+//case "android":
+//	t.Skip("android doesn't have /bin/pwd")
+// 如果是Windows
+//case "windows":
+// 设置cmd为环境变量COMSPEC的值
+//	cmd = Getenv("COMSPEC")
+// 设置dir为环境变量SystemRoot的值
+//	dir = Getenv("SystemRoot")
+// 设置args为/c和cd
+//	args = []string{"/c", "cd"}
+// 其他情况（默认为非Windows系统）
+//default:
+// 使用LookPath查找"pwd"命令
+//	var err error
+//	cmd, err = exec.LookPath("pwd")
+// 如果找不到"pwd"，终止测试
+//	if err != nil {
+//		t.Fatalf("Can't find pwd: %v", err)
+//	}
+// 设置dir为"/"
+//	dir = "/"
+// 设置args为空
+//	args = []string{}
+// 打印正在使用的命令进行测试
+//	t.Logf("Testing with %v", cmd)
+//}
+// 
+// 分离cmd的目录和基础命令
+//cmddir, cmdbase := filepath.Split(cmd)
+// 将基础命令添加到args列表的前面
+//args = append([]string{cmdbase}, args...)
+// 运行绝对路径测试
+//t.Run("absolute", testStartProcess(dir, cmd, args, dir))
+// 运行相对路径测试
+//t.Run("relative", testStartProcess(cmddir, cmdbase, args, cmddir))
+//}
+// ```
+// 
+// 这段代码是一个Go语言的测试函数，用于测试`StartProcess`功能。它根据不同的操作系统设置命令和参数，并分别测试绝对路径和相对路径的情况。
+# <翻译结束>
+
+
+<原文开始>
+//
+//func TestRandomLen(t *testing.T) {
+//	for range 5 {
+//		dir, err := MkdirTemp(t.TempDir(), "*")
+//		if err != nil {
+//			t.Fatal(err)
+//		}
+//		base := filepath.Base(dir)
+//		if len(base) > 10 {
+//			t.Errorf("MkdirTemp returned len %d: %s", len(base), base)
+//		}
+//	}
+//	for range 5 {
+//		f, err := CreateTemp(t.TempDir(), "*")
+//		if err != nil {
+//			t.Fatal(err)
+//		}
+//		base := filepath.Base(f.Name())
+//		f.Close()
+//		if len(base) > 10 {
+//			t.Errorf("CreateTemp returned len %d: %s", len(base), base)
+//		}
+//	}
+//}
+<原文结束>
+
+# <翻译开始>
+// 
+// // 测试RandomLen函数
+// func TestRandomLen(t *testing.T) {
+//     // 重复5次循环
+//     for i := 0; i < 5; i++ {
+//         dir, err := MkdirTemp(t.TempDir(), "*") // 在临时目录下创建子目录
+//         if err != nil {
+//             t.Fatal(err) // 如果出错，打印错误并终止测试
+//         }
+//         base := filepath.Base(dir) // 获取子目录的基名
+//         if len(base) > 10 { // 如果基名长度超过10
+//             t.Errorf("MkdirTemp返回的基名长度为%d：%s", len(base), base) // 打印错误信息
+//         }
+//     }
+//     // 再次重复5次循环
+//     for i := 0; i < 5; i++ {
+//         f, err := CreateTemp(t.TempDir(), "*") // 在临时目录下创建临时文件
+//         if err != nil {
+//             t.Fatal(err) // 如果出错，打印错误并终止测试
+//         }
+//         base := filepath.Base(f.Name()) // 获取文件的基名
+//         f.Close() // 关闭文件
+//         if len(base) > 10 { // 如果基名长度超过10
+//             t.Errorf("CreateTemp返回的基名长度为%d：%s", len(base), base) // 打印错误信息
+//         }
+//     }
+// }
+# <翻译结束>
+

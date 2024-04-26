@@ -5,7 +5,7 @@
 package os_test
 
 import (
-	. "os"
+	. "github.com/888go/gosdk/os"
 	"reflect"
 	"strings"
 	"testing"
@@ -129,8 +129,8 @@ func TestClearenv(t *testing.T) {
 	// reset env
 	defer func(origEnv []string) {
 		for _, pair := range origEnv {
-// 在Windows中，环境变量可以以=开头
-// https://devblogs.microsoft.com/oldnewthing/20100506-00/?p=14133
+			// 在Windows中，环境变量可以以=开头
+			// https://devblogs.microsoft.com/oldnewthing/20100506-00/?p=14133
 			i := strings.Index(pair[1:], "=") + 1
 			if err := Setenv(pair[:i], pair[i+1:]); err != nil {
 				t.Errorf("Setenv(%q, %q) failed during reset: %v", pair[:i], pair[i+1:], err)
@@ -174,8 +174,8 @@ func TestEnvironConsistency(t *testing.T) {
 	for _, kv := range Environ() {
 		i := strings.Index(kv, "=")
 		if i == 0 {
-// 在实践中，我们在 Windows 系统中观察到键前面只有一个 "="。
-// TODO(#49886): 我们应该只将第一个 "=" 作为键的一部分进行处理，还是解析任意数量的 "="，直到遇到非 "="，或者尝试每个可能的键/值边界，直到 LookupEnv 成功？
+			// 在实践中，我们在 Windows 系统中观察到键前面只有一个 "="。
+			// TODO(#49886): 我们应该只将第一个 "=" 作为键的一部分进行处理，还是解析任意数量的 "="，直到遇到非 "="，或者尝试每个可能的键/值边界，直到 LookupEnv 成功？
 			i = strings.Index(kv[1:], "=") + 1
 		}
 		if i < 0 {
@@ -191,8 +191,8 @@ func TestEnvironConsistency(t *testing.T) {
 			t.Errorf("Environ contains %q, but LookupEnv(%q) = %q, %t", kv, k, v2, ok)
 		}
 
-// 由于 k=v 已经存在于环境中，
-// 对其进行设置应为一个空操作（no-op）。
+		// 由于 k=v 已经存在于环境中，
+		// 对其进行设置应为一个空操作（no-op）。
 		if err := Setenv(k, v); err == nil {
 			t.Logf("Setenv(%q, %q)", k, v)
 		} else {

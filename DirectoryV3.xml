@@ -61,4 +61,7 @@
     <tree path="/os/os_test.go" title="单元测试"/>
     <tree path="/os/export_test.go" title="单元测试"/>
     <tree path="/os" title="系统类"/>
+    <tree path="/os/env.go" title="环境变量"/>
+   <tree path="/os/error.go" title="错误"/>
+    <tree path="/os/dir.go" title="文件目录"/>
 </trees>

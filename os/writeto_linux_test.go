@@ -6,11 +6,11 @@ package os_test
 
 import (
 	"bytes"
-	"internal/poll"
+	. "github.com/888go/gosdk/os"
+	"github.com/888go/gosdk/os/internal/poll"
 	"io"
 	"math/rand"
 	"net"
-	. "os"
 	"strconv"
 	"syscall"
 	"testing"

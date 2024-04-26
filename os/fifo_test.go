@@ -8,10 +8,10 @@ package os_test
 
 import (
 	"errors"
-	"internal/syscall/unix"
-	"internal/testenv"
+	"github.com/888go/gosdk/os"
+	"github.com/888go/gosdk/os/internal/syscall/unix"
+	"github.com/888go/gosdk/os/internal/testenv"
 	"io/fs"
-	"os"
 	"path/filepath"
 	"strconv"
 	"sync"
@@ -72,10 +72,10 @@ func TestNonPollable(t *testing.T) {
 		t.Skip("skipping test with tight loops in short mode")
 	}
 
-// 我们需要打开一个不可轮询的文件。
-// 这几乎肯定是Linux特有的，
-// 但如果其他系统也有不可轮询的文件，
-// 我们可以在这里添加它们。
+	// 我们需要打开一个不可轮询的文件。
+	// 这几乎肯定是Linux特有的，
+	// 但如果其他系统也有不可轮询的文件，
+	// 我们可以在这里添加它们。
 	const nonPollable = "/dev/net/tun"
 
 	f, err := os.OpenFile(nonPollable, os.O_RDWR, 0)
@@ -87,9 +87,9 @@ func TestNonPollable(t *testing.T) {
 	}
 	f.Close()
 
-// 在一台Linux笔记本电脑上，在问题修复之前，
-// 该测试在进行如此多轮迭代时大约有50%的几率失败。
-// 当测试通过时，大约耗时半秒。
+	// 在一台Linux笔记本电脑上，在问题修复之前，
+	// 该测试在进行如此多轮迭代时大约有50%的几率失败。
+	// 当测试通过时，大约耗时半秒。
 	const attempts = 20000
 
 	start := make(chan bool)

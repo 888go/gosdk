@@ -6,8 +6,8 @@ package os_test
 
 import (
 	"errors"
+	. "github.com/888go/gosdk/os"
 	"io/fs"
-	. "os"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -135,12 +135,12 @@ func TestMkdirTemp(t *testing.T) {
 		})
 	}
 
-// 单独测试 "*xyz"（它没有前缀）。也就是说，在构建断言模式时，
-// 如在前面的循环中，当使用filepath.Join创建一个空前缀的路径时，
-// 会产生如下模式：
-//     ^<DIR>[0-9]+xyz$
-// 然而我们只想匹配
-//     "^<DIR>/[0-9]+xyz"
+	// 单独测试 "*xyz"（它没有前缀）。也就是说，在构建断言模式时，
+	// 如在前面的循环中，当使用filepath.Join创建一个空前缀的路径时，
+	// 会产生如下模式：
+	//     ^<DIR>[0-9]+xyz$
+	// 然而我们只想匹配
+	//     "^<DIR>/[0-9]+xyz"
 	t.Run("*xyz", func(t *testing.T) {
 		wantRePat := "^" + regexp.QuoteMeta(filepath.Join(dir)) + regexp.QuoteMeta(string(filepath.Separator)) + "[0-9]+xyz$"
 		runTestMkdirTemp(t, "*xyz", wantRePat)

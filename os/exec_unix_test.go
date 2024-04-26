@@ -7,8 +7,8 @@
 package os_test
 
 import (
-	"internal/testenv"
-	. "os"
+	. "github.com/888go/gosdk/os"
+	"github.com/888go/gosdk/os/internal/testenv"
 	"syscall"
 	"testing"
 )

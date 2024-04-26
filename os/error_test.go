@@ -7,8 +7,9 @@ package os_test
 import (
 	"errors"
 	"fmt"
+	"github.com/888go/gosdk/os"
 	"io/fs"
-	"os"
+	os2 "os"
 	"path/filepath"
 	"testing"
 )
@@ -96,13 +97,13 @@ var isExistTests = []isExistTest{
 	{&fs.PathError{Err: fs.ErrExist}, true, false},
 	{&fs.PathError{Err: fs.ErrNotExist}, false, true},
 	{&fs.PathError{Err: fs.ErrClosed}, false, false},
-	{&os.LinkError{Err: fs.ErrInvalid}, false, false},
-	{&os.LinkError{Err: fs.ErrPermission}, false, false},
-	{&os.LinkError{Err: fs.ErrExist}, true, false},
-	{&os.LinkError{Err: fs.ErrNotExist}, false, true},
-	{&os.LinkError{Err: fs.ErrClosed}, false, false},
-	{&os.SyscallError{Err: fs.ErrNotExist}, false, true},
-	{&os.SyscallError{Err: fs.ErrExist}, true, false},
+	{&os2.LinkError{Err: fs.ErrInvalid}, false, false},
+	{&os2.LinkError{Err: fs.ErrPermission}, false, false},
+	{&os2.LinkError{Err: fs.ErrExist}, true, false},
+	{&os2.LinkError{Err: fs.ErrNotExist}, false, true},
+	{&os2.LinkError{Err: fs.ErrClosed}, false, false},
+	{&os2.SyscallError{Err: fs.ErrNotExist}, false, true},
+	{&os2.SyscallError{Err: fs.ErrExist}, true, false},
 	{nil, false, false},
 }
 
@@ -131,7 +132,7 @@ type isPermissionTest struct {
 var isPermissionTests = []isPermissionTest{
 	{nil, false},
 	{&fs.PathError{Err: fs.ErrPermission}, true},
-	{&os.SyscallError{Err: fs.ErrPermission}, true},
+	{&os2.SyscallError{Err: fs.ErrPermission}, true},
 }
 
 func TestIsPermission(t *testing.T) {

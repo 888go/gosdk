@@ -6,8 +6,8 @@ package os_test
 
 import (
 	"fmt"
-	"internal/testenv"
-	"os"
+	"github.com/888go/gosdk/os"
+	"github.com/888go/gosdk/os/internal/testenv"
 	"path/filepath"
 	"runtime"
 	"testing"
@@ -37,7 +37,7 @@ func TestExecutable(t *testing.T) {
 	if runtime.GOOS == "openbsd" || runtime.GOOS == "aix" {
 		// OpenBSD 和 AIX 依赖于 argv[0]
 	} else {
-// 为子进程伪造argv[0]，以便我们可以验证在不受argv[0]影响的情况下正确获取可执行文件的真正路径。
+		// 为子进程伪造argv[0]，以便我们可以验证在不受argv[0]影响的情况下正确获取可执行文件的真正路径。
 		cmd.Args[0] = "-"
 	}
 	cmd.Env = append(cmd.Environ(), fmt.Sprintf("%s=1", executable_EnvVar))
@@ -124,7 +124,7 @@ const testExecutableDeletion = `package main
 
 import (
 	"fmt"
-	"os"
+	"github.com/888go/gosdk/os"
 )
 
 func main() {

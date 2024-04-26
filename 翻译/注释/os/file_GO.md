@@ -741,3 +741,159 @@
 // LinkError 记录链接、符号链接或重命名系统调用期间发生的错误，以及导致错误的路径。
 # <翻译结束>
 
+
+<原文开始>
+// Stdin, Stdout, and Stderr are open Files pointing to the standard input,
+// standard output, and standard error file descriptors.
+//
+// Note that the Go runtime writes to standard error for panics and crashes;
+// closing Stderr may cause those messages to go elsewhere, perhaps
+// to a file opened later.
+<原文结束>
+
+# <翻译开始>
+// Stdin, Stdout 和 Stderr 是指向标准输入、标准输出和标准错误文件描述符的已打开的 File 对象。
+//
+// 请注意，Go 运行时会在发生恐慌或崩溃时向标准错误输出写入信息；关闭 Stderr 可能会导致这些错误消息被重定向到其他地方，可能是稍后打开的文件。
+# <翻译结束>
+
+
+<原文开始>
+// Flags to OpenFile wrapping those of the underlying system. Not all
+// flags may be implemented on a given system.
+<原文结束>
+
+# <翻译开始>
+// 开启文件的标志，这些标志封装了底层系统的标志。并非所有标志在特定系统上都可实现。
+# <翻译结束>
+
+
+<原文开始>
+// Exactly one of O_RDONLY, O_WRONLY, or O_RDWR must be specified.
+<原文结束>
+
+# <翻译开始>
+// 必须指定其中一个：O_RDONLY、O_WRONLY或O_RDWR。
+# <翻译结束>
+
+
+<原文开始>
+// open the file read-only.
+<原文结束>
+
+# <翻译开始>
+// 以只读方式打开文件
+# <翻译结束>
+
+
+<原文开始>
+// open the file write-only.
+<原文结束>
+
+# <翻译开始>
+// 以只写方式打开文件。
+# <翻译结束>
+
+
+<原文开始>
+// open the file read-write.
+<原文结束>
+
+# <翻译开始>
+// 以读写方式打开文件。
+# <翻译结束>
+
+
+<原文开始>
+// The remaining values may be or'ed in to control behavior.
+<原文结束>
+
+# <翻译开始>
+// 可以通过按位或操作来控制其行为。
+# <翻译结束>
+
+
+<原文开始>
+// append data to the file when writing.
+<原文结束>
+
+# <翻译开始>
+// 写入时向文件追加数据
+# <翻译结束>
+
+
+<原文开始>
+// create a new file if none exists.
+<原文结束>
+
+# <翻译开始>
+// 如果文件不存在，则创建一个新的文件。
+# <翻译结束>
+
+
+<原文开始>
+// used with O_CREATE, file must not exist.
+<原文结束>
+
+# <翻译开始>
+// 与 O_CREATE 一起使用时，文件必须不存在。
+# <翻译结束>
+
+
+<原文开始>
+// open for synchronous I/O.
+<原文结束>
+
+# <翻译开始>
+// 用于同步 I/O。
+# <翻译结束>
+
+
+<原文开始>
+// truncate regular writable file when opened.
+<原文结束>
+
+# <翻译开始>
+// 打开时截断常规可写文件
+# <翻译结束>
+
+
+<原文开始>
+// Seek whence values.
+//
+// Deprecated: Use io.SeekStart, io.SeekCurrent, and io.SeekEnd.
+<原文结束>
+
+# <翻译开始>
+// Seek的whence值。
+//
+// 不推荐使用：请使用io.SeekStart，io.SeekCurrent和io.SeekEnd。
+# <翻译结束>
+
+
+<原文开始>
+// seek relative to the origin of the file
+<原文结束>
+
+# <翻译开始>
+// 从文件的起始位置开始搜索
+# <翻译结束>
+
+
+<原文开始>
+// seek relative to the current offset
+<原文结束>
+
+# <翻译开始>
+// 从当前偏移量开始搜索
+# <翻译结束>
+
+
+<原文开始>
+// seek relative to the end
+<原文结束>
+
+# <翻译开始>
+// 从末尾处进行相对定位
+# <翻译结束>
+

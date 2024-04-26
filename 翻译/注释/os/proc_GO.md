@@ -81,3 +81,12 @@
 // 为了兼容性，状态码应该在[0, 125]范围内。
 # <翻译结束>
 
+
+<原文开始>
+// Args hold the command-line arguments, starting with the program name.
+<原文结束>
+
+# <翻译开始>
+// Args 保存了命令行参数，从程序名称开始。
+# <翻译结束>
+

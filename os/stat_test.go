@@ -5,9 +5,9 @@
 package os_test
 
 import (
-	"internal/testenv"
+	"github.com/888go/gosdk/os"
+	"github.com/888go/gosdk/os/internal/testenv"
 	"io/fs"
-	"os"
 	"path/filepath"
 	"testing"
 )

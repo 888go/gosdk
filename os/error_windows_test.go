@@ -8,7 +8,7 @@ package os_test
 
 import (
 	"io/fs"
-	"os"
+	os2 "os"
 	"syscall"
 )
 
@@ -17,24 +17,24 @@ func init() {
 
 	isExistTests = append(isExistTests,
 		isExistTest{err: &fs.PathError{Err: syscall.ERROR_FILE_NOT_FOUND}, is: false, isnot: true},
-		isExistTest{err: &os.LinkError{Err: syscall.ERROR_FILE_NOT_FOUND}, is: false, isnot: true},
-		isExistTest{err: &os.SyscallError{Err: syscall.ERROR_FILE_NOT_FOUND}, is: false, isnot: true},
+		isExistTest{err: &os2.LinkError{Err: syscall.ERROR_FILE_NOT_FOUND}, is: false, isnot: true},
+		isExistTest{err: &os2.SyscallError{Err: syscall.ERROR_FILE_NOT_FOUND}, is: false, isnot: true},
 
 		isExistTest{err: &fs.PathError{Err: _ERROR_BAD_NETPATH}, is: false, isnot: true},
-		isExistTest{err: &os.LinkError{Err: _ERROR_BAD_NETPATH}, is: false, isnot: true},
-		isExistTest{err: &os.SyscallError{Err: _ERROR_BAD_NETPATH}, is: false, isnot: true},
+		isExistTest{err: &os2.LinkError{Err: _ERROR_BAD_NETPATH}, is: false, isnot: true},
+		isExistTest{err: &os2.SyscallError{Err: _ERROR_BAD_NETPATH}, is: false, isnot: true},
 
 		isExistTest{err: &fs.PathError{Err: syscall.ERROR_PATH_NOT_FOUND}, is: false, isnot: true},
-		isExistTest{err: &os.LinkError{Err: syscall.ERROR_PATH_NOT_FOUND}, is: false, isnot: true},
-		isExistTest{err: &os.SyscallError{Err: syscall.ERROR_PATH_NOT_FOUND}, is: false, isnot: true},
+		isExistTest{err: &os2.LinkError{Err: syscall.ERROR_PATH_NOT_FOUND}, is: false, isnot: true},
+		isExistTest{err: &os2.SyscallError{Err: syscall.ERROR_PATH_NOT_FOUND}, is: false, isnot: true},
 
 		isExistTest{err: &fs.PathError{Err: syscall.ERROR_DIR_NOT_EMPTY}, is: true, isnot: false},
-		isExistTest{err: &os.LinkError{Err: syscall.ERROR_DIR_NOT_EMPTY}, is: true, isnot: false},
-		isExistTest{err: &os.SyscallError{Err: syscall.ERROR_DIR_NOT_EMPTY}, is: true, isnot: false},
+		isExistTest{err: &os2.LinkError{Err: syscall.ERROR_DIR_NOT_EMPTY}, is: true, isnot: false},
+		isExistTest{err: &os2.SyscallError{Err: syscall.ERROR_DIR_NOT_EMPTY}, is: true, isnot: false},
 	)
 	isPermissionTests = append(isPermissionTests,
 		isPermissionTest{err: &fs.PathError{Err: syscall.ERROR_ACCESS_DENIED}, want: true},
-		isPermissionTest{err: &os.LinkError{Err: syscall.ERROR_ACCESS_DENIED}, want: true},
-		isPermissionTest{err: &os.SyscallError{Err: syscall.ERROR_ACCESS_DENIED}, want: true},
+		isPermissionTest{err: &os2.LinkError{Err: syscall.ERROR_ACCESS_DENIED}, want: true},
+		isPermissionTest{err: &os2.SyscallError{Err: syscall.ERROR_ACCESS_DENIED}, want: true},
 	)
 }

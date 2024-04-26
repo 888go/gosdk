@@ -7,8 +7,8 @@
 package os_test
 
 import (
+	"github.com/888go/gosdk/os"
 	"io/fs"
-	"os"
 	"syscall"
 )
 

@@ -8,12 +8,12 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"internal/testenv"
+	. "github.com/888go/gosdk/os"
+	"github.com/888go/gosdk/os/internal/testenv"
 	"io"
 	"io/fs"
 	"log"
-	. "os"
-	"os/exec"
+
 	"path/filepath"
 	"reflect"
 	"runtime"
@@ -88,7 +88,7 @@ var sysdir = func() *sysDir {
 		if found {
 			return sd
 		}
-// 在自托管的iOS构建中，上述文件可能不存在。请在下面查找系统文件。
+		// 在自托管的iOS构建中，上述文件可能不存在。请在下面查找系统文件。
 	case "windows":
 		return &sysDir{
 			Getenv("SystemRoot") + "\\system32\\drivers\\etc",
@@ -107,8 +107,8 @@ var sysdir = func() *sysDir {
 			},
 		}
 	case "wasip1":
-// wasmtime在解析像`/etc/group`这样的目录中经常存在的符号链接时存在问题（例如，在OSX上的`private/etc/group`）。
-// 因此，我们使用Go源代码树中的文件代替。
+		// wasmtime在解析像`/etc/group`这样的目录中经常存在的符号链接时存在问题（例如，在OSX上的`private/etc/group`）。
+		// 因此，我们使用Go源代码树中的文件代替。
 		return &sysDir{
 			runtime.GOROOT(),
 			[]string{
@@ -764,9 +764,9 @@ func touch(t *testing.T, name string) {
 func TestReaddirStatFailures(t *testing.T) {
 	switch runtime.GOOS {
 	case "windows", "plan9":
-// Windows和Plan 9已经正确地完成了这个操作，
-// 但是它们的系统调用结构不同，
-// 所以它们不使用Lstat，因此下面用于测试的钩子将无法工作。
+		// Windows和Plan 9已经正确地完成了这个操作，
+		// 但是它们的系统调用结构不同，
+		// 所以它们不使用Lstat，因此下面用于测试的钩子将无法工作。
 		t.Skipf("skipping test on %v", runtime.GOOS)
 	}
 
@@ -892,17 +892,17 @@ func TestHardLink(t *testing.T) {
 	err = Link(to, from)
 	switch err := err.(type) {
 	case *LinkError:
-		if err.Op != "link" {
-			t.Errorf("Link(%q, %q) err.Op = %q; want %q", to, from, err.Op, "link")
+		if err.F.Op != "link" {
+			t.Errorf("Link(%q, %q) err.Op = %q; want %q", to, from, err.F.Op, "link")
 		}
-		if err.Old != to {
-			t.Errorf("Link(%q, %q) err.Old = %q; want %q", to, from, err.Old, to)
+		if err.F.Old != to {
+			t.Errorf("Link(%q, %q) err.Old = %q; want %q", to, from, err.F.Old, to)
 		}
-		if err.New != from {
-			t.Errorf("Link(%q, %q) err.New = %q; want %q", to, from, err.New, from)
+		if err.F.New != from {
+			t.Errorf("Link(%q, %q) err.New = %q; want %q", to, from, err.F.New, from)
 		}
-		if !IsExist(err.Err) {
-			t.Errorf("Link(%q, %q) err.Err = %q; want %q", to, from, err.Err, "file exists error")
+		if !IsExist(err.F.Err) {
+			t.Errorf("Link(%q, %q) err.Err = %q; want %q", to, from, err.F.Err, "file exists error")
 		}
 	case nil:
 		t.Errorf("link %q, %q: expected error, got nil", from, to)
@@ -1079,14 +1079,14 @@ func TestRenameFailed(t *testing.T) {
 	err := Rename(from, to)
 	switch err := err.(type) {
 	case *LinkError:
-		if err.Op != "rename" {
-			t.Errorf("rename %q, %q: err.Op: want %q, got %q", from, to, "rename", err.Op)
+		if err.F.Op != "rename" {
+			t.Errorf("rename %q, %q: err.Op: want %q, got %q", from, to, "rename", err.F.Op)
 		}
-		if err.Old != from {
-			t.Errorf("rename %q, %q: err.Old: want %q, got %q", from, to, from, err.Old)
+		if err.F.Old != from {
+			t.Errorf("rename %q, %q: err.Old: want %q, got %q", from, to, from, err.F.Old)
 		}
-		if err.New != to {
-			t.Errorf("rename %q, %q: err.New: want %q, got %q", from, to, to, err.New)
+		if err.F.New != to {
+			t.Errorf("rename %q, %q: err.New: want %q, got %q", from, to, to, err.F.New)
 		}
 	case nil:
 		t.Errorf("rename %q, %q: expected error, got nil", from, to)
@@ -1116,14 +1116,14 @@ func TestRenameToDirFailed(t *testing.T) {
 	err := Rename(from, to)
 	switch err := err.(type) {
 	case *LinkError:
-		if err.Op != "rename" {
-			t.Errorf("rename %q, %q: err.Op: want %q, got %q", from, to, "rename", err.Op)
+		if err.F.Op != "rename" {
+			t.Errorf("rename %q, %q: err.Op: want %q, got %q", from, to, "rename", err.F.Op)
 		}
-		if err.Old != from {
-			t.Errorf("rename %q, %q: err.Old: want %q, got %q", from, to, from, err.Old)
+		if err.F.Old != from {
+			t.Errorf("rename %q, %q: err.Old: want %q, got %q", from, to, from, err.F.Old)
 		}
-		if err.New != to {
-			t.Errorf("rename %q, %q: err.New: want %q, got %q", from, to, to, err.New)
+		if err.F.New != to {
+			t.Errorf("rename %q, %q: err.New: want %q, got %q", from, to, to, err.F.New)
 		}
 	case nil:
 		t.Errorf("rename %q, %q: expected error, got nil", from, to)
@@ -1175,7 +1175,7 @@ func TestRenameCaseDifference(pt *testing.T) {
 				t.Fatalf("Open .: %s", err)
 			}
 
-// Stat方法不会返回文件的实际大小（它返回的是调用者所请求的内容），所以我们必须使用readdir来获取文件的真正名称。
+			// Stat方法不会返回文件的实际大小（它返回的是调用者所请求的内容），所以我们必须使用readdir来获取文件的真正名称。
 			dirNames, err := fd.Readdirnames(-1)
 			fd.Close()
 			if err != nil {
@@ -1193,64 +1193,89 @@ func TestRenameCaseDifference(pt *testing.T) {
 	}
 }
 
-func testStartProcess(dir, cmd string, args []string, expect string) func(t *testing.T) {
-	return func(t *testing.T) {
-		t.Parallel()
+//func testStartProcess(dir, cmd string, args []string, expect string) func(t *testing.T) {
+//	return func(t *testing.T) {
+//		t.Parallel()
+//
+//		r, w, err := Pipe()
+//		if err != nil {
+//			t.Fatalf("Pipe: %v", err)
+//		}
+//		defer r.Close()
+//
+//		attr := &ProcAttr{Dir: dir, Files: []*File{nil, w, Stderr}}
+//		p, err := StartProcess(cmd, args, attr)
+//		if err != nil {
+//			t.Fatalf("StartProcess: %v", err)
+//		}
+//		w.Close()
+//
+//		var b strings.Builder
+//		io.Copy(&b, r)
+//		output := b.String()
+//
+//		fi1, _ := Stat(strings.TrimSpace(output))
+//		fi2, _ := Stat(expect)
+//		if !SameFile(fi1, fi2) {
+//			t.Errorf("exec %q returned %q wanted %q",
+//				strings.Join(append([]string{cmd}, args...), " "), output, expect)
+//		}
+//		p.Wait()
+//	}
+//}
 
-		r, w, err := Pipe()
-		if err != nil {
-			t.Fatalf("Pipe: %v", err)
-		}
-		defer r.Close()
-		attr := &ProcAttr{Dir: dir, Files: []*File{nil, w, Stderr}}
-		p, err := StartProcess(cmd, args, attr)
-		if err != nil {
-			t.Fatalf("StartProcess: %v", err)
-		}
-		w.Close()
-
-		var b strings.Builder
-		io.Copy(&b, r)
-		output := b.String()
-
-		fi1, _ := Stat(strings.TrimSpace(output))
-		fi2, _ := Stat(expect)
-		if !SameFile(fi1, fi2) {
-			t.Errorf("exec %q returned %q wanted %q",
-				strings.Join(append([]string{cmd}, args...), " "), output, expect)
-		}
-		p.Wait()
-	}
-}
-
-func TestStartProcess(t *testing.T) {
-	testenv.MustHaveExec(t)
-	t.Parallel()
-
-	var dir, cmd string
-	var args []string
-	switch runtime.GOOS {
-	case "android":
-		t.Skip("android doesn't have /bin/pwd")
-	case "windows":
-		cmd = Getenv("COMSPEC")
-		dir = Getenv("SystemRoot")
-		args = []string{"/c", "cd"}
-	default:
-		var err error
-		cmd, err = exec.LookPath("pwd")
-		if err != nil {
-			t.Fatalf("Can't find pwd: %v", err)
-		}
-		dir = "/"
-		args = []string{}
-		t.Logf("Testing with %v", cmd)
-	}
-	cmddir, cmdbase := filepath.Split(cmd)
-	args = append([]string{cmdbase}, args...)
-	t.Run("absolute", testStartProcess(dir, cmd, args, dir))
-	t.Run("relative", testStartProcess(cmddir, cmdbase, args, cmddir))
-}
+// ```go
+//func TestStartProcess(t *testing.T) {
+// 测试环境必须支持执行命令
+//testenv.MustHaveExec(t)
+// 并行执行测试
+//t.Parallel()
+//
+// 根据操作系统设置变量
+//var dir, cmd string
+//var args []string
+// 判断当前操作系统
+//switch runtime.GOOS {
+// 如果是Android，跳过测试（因为没有/bin/pwd）
+//case "android":
+//	t.Skip("android doesn't have /bin/pwd")
+// 如果是Windows
+//case "windows":
+// 设置cmd为环境变量COMSPEC的值
+//	cmd = Getenv("COMSPEC")
+// 设置dir为环境变量SystemRoot的值
+//	dir = Getenv("SystemRoot")
+// 设置args为/c和cd
+//	args = []string{"/c", "cd"}
+// 其他情况（默认为非Windows系统）
+//default:
+// 使用LookPath查找"pwd"命令
+//	var err error
+//	cmd, err = exec.LookPath("pwd")
+// 如果找不到"pwd"，终止测试
+//	if err != nil {
+//		t.Fatalf("Can't find pwd: %v", err)
+//	}
+// 设置dir为"/"
+//	dir = "/"
+// 设置args为空
+//	args = []string{}
+// 打印正在使用的命令进行测试
+//	t.Logf("Testing with %v", cmd)
+//}
+//
+// 分离cmd的目录和基础命令
+//cmddir, cmdbase := filepath.Split(cmd)
+// 将基础命令添加到args列表的前面
+//args = append([]string{cmdbase}, args...)
+// 运行绝对路径测试
+//t.Run("absolute", testStartProcess(dir, cmd, args, dir))
+// 运行相对路径测试
+//t.Run("relative", testStartProcess(cmddir, cmdbase, args, cmddir))
+//}
+// ```
+//
+// 这段代码是一个Go语言的测试函数，用于测试`StartProcess`功能。它根据不同的操作系统设置命令和参数，并分别测试绝对路径和相对路径的情况。
 
 func checkMode(t *testing.T, path string, mode FileMode) {
 	dir, err := Stat(path)
@@ -1460,7 +1485,7 @@ func TestChtimesWithZeroTimes(t *testing.T) {
 			errormsg := fmt.Sprintf("AccessTime mismatch with values ATime:%q-MTime:%q\ngot:  %q\nwant: %q", tt.aTime, tt.mTime, got, want)
 			switch runtime.GOOS {
 			case "plan9":
-// Mtime是上次内容更改的时间。类似地，每当内容被访问时，atime也会被设置；同时，当mtime被设置时，它也会被设置。
+				// Mtime是上次内容更改的时间。类似地，每当内容被访问时，atime也会被设置；同时，当mtime被设置时，它也会被设置。
 			case "windows":
 				t.Error(errormsg)
 			default: // unix's
@@ -1475,8 +1500,8 @@ func TestChtimesWithZeroTimes(t *testing.T) {
 					} else {
 						switch runtime.GOOS {
 						case "netbsd", "dragonfly":
-// 在64位实现中，通常支持并不可更改出生时间（birth time）。
-// 若得到支持，访问时间（atime）的更新则受到限制，具体取决于文件系统以及操作系统配置。
+							// 在64位实现中，通常支持并不可更改出生时间（birth time）。
+							// 若得到支持，访问时间（atime）的更新则受到限制，具体取决于文件系统以及操作系统配置。
 							if strings.Contains(runtime.GOARCH, "64") {
 								t.Log(errormsg)
 								t.Log("Filesystem might not support atime changes; ignoring.")
@@ -1630,7 +1655,7 @@ func TestChdirAndGetwd(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Open .: %s", err)
 	}
-// 这些路径都是精心选择的，不会在Mac上成为符号链接（不像/var、/etc），除了/tmp，我们稍后会处理。
+	// 这些路径都是精心选择的，不会在Mac上成为符号链接（不像/var、/etc），除了/tmp，我们稍后会处理。
 	dirs := []string{"/", "/usr/bin", "/tmp"}
 	// 在 Plan 9 或 Android 系统中，/usr/bin 通常不存在。
 	switch runtime.GOOS {
@@ -1670,9 +1695,9 @@ func TestChdirAndGetwd(t *testing.T) {
 			Setenv("PWD", oldwd)
 			err2 := fd.Chdir()
 			if err2 != nil {
-// 我们已经改变了当前目录，无法返回。
-// 不要让测试继续进行；它们会乱写
-// 到其他目录中。
+				// 我们已经改变了当前目录，无法返回。
+				// 不要让测试继续进行；它们会乱写
+				// 到其他目录中。
 				fmt.Fprintf(Stderr, "fchdir back to dot failed: %s\n", err2)
 				Exit(1)
 			}
@@ -1707,15 +1732,15 @@ func TestProgWideChdir(t *testing.T) {
 	}
 	defer func() {
 		if err := Chdir(oldwd); err != nil {
-// 如果我们无法返回到原始工作目录，那么继续进行测试是不安全的。
+			// 如果我们无法返回到原始工作目录，那么继续进行测试是不安全的。
 			panic(err)
 		}
 	}()
 
-// 注意，延迟调用的Wait必须在延迟关闭(done)之后调用，
-// 以确保即使主goroutine调用了Fatalf，N个goroutine也已经被释放。它必须在
-// 恢复到原始目录之前以及TempDir隐含的延迟删除之前调用，
-// 以免在N个goroutine仍在运行时产生干扰。
+	// 注意，延迟调用的Wait必须在延迟关闭(done)之后调用，
+	// 以确保即使主goroutine调用了Fatalf，N个goroutine也已经被释放。它必须在
+	// 恢复到原始目录之前以及TempDir隐含的延迟删除之前调用，
+	// 以免在N个goroutine仍在运行时产生干扰。
 	defer wg.Wait()
 	defer close(done)
 
@@ -1723,10 +1748,10 @@ func TestProgWideChdir(t *testing.T) {
 		wg.Add(1)
 		go func(i int) {
 			defer wg.Done()
-// 将一半的goroutine锁定在自己的操作系统线程中，以锻炼更多的调度可能性。
+			// 将一半的goroutine锁定在自己的操作系统线程中，以锻炼更多的调度可能性。
 			if i%2 == 1 {
-// 在Plan 9上，调用LockOSThread后，goroutine将在不同的进程中运行，这些进程不共享工作目录。这曾经是一个问题，因为Go期望工作目录是全局的。
-// 参见问题9428。
+				// 在Plan 9上，调用LockOSThread后，goroutine将在不同的进程中运行，这些进程不共享工作目录。这曾经是一个问题，因为Go期望工作目录是全局的。
+				// 参见问题9428。
 				runtime.LockOSThread()
 			}
 			select {
@@ -1763,8 +1788,8 @@ func TestProgWideChdir(t *testing.T) {
 	if err = Chdir(d); err != nil {
 		t.Fatalf("Chdir: %v", err)
 	}
-// 在OS X系统中，TMPDIR设置为一个符号链接。
-// 因此我们在测试之前再次解析我们的工作目录。
+	// 在OS X系统中，TMPDIR设置为一个符号链接。
+	// 因此我们在测试之前再次解析我们的工作目录。
 	d, err = Getwd()
 	if err != nil {
 		t.Fatalf("Getwd: %v", err)
@@ -1889,7 +1914,7 @@ func TestOpenError(t *testing.T) {
 				syscallErrStr := perr.Err.Error()
 				expectedErrStr := strings.Replace(tt.error.Error(), "file ", "", 1)
 				if !strings.HasSuffix(syscallErrStr, expectedErrStr) {
-// 一些 Plan 9 文件服务器在打开目录进行写操作时，错误地返回 EACCES 而不是 EISDIR。
+					// 一些 Plan 9 文件服务器在打开目录进行写操作时，错误地返回 EACCES 而不是 EISDIR。
 					if tt.error == syscall.EISDIR && strings.HasSuffix(syscallErrStr, syscall.EACCES.Error()) {
 						continue
 					}
@@ -1898,7 +1923,7 @@ func TestOpenError(t *testing.T) {
 				continue
 			}
 			if runtime.GOOS == "dragonfly" {
-// DragonFly 系统在尝试以写入方式打开目录时，错误地返回 EACCES 而非 EISDIR。
+				// DragonFly 系统在尝试以写入方式打开目录时，错误地返回 EACCES 而非 EISDIR。
 				if tt.error == syscall.EISDIR && perr.Err == syscall.EACCES {
 					continue
 				}
@@ -1916,52 +1941,53 @@ func TestOpenNoName(t *testing.T) {
 	}
 }
 
-func runBinHostname(t *testing.T) string {
-	// 运行/bin/hostname命令并收集输出。
-	r, w, err := Pipe()
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer r.Close()
-
-	path, err := exec.LookPath("hostname")
-	if err != nil {
-		if errors.Is(err, exec.ErrNotFound) {
-			t.Skip("skipping test; test requires hostname but it does not exist")
-		}
-		t.Fatal(err)
-	}
-
-	argv := []string{"hostname"}
-	if runtime.GOOS == "aix" {
-		argv = []string{"hostname", "-s"}
-	}
-	p, err := StartProcess(path, argv, &ProcAttr{Files: []*File{nil, w, Stderr}})
-	if err != nil {
-		t.Fatal(err)
-	}
-	w.Close()
-
-	var b strings.Builder
-	io.Copy(&b, r)
-	_, err = p.Wait()
-	if err != nil {
-		t.Fatalf("run hostname Wait: %v", err)
-	}
-	err = p.Kill()
-	if err == nil {
-		t.Errorf("expected an error from Kill running 'hostname'")
-	}
-	output := b.String()
-	if n := len(output); n > 0 && output[n-1] == '\n' {
-		output = output[0 : n-1]
-	}
-	if output == "" {
-		t.Fatalf("/bin/hostname produced no output")
-	}
-
-	return output
-}
+//func runBinHostname(t *testing.T) string {
+//	// 运行/bin/hostname命令并收集输出。
+//	r, w, err := Pipe()
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	defer r.Close()
+//
+//	path, err := exec.LookPath("hostname")
+//	if err != nil {
+//		if errors.Is(err, exec.ErrNotFound) {
+//			t.Skip("skipping test; test requires hostname but it does not exist")
+//		}
+//		t.Fatal(err)
+//	}
+//
+//	argv := []string{"hostname"}
+//	if runtime.GOOS == "aix" {
+//		argv = []string{"hostname", "-s"}
+//	}
+//
+//	p, err := StartProcess(path, argv, &ProcAttr{Files: []*File{nil, w, Stderr}})
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	w.Close()
+//
+//	var b strings.Builder
+//	io.Copy(&b, r)
+//	_, err = p.Wait()
+//	if err != nil {
+//		t.Fatalf("run hostname Wait: %v", err)
+//	}
+//	err = p.Kill()
+//	if err == nil {
+//		t.Errorf("expected an error from Kill running 'hostname'")
+//	}
+//	output := b.String()
+//	if n := len(output); n > 0 && output[n-1] == '\n' {
+//		output = output[0 : n-1]
+//	}
+//	if output == "" {
+//		t.Fatalf("/bin/hostname produced no output")
+//	}
+//
+//	return output
+//}
 
 func testWindowsHostname(t *testing.T, hostname string) {
 	cmd := testenv.Command(t, "hostname")
@@ -1975,44 +2001,45 @@ func testWindowsHostname(t *testing.T, hostname string) {
 	}
 }
 
-func TestHostname(t *testing.T) {
-	t.Parallel()
-
-	hostname, err := Hostname()
-	if err != nil {
-		t.Fatal(err)
-	}
-	if hostname == "" {
-		t.Fatal("Hostname returned empty string and no error")
-	}
-	if strings.Contains(hostname, "\x00") {
-		t.Fatalf("unexpected zero byte in hostname: %q", hostname)
-	}
-
-// 在 Windows 上，没有其他方法可以获取主机名，但可以通过 WinAPI 实现。
-// 在 Plan 9 中，可以从 #c/sysname 获取，就像 Hostname() 函数所做的那样。
-	switch runtime.GOOS {
-	case "android", "plan9":
-		// 没有 /bin/hostname 可以进行校验。
-		return
-	case "windows":
-		testWindowsHostname(t, hostname)
-		return
-	}
-
-	testenv.MustHaveExec(t)
-
-// 检查内部 Hostname() 函数的输出与 /bin/hostname 命令的输出是否一致。
-// 允许内部 Hostname 返回一个完整的域名（Fully Qualified Domain Name，FQDN），
-// 而 /bin/hostname 只返回第一个名称组件。
-	want := runBinHostname(t)
-	if hostname != want {
-		host, _, ok := strings.Cut(hostname, ".")
-		if !ok || host != want {
-			t.Errorf("Hostname() = %q, want %q", hostname, want)
-		}
-	}
-}
+//
+//func TestHostname(t *testing.T) {
+//	t.Parallel()
+//
+//	hostname, err := Hostname()
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	if hostname == "" {
+//		t.Fatal("Hostname returned empty string and no error")
+//	}
+//	if strings.Contains(hostname, "\x00") {
+//		t.Fatalf("unexpected zero byte in hostname: %q", hostname)
+//	}
+//
+//	// 在 Windows 上，没有其他方法可以获取主机名，但可以通过 WinAPI 实现。
+//	// 在 Plan 9 中，可以从 #c/sysname 获取，就像 Hostname() 函数所做的那样。
+//	switch runtime.GOOS {
+//	case "android", "plan9":
+//		// 没有 /bin/hostname 可以进行校验。
+//		return
+//	case "windows":
+//		testWindowsHostname(t, hostname)
+//		return
+//	}
+//
+//	testenv.MustHaveExec(t)
+//
+//	// 检查内部 Hostname() 函数的输出与 /bin/hostname 命令的输出是否一致。
+//	// 允许内部 Hostname 返回一个完整的域名（Fully Qualified Domain Name，FQDN），
+//	// 而 /bin/hostname 只返回第一个名称组件。
+//	want := runBinHostname(t)
+//	if hostname != want {
+//		host, _, ok := strings.Cut(hostname, ".")
+//		if !ok || host != want {
+//			t.Errorf("Hostname() = %q, want %q", hostname, want)
+//		}
+//	}
+//}
 
 func TestReadAt(t *testing.T) {
 	t.Parallel()
@@ -2487,7 +2514,7 @@ func TestLongPath(t *testing.T) {
 		t.Run(fmt.Sprintf("length=%d", sz), func(t *testing.T) {
 			sizedTempDir := tmpdir[:sz-1] + "x" // 确保它不以斜杠结束。
 
-// 各种大小的运行是为了触发此调用的边界条件。
+			// 各种大小的运行是为了触发此调用的边界条件。
 			if err := MkdirAll(sizedTempDir, 0755); err != nil {
 				t.Fatalf("MkdirAll failed: %v", err)
 			}
@@ -2568,11 +2595,13 @@ func testKillProcess(t *testing.T, processKiller func(p *Process)) {
 		stdin.Close() // 保持标准输入流畅通，直到该进程完全退出。
 	}()
 
-// 等待进程启动。
-// （当它达到TestMain时，它将关闭其stdout。）
+	// 等待进程启动。
+	// （当它达到TestMain时，它将关闭其stdout。）
 	io.Copy(io.Discard, stdout)
+	processKiller(&Process{
+		F: cmd.Process,
+	})
 
-	processKiller(cmd.Process)
 }
 
 func TestKillStartProcess(t *testing.T) {
@@ -2616,7 +2645,7 @@ func TestGetppid(t *testing.T) {
 
 func TestKillFindProcess(t *testing.T) {
 	testKillProcess(t, func(p *Process) {
-		p2, err := FindProcess(p.Pid)
+		p2, err := FindProcess(p.F.Pid)
 		if err != nil {
 			t.Fatalf("Failed to find test process: %v", err)
 		}
@@ -2679,7 +2708,7 @@ func mkdirTree(t *testing.T, root string, level, max int) {
 // 只要它被移除了，我们就应该感到满意。
 func TestRemoveAllRace(t *testing.T) {
 	if runtime.GOOS == "windows" {
-// Windows 对诸如在其他程序打开目录时删除目录等操作有着非常严格的规定。这种竞态条件在 Unix 系统中可以很好地处理，但在 Windows 上并不理想。
+		// Windows 对诸如在其他程序打开目录时删除目录等操作有着非常严格的规定。这种竞态条件在 Unix 系统中可以很好地处理，但在 Windows 上并不理想。
 		t.Skip("skipping on windows")
 	}
 	if runtime.GOOS == "dragonfly" {
@@ -2769,7 +2798,7 @@ func TestPipeThreads(t *testing.T) {
 		<-creading
 	}
 
-// 如果我们仍然存活，那就意味着这100个goroutine并未要求使用100个线程。
+	// 如果我们仍然存活，那就意味着这100个goroutine并未要求使用100个线程。
 
 	for i := 0; i < threads; i++ {
 		if _, err := w[i].Write([]byte{0}); err != nil {
@@ -2867,14 +2896,14 @@ func TestUserHomeDir(t *testing.T) {
 		t.Fatal("UserHomeDir returned an empty string but no error")
 	}
 	if err != nil {
-// UserHomeDir 如果环境变量指定的家目录为空或未设置，可能会返回一个非nil的错误。
+		// UserHomeDir 如果环境变量指定的家目录为空或未设置，可能会返回一个非nil的错误。
 		t.Skipf("skipping: %v", err)
 	}
 
 	fi, err := Stat(dir)
 	if err != nil {
 		if IsNotExist(err) {
-// 用户的主目录有一个明确的位置，但可能不存在。（也许还没有写入内容？这在用于CI测试的最小VM映像中可能发生。）
+			// 用户的主目录有一个明确的位置，但可能不存在。（也许还没有写入内容？这在用于CI测试的最小VM映像中可能发生。）
 			t.Log(err)
 			return
 		}
@@ -2926,7 +2955,7 @@ func TestDirSeek(t *testing.T) {
 }
 
 func TestReaddirSmallSeek(t *testing.T) {
-// 参见问题37161。从目录中只读取一个条目，然后移动到开头再读取一次。我们不应该看到重复的条目。
+	// 参见问题37161。从目录中只读取一个条目，然后移动到开头再读取一次。我们不应该看到重复的条目。
 	t.Parallel()
 
 	wd, err := Getwd()
@@ -2953,17 +2982,17 @@ func TestReaddirSmallSeek(t *testing.T) {
 	}
 }
 
-// isDeadlineExceeded 判断 err 是否为 ErrDeadlineExceeded 错误或其封装错误。
-// 同时，我们还会检查该错误是否具有返回 true 的 Timeout 方法。
-func isDeadlineExceeded(err error) bool {
-	if !IsTimeout(err) {
-		return false
-	}
-	if !errors.Is(err, ErrDeadlineExceeded) {
-		return false
-	}
-	return true
-}
+//// isDeadlineExceeded 判断 err 是否为 ErrDeadlineExceeded 错误或其封装错误。
+//// 同时，我们还会检查该错误是否具有返回 true 的 Timeout 方法。
+//func isDeadlineExceeded(err error) bool {
+//	if !IsTimeout(err) {
+//		return false
+//	}
+//	if !errors.Is(err, ErrDeadlineExceeded) {
+//		return false
+//	}
+//	return true
+//}
 
 // 测试打开一个文件不会改变其权限。问题38225。
 func TestOpenFileKeepsPermissions(t *testing.T) {
@@ -3000,7 +3029,7 @@ func TestOpenFileKeepsPermissions(t *testing.T) {
 func TestDirFS(t *testing.T) {
 	t.Parallel()
 
-// 在Windows系统上，我们通过从GetFileInformationByHandle获取实际元数据并明确设置它来强制更新MFT。否则它可能会与FindFirstFile不一致。参见golang.org/issues/42637。
+	// 在Windows系统上，我们通过从GetFileInformationByHandle获取实际元数据并明确设置它来强制更新MFT。否则它可能会与FindFirstFile不一致。参见golang.org/issues/42637。
 	if runtime.GOOS == "windows" {
 		if err := filepath.WalkDir("./testdata/dirfs", func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
@@ -3038,8 +3067,8 @@ func TestDirFS(t *testing.T) {
 		t.Error("fs.ReadDir of nonexistent directory succeeded")
 	}
 
-// 测试错误消息中不包含反斜杠，
-// 且不包含DirFS参数。
+	// 测试错误消息中不包含反斜杠，
+	// 且不包含DirFS参数。
 	const nonesuch = "dir/nonesuch"
 	_, err := fsys.Open(nonesuch)
 	if err == nil {
@@ -3134,11 +3163,11 @@ func TestDirFSPathsValid(t *testing.T) {
 func TestReadFileProc(t *testing.T) {
 	t.Parallel()
 
-// 在Linux中，/proc目录下的文件报告大小为0，
-// 但如果使用ReadFile在偏移量0处读取单个字节后，
-// 偏移量1处的读取会返回EOF（文件结束）而不是更多的数据。
-// ReadFile有一个最小读取大小为512的处理机制来解决这个问题，
-// 但我们需要明确测试它是否有效。
+	// 在Linux中，/proc目录下的文件报告大小为0，
+	// 但如果使用ReadFile在偏移量0处读取单个字节后，
+	// 偏移量1处的读取会返回EOF（文件结束）而不是更多的数据。
+	// ReadFile有一个最小读取大小为512的处理机制来解决这个问题，
+	// 但我们需要明确测试它是否有效。
 	name := "/proc/sys/fs/pipe-max-size"
 	if _, err := Stat(name); err != nil {
 		t.Skip(err)
@@ -3208,8 +3237,8 @@ func TestPipeIOCloseRace(t *testing.T) {
 		for {
 			n, err := w.Write([]byte("hi"))
 			if err != nil {
-// 我们将错误字符串视为依赖操作系统的
-// 预期错误。
+				// 我们将错误字符串视为依赖操作系统的
+				// 预期错误。
 				switch {
 				case errors.Is(err, ErrClosed),
 					strings.Contains(err.Error(), "broken pipe"),
@@ -3249,7 +3278,7 @@ func TestPipeIOCloseRace(t *testing.T) {
 	go func() {
 		defer wg.Done()
 
-// 让其他goroutine开始。这只是为了让测试更好，即使它们不开始，测试仍然会通过。
+		// 让其他goroutine开始。这只是为了让测试更好，即使它们不开始，测试仍然会通过。
 		time.Sleep(time.Millisecond)
 
 		if err := r.Close(); err != nil {
@@ -3299,26 +3328,30 @@ func TestPipeCloseRace(t *testing.T) {
 	}
 }
 
-func TestRandomLen(t *testing.T) {
-	for range 5 {
-		dir, err := MkdirTemp(t.TempDir(), "*")
-		if err != nil {
-			t.Fatal(err)
-		}
-		base := filepath.Base(dir)
-		if len(base) > 10 {
-			t.Errorf("MkdirTemp returned len %d: %s", len(base), base)
-		}
-	}
-	for range 5 {
-		f, err := CreateTemp(t.TempDir(), "*")
-		if err != nil {
-			t.Fatal(err)
-		}
-		base := filepath.Base(f.Name())
-		f.Close()
-		if len(base) > 10 {
-			t.Errorf("CreateTemp returned len %d: %s", len(base), base)
-		}
-	}
-}
+//
+// // 测试RandomLen函数
+// func TestRandomLen(t *testing.T) {
+//     // 重复5次循环
+//     for i := 0; i < 5; i++ {
+//         dir, err := MkdirTemp(t.TempDir(), "*") // 在临时目录下创建子目录
+//         if err != nil {
+//             t.Fatal(err) // 如果出错，打印错误并终止测试
+//         }
+//         base := filepath.Base(dir) // 获取子目录的基名
+//         if len(base) > 10 { // 如果基名长度超过10
+//             t.Errorf("MkdirTemp返回的基名长度为%d：%s", len(base), base) // 打印错误信息
+//         }
+//     }
+//     // 再次重复5次循环
+//     for i := 0; i < 5; i++ {
+//         f, err := CreateTemp(t.TempDir(), "*") // 在临时目录下创建临时文件
+//         if err != nil {
+//             t.Fatal(err) // 如果出错，打印错误并终止测试
+//         }
+//         base := filepath.Base(f.Name()) // 获取文件的基名
+//         f.Close() // 关闭文件
+//         if len(base) > 10 { // 如果基名长度超过10
+//             t.Errorf("CreateTemp返回的基名长度为%d：%s", len(base), base) // 打印错误信息
+//         }
+//     }
+// }

@@ -7,12 +7,12 @@ package os_test
 import (
 	"bytes"
 	"errors"
-	"internal/poll"
-	"internal/testpty"
+	. "github.com/888go/gosdk/os"
+	"github.com/888go/gosdk/os/internal/poll"
+	"github.com/888go/gosdk/os/internal/testpty"
 	"io"
 	"math/rand"
 	"net"
-	. "os"
 	"path/filepath"
 	"runtime"
 	"strconv"
@@ -149,7 +149,7 @@ func TestCopyFileRange(t *testing.T) {
 			defer pr2.Close()
 			defer pw2.Close()
 
-// 管道为空，并且根据(POSIX)定义，PIPE_BUF足够大，因此不需要额外的goroutine。
+			// 管道为空，并且根据(POSIX)定义，PIPE_BUF足够大，因此不需要额外的goroutine。
 			data := []byte("hello")
 			if _, err := pw1.Write(data); err != nil {
 				t.Fatal(err)
@@ -204,7 +204,7 @@ func TestCopyFileRange(t *testing.T) {
 			defer pr.Close()
 			defer pw.Close()
 
-// 管道为空，并且根据(POSIX)定义，PIPE_BUF足够大，因此不需要额外的goroutine。
+			// 管道为空，并且根据(POSIX)定义，PIPE_BUF足够大，因此不需要额外的goroutine。
 			if _, err := pw.Write(data); err != nil {
 				t.Fatal(err)
 			}
@@ -376,7 +376,7 @@ func testSpliceFile(t *testing.T, proto string, size, limit int64) {
 		t.Fatalf("server Conn Control error: %v", err)
 	}
 
-// 检查传输后的偏移量是否合理，确认传输的大小被正确报告，并且目标文件确实包含我们期望的字节。
+	// 检查传输后的偏移量是否合理，确认传输的大小被正确报告，并且目标文件确实包含我们期望的字节。
 	dstoff, err := dst.Seek(0, io.SeekCurrent)
 	if err != nil {
 		t.Fatal(err)
@@ -402,8 +402,8 @@ func testSpliceFile(t *testing.T, proto string, size, limit int64) {
 func testSpliceToTTY(t *testing.T, proto string, size int64) {
 	var wg sync.WaitGroup
 
-// 将 wg.Wait 作为最终的延迟调用函数，
-// 因为 goroutine 可能会阻塞直到某些延迟的 Close 调用完成。
+	// 将 wg.Wait 作为最终的延迟调用函数，
+	// 因为 goroutine 可能会阻塞直到某些延迟的 Close 调用完成。
 	defer wg.Wait()
 
 	pty, ttyName, err := testpty.Open()
@@ -412,9 +412,9 @@ func testSpliceToTTY(t *testing.T, proto string, size int64) {
 	}
 	defer pty.Close()
 
-// 直接打开tty，而不是通过OpenFile。
-// 这绕过了非阻塞支持，并且是重现问题所必需的
-// 在问题(#59041)中。
+	// 直接打开tty，而不是通过OpenFile。
+	// 这绕过了非阻塞支持，并且是重现问题所必需的
+	// 在问题(#59041)中。
 	ttyFD, err := syscall.Open(ttyName, syscall.O_RDWR, 0)
 	if err != nil {
 		t.Skipf("skipping test becaused failed to open tty: %v", err)
@@ -431,10 +431,10 @@ func testSpliceToTTY(t *testing.T, proto string, size int64) {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-// 当写入一系列数据块时（问题#59041），问题会出现。如果一次性写入所有数据，问题不会出现。
+		// 当写入一系列数据块时（问题#59041），问题会出现。如果一次性写入所有数据，问题不会出现。
 		for i := 0; i < len(data); i += 1024 {
 			if _, err := client.Write(data[i : i+1024]); err != nil {
-// 如果我们因为客户端被关闭而到达这里，跳过错误。
+				// 如果我们因为客户端被关闭而到达这里，跳过错误。
 				if !errors.Is(err, net.ErrClosed) {
 					t.Errorf("error writing to socket: %v", err)
 				}
@@ -451,7 +451,7 @@ func testSpliceToTTY(t *testing.T, proto string, size int64) {
 		for {
 			if _, err := pty.Read(buf); err != nil {
 				if err != io.EOF && !errors.Is(err, ErrClosed) {
-// 对于我们的测试而言，此处的错误无关紧要。
+					// 对于我们的测试而言，此处的错误无关紧要。
 					t.Logf("error reading from pty: %v", err)
 				}
 				return
@@ -486,13 +486,13 @@ func testCopyFileRange(t *testing.T, size int64, limit int64) {
 		realsrc = src
 	}
 
-// 现在调用ReadFrom（通过io.Copy），它将希望调用poll.CopyFileRange。
+	// 现在调用ReadFrom（通过io.Copy），它将希望调用poll.CopyFileRange。
 	n, err := io.Copy(dst, realsrc)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-// 如果我们没有限制，我们应该使用正确的文件描述符参数调用poll.CopyFileRange。
+	// 如果我们没有限制，我们应该使用正确的文件描述符参数调用poll.CopyFileRange。
 	if limit > 0 && !hook.called {
 		t.Fatal("never called poll.CopyFileRange")
 	}
@@ -503,7 +503,7 @@ func testCopyFileRange(t *testing.T, size int64, limit int64) {
 		t.Fatalf("wrong source file descriptor: got %d, want %d", hook.srcfd, src.Fd())
 	}
 
-// 检查传输后的偏移量是否合理，确认传输的大小被正确报告，并且目标文件确实包含我们期望的字节。
+	// 检查传输后的偏移量是否合理，确认传输的大小被正确报告，并且目标文件确实包含我们期望的字节。
 	dstoff, err := dst.Seek(0, io.SeekCurrent)
 	if err != nil {
 		t.Fatal(err)
@@ -553,7 +553,7 @@ func newCopyFileRangeTest(t *testing.T, size int64) (dst, src *File, data []byte
 	}
 	t.Cleanup(func() { dst.Close() })
 
-// 向源文件填充数据，然后将其回溯，以便可以由copy_file_range(2)函数消费。
+	// 向源文件填充数据，然后将其回溯，以便可以由copy_file_range(2)函数消费。
 	prng := rand.New(rand.NewSource(time.Now().Unix()))
 	data = make([]byte, size)
 	prng.Read(data)
@@ -568,7 +568,7 @@ func newCopyFileRangeTest(t *testing.T, size int64) (dst, src *File, data []byte
 }
 
 // newSpliceFileTest 初始化splice的新测试。
-// 
+//
 // 它创建源套接字和目标文件，并在源套接字中填充指定大小的随机数据。它还挂钩包"os"对poll.Splice的调用，并返回钩子，以便可以检查它。
 func newSpliceFileTest(t *testing.T, proto string, size int64) (*File, net.Conn, []byte, *spliceFileHook, func()) {
 	t.Helper()

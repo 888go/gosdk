@@ -9,7 +9,7 @@
 package os_test
 
 import (
-	"os"
+	"github.com/888go/gosdk/os"
 	"syscall"
 	"testing"
 )

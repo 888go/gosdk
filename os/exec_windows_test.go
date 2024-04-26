@@ -7,9 +7,9 @@
 package os_test
 
 import (
-	"internal/testenv"
+	. "github.com/888go/gosdk/os"
+	"github.com/888go/gosdk/os/internal/testenv"
 	"io"
-	. "os"
 	"path/filepath"
 	"sync"
 	"testing"
@@ -57,8 +57,8 @@ func TestRemoveAllWithExecutedProcess(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-// 然后运行每个可执行文件并移除其所在的目录。
-// 为增加负载并提高触发问题的可能性，以单独的goroutine运行每个可执行文件。
+	// 然后运行每个可执行文件并移除其所在的目录。
+	// 为增加负载并提高触发问题的可能性，以单独的goroutine运行每个可执行文件。
 	var wg sync.WaitGroup
 	wg.Add(n)
 	for i := 0; i < n; i++ {
