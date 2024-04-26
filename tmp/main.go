@@ -1,12 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"github.com/888go/gosdk/os"
 )
 
 func main() {
-	测试, _ := os.Readlink("e:\\Users\\admin\\Desktop\\1.lnk")
+	os.RemoveAll("D:\\ZLjjdwg\\1.dwg")
 
-	fmt.Println(测试)
 }
