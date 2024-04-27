@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
+      <change afterPath="$PROJECT_DIR$/翻译/函数/os/getwd_方法.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/函数/os/path_其他.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/函数/os/path_方法.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/getwd.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/getwd.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/path.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/path.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DirectoryV3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DirectoryV3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/os.rar" beforeDir="false" afterPath="$PROJECT_DIR$/os/os.rar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/proc.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/proc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/stat.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/stat.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/sys.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/sys.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/tempfile.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/tempfile.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/types.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

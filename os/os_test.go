@@ -13,6 +13,7 @@ import (
 	"io"
 	"io/fs"
 	"log"
+	os2 "os"
 
 	"path/filepath"
 	"reflect"
@@ -2573,7 +2574,7 @@ func testKillProcess(t *testing.T, processKiller func(p *Process)) {
 	t.Parallel()
 
 	// 重新执行测试二进制文件，以启动一个进程，该进程将挂起，直到标准输入被关闭。
-	cmd := testenv.Command(t, Args[0])
+	cmd := testenv.Command(t, os2.Args[0])
 	cmd.Env = append(cmd.Environ(), "GO_OS_TEST_DRAIN_STDIN=1")
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
@@ -2627,7 +2628,7 @@ func TestGetppid(t *testing.T) {
 	testenv.MustHaveExec(t)
 	t.Parallel()
 
-	cmd := testenv.Command(t, Args[0], "-test.run=^TestGetppid$")
+	cmd := testenv.Command(t, os2.Args[0], "-test.run=^TestGetppid$")
 	cmd.Env = append(Environ(), "GO_WANT_HELPER_PROCESS=1")
 
 	// 验证从forked进程调用的Getppid()是否报告我们的进程ID

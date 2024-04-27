@@ -80,7 +80,7 @@ func TestRemoveAll(t *testing.T) {
 	}
 
 	// Chmod 在Windows或wasip1下不被支持，而且以root用户运行测试会导致失败。
-	if runtime.GOOS != "windows" && runtime.GOOS != "wasip1" && Getuid() != 0 {
+	if runtime.GOOS != "windows" && runtime.GOOS != "wasip1" {
 		// 创建包含文件和子目录的目录，并触发错误。
 		if err = MkdirAll(dpath, 0777); err != nil {
 			t.Fatalf("MkdirAll %q: %s", dpath, err)
@@ -272,10 +272,6 @@ func TestRemoveAllButReadOnlyAndPathError(t *testing.T) {
 		t.Skipf("skipping test on %s", runtime.GOOS)
 	}
 
-	if Getuid() == 0 {
-		t.Skip("skipping test when running as root")
-	}
-
 	t.Parallel()
 
 	tempDir := t.TempDir()
@@ -357,10 +353,6 @@ func TestRemoveUnreadableDir(t *testing.T) {
 		t.Skipf("skipping test on %s", runtime.GOOS)
 	}
 
-	if Getuid() == 0 {
-		t.Skip("skipping test when running as root")
-	}
-
 	t.Parallel()
 
 	tempDir := t.TempDir()
@@ -408,10 +400,6 @@ func TestRemoveAllWithMoreErrorThanReqSize(t *testing.T) {
 	// 此调用不应阻塞，即使在不允许从只读目录中删除文件的平台上也是如此
 	err := RemoveAll(path)
 
-	if Getuid() == 0 {
-		// 在许多平台上，超级用户可以删除只读目录中的文件。
-		return
-	}
 	if err == nil {
 		if runtime.GOOS == "windows" || runtime.GOOS == "wasip1" {
 			// 在Windows中，将目录标记为只读并不能阻止RemoveAll在其中创建或删除文件。

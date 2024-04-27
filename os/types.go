@@ -7,7 +7,7 @@ import (
 
 // 定义的文件模式位是最显著的FileMode位。最不显著的九位是标准Unix的rwxrwxrwx权限。这些位的值应被视为公共API的一部分，可能用于电线协议或磁盘表示：它们不能更改，尽管可能会添加新的位。
 const (
-	// 这些单个字母是 `String` 方法格式化中使用的缩写。
+// 这些单个字母是 `String` 方法格式化中使用的缩写。
 	ModeDir        = fs.ModeDir        // d: is a directory
 	ModeAppend     = fs.ModeAppend     // a: append-only
 	ModeExclusive  = fs.ModeExclusive  // l: exclusive use
@@ -43,8 +43,6 @@ type FileInfo = fs.FileInfo //md5:4c3f090d15e35247e13ba72e8da3ce80
 type FileMode = fs.FileMode //md5:e4b755cd6b7e001da355fd0b271a7f43
 
 // Getpagesize 返回底层系统的内存页大小。
-
-// ff:
 func Getpagesize() int { //md5:d379c113740c775f0f6aaac91ecbd1be
 	return os.Getpagesize()
 }
@@ -54,10 +52,6 @@ func Getpagesize() int { //md5:d379c113740c775f0f6aaac91ecbd1be
 // 在其他系统上，判断可能基于路径名称。
 // SameFile 只适用于本包的Stat方法返回的结果。
 // 在其他情况下，它会返回false。
-
-// ff:
-// fi2:
-// fi1:
 func SameFile(fi1, fi2 FileInfo) bool { //md5:b4e76f9d966d9daea55a383bca41dc5f
 	return os.SameFile(fi1, fi2)
 }

@@ -69,9 +69,9 @@ func TestWriteFile(t *testing.T) {
 }
 
 func TestReadOnlyWriteFile(t *testing.T) {
-	if Getuid() == 0 {
-		t.Skipf("Root can write to read-only files anyway, so skip the read-only test.")
-	}
+	//if Getuid() == 0 {
+	//	t.Skipf("Root can write to read-only files anyway, so skip the read-only test.")
+	//}
 	if runtime.GOOS == "wasip1" {
 		t.Skip("no support for file permissions on " + runtime.GOOS)
 	}

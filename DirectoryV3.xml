@@ -64,4 +64,11 @@
     <tree path="/os/env.go" title="环境变量"/>
    <tree path="/os/error.go" title="错误"/>
     <tree path="/os/dir.go" title="文件目录"/>
+    <tree path="/os/file.go" title="文件方法"/>
+    <tree path="/os/getwd.go" title="工作目录"/>
+    <tree path="/os/path.go" title="路径"/>
+    <tree path="/os/exec.go" title="进程"/>
+    <tree path="/os/stat.go" title="文件信息"/>
+    <tree path="/os/tempfile.go" title="临时文件"/>
+    <tree path="/os/sys.go" title="主机名"/>
 </trees>
