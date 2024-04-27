@@ -12,19 +12,5 @@
 # zz= 正则表达式,用于结构名称替换或者复杂替换
 #     如待替换: type authPair struct { //zz:^type *authPair
 
-[func (f *File) Readdir(n int) (#左中括号##右中括号#FileInfo, error) {]
-ff=读取目录2
-n=返回数量
-
-[func (f *File) Readdirnames(n int) (names #左中括号##右中括号#string, err error) {]
-names=文件名s
-n=返回数量
-err=错误
-
-[func (f *File) ReadDir(n int) (#左中括号##右中括号#DirEntry, error) {]
-ff=读取目录
-n=返回数量
-
-[func ReadDir(name string) (#左中括号##右中括号#DirEntry, error) {]
-ff=读取目录
-name=目录路径
+[package os]
+bm=系统类

@@ -7,6 +7,8 @@ import "os"
 // 如果没有发生错误，Executable 返回一个绝对路径。
 //
 // 主要用途是找到与可执行文件相对应的资源。
+
+// ff:取当前进程文件路径
 func Executable() (string, error) { //md5:c38e25d3342843455e87e2cc6b19f453
 	return os.Executable()
 }

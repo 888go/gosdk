@@ -15,6 +15,9 @@ package sysdll
 var IsSystemDLL = map[string]bool{}
 
 // 添加注释，说明dll是一个系统32库，应该仅从Windows SYSTEM32目录加载。它返回其参数，以便于生成代码的使用。
+
+// ff:
+// dll:
 func Add(dll string) string {
 	IsSystemDLL[dll] = true
 	return dll
