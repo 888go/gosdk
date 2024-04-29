@@ -69,9 +69,10 @@ func TestWriteFile(t *testing.T) {
 }
 
 func TestReadOnlyWriteFile(t *testing.T) {
-	//if Getuid() == 0 {
-	//	t.Skipf("Root can write to read-only files anyway, so skip the read-only test.")
-	//}
+// 如果Getuid()返回0（表示当前用户是root）{
+//   t.Skipf("由于root用户可以无论如何写入只读文件，因此跳过只读文件的测试。")
+// }
+// md5:e0e59d68eb648704
 	if runtime.GOOS == "wasip1" {
 		t.Skip("no support for file permissions on " + runtime.GOOS)
 	}

@@ -4,7 +4,7 @@
 
 // 使用外部测试以避免在非cgo环境下的darwin系统中出现os/exec -> net/http -> crypto/x509 -> os/exec的循环依赖关系
 
-// 2024-04-17 备注,单元测试通不过, 保留单元测试文件为了方便查看使用方法.
+//2024-04-17 备注,单元测试通不过, 保留单元测试文件为了方便查看使用方法.
 package exec_test
 
 import (
@@ -907,11 +907,11 @@ func TestOutputStderrCapture(t *testing.T) {
 
 	cmd := helperCommand(t, "stderrfail")
 	_, err := cmd.Output()
-	ee, ok := err.(*exec.ExitError)
+	ee, ok := err.(*exec2.ExitError)
 	if !ok {
 		t.Fatalf("Output error type = %T; want ExitError", err)
 	}
-	got := string(ee.F.Stderr)
+	got := string(ee.Stderr)
 	want := "some stderr text\n"
 	if got != want {
 		t.Errorf("ExitError.Stderr = %q; want %q", got, want)

@@ -11,32 +11,10 @@ import (
 
 //go:linkname WSASendtoInet4 syscall.wsaSendtoInet4
 //go:noescape
-
-// ff:
-// err:
-// croutine:
-// overlapped:
-// to:
-// flags:
-// sent:
-// bufcnt:
-// bufs:
-// s:
 func WSASendtoInet4(s syscall.Handle, bufs *syscall.WSABuf, bufcnt uint32, sent *uint32, flags uint32, to *syscall.SockaddrInet4, overlapped *syscall.Overlapped, croutine *byte) (err error)
 
 //go:linkname WSASendtoInet6 syscall.wsaSendtoInet6
 //go:noescape
-
-// ff:
-// err:
-// croutine:
-// overlapped:
-// to:
-// flags:
-// sent:
-// bufcnt:
-// bufs:
-// s:
 func WSASendtoInet6(s syscall.Handle, bufs *syscall.WSABuf, bufcnt uint32, sent *uint32, flags uint32, to *syscall.SockaddrInet6, overlapped *syscall.Overlapped, croutine *byte) (err error)
 
 const (

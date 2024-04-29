@@ -23,7 +23,7 @@ const (
 	FileAttributeTagInfo           = 9    // FILE_ATTRIBUTE_TAG_INFO：文件属性标签信息
 	FileIdBothDirectoryInfo        = 0xa  // FILE_ID_BOTH_DIR_INFO
 	FileIdBothDirectoryRestartInfo = 0xb  // FILE_ID_BOTH_DIR_INFO
-	FileRemoteProtocolInfo         = 0xd  // FILE_REMOTE_PROTOCOL_INFO
+	FileRemoteProtocolInfo         = 0xd  // FILE_REMOTE_PROTOCOL_INFO：文件远程协议信息. md5:296ef5f8110a634b
 	FileFullDirectoryInfo          = 0xe  // FILE_FULL_DIR_INFO
 	FileFullDirectoryRestartInfo   = 0xf  // FILE_FULL_DIR_INFO
 	FileStorageInfo                = 0x10 // FILE_STORAGE_INFO

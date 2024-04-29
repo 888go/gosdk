@@ -71,4 +71,18 @@
     <tree path="/os/stat.go" title="文件信息"/>
     <tree path="/os/tempfile.go" title="临时文件"/>
     <tree path="/os/sys.go" title="主机名"/>
+    <tree path="/exec/bench_test.go" title="单元测试"/>
+    <tree path="/exec/dot_test.go" title="单元测试"/>
+    <tree path="/exec/env_test.go" title="单元测试"/>
+    <tree path="/exec/exec_linux_test.go" title="单元测试"/>
+    <tree path="/exec/exec_other_test.go" title="单元测试"/>
+    <tree path="/exec/exec_posix_test.go" title="单元测试"/>
+    <tree path="/exec/exec_unix_test.go" title="单元测试"/>
+    <tree path="/exec/exec_windows_test.go" title="单元测试"/>
+    <tree path="/exec/internal_test.go" title="单元测试"/>
+    <tree path="/exec/lp_linux_test.go" title="单元测试"/>
+    <tree path="/exec/lp_test.go" title="单元测试"/>
+    <tree path="/exec/lp_unix_test.go" title="单元测试"/>
+    <tree path="/exec/lp_windows_test.go" title="单元测试"/>
+    <tree path="/exec/exec.go" title="主要方法"/>
 </trees>

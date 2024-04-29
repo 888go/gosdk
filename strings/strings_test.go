@@ -1,8 +1,8 @@
-// 版权所有 ? 2009 Go作者。保留所有权利。
-// 本源代码的使用受BSD风格
-// 许可证约束，该许可证可在LICENSE文件中找到。
+// Copyright 2009 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
-package strings_test //bm:文本类_test
+package strings_test
 
 import (
 	"bytes"
@@ -59,7 +59,7 @@ var indexTests = []IndexTest{
 	{"999f2xmimunbuyew5vrkla9cpwhmxan8o98ec", "98ec", 33},
 	{"9lpt9r98i04k8bz6c6dsrthb96bhi", "96bhi", 24},
 	{"55u558eqfaod2r2gu42xxsu631xf0zobs5840vl", "5840vl", 33},
-	// 对于包含单字节字符串的场景——测试Index()中的特殊情况
+	// cases with one byte strings - test special case in Index()
 	{"", "a", -1},
 	{"x", "a", -1},
 	{"x", "x", 0},
@@ -67,7 +67,7 @@ var indexTests = []IndexTest{
 	{"abc", "b", 1},
 	{"abc", "c", 2},
 	{"abc", "x", -1},
-	// 测试Index()函数在处理短字符串时的特殊情况
+	// test special cases in Index() for short strings
 	{"", "ab", -1},
 	{"bc", "ab", -1},
 	{"ab", "ab", 0},
@@ -132,7 +132,7 @@ var indexTests = []IndexTest{
 	{"xx012345678901234567890123456789012345678901234567890123456789012"[:41], "0123456789012345678901234567890123456789", -1},
 	{"xx012345678901234567890123456789012345678901234567890123456789012", "0123456789012345678901234567890123456xxx", -1},
 	{"xx0123456789012345678901234567890123456789012345678901234567890120123456789012345678901234567890123456xxx", "0123456789012345678901234567890123456xxx", 65},
-	// 测试回退到 Rabin-Karp 算法
+	// test fallback to Rabin-Karp.
 	{"oxoxoxoxoxoxoxoxoxoxoxoy", "oy", 22},
 	{"oxoxoxoxoxoxoxoxoxoxoxox", "oy", -1},
 }
@@ -193,7 +193,8 @@ var lastIndexAnyTests = []IndexTest{
 	{"0123456\xcf\x80abc", "\xcfb\x80", 10},
 }
 
-// 对每个测试用例执行f。funcName应为f的名称，它用于失败报告中。
+// Execute f on each test case.  funcName should be the name of f; it's used
+// in failure reports.
 func runIndexTests(t *testing.T, f func(s, sep string) int, funcName string, testCases []IndexTest) {
 	for _, test := range testCases {
 		actual := f(test.s, test.sep)
@@ -226,7 +227,7 @@ func TestLastIndexByte(t *testing.T) {
 	testCases := []IndexTest{
 		{"", "q", -1},
 		{"abcdef", "q", -1},
-		{"abcdefabcdef", "a", len("abcdef")},      // 中间的某物
+		{"abcdefabcdef", "a", len("abcdef")},      // something in the middle
 		{"abcdefabcdef", "f", len("abcdefabcde")}, // last byte
 		{"zabcdefabcdef", "z", 0},                 // first byte
 		{"a☺b☻c☹d", "b", len("a☺")},               // non-ascii
@@ -293,7 +294,7 @@ func TestIndexRune(t *testing.T) {
 		{"☺a", 'a', 3},
 		{"a☻☺b", '☺', 4},
 
-		// RuneError 应匹配任何无效的 UTF-8 字节序列。
+		// RuneError should match any invalid UTF-8 byte sequence.
 		{"�", '�', 0},
 		{"\xff", '�', 0},
 		{"☻x�", '�', len("☻x")},
@@ -301,7 +302,7 @@ func TestIndexRune(t *testing.T) {
 		{"☻x\xe2\x98�", '�', len("☻x")},
 		{"☻x\xe2\x98x", '�', len("☻x")},
 
-		// 无效的rune值应当永远不会匹配。
+		// Invalid rune values should never match.
 		{"a☺b☻c☹d\xe2\x98�\xff�\xed\xa0\x80", -1, -1},
 		{"a☺b☻c☹d\xe2\x98�\xff�\xed\xa0\x80", 0xD800, -1}, // Surrogate pair
 		{"a☺b☻c☹d\xe2\x98�\xff�\xed\xa0\x80", utf8.MaxRune + 1, -1},
@@ -530,12 +531,13 @@ func TestFieldsFunc(t *testing.T) {
 	}
 }
 
-// 用于测试任何接受并返回单个字符串的函数的用例
+// Test case for any function which accepts and returns a single string.
 type StringTest struct {
 	in, out string
 }
 
-// 对每个测试用例执行f。funcName应为f的名称，它用于失败报告中。
+// Execute f on each test case.  funcName should be the name of f; it's used
+// in failure reports.
 func runStringTests(t *testing.T, f func(string) string, funcName string, testCases []StringTest) {
 	for _, tc := range testCases {
 		actual := f(tc.in)
@@ -554,8 +556,8 @@ var upperTests = []StringTest{
 	{"longStrinGwitHmixofsmaLLandcAps", "LONGSTRINGWITHMIXOFSMALLANDCAPS"},
 	{"RENAN BASTOS 93 AOSDAJDJAIDJAIDAJIaidsjjaidijadsjiadjiOOKKO", "RENAN BASTOS 93 AOSDAJDJAIDJAIDAJIAIDSJJAIDIJADSJIADJIOOKKO"},
 	{"long\u0250string\u0250with\u0250nonascii\u2C6Fchars", "LONG\u2C6FSTRING\u2C6FWITH\u2C6FNONASCII\u2C6FCHARS"},
-	{"\u0250\u0250\u0250\u0250\u0250", "\u2C6F\u2C6F\u2C6F\u2C6F\u2C6F"}, // 每个字符增长一个字节
-	{"a\u0080\U0010FFFF", "A\u0080\U0010FFFF"},                           // 测试utf8.RuneSelf和utf8.MaxRune
+	{"\u0250\u0250\u0250\u0250\u0250", "\u2C6F\u2C6F\u2C6F\u2C6F\u2C6F"}, // grows one byte per char
+	{"a\u0080\U0010FFFF", "A\u0080\U0010FFFF"},                           // test utf8.RuneSelf and utf8.MaxRune
 }
 
 var lowerTests = []StringTest{
@@ -566,8 +568,8 @@ var lowerTests = []StringTest{
 	{"longStrinGwitHmixofsmaLLandcAps", "longstringwithmixofsmallandcaps"},
 	{"renan bastos 93 AOSDAJDJAIDJAIDAJIaidsjjaidijadsjiadjiOOKKO", "renan bastos 93 aosdajdjaidjaidajiaidsjjaidijadsjiadjiookko"},
 	{"LONG\u2C6FSTRING\u2C6FWITH\u2C6FNONASCII\u2C6FCHARS", "long\u0250string\u0250with\u0250nonascii\u0250chars"},
-	{"\u2C6D\u2C6D\u2C6D\u2C6D\u2C6D", "\u0251\u0251\u0251\u0251\u0251"}, // 每个字符缩小一个字节
-	{"A\u0080\U0010FFFF", "a\u0080\U0010FFFF"},                           // 测试utf8.RuneSelf和utf8.MaxRune
+	{"\u2C6D\u2C6D\u2C6D\u2C6D\u2C6D", "\u0251\u0251\u0251\u0251\u0251"}, // shrinks one byte per char
+	{"A\u0080\U0010FFFF", "a\u0080\U0010FFFF"},                           // test utf8.RuneSelf and utf8.MaxRune
 }
 
 const space = "\t\v\r\f\n\u0085\u00a0\u2000\u3000"
@@ -599,7 +601,7 @@ func tenRunes(ch rune) string {
 	return string(r)
 }
 
-// 用户自定义的自逆映射函数
+// User-defined self-inverse mapping function
 func rot13(r rune) rune {
 	step := rune(13)
 	if r >= 'a' && r <= 'z' {
@@ -612,9 +614,9 @@ func rot13(r rune) rune {
 }
 
 func TestMap(t *testing.T) {
-	// 运行几个糟糕的增长/缩小测试
+	// Run a couple of awful growth/shrinkage tests
 	a := tenRunes('a')
-	// 1. 增长。这将在Map中触发两次重新分配。
+	// 1.  Grow. This triggers two reallocations in Map.
 	maxRune := func(rune) rune { return unicode.MaxRune }
 	m := Map(maxRune, a)
 	expect := tenRunes(unicode.MaxRune)
@@ -667,7 +669,7 @@ func TestMap(t *testing.T) {
 		t.Error("unexpected copy during identity map")
 	}
 
-	// 7. 处理无效的UTF-8序列
+	// 7. Handle invalid UTF-8 sequence
 	replaceNotLatin := func(r rune) rune {
 		if unicode.Is(unicode.Latin, r) {
 			return r
@@ -680,7 +682,7 @@ func TestMap(t *testing.T) {
 		t.Errorf("replace invalid sequence: expected %q got %q", expect, m)
 	}
 
-	// 8. 检查utf8.RuneSelf和utf8.MaxRune的编码
+	// 8. Check utf8.RuneSelf and utf8.MaxRune encoding
 	encode := func(r rune) rune {
 		switch r {
 		case utf8.RuneSelf:
@@ -701,7 +703,7 @@ func TestMap(t *testing.T) {
 		t.Errorf("encoding not handled correctly: expected %q got %q", s, m)
 	}
 
-	// 9. 检查映射发生在前部、中部和后部
+	// 9. Check mapping occurs in the front, middle and back
 	trimSpaces := func(r rune) rune {
 		if unicode.IsSpace(r) {
 			return -1
@@ -1015,7 +1017,7 @@ var indexFuncTests = []struct {
 	{"abc", isDigit, -1, -1},
 	{"0123", isDigit, 0, 3},
 	{"a1b", isDigit, 1, 1},
-	{space, isSpace, 0, len(space) - 3}, // 空格中的最后一个rune占3个字节
+	{space, isSpace, 0, len(space) - 3}, // last rune in space is 3 bytes
 	{"\u0e50\u0e5212hello34\u0e50\u0e51", isDigit, 0, 18},
 	{"\u2C6F\u2C6F\u2C6F\u2C6FABCDhelloEF\u2C6F\u2C6FGH\u2C6F\u2C6F", isUpper, 0, 34},
 	{"12\u0e50\u0e52hello34\u0e50\u0e51", not(isDigit), 8, 12},
@@ -1065,7 +1067,7 @@ func equal(m string, s1, s2 string, t *testing.T) bool {
 }
 
 func TestCaseConsistency(t *testing.T) {
-	// 生成包含所有字符的字符串
+	// Make a string of all the runes.
 	numRunes := int(unicode.MaxRune + 1)
 	if testing.Short() {
 		numRunes = 1000
@@ -1121,7 +1123,7 @@ var RepeatTests = []struct {
 	{"-", "-", 1},
 	{"-", "----------", 10},
 	{"abc ", "abc abc abc ", 3},
-	// 测试超过chunkLimit的结果
+	// Tests for results over the chunkLimit
 	{string(rune(0)), string(make([]byte, 1<<16)), 1 << 16},
 	{longString, longString + longString, 2},
 }
@@ -1153,7 +1155,7 @@ func repeat(s string, count int) (err error) {
 	return
 }
 
-// 参见问题 golang.org/issue/16237
+// See Issue golang.org/issue/16237
 func TestRepeatCatchesOverflow(t *testing.T) {
 	tests := [...]struct {
 		s      string
@@ -1218,7 +1220,7 @@ func TestRunes(t *testing.T) {
 			continue
 		}
 		if !tt.lossy {
-			// 只有在未丢失信息的情况下，才能测试重组
+			// can only test reassembly if we didn't lose information
 			s := string(a)
 			if s != tt.in {
 				t.Errorf("string([]rune(%q)) = %x; want %x", tt.in, s, tt.in)
@@ -1409,8 +1411,8 @@ var ContainsTests = []struct {
 	{"abc", "", true},
 	{"", "a", false},
 
-	// 用于覆盖runtime/asm_amd64.s中indexShortStr代码的测试用例
-	// 2字节 needle
+	// cases to cover code in runtime/asm_amd64.s:indexShortStr
+	// 2-byte needle
 	{"xxxxxx", "01", false},
 	{"01xxxx", "01", true},
 	{"xx01xx", "01", true},
@@ -1791,7 +1793,7 @@ func BenchmarkCountByte(b *testing.B) {
 
 var makeFieldsInput = func() string {
 	x := make([]byte, 1<<20)
-	// 输入中约10%为空格，约10%为2字节UTF-8编码，其余为非空格ASCII字符
+	// Input is ~10% space, ~10% 2-byte UTF-8, rest ASCII non-space.
 	for i := range x {
 		switch rand.Intn(10) {
 		case 0:
@@ -1811,7 +1813,7 @@ var makeFieldsInput = func() string {
 
 var makeFieldsInputASCII = func() string {
 	x := make([]byte, 1<<20)
-	// 输入中约有 10% 的空格，其余部分为非空格 ASCII 字符。
+	// Input is ~10% space, rest ASCII non-space.
 	for i := range x {
 		if rand.Intn(10) == 0 {
 			x[i] = ' '

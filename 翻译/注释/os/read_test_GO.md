@@ -20,3 +20,17 @@
 // 我们不希望直接使用CreateTemp，因为它会为我们创建一个权限为0600的文件。
 # <翻译结束>
 
+
+<原文开始>
+	//if Getuid() == 0 {
+	//	t.Skipf("Root can write to read-only files anyway, so skip the read-only test.")
+	//}
+<原文结束>
+
+# <翻译开始>
+// 如果Getuid()返回0（表示当前用户是root）{
+//   t.Skipf("由于root用户可以无论如何写入只读文件，因此跳过只读文件的测试。")
+// }
+// md5:e0e59d68eb648704
+# <翻译结束>
+

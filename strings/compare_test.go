@@ -1,11 +1,11 @@
-// 版权所有 2013 The Go Authors。保留所有权利。
-// 使用本源代码受 BSD 风格许可协议约束，
-// 该协议可在 LICENSE 文件中找到。
+// Copyright 2013 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 package strings_test
 
-// 源自 bytes/compare_test.go。
-// 由于底层实现完全相同，故省略基准测试。
+// Derived from bytes/compare_test.go.
+// Benchmarks omitted since the underlying implementation is identical.
 
 import (
 	. "github.com/888go/gosdk/strings"
@@ -60,7 +60,7 @@ func TestCompareIdenticalString(t *testing.T) {
 //		return unsafe.String(unsafe.SliceData(b), len(b))
 //	}
 //
-//	lengths := make([]int, 0) // 以升序排列的长度值进行测试
+//	lengths := make([]int, 0) // lengths to test in ascending order
 //	for i := 0; i <= 128; i++ {
 //		lengths = append(lengths, i)
 //	}
@@ -75,12 +75,12 @@ func TestCompareIdenticalString(t *testing.T) {
 //	b := make([]byte, n+1)
 //	lastLen := 0
 //	for _, len := range lengths {
-//		// 随机但确定性的数据。不含0或255。
+//		// randomish but deterministic data. No 0 or 255.
 //		for i := 0; i < len; i++ {
 //			a[i] = byte(1 + 31*i%254)
 //			b[i] = byte(1 + 31*i%254)
 //		}
-//		// 结尾后的数据不同
+//		// data past the end is different
 //		for i := len; i <= n; i++ {
 //			a[i] = 8
 //			b[i] = 9

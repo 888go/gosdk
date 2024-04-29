@@ -46,9 +46,11 @@ import "os"
 // 程序会立即终止；延迟执行的函数不会运行。
 //
 // 为了兼容性，状态码应该在[0, 125]范围内。
-
-// ff:退出
-// code:退出代码
 func Exit(code int) { //md5:0901ce78771fb26a6481d82aa618730c
 	os.Exit(code)
 }
+
+
+// Args hold the command-line arguments, starting with the program name.
+var Args []string //md5:5bbf5c199ba9b642
+

@@ -220,3 +220,177 @@
 // BenchmarkByteByteMap 对比 byteByteImpl 与 Map 的性能
 # <翻译结束>
 
+
+<原文开始>
+// TestPickAlgorithm tests that NewReplacer picks the correct algorithm.
+//func TestPickAlgorithm(t *testing.T) {
+//	for i, tc := range algorithmTestCases {
+//		got := fmt.Sprintf("%T", tc.r.Replacer())
+//		if got != tc.want {
+//			t.Errorf("%d. algorithm = %s, want %s", i, got, tc.want)
+//		}
+//	}
+//}
+<原文结束>
+
+# <翻译开始>
+// TestPickAlgorithm tests that NewReplacer picks the correct algorithm.
+//func TestPickAlgorithm(t *testing.T) {
+//	for i, tc := range algorithmTestCases {
+//		got := fmt.Sprintf("%T", tc.r.Replacer())
+//		if got != tc.want {
+//			t.Errorf("%d. algorithm = %s, want %s", i, got, tc.want)
+//		}
+//	}
+//}
+# <翻译结束>
+
+
+<原文开始>
+// TestGenericTrieBuilding verifies the structure of the generated trie. There
+// is one node per line, and the key ending with the current line is in the
+// trie if it ends with a "+".
+//func TestGenericTrieBuilding(t *testing.T) {
+//	testCases := []struct{ in, out string }{
+//		{"abc;abdef;abdefgh;xx;xy;z", `-
+//			a-
+//			.b-
+//			..c+
+//			..d-
+//			...ef+
+//			.....gh+
+//			x-
+//			.x+
+//			.y+
+//			z+
+//			`},
+//		{"abracadabra;abracadabrakazam;abraham;abrasion", `-
+//			a-
+//			.bra-
+//			....c-
+//			.....adabra+
+//			...........kazam+
+//			....h-
+//			.....am+
+//			....s-
+//			.....ion+
+//			`},
+//		{"aaa;aa;a;i;longerst;longer;long;xx;x;X;Y", `-
+//			X+
+//			Y+
+//			a+
+//			.a+
+//			..a+
+//			i+
+//			l-
+//			.ong+
+//			....er+
+//			......st+
+//			x+
+//			.x+
+//			`},
+//		{"foo;;foo;foo1", `+
+//			f-
+//			.oo+
+//			...1+
+//			`},
+//	}
+//
+//	for _, tc := range testCases {
+//		keys := Split(tc.in, ";")
+//		args := make([]string, len(keys)*2)
+//		for i, key := range keys {
+//			args[i*2] = key
+//		}
+//
+//		got := NewReplacer(args...).PrintTrie()
+//		// Remove tabs from tc.out
+//		wantbuf := make([]byte, 0, len(tc.out))
+//		for i := 0; i < len(tc.out); i++ {
+//			if tc.out[i] != '\t' {
+//				wantbuf = append(wantbuf, tc.out[i])
+//			}
+//		}
+//		want := string(wantbuf)
+//
+//		if got != want {
+//			t.Errorf("PrintTrie(%q)\ngot\n%swant\n%s", tc.in, got, want)
+//		}
+//	}
+//}
+<原文结束>
+
+# <翻译开始>
+// TestGenericTrieBuilding verifies the structure of the generated trie. There
+// is one node per line, and the key ending with the current line is in the
+// trie if it ends with a "+".
+//func TestGenericTrieBuilding(t *testing.T) {
+//	testCases := []struct{ in, out string }{
+//		{"abc;abdef;abdefgh;xx;xy;z", `-
+//			a-
+//			.b-
+//			..c+
+//			..d-
+//			...ef+
+//			.....gh+
+//			x-
+//			.x+
+//			.y+
+//			z+
+//			`},
+//		{"abracadabra;abracadabrakazam;abraham;abrasion", `-
+//			a-
+//			.bra-
+//			....c-
+//			.....adabra+
+//			...........kazam+
+//			....h-
+//			.....am+
+//			....s-
+//			.....ion+
+//			`},
+//		{"aaa;aa;a;i;longerst;longer;long;xx;x;X;Y", `-
+//			X+
+//			Y+
+//			a+
+//			.a+
+//			..a+
+//			i+
+//			l-
+//			.ong+
+//			....er+
+//			......st+
+//			x+
+//			.x+
+//			`},
+//		{"foo;;foo;foo1", `+
+//			f-
+//			.oo+
+//			...1+
+//			`},
+//	}
+//
+//	for _, tc := range testCases {
+//		keys := Split(tc.in, ";")
+//		args := make([]string, len(keys)*2)
+//		for i, key := range keys {
+//			args[i*2] = key
+//		}
+//
+//		got := NewReplacer(args...).PrintTrie()
+//		// Remove tabs from tc.out
+//		wantbuf := make([]byte, 0, len(tc.out))
+//		for i := 0; i < len(tc.out); i++ {
+//			if tc.out[i] != '\t' {
+//				wantbuf = append(wantbuf, tc.out[i])
+//			}
+//		}
+//		want := string(wantbuf)
+//
+//		if got != want {
+//			t.Errorf("PrintTrie(%q)\ngot\n%swant\n%s", tc.in, got, want)
+//		}
+//	}
+//}
+# <翻译结束>
+

@@ -13,3 +13,16 @@ import (
 func LookPath(file string) (string, error) { //md5:154a1e41bca1510f44308fb5c079e855
 	return exec.LookPath(file)
 }
+
+// ErrNotFound 是在路径搜索未能找到可执行文件时产生的错误。
+var ErrNotFound = exec.ErrNotFound //md5:d9032907a99fd1c3
+
+//
+//// ErrNotFound 是在路径搜索未能找到可执行文件时产生的错误。
+//var ErrNotFound = errors.New("executable file not found in $PATH") //md5:590f4b3cb9d53300
+//
+//
+//
+//// ErrNotFound 是在路径搜索未能找到可执行文件时产生的错误。
+//var ErrNotFound = errors.New("executable file not found in %PATH%") //md5:ddc9857366a762b6
+//

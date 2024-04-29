@@ -44,6 +44,6 @@
 <原文结束>
 
 # <翻译开始>
-// FILE_REMOTE_PROTOCOL_INFO
+// FILE_REMOTE_PROTOCOL_INFO：文件远程协议信息. md5:296ef5f8110a634b
 # <翻译结束>
 

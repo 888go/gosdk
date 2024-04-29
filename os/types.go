@@ -7,7 +7,7 @@ import (
 
 // 定义的文件模式位是最显著的FileMode位。最不显著的九位是标准Unix的rwxrwxrwx权限。这些位的值应被视为公共API的一部分，可能用于电线协议或磁盘表示：它们不能更改，尽管可能会添加新的位。
 const (
-// 这些单个字母是 `String` 方法格式化中使用的缩写。
+	// 这些单个字母是 `String` 方法格式化中使用的缩写。
 	ModeDir        = fs.ModeDir        // d: is a directory
 	ModeAppend     = fs.ModeAppend     // a: append-only
 	ModeExclusive  = fs.ModeExclusive  // l: exclusive use
@@ -26,7 +26,7 @@ const (
 	ModeType = fs.ModeType
 
 	ModePerm = fs.ModePerm // Unix权限位，0o777
-)
+) // md5:8e4431cb67f8c76c
 
 // File 代表一个打开的文件描述符。
 type File struct { //md5:1b6a20b413818c28d384dba920ab157e

@@ -214,3 +214,12 @@
 // ProcessState 存储了由 Wait 方法报告的进程信息。
 # <翻译结束>
 
+
+<原文开始>
+// ErrProcessDone indicates a Process has finished.
+<原文结束>
+
+# <翻译开始>
+// ErrProcessDone 表示一个进程已经完成。. md5:1900bc3b9ff279fd
+# <翻译结束>
+

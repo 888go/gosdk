@@ -2,9 +2,28 @@ package exec
 
 import (
 	"context"
+	"errors"
 	"io"
 	"os/exec"
 )
+
+// Error is returned by LookPath when it fails to classify a file as an
+// executable.
+//type Error struct { //md5:ab612c623fddc332
+//
+//}
+
+// ErrWaitDelay 是在以下情况下由 (*Cmd).Wait 返回的错误：如果进程以成功状态退出，但在命令的 WaitDelay 超时之前其输出管道尚未关闭。
+var ErrWaitDelay = errors.New("exec: WaitDelay expired before I/O complete") //md5:a9b7691a47b44f05
+
+// ErrDot indicates that a path lookup resolved to an executable
+// in the current directory due to ‘.’ being in the path, either
+// implicitly or explicitly. See the package documentation for details.
+//
+// Note that functions in this package do not return ErrDot directly.
+// Code should use errors.Is(err, ErrDot), not err == ErrDot,
+// to test whether a returned error err is due to this condition.
+var ErrDot = errors.New("cannot run executable found relative to current directory") //md5:bcceec82a404a66c
 
 //func (e *Error) Error() string { //md5:47e007c6da65537c1ce793159301e0d2
 //	return e.F.Error()
@@ -14,7 +33,11 @@ import (
 //	return e.F.Unwrap()
 //}
 
-type Cmd struct {
+// Cmd represents an external command being prepared or run.
+//
+// A Cmd cannot be reused after calling its Run, Output or CombinedOutput
+// methods.
+type Cmd struct { //md5:cdf91edf21fccb61
 	F exec.Cmd
 }
 
@@ -78,7 +101,8 @@ func (c *Cmd) Start() error { //md5:e4e960bd99b0815c5f1d6601ec662dc4
 	return c.F.Start()
 }
 
-type ExitError struct {
+// An ExitError reports an unsuccessful exit by a command.
+type ExitError struct { //md5:efd049c987f07aab
 	F exec.ExitError
 }
 
