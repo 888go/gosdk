@@ -85,4 +85,19 @@
     <tree path="/exec/lp_unix_test.go" title="单元测试"/>
     <tree path="/exec/lp_windows_test.go" title="单元测试"/>
     <tree path="/exec/exec.go" title="主要方法"/>
+    <tree path="/strconv" title="转换类"/>
+    <tree path="/time" title="时间类"/>
+    <tree path="/bytes" title="字节集类"/>
+    <tree path="/regexp" title="正则类"/>
+    <tree path="/fmt" title="调试类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+          backgroundColor=""/>
+    <tree path="/regexp/all_test.go" title="单元测试"/>
+    <tree path="/regexp/example_test.go" title="单元测试"/>
+    <tree path="/regexp/exec2_test.go" title="单元测试"/>
+    <tree path="/regexp/exec_test.go" title="单元测试"/>
+    <tree path="/regexp/find_test.go" title="单元测试"/>
+    <tree path="/regexp/onepass_test.go" title="单元测试"/>
+    <tree path="/regexp/backtrack.go" title="内部文件"/>
+    <tree path="/regexp/onepass.go" title="内部文件"/>
+    <tree path="/regexp/regexp.go" title="主要方法"/>
 </trees>

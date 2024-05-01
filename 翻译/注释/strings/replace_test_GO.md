@@ -234,15 +234,16 @@
 <原文结束>
 
 # <翻译开始>
-// TestPickAlgorithm tests that NewReplacer picks the correct algorithm.
+// TestPickAlgorithm 测试 NewReplacer 函数是否选择了正确的算法。
 //func TestPickAlgorithm(t *testing.T) {
-//	for i, tc := range algorithmTestCases {
-//		got := fmt.Sprintf("%T", tc.r.Replacer())
-//		if got != tc.want {
-//			t.Errorf("%d. algorithm = %s, want %s", i, got, tc.want)
+//	for i, 测试用例tc := range 算法测试用例 {
+//		获取的算法类型 := fmt.Sprintf("%T", tc.r.Replacer())
+//		if 获取的算法类型 != tc.want {
+//			t.Errorf("%d. 算法 = %s, 需要 %s", i, 获取的算法类型, tc.want)
 //		}
 //	}
 //}
+// md5:4cd37c0269abec05
 # <翻译结束>
 
 
@@ -321,76 +322,59 @@
 <原文结束>
 
 # <翻译开始>
-// TestGenericTrieBuilding verifies the structure of the generated trie. There
-// is one node per line, and the key ending with the current line is in the
-// trie if it ends with a "+".
+// TestGenericTrieBuilding 验证生成的字典树结构。每一行代表一个节点，如果当前行末尾的键以"+"结尾，则表示该键存在于字典树中。
 //func TestGenericTrieBuilding(t *testing.T) {
-//	testCases := []struct{ in, out string }{
-//		{"abc;abdef;abdefgh;xx;xy;z", `-
-//			a-
-//			.b-
-//			..c+
-//			..d-
-//			...ef+
-//			.....gh+
-//			x-
-//			.x+
-//			.y+
-//			z+
+// 测试用例：
+//tc := []struct{ in, out string }{
+// 	{"abc;abdef;abdefgh;xx;xy;z", `-  
+//			a-  
+//			.b-  
+//			..c+  
+//			..d-  
+//			...ef+  
+//			.....gh+  
+//			x-  
+//			.x+  
+//			.y+  
+//			z+  
 //			`},
-//		{"abracadabra;abracadabrakazam;abraham;abrasion", `-
-//			a-
-//			.bra-
-//			....c-
-//			.....adabra+
-//			...........kazam+
-//			....h-
-//			.....am+
-//			....s-
-//			.....ion+
+// 	{"abracadabra;abracadabrakazam;abraham;abrasion", `-  
+//			a-  
+//			.bra-  
+//			....c-  
+//			.....adabra+  
+//			...........kazam+  
+//			....h-  
+//			.....am+  
+//			....s-  
+//			.....ion+  
 //			`},
-//		{"aaa;aa;a;i;longerst;longer;long;xx;x;X;Y", `-
-//			X+
-//			Y+
-//			a+
-//			.a+
-//			..a+
-//			i+
-//			l-
-//			.ong+
-//			....er+
-//			......st+
-//			x+
-//			.x+
+// 	{"aaa;aa;a;i;longerst;longer;long;xx;x;X;Y", `-  
+//			X+  
+//			Y+  
+//			a+  
+//			.a+  
+//			..a+  
+//			i+  
+//			l-  
+//			.ong+  
+//			....er+  
+//			......st+  
+//			x+  
+//			.x+  
 //			`},
-//		{"foo;;foo;foo1", `+
-//			f-
-//			.oo+
-//			...1+
+// 	{"foo;;foo;foo1", `+  
+//			f-  
+//			.oo+  
+//			...1+  
 //			`},
-//	}
+// }
 //
-//	for _, tc := range testCases {
-//		keys := Split(tc.in, ";")
-//		args := make([]string, len(keys)*2)
-//		for i, key := range keys {
-//			args[i*2] = key
-//		}
-//
-//		got := NewReplacer(args...).PrintTrie()
-//		// Remove tabs from tc.out
-//		wantbuf := make([]byte, 0, len(tc.out))
-//		for i := 0; i < len(tc.out); i++ {
-//			if tc.out[i] != '\t' {
-//				wantbuf = append(wantbuf, tc.out[i])
-//			}
-//		}
-//		want := string(wantbuf)
-//
-//		if got != want {
-//			t.Errorf("PrintTrie(%q)\ngot\n%swant\n%s", tc.in, got, want)
-//		}
-//	}
+// 对于每个测试用例，我们首先将输入字符串按";"分割成键列表，然后创建相应的参数数组。接着，使用这些参数构建字典树，并获取打印结果。
+// 
+// 去掉输出字符串中的制表符，将其转换为字节切片。
+// 然后比较实际得到的打印结果与期望结果是否一致，如果不一致则输出错误信息。
 //}
+// md5:cd6c8519103bddf4
 # <翻译结束>
 

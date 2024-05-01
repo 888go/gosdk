@@ -1,6 +1,6 @@
-// Copyright 2017 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2017 The Go Authors。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 该许可证可在 LICENSE 文件中找到。
 
 package strings_test
 
@@ -57,7 +57,7 @@ func TestBuilderString(t *testing.T) {
 	check(t, &b, "alphabetagamma")
 	s3 := b.String()
 
-	// Check that subsequent operations didn't change the returned strings.
+	// 检查后续操作是否改变了返回的字符串。
 	if want := "alpha"; s1 != want {
 		t.Errorf("first String result is now %q; want %q", s1, want)
 	}
@@ -78,8 +78,7 @@ func TestBuilderReset(t *testing.T) {
 	b.Reset()
 	check(t, &b, "")
 
-	// Ensure that writing after Reset doesn't alter
-	// previously returned strings.
+// 确保在调用 Reset 后进行写入操作不会更改先前已返回的字符串。
 	b.WriteString("bbb")
 	check(t, &b, "bbb")
 	if want := "aaa"; s != want {
@@ -92,7 +91,7 @@ func TestBuilderGrow(t *testing.T) {
 		p := bytes.Repeat([]byte{'a'}, growLen)
 		allocs := testing.AllocsPerRun(100, func() {
 			var b Builder
-			b.Grow(growLen) // should be only alloc, when growLen > 0
+			b.Grow(growLen) // 应仅在 growLen > 0 时进行分配
 			if b.Cap() < growLen {
 				t.Fatalf("growLen=%d: Cap() is lower than growLen", growLen)
 			}
@@ -109,7 +108,7 @@ func TestBuilderGrow(t *testing.T) {
 			t.Errorf("growLen=%d: got %d allocs during Write; want %v", growLen, g, w)
 		}
 	}
-	// when growLen < 0, should panic
+	// 当 growLen < 0 时，应当引发 panic
 	var a Builder
 	n := -1
 	defer func() {
@@ -188,8 +187,8 @@ func TestBuilderWriteByte(t *testing.T) {
 }
 
 func TestBuilderAllocs(t *testing.T) {
-	// Issue 23382; verify that copyCheck doesn't force the
-	// Builder to escape and be heap allocated.
+// Issue 23382；验证copyCheck不会导致
+// Builder被迫逃逸并被堆分配。
 	n := testing.AllocsPerRun(10000, func() {
 		var b Builder
 		b.Grow(5)
@@ -312,8 +311,7 @@ func TestBuilderCopyPanic(t *testing.T) {
 }
 
 func TestBuilderWriteInvalidRune(t *testing.T) {
-	// Invalid runes, including negative ones, should be written as
-	// utf8.RuneError.
+// 无效的 rune（包括负值），应写作 utf8.RuneError。
 	for _, r := range []rune{-1, utf8.MaxRune + 1} {
 		var b Builder
 		b.WriteRune(r)

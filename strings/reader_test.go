@@ -1,6 +1,6 @@
-// Copyright 2012 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 ? 2012 The Go Authors。保留所有权利。
+// 本源代码的使用受 BSD 风格许可证约束，
+// 该许可证可在 LICENSE 文件中找到。
 
 package strings_test
 
@@ -100,8 +100,7 @@ func TestReaderAt(t *testing.T) {
 }
 
 func TestReaderAtConcurrent(t *testing.T) {
-	// Test for the race detector, to verify ReadAt doesn't mutate
-	// any state.
+// 用于竞态检测器的测试，以验证ReadAt不会改变任何状态
 	r := strings.NewReader("0123456789")
 	var wg sync.WaitGroup
 	for i := 0; i < 5; i++ {
@@ -116,9 +115,8 @@ func TestReaderAtConcurrent(t *testing.T) {
 }
 
 func TestEmptyReaderConcurrent(t *testing.T) {
-	// Test for the race detector, to verify a Read that doesn't yield any bytes
-	// is okay to use from multiple goroutines. This was our historic behavior.
-	// See golang.org/issue/7856
+// 用于竞态检测器的测试，以验证从多个goroutine中使用未读取任何字节的Read操作是正常的。这是我们历史上的行为。
+// 参见golang.org/issue/7856
 	r := strings.NewReader("")
 	var wg sync.WaitGroup
 	for i := 0; i < 5; i++ {
@@ -158,7 +156,7 @@ func TestWriteTo(t *testing.T) {
 	}
 }
 
-// tests that Len is affected by reads, but Size is not.
+// 测试Len会受到读取操作的影响，但Size不受影响
 func TestReaderLenSize(t *testing.T) {
 	r := strings.NewReader("abc")
 	io.CopyN(io.Discard, r, 1)
