@@ -39,7 +39,7 @@ func (re *Regexp) Copy() *Regexp { //md5:65840f82f6249997
 }
 
 // Compile解析一个正则表达式，如果成功，将返回一个[Regexp]对象，可以用来匹配文本。
-//
+// 
 // 在匹配文本时，正则表达式会返回一个尽可能早开始（最左）的匹配，并在这些匹配中选择回溯搜索最早找到的那个。这种所谓的“最左优先”匹配与Perl、Python和其他实现使用的语义相同，尽管这个包在没有回溯开销的情况下实现了它。对于POSIX的“最左最长”匹配，请参阅[CompilePOSIX]。
 // md5:56c7e946ce8c8782
 func Compile(expr string) (*Regexp, error) { //md5:3c826d7b6981284e
@@ -51,9 +51,9 @@ func Compile(expr string) (*Regexp, error) { //md5:3c826d7b6981284e
 }
 
 // CompilePOSIX 类似于 [Compile]，但它限制正则表达式的语法为 POSIX ERE（egrep）语法，并更改匹配语义为左最长模式。
-//
+// 
 // 即，当在文本中进行匹配时，正则表达式会返回一个尽可能早开始于输入（最左边）的匹配，并在这些匹配中选择长度尽可能长的一个。这种所谓的左最长匹配是早期正则表达式实现和 POSIX 规范所指定的相同语义。
-//
+// 
 // 然而，可能存在多个左最长匹配，有不同的子匹配选择。在这个包中，与 POSIX 规范有所不同。在可能的左最长匹配中，此包会选择回溯搜索首先找到的那个，而 POSIX 规范规定应选择第一个子表达式的最长匹配，然后是第二个，从左到右依次类推。POSIX 规则在计算上是禁止的，甚至没有明确定义。有关详细信息，请参阅 https://swtch.com/~rsc/regexp/regexp2.html#posix。
 // md5:5229ea7fcaf45216
 func CompilePOSIX(expr string) (*Regexp, error) { //md5:bdbccd70ec6febdf
@@ -248,11 +248,11 @@ func (re *Regexp) FindSubmatch(b []byte) [][]byte { //md5:a061db106859700f
 }
 
 // Expand 将模板追加到 dst 中，并返回结果。在追加过程中，Expand 会将模板中的变量替换为从 src 中对应的匹配项。match 切片应该由 [Regexp.FindSubmatchIndex] 返回。
-//
+// 
 // 在模板中，变量由形如 `$name` 或 `${name}` 的子字符串表示，其中 name 是由字母、数字和下划线组成的非空序列。纯数字的名称（如 `$1`）引用与相应索引相对应的子匹配；其他名称引用使用 `(?P<name>...)` 语法命名的捕获括号。引用超出范围或未匹配的索引，或者在正则表达式中不存在的名称将被替换为空切片。
-//
+// 
 // 在 `$name` 形式中，name 被认为尽可能长：`$1x` 等同于 `${1x}`，而不是 `${1}x`；而 `$10` 等同于 `${10}`，而不是 `${1}0`。
-//
+// 
 // 若要在输出中插入一个实际的 `$`，请在模板中使用 `$$`。
 // md5:95b0e8b3e555f01d
 func (re *Regexp) Expand(dst []byte, template []byte, src []byte, match []int) []byte { //md5:ec5be754a6f94e44
@@ -364,7 +364,6 @@ func (re *Regexp) FindAllStringSubmatchIndex(s string, n int) [][]int { //md5:90
 //	n > 0: 最多n个子字符串；最后一个子字符串将是未分割的剩余部分。
 //	n == 0: 结果为nil（零个子字符串）
 //	n < 0: 所有子字符串
-//
 // md5:18189d3547a10a51
 func (re *Regexp) Split(s string, n int) []string { //md5:638c9452844fd6a2
 	return re.F.Split(s, n)

@@ -6,7 +6,8 @@ package strconv_test
 
 import (
 	"bytes"
-	. "strconv"
+	. "github.com/888go/gosdk/strconv"
+	"strconv"
 	"testing"
 )
 
@@ -42,7 +43,7 @@ func TestParseBool(t *testing.T) {
 				t.Errorf("ParseBool(%s) = nil; want %s", test.in, test.err)
 			} else {
 				// NumError assertion must succeed; it's the only thing we return.
-				if e.(*NumError).Err != test.err {
+				if e.(*strconv.NumError).Err != test.err {
 					t.Errorf("ParseBool(%s) = %s; want %s", test.in, e, test.err)
 				}
 			}

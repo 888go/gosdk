@@ -100,4 +100,20 @@
     <tree path="/regexp/backtrack.go" title="内部文件"/>
     <tree path="/regexp/onepass.go" title="内部文件"/>
     <tree path="/regexp/regexp.go" title="主要方法"/>
+    <tree path="/strconv/atob_test.go" title="单元测试"/>
+    <tree path="/strconv/atoc_test.go" title="单元测试"/>
+    <tree path="/strconv/atof_test.go" title="单元测试"/>
+    <tree path="/strconv/atoi_test.go" title="单元测试"/>
+    <tree path="/strconv/ctoa_test.go" title="单元测试"/>
+    <tree path="/strconv/decimal_test.go" title="单元测试"/>
+    <tree path="/strconv/example_test.go" title="单元测试"/>
+    <tree path="/strconv/export_test.go" title="单元测试"/>
+    <tree path="/strconv/fp_test.go" title="单元测试"/>
+    <tree path="/strconv/ftoa_test.go" title="单元测试"/>
+    <tree path="/strconv/ftoaryu_test.go" title="单元测试"/>
+    <tree path="/strconv/internal_test.go" title="单元测试"/>
+    <tree path="/strconv/itoa_test.go" title="单元测试"/>
+    <tree path="/strconv/quote_test.go" title="单元测试"/>
+    <tree path="/strconv/strconv_test.go" title="单元测试"/>
+    <tree path="/strconv/eisel_lemire.go" title="内部文件"/>
 </trees>

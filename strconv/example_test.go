@@ -6,8 +6,9 @@ package strconv_test
 
 import (
 	"fmt"
+	"github.com/888go/gosdk/strconv"
 	"log"
-	"strconv"
+	strconv2 "strconv"
 )
 
 func ExampleAppendBool() {
@@ -425,7 +426,7 @@ func ExampleUnquoteChar() {
 func ExampleNumError() {
 	str := "Not a number"
 	if _, err := strconv.ParseFloat(str, 64); err != nil {
-		e := err.(*strconv.NumError)
+		e := err.(*strconv2.NumError)
 		fmt.Println("Func:", e.Func)
 		fmt.Println("Num:", e.Num)
 		fmt.Println("Err:", e.Err)

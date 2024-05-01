@@ -5,7 +5,59 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
-      <change beforePath="$PROJECT_DIR$/os/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/types.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strconv/decimal.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/atob_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/atob_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/atoc_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/atoc_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/atof_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/atof_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/atoi_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/atoi_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/ctoa_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/ctoa_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/decimal_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/example_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/export_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/fp_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/ftoa_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/ftoa_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/ftoaryu_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/internal_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/itoa_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/itoa_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/quote_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/quote_test_GO.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/注释/strconv/strconv_test_GO.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DirectoryV3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DirectoryV3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/fmt/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/regexp.go" beforeDir="false" afterPath="$PROJECT_DIR$/regexp/regexp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atob.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/atob.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atob_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/atob_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atoc.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/atoc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atoc_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/atoc_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atof.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/atof.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atof_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/atof_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atoi.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/atoi.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atoi_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/atoi_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/ctoa.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/ctoa.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/ctoa_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/ctoa_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/decimal_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/decimal_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/eisel_lemire.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/eisel_lemire.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/export_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/export_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/fp_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/fp_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/ftoa.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/ftoa.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/ftoa_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/ftoa_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/ftoaryu_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/ftoaryu_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/internal_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/internal_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/itoa.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/itoa.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/itoa_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/itoa_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/makeisprint.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/makeisprint.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/quote.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/quote.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/quote_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/quote_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/strconv_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strconv/strconv_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +150,9 @@
     "Go 测试.github.com/888go/gosdk/os 中的 TestLookupEnv.executor": "Run",
     "Go 测试.github.com/888go/gosdk/os 中的 TestNilProcessStateString.executor": "Run",
     "Go 测试.github.com/888go/gosdk/os 中的 TestUnsetenv.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/strconv 中的 ExampleNumError.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/strconv 中的 TestErrorPrefixes.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/strconv 中的 TestParseBool.executor": "Run",
     "Go 测试.github.com/888go/gosdk/strings 中的 ExampleContainsFunc.executor": "Debug",
     "Go 测试.github.com/888go/gosdk/strings 中的 ExampleFieldsFunc.executor": "Debug",
     "Go 测试.github.com/888go/gosdk/strings 中的 TestBuilder.executor": "Run",
@@ -113,6 +168,7 @@
     "Go 测试.go test os.executor": "Coverage",
     "Go 测试.go test regexp.executor": "Coverage",
     "Go 测试.go test registry.executor": "Coverage",
+    "Go 测试.go test strconv.executor": "Coverage",
     "Go 测试.go test strings (1).executor": "Coverage",
     "Go 测试.go test strings.executor": "Coverage",
     "Go 测试.go test windows (1).executor": "Coverage",
@@ -138,22 +194,13 @@
     "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui"
   }
 }]]></component>
-  <component name="RunManager" selected="Go 测试.go test regexp">
+  <component name="RunManager" selected="Go 测试.go test strconv">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gosdk" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="FILE" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go build github.com/888go/gosdk/tmp" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="gosdk" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="github.com/888go/gosdk/tmp" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/tmp/main.go" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
@@ -165,38 +212,40 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
-    <configuration name="github.com/888go/gosdk/fmt 中的 TestMultiLine" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="github.com/888go/gosdk/strconv 中的 ExampleNumError" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gosdk" />
-      <working_directory value="$PROJECT_DIR$/fmt" />
+      <working_directory value="$PROJECT_DIR$/strconv" />
       <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="github.com/888go/gosdk/fmt" />
+      <package value="github.com/888go/gosdk/strconv" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
-      <pattern value="^\QTestMultiLine\E$" />
+      <pattern value="^\QExampleNumError\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="go test bytes" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="github.com/888go/gosdk/strconv 中的 TestErrorPrefixes" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gosdk" />
-      <working_directory value="$PROJECT_DIR$/bytes" />
+      <working_directory value="$PROJECT_DIR$/strconv" />
       <root_directory value="$PROJECT_DIR$" />
-      <kind value="DIRECTORY" />
-      <package value="github.com/888go/gosdk/bytes" />
-      <directory value="$PROJECT_DIR$/bytes" />
+      <kind value="PACKAGE" />
+      <package value="github.com/888go/gosdk/strconv" />
+      <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
+      <pattern value="^\QTestErrorPrefixes\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="go test fmt" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="github.com/888go/gosdk/strconv 中的 TestParseBool" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gosdk" />
-      <working_directory value="$PROJECT_DIR$/fmt" />
+      <working_directory value="$PROJECT_DIR$/strconv" />
       <root_directory value="$PROJECT_DIR$" />
-      <kind value="DIRECTORY" />
-      <package value="github.com/888go/gosdk/fmt" />
-      <directory value="$PROJECT_DIR$/fmt" />
+      <kind value="PACKAGE" />
+      <package value="github.com/888go/gosdk/strconv" />
+      <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
+      <pattern value="^\QTestParseBool\E$" />
       <method v="2" />
     </configuration>
     <configuration name="go test regexp" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -204,18 +253,30 @@
       <working_directory value="$PROJECT_DIR$/regexp" />
       <root_directory value="$PROJECT_DIR$" />
       <kind value="DIRECTORY" />
+      <package value="github.com/888go/gosdk/regexp" />
       <directory value="$PROJECT_DIR$/regexp" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go test strconv" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="gosdk" />
+      <working_directory value="$PROJECT_DIR$/strconv" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <package value="github.com/888go/gosdk/strconv" />
+      <directory value="$PROJECT_DIR$/strconv" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 测试.go test strconv" />
+        <item itemvalue="Go 测试.github.com/888go/gosdk/strconv 中的 ExampleNumError" />
+        <item itemvalue="Go 测试.github.com/888go/gosdk/strconv 中的 TestErrorPrefixes" />
+        <item itemvalue="Go 测试.github.com/888go/gosdk/strconv 中的 TestParseBool" />
         <item itemvalue="Go 测试.go test regexp" />
-        <item itemvalue="Go 构建.go build github.com/888go/gosdk/tmp" />
-        <item itemvalue="Go 测试.go test fmt" />
-        <item itemvalue="Go 测试.github.com/888go/gosdk/fmt 中的 TestMultiLine" />
-        <item itemvalue="Go 测试.go test bytes" />
       </list>
     </recent_temporary>
   </component>
@@ -229,6 +290,17 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
@@ -264,6 +336,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/gosdk$go_test_windows__3_.out" NAME="go test windows (3) 覆盖结果" MODIFIED="1713617204462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_github_com_888go_gosdk_strings__1_.out" NAME="go test github.com/888go/gosdk/strings (1) 覆盖结果" MODIFIED="1712970766270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/gosdk$go_test_strconv.out" NAME="go test strconv 覆盖结果" MODIFIED="1714569484615" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_gosdk.out" NAME="go test gosdk 覆盖结果" MODIFIED="1713405393861" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_strings__1_.out" NAME="go test strings (1) 覆盖结果" MODIFIED="1712978751404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$exec_windows_test_go.out" NAME="exec_windows_test.go 覆盖结果" MODIFIED="1713263686867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

@@ -5,7 +5,7 @@
 package strconv_test
 
 import (
-	. "strconv"
+	. "github.com/888go/gosdk/strconv"
 	"strings"
 	"testing"
 	"unicode"

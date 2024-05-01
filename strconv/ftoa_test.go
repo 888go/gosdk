@@ -5,9 +5,9 @@
 package strconv_test
 
 import (
+	. "github.com/888go/gosdk/strconv"
 	"math"
 	"math/rand"
-	. "strconv"
 	"testing"
 )
 

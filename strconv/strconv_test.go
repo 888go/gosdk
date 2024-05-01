@@ -5,8 +5,9 @@
 package strconv_test
 
 import (
+	. "github.com/888go/gosdk/strconv"
 	"runtime"
-	. "strconv"
+	"strconv"
 	"strings"
 	"testing"
 )
@@ -147,7 +148,7 @@ func TestErrorPrefixes(t *testing.T) {
 	}
 
 	for _, v := range vectors {
-		nerr, ok := v.err.(*NumError)
+		nerr, ok := v.err.(*strconv.NumError)
 		if !ok {
 			t.Errorf("test %s, error was not a *NumError", v.want)
 			continue

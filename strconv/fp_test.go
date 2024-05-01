@@ -7,8 +7,8 @@ package strconv_test
 import (
 	"bufio"
 	"fmt"
+	"github.com/888go/gosdk/strconv"
 	"os"
-	"strconv"
 	"strings"
 	"testing"
 )

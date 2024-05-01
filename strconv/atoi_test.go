@@ -7,8 +7,9 @@ package strconv_test
 import (
 	"errors"
 	"fmt"
+	. "github.com/888go/gosdk/strconv"
 	"reflect"
-	. "strconv"
+	strconv2 "strconv"
 	"testing"
 )
 
@@ -322,37 +323,37 @@ func init() {
 	for i := range parseUint64Tests {
 		test := &parseUint64Tests[i]
 		if test.err != nil {
-			test.err = &NumError{"ParseUint", test.in, test.err}
+			test.err = &strconv2.NumError{"ParseUint", test.in, test.err}
 		}
 	}
 	for i := range parseUint64BaseTests {
 		test := &parseUint64BaseTests[i]
 		if test.err != nil {
-			test.err = &NumError{"ParseUint", test.in, test.err}
+			test.err = &strconv2.NumError{"ParseUint", test.in, test.err}
 		}
 	}
 	for i := range parseInt64Tests {
 		test := &parseInt64Tests[i]
 		if test.err != nil {
-			test.err = &NumError{"ParseInt", test.in, test.err}
+			test.err = &strconv2.NumError{"ParseInt", test.in, test.err}
 		}
 	}
 	for i := range parseInt64BaseTests {
 		test := &parseInt64BaseTests[i]
 		if test.err != nil {
-			test.err = &NumError{"ParseInt", test.in, test.err}
+			test.err = &strconv2.NumError{"ParseInt", test.in, test.err}
 		}
 	}
 	for i := range parseUint32Tests {
 		test := &parseUint32Tests[i]
 		if test.err != nil {
-			test.err = &NumError{"ParseUint", test.in, test.err}
+			test.err = &strconv2.NumError{"ParseUint", test.in, test.err}
 		}
 	}
 	for i := range parseInt32Tests {
 		test := &parseInt32Tests[i]
 		if test.err != nil {
-			test.err = &NumError{"ParseInt", test.in, test.err}
+			test.err = &strconv2.NumError{"ParseInt", test.in, test.err}
 		}
 	}
 }
@@ -477,7 +478,7 @@ func TestAtoi(t *testing.T) {
 			out, err := Atoi(test.in)
 			var testErr error
 			if test.err != nil {
-				testErr = &NumError{"Atoi", test.in, test.err.(*NumError).Err}
+				testErr = &strconv2.NumError{"Atoi", test.in, test.err.(*NumError).F.Err}
 			}
 			if int(test.out) != out || !reflect.DeepEqual(testErr, err) {
 				t.Errorf("Atoi(%q) = %v, %v want %v, %v",
@@ -490,7 +491,7 @@ func TestAtoi(t *testing.T) {
 			out, err := Atoi(test.in)
 			var testErr error
 			if test.err != nil {
-				testErr = &NumError{"Atoi", test.in, test.err.(*NumError).Err}
+				testErr = &strconv2.NumError{"Atoi", test.in, test.err.(*strconv2.NumError).Err}
 			}
 			if test.out != int64(out) || !reflect.DeepEqual(testErr, err) {
 				t.Errorf("Atoi(%q) = %v, %v want %v, %v",
@@ -593,7 +594,7 @@ func TestParseUintBase(t *testing.T) {
 
 func TestNumError(t *testing.T) {
 	for _, test := range numErrorTests {
-		err := &NumError{
+		err := &strconv2.NumError{
 			Func: "ParseFloat",
 			Num:  test.num,
 			Err:  errors.New("failed"),
@@ -605,7 +606,7 @@ func TestNumError(t *testing.T) {
 }
 
 func TestNumErrorUnwrap(t *testing.T) {
-	err := &NumError{Err: ErrSyntax}
+	err := &strconv2.NumError{Err: ErrSyntax}
 	if !errors.Is(err, ErrSyntax) {
 		t.Error("errors.Is failed, wanted success")
 	}

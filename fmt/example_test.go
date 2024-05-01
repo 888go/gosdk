@@ -319,6 +319,42 @@ func Example_formats() {
 // struct { 
 //     Name string; // 姓名
 //     Age int    // 年龄
+// 结果：{Kim 22} {姓名：Kim，年龄：22} 
+// struct { 
+//     Name string; // 姓名
+//     Age int    // 年龄
+// 结果：{Kim 22} {姓名：Kim，年龄：22} 
+// struct { 
+//     Name string; // 姓名
+//     Age int    // 年龄
+// 结果：{Kim 22} {姓名：Kim，年龄：22} 
+// struct { 
+//     Name string; // 姓名
+//     Age int    // 年龄
+// 结果：{Kim 22} {姓名：Kim，年龄：22} 
+// struct { 
+//     Name string; // 姓名
+//     Age int    // 年龄
+// 结果：{Kim 22} {姓名：Kim，年龄：22} 
+// struct { 
+//     Name string; // 姓名
+//     Age int    // 年龄
+// 结果：{Kim 22} {姓名：Kim，年龄：22} 
+// struct { 
+//     Name string; // 姓名
+//     Age int    // 年龄
+// 结果：{Kim 22} {姓名：Kim，年龄：22} 
+// struct { 
+//     Name string; // 姓名
+//     Age int    // 年龄
+// 结果：{Kim 22} {姓名：Kim，年龄：22} 
+// struct { 
+//     Name string; // 姓名
+//     Age int    // 年龄
+// 结果：{Kim 22} {姓名：Kim，年龄：22} 
+// struct { 
+//     Name string; // 姓名
+//     Age int    // 年龄
 // } // 使用结构体表示：{Name:"Kim", Age:22}. md5:b4044e9790bbd63b
 
 // 指针的默认格式显示在“&”符号之前的底层值。%p动词以十六进制打印指针值。我们在这里使用类型化的nil作为%p的参数，因为任何非nil指针的值在每次运行时都会改变；你可以自行运行注释掉的Printf调用来查看。

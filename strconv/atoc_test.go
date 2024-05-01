@@ -5,10 +5,11 @@
 package strconv_test
 
 import (
+	. "github.com/888go/gosdk/strconv"
 	"math"
 	"math/cmplx"
 	"reflect"
-	. "strconv"
+	strconv2 "strconv"
 	"testing"
 )
 
@@ -189,7 +190,7 @@ func TestParseComplex(t *testing.T) {
 	for i := range tests {
 		test := &tests[i]
 		if test.err != nil {
-			test.err = &NumError{Func: "ParseComplex", Num: test.in, Err: test.err}
+			test.err = &strconv2.NumError{Func: "ParseComplex", Num: test.in, Err: test.err}
 		}
 		got, err := ParseComplex(test.in, 128)
 		if !reflect.DeepEqual(err, test.err) {
