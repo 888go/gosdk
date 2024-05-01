@@ -5,12 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
-      <change afterPath="$PROJECT_DIR$/regexp/regexp.rar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/error.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/error.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/exec.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/exec.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/file.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/file.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/os_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/os_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/tempfile.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/tempfile.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/os/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/types.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
