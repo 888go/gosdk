@@ -1,15 +1,15 @@
-// Copyright 2020 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 2020 Go 作者。保留所有权利。
+// 使用此源代码受BSD风格许可证管辖，该许可证可从LICENSE文件中找到。
+// md5:97282fec9c34c48c
 
 //go:build unix && !ios && !android
 
 package time_test
 
 import (
+	"github.com/888go/gosdk/time"
 	"os"
 	"testing"
-	"time"
 )
 
 func TestEnvTZUsage(t *testing.T) {
@@ -23,7 +23,7 @@ func TestEnvTZUsage(t *testing.T) {
 	defer time.ForceUSPacificForTesting()
 
 	localZoneName := "Local"
-	// The file may not exist.
+	// 文件可能不存在。. md5:722f2ec072d9ec25
 	if _, err := os.Stat("/etc/localtime"); os.IsNotExist(err) {
 		localZoneName = "UTC"
 	}
@@ -33,7 +33,7 @@ func TestEnvTZUsage(t *testing.T) {
 		tz      string
 		local   string
 	}{
-		// no $TZ means use the system default /etc/localtime.
+		// 没有$TZ表示使用系统的默认设置（/etc/localtime）。. md5:4ee8a1d41d00a89d
 		{true, "", localZoneName},
 		// $TZ="" means use UTC.
 		{false, "", "UTC"},
@@ -57,7 +57,7 @@ func TestEnvTZUsage(t *testing.T) {
 	}
 
 	time.ResetLocalOnceForTest()
-	// The file may not exist on Solaris 2 and IRIX 6.
+	// 在Solaris 2和IRIX 6上，该文件可能不存在。. md5:a0af2a56773e8a83
 	path := "/usr/share/zoneinfo/Asia/Shanghai"
 	os.Setenv(env, path)
 	if _, err := os.Stat(path); os.IsNotExist(err) {

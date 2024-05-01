@@ -1,61 +1,46 @@
 package time
 
-// A Time represents an instant in time with nanosecond precision.
-//
-// Programs using times should typically store and pass them as values,
-// not pointers. That is, time variables and struct fields should be of
-// type time.Time, not *time.Time.
-//
-// A Time value can be used by multiple goroutines simultaneously except
-// that the methods GobDecode, UnmarshalBinary, UnmarshalJSON and
-// UnmarshalText are not concurrency-safe.
-//
-// Time instants can be compared using the Before, After, and Equal methods.
-// The Sub method subtracts two instants, producing a Duration.
-// The Add method adds a Time and a Duration, producing a Time.
-//
-// The zero value of type Time is January 1, year 1, 00:00:00.000000000 UTC.
-// As this time is unlikely to come up in practice, the IsZero method gives
-// a simple way of detecting a time that has not been initialized explicitly.
-//
-// Each time has an associated Location. The methods Local, UTC, and In return a
-// Time with a specific Location. Changing the Location of a Time value with
-// these methods does not change the actual instant it represents, only the time
-// zone in which to interpret it.
-//
-// Representations of a Time value saved by the GobEncode, MarshalBinary,
-// MarshalJSON, and MarshalText methods store the Time.Location's offset, but not
-// the location name. They therefore lose information about Daylight Saving Time.
-//
-// In addition to the required “wall clock” reading, a Time may contain an optional
-// reading of the current process's monotonic clock, to provide additional precision
-// for comparison or subtraction.
-// See the “Monotonic Clocks” section in the package documentation for details.
-//
-// Note that the Go == operator compares not just the time instant but also the
-// Location and the monotonic clock reading. Therefore, Time values should not
-// be used as map or database keys without first guaranteeing that the
-// identical Location has been set for all values, which can be achieved
-// through use of the UTC or Local method, and that the monotonic clock reading
-// has been stripped by setting t = t.Round(0). In general, prefer t.Equal(u)
-// to t == u, since t.Equal uses the most accurate comparison available and
-// correctly handles the case when only one of its arguments has a monotonic
-// clock reading.
-type Time struct {
+import "time"
 
+// Month 指定一年中的月份（一月 = 1，...）。. md5:c1896873d737e487
+type Month int //md5:2e86b21d4a1befae
+
+// Weekday 指定了一周中的某一天（周日=0，...）。. md5:e7c6df3685894251
+type Weekday int //md5:d67f7c5c595dac46
+
+// Duration 表示两个瞬间之间的时间差，用一个 int64 秒级别的纳秒计数表示。这个表示方式限制了可表示的最长持续时间大约为 290 年。
+// md5:4c8441d90787436e
+type Duration int64 //md5:f81176da35f473b9
+
+// Time 表示时间，具有纳秒精度。
+//
+// 使用时间的程序通常会将它们作为值存储和传递，而不是指针。也就是说，时间变量和结构体字段应为 time.Time 类型，而不是 *time.Time 类型。
+//
+// 时间值可以在多个goroutine中同时使用，除了 GobDecode、UnmarshalBinary、UnmarshalJSON 和 UnmarshalText 方法不是并发安全的。
+//
+// 可以使用 Before、After 和 Equal 方法比较时间点。Sub 方法可以减去两个时间点，得到一个 Duration。Add 方法可以添加一个 Time 和一个 Duration，得到一个新的 Time。
+//
+// 时间类型的零值表示 UTC 的公元 1 年 1 月 1 日 00:00:00.000000000。由于这个时间在实际应用中很少出现，IsZero 方法提供了一种简单的方法来检测未明确初始化的时间。
+//
+// 每个时间都有一个关联的 Location（时区）。Local、UTC 和 In 方法返回具有特定 Location 的 Time。通过这些方法更改 Time 值的 Location 不会改变它所代表的实际时刻，只会改变其解析时的时区。
+//
+// GobEncode、MarshalBinary、MarshalJSON 和 MarshalText 方法保存的时间值表示形式存储了 Time.Location 的偏移量，但不包含时区名称，因此丢失了夏令时的信息。
+//
+// 除了基本的“墙钟”读取外，Time 还可能包含当前进程的单调计时器读取，以提供比较或减法操作的额外精度。有关详细信息，请参阅包文档中的“单调计时器”部分。
+//
+// 注意 Go 中的 == 运算符不仅比较时间点，还比较 Location 和单调计时器读取。因此，在将 Time 值用作 map 或数据库键之前，需要确保所有值都设置了相同的 Location（通过使用 UTC 或 Local 方法），并移除单调计时器读取，这可以通过设置 t = t.Round(0) 来实现。一般来说，推荐使用 t.Equal(u) 而不是 t == u，因为 t.Equal 使用最准确的比较方法，并正确处理只有一个参数具有单调计时器读取的情况。
+// md5:98b88205e2fd3c1e
+type Time struct {
+	F time.Time
 } //md5:a8f1e158c36dbc97
 
-
-const (
-	hasMonotonic = 1 << 63
-	maxWall      = wallToInternal + (1<<33 - 1) // year 2157
-	minWall      = wallToInternal               // year 1885
-	nsecMask     = 1<<30 - 1
-	nsecShift    = 30
-)// md5:84fc15a2be736955
-
-
-
+//const (
+//	hasMonotonic = 1 << 63
+//	maxWall      = wallToInternal + (1<<33 - 1) // year 2157
+//	minWall      = wallToInternal               // year 1885
+//	nsecMask     = 1<<30 - 1
+//	nsecShift    = 30
+//) // md5:84fc15a2be736955
 
 const (
 	January Month = 1 + iota
@@ -70,10 +55,7 @@ const (
 	October
 	November
 	December
-)// md5:147c9abc849d3405
-
-
-
+) // md5:147c9abc849d3405
 
 const (
 	Sunday Weekday = iota
@@ -83,22 +65,21 @@ const (
 	Thursday
 	Friday
 	Saturday
-)// md5:9efbd1538cfcbf96
-
-
-
+) // md5:9efbd1538cfcbf96
 
 const (
-	// The unsigned zero year for internal calculations.
-	// Must be 1 mod 400, and times before it will not compute correctly,
-	// but otherwise can be changed at will.
+	// 对于内部计算的无符号零年。
+	// 必须是400的模1，但在此之前的时间将无法正确计算，
+	// 但可以根据需要随意更改。
+	// md5:9e3ce821b0e5bb93
 	absoluteZeroYear = -292277022399
 
-	// The year of the zero Time.
-	// Assumed by the unixToInternal computation below.
+	// Time零值的年份。
+	// 由下面的unixToInternal计算中假设。
+	// md5:dc0def73b210ce3b
 	internalYear = 1
 
-	// Offsets to convert between internal and absolute or Unix times.
+	// 用于在内部时间和绝对时间或Unix时间之间转换的偏移量。. md5:29a0da9f73dbc84d
 	absoluteToInternal int64 = (absoluteZeroYear - internalYear) * 365.2425 * secondsPerDay
 	internalToAbsolute       = -absoluteToInternal
 
@@ -106,18 +87,12 @@ const (
 	internalToUnix int64 = -unixToInternal
 
 	wallToInternal int64 = (1884*365 + 1884/4 - 1884/100 + 1884/400) * secondsPerDay
-)// md5:f6e0b667fa556e68
-
-
-
+) // md5:f6e0b667fa556e68
 
 const (
 	minDuration Duration = -1 << 63
 	maxDuration Duration = 1<<63 - 1
-)// md5:7fa4af1b9114d2d1
-
-
-
+) // md5:7fa4af1b9114d2d1
 
 const (
 	Nanosecond  Duration = 1
@@ -126,10 +101,7 @@ const (
 	Second               = 1000 * Millisecond
 	Minute               = 60 * Second
 	Hour                 = 60 * Minute
-)// md5:a064d6044cbb28fe
-
-
-
+) // md5:a064d6044cbb28fe
 
 const (
 	secondsPerMinute = 60
@@ -139,427 +111,403 @@ const (
 	daysPer400Years  = 365*400 + 97
 	daysPer100Years  = 365*100 + 24
 	daysPer4Years    = 365*4 + 1
-)// md5:c9382aa097574f5d
-
-
-
+) // md5:c9382aa097574f5d
 
 const (
 	timeBinaryVersionV1 byte = iota + 1 // For general situation
 	timeBinaryVersionV2                 // For LMT only
-)// md5:7df46a836c46218d
+) // md5:7df46a836c46218d
 
-
-
-// After reports whether the time instant t is after u.
+// After 函数返回一个布尔值，表示时间点t是否在u之后。. md5:750eca8bb04e1a25
 func (t Time) After(u Time) bool { //md5:5dfb6db123b2d436
-
+	return t.F.After(u.F)
 }
 
-// Before reports whether the time instant t is before u.
+// Before 返回时间点t是否早于u。. md5:36690a50c1e8d9d4
 func (t Time) Before(u Time) bool { //md5:d098b27691e377d5
-
+	return t.F.Before(u.F)
 }
 
-// Compare compares the time instant t with u. If t is before u, it returns -1;
-// if t is after u, it returns +1; if they're the same, it returns 0.
+// Compare 比较时间点 t 与 u。如果 t 在 u 之前，返回 -1；如果 t 在 u 之后，返回 +1；如果它们相同，返回 0。
+// md5:aad24dff20f54b6b
 func (t Time) Compare(u Time) int { //md5:35c931a4ac1e3dea
-
+	return t.F.Compare(u.F)
 }
 
-// Equal reports whether t and u represent the same time instant.
-// Two times can be equal even if they are in different locations.
-// For example, 6:00 +0200 and 4:00 UTC are Equal.
-// See the documentation on the Time type for the pitfalls of using == with
-// Time values; most code should use Equal instead.
+// Equal 报告 t 和 u 是否表示相同的时间瞬间。
+// 即使两个时间处于不同的时区，它们也可能相等。
+// 例如，6:00 +0200 和 4:00 UTC 是相等的。
+// 请参阅 Time 类型的文档以了解使用 == 比较 Time 值时的陷阱；
+// 大多数代码应改使用 Equal 方法。
+// md5:e1f4d776dce4bc1a
 func (t Time) Equal(u Time) bool { //md5:02203c2b950ebe2d
-
+	return t.F.Equal(u.F)
 }
 
-// String returns the English name of the month ("January", "February", ...).
+// String 返回月份的英文名称（"January"，"February"，...）。. md5:b9366b746afcb481
 func (m Month) String() string { //md5:014a3380bef17d93
-
+	return time.Month(m).String()
 }
 
-// String returns the English name of the day ("Sunday", "Monday", ...).
+// String 返回该天的英文名称（"Sunday"，"Monday"，...）。. md5:129fa202c9139f04
 func (d Weekday) String() string { //md5:3aa0ba35fd23d3a0
-
+	return time.Weekday(d).String()
 }
 
-// IsZero reports whether t represents the zero time instant,
-// January 1, year 1, 00:00:00 UTC.
+// IsZero 判断 t 是否表示时间的零点，
+// 即公元1年1月1日，UTC时间00:00:00。
+// md5:4e2b46d4fa63a878
 func (t Time) IsZero() bool { //md5:fd95a0aa1783c81e
-
+	return t.F.IsZero()
 }
 
-// Date returns the year, month, and day in which t occurs.
+// Date 返回 t 发生的年、月、日。. md5:47962c441720015d
 func (t Time) Date() (year int, month Month, day int) { //md5:a5a774f5fec8bb67
-
+	y, m, d := t.F.Date()
+	return y, Month(m), d
 }
 
-// Year returns the year in which t occurs.
+// Year 返回t所发生的年份。. md5:d47b3752d238b9f1
 func (t Time) Year() int { //md5:01bea20ebc40f05e
-
+	return t.F.Year()
 }
 
-// Month returns the month of the year specified by t.
+// Month 返回由 t 指定的年份中的月份。. md5:84f113a801a5eb29
 func (t Time) Month() Month { //md5:12e0562e3bfdd479
-
+	return Month(t.F.Month())
 }
 
-// Day returns the day of the month specified by t.
+// Day返回由t指定的月份中的某一天。. md5:1ac7526d83edc95a
 func (t Time) Day() int { //md5:0b0c2cb83d99f883
-
+	return t.F.Day()
 }
 
-// Weekday returns the day of the week specified by t.
+// Weekday 返回由 t 指定的星期几。. md5:68508f1017d5a5a0
 func (t Time) Weekday() Weekday { //md5:0eb77d8496ff6452
-
+	return Weekday(t.F.Weekday())
 }
 
-// ISOWeek returns the ISO 8601 year and week number in which t occurs.
-// Week ranges from 1 to 53. Jan 01 to Jan 03 of year n might belong to
-// week 52 or 53 of year n-1, and Dec 29 to Dec 31 might belong to week 1
-// of year n+1.
+// ISOWeek 返回t所在的一周的ISO 8601年和周数。
+// 周范围从1到53。一年中的1月1日至1月3日可能属于前一年的第52或53周，
+// 而12月29日至12月31日可能属于下一年的第1周。
+// md5:86fba2ca5bd03a59
 func (t Time) ISOWeek() (year, week int) { //md5:720dde5fce39726b
-
+	return t.F.ISOWeek()
 }
 
-// Clock returns the hour, minute, and second within the day specified by t.
+// Clock返回t指定的一天中的小时、分钟和秒。. md5:19d5f7c98fc60342
 func (t Time) Clock() (hour, min, sec int) { //md5:b31ce25ccbb0b1b8
-
+	return t.F.Clock()
 }
 
-// Hour returns the hour within the day specified by t, in the range [0, 23].
+// Hour返回由t指定的日期中的小时，范围为[0, 23]。. md5:02a015f0f53b5ff6
 func (t Time) Hour() int { //md5:efa7745ae50c29d5
-
+	return t.F.Hour()
 }
 
-// Minute returns the minute offset within the hour specified by t, in the range [0, 59].
+// Minute返回t指定的小时内的分钟偏移量，范围为[0, 59]。. md5:d369275980351e92
 func (t Time) Minute() int { //md5:c0dd1485a43bcd50
-
+	return t.F.Minute()
 }
 
-// Second returns the second offset within the minute specified by t, in the range [0, 59].
+// Second 返回 t 所指定分钟内的秒偏移量，范围为 [0, 59]。. md5:17d201e831d4d083
 func (t Time) Second() int { //md5:e2014d911e6cd34e
-
+	return t.F.Second()
 }
 
-// Nanosecond returns the nanosecond offset within the second specified by t,
-// in the range [0, 999999999].
+// Nanosecond 返回给定时间 t 所在秒内的纳秒偏移，范围为 [0, 999999999]。
+// md5:c1dcd3dd99062cf7
 func (t Time) Nanosecond() int { //md5:89292d986d7e3147
-
+	return t.F.Nanosecond()
 }
 
-// YearDay returns the day of the year specified by t, in the range [1,365] for non-leap years,
-// and [1,366] in leap years.
+// YearDay 返回由 t 指定的年中的第几天，非闰年为 [1, 365] 范围，闰年为 [1, 366] 范围。
+// md5:ae8ebdaab4474241
 func (t Time) YearDay() int { //md5:0b29732a13a1b75a
-
+	return t.F.YearDay()
 }
 
-// String returns a string representing the duration in the form "72h3m0.5s".
-// Leading zero units are omitted. As a special case, durations less than one
-// second format use a smaller unit (milli-, micro-, or nanoseconds) to ensure
-// that the leading digit is non-zero. The zero duration formats as 0s.
+// String 返回一个表示持续时间的字符串，格式为 "72h3m0.5s"。
+// 前导零的单位会被省略。作为一个特殊的情况，小于一秒的持续时间会使用更小的单位（毫秒、微秒或纳秒）来确保
+// 首位数字非零。零持续时间格式化为 0s。
+// md5:339f14595ff43024
 func (d Duration) String() string { //md5:7e1f3f8f34886861
-
+	return time.Duration(d).String()
 }
 
-// Nanoseconds returns the duration as an integer nanosecond count.
+// Nanoseconds 返回持续时间作为整数纳秒计数。. md5:c2f1f3ae945976b2
 func (d Duration) Nanoseconds() int64 { //md5:31b7144fa28ceb5b
-
+	return time.Duration(d).Nanoseconds()
 }
 
-// Microseconds returns the duration as an integer microsecond count.
+// Microseconds 返回Duration作为以微秒为单位的整数计数。. md5:cd88141d82127466
 func (d Duration) Microseconds() int64 { //md5:d4942111d046902a
-
+	return time.Duration(d).Microseconds()
 }
 
-// Milliseconds returns the duration as an integer millisecond count.
+// Milliseconds 返回Duration作为整数毫秒计数。. md5:dfe2b5e9f874e024
 func (d Duration) Milliseconds() int64 { //md5:6cc34c02dbb54bc2
-
+	return time.Duration(d).Milliseconds()
 }
 
-// Seconds returns the duration as a floating point number of seconds.
+// Seconds 将持续时间以秒为单位表示为浮点数。. md5:0f83173e0d4294bc
 func (d Duration) Seconds() float64 { //md5:75def545f7232495
-
+	return time.Duration(d).Seconds()
 }
 
-// Minutes returns the duration as a floating point number of minutes.
+// Minutes 将持续时间转换为以分钟为单位的浮点数。. md5:49e3673b4db2654b
 func (d Duration) Minutes() float64 { //md5:900bce301a35981f
-
+	return time.Duration(d).Minutes()
 }
 
-// Hours returns the duration as a floating point number of hours.
+// Hours 返回Duration作为小时的浮点数表示。. md5:8ed8d3411cf7a7e8
 func (d Duration) Hours() float64 { //md5:d5ebe85a747f47bc
-
+	return time.Duration(d).Hours()
 }
 
-// Truncate returns the result of rounding d toward zero to a multiple of m.
-// If m <= 0, Truncate returns d unchanged.
+// Truncate 函数将浮点数 d 向零进行四舍五入，结果为 m 的倍数。如果 m 小于等于 0，则 Truncate 函数直接返回 d，不做任何改变。
+// md5:1f339b99307b7c19
 func (d Duration) Truncate(m Duration) Duration { //md5:fe65fdff50fff8d6
-
+	return Duration(time.Duration(d).Truncate(time.Duration(m)))
 }
 
-// Round returns the result of rounding d to the nearest multiple of m.
-// The rounding behavior for halfway values is to round away from zero.
-// If the result exceeds the maximum (or minimum)
-// value that can be stored in a Duration,
-// Round returns the maximum (or minimum) duration.
-// If m <= 0, Round returns d unchanged.
+// Round 返回将 d 四舍五入到最接近 m 的整数倍的结果。
+// 对于中间值的舍入行为是远离零进行舍入。
+// 如果结果超出了可以存储在 Duration 类型中的最大（或最小）
+// 值，Round 将返回最大（或最小）的持续时间。
+// 如果 m <= 0，则 Round 不做改变，直接返回 d。
+// md5:f3481afd1effbd95
 func (d Duration) Round(m Duration) Duration { //md5:2d3f614e4b10efeb
-
+	return Duration(time.Duration(d).Round(time.Duration(m)))
 }
 
-// Abs returns the absolute value of d.
-// As a special case, math.MinInt64 is converted to math.MaxInt64.
+// Abs 返回 d 的绝对值。
+// 特殊情况下，math.MinInt64 转换为 math.MaxInt64。
+// md5:8a84b8cfa75a6b01
 func (d Duration) Abs() Duration { //md5:ce1eb65bdaa80e6d
-
+	return Duration(time.Duration(d).Abs())
 }
 
-// Add returns the time t+d.
+// Add 返回时间 t 加上 d。. md5:35c7d797bb6a1d97
 func (t Time) Add(d Duration) Time { //md5:8720c0d0de353e9c
-
+	return Time{t.F.Add(time.Duration(d))}
 }
 
-// Sub returns the duration t-u. If the result exceeds the maximum (or minimum)
-// value that can be stored in a Duration, the maximum (or minimum) duration
-// will be returned.
-// To compute t-d for a duration d, use t.Add(-d).
+// Sub 返回两个时间差 t-u。如果结果超过了Duration类型可以存储的最大（或最小）值，
+// 则返回最大（或最小）的时间差。
+// 要计算时间差 t-d，可以使用 t.Add(-d)。
+// md5:c975e5087c03d3b9
 func (t Time) Sub(u Time) Duration { //md5:df77f9b3e6bf5ada
-
+	return Duration(t.F.Sub(u.F))
 }
 
-// Since returns the time elapsed since t.
-// It is shorthand for time.Now().Sub(t).
+// Since 计算并返回从 t 开始经过的时间。
+// 这是 time.Now().Sub(t) 的简写形式。
+// md5:f8c050ab8ed2afc9
 func Since(t Time) Duration { //md5:810dd8f30988f658
-
+	return Duration(time.Since(t.F))
 }
 
-// Until returns the duration until t.
-// It is shorthand for t.Sub(time.Now()).
+// Until 返回从现在到t的持续时间。
+// 它是t.Sub(time.Now())的简写。
+// md5:b08a1c65063fce30
 func Until(t Time) Duration { //md5:63b7023bdca00f52
-
+	return Duration(time.Until(t.F))
 }
 
-// AddDate returns the time corresponding to adding the
-// given number of years, months, and days to t.
-// For example, AddDate(-1, 2, 3) applied to January 1, 2011
-// returns March 4, 2010.
+// AddDate函数返回给定年份、月份和天数后对应的时间。例如，将-1、2和3应用到2011年1月1日，会返回2010年3月4日。
 //
-// Note that dates are fundamentally coupled to timezones, and calendrical
-// periods like days don't have fixed durations. AddDate uses the Location of
-// the Time value to determine these durations. That means that the same
-// AddDate arguments can produce a different shift in absolute time depending on
-// the base Time value and its Location. For example, AddDate(0, 0, 1) applied
-// to 12:00 on March 27 always returns 12:00 on March 28. At some locations and
-// in some years this is a 24 hour shift. In others it's a 23 hour shift due to
-// daylight savings time transitions.
+// 注意日期本质上与时区相关联，像天这样的历法周期并没有固定的持续时间。AddDate函数使用Time值的Location来确定这些持续时间。这意味着相同的AddDate参数可能会根据基础Time值及其Location产生不同的绝对时间偏移。例如，将0、0和1应用到3月27日12:00上，始终会返回3月28日12:00。在某些地点和某些年份中，这是一次24小时的偏移。而在其他地方，由于夏令时转换，它可能只有23小时的偏移。
 //
-// AddDate normalizes its result in the same way that Date does,
-// so, for example, adding one month to October 31 yields
-// December 1, the normalized form for November 31.
+// AddDate的结果规范化方式与Date相同，例如，向10月31日添加一个月，结果将是12月1日，这是对11月31日的规范化形式。
+// md5:2eb1b728ab1baa75
 func (t Time) AddDate(years int, months int, days int) Time { //md5:f604377cb448bd9a
-
+	return Time{t.F.AddDate(years, months, days)}
 }
 
-// Now returns the current local time.
+// Now返回当前的本地时间。. md5:449d3f2d7b2dcfde
 func Now() Time { //md5:b2c3ce5c3a0dddd8
-
+	return Time{time.Now()}
 }
 
-// UTC returns t with the location set to UTC.
+// UTC 返回将位置设置为UTC的t。. md5:cf62de83ef34698a
 func (t Time) UTC() Time { //md5:dfc0ea55e77bdd85
-
+	return Time{t.F.UTC()}
 }
 
-// Local returns t with the location set to local time.
+// Local 将 t 的时区设置为本地时间并返回。. md5:9497f35c6f715db4
 func (t Time) Local() Time { //md5:773d045186c2d5e6
-
+	return Time{t.F.Local()}
 }
 
-// In returns a copy of t representing the same time instant, but
-// with the copy's location information set to loc for display
-// purposes.
-//
-// In panics if loc is nil.
+// In 返回一个表示相同时间点的t的副本，但将副本的地理位置信息设置为loc，用于显示目的。
+// 如果loc为nil，In会引发panic。
+// md5:e57190592f953463
 func (t Time) In(loc *Location) Time { //md5:cdf90b2adf199e29
-
+	if loc == nil {
+		panic("time.In方法,loc参数为nil,触发panic")
+	}
+	return Time{t.F.In(&loc.F)}
 }
 
-// Location returns the time zone information associated with t.
+// Location 返回与 t 关联的时间区域信息。. md5:fd562b3c47810a07
 func (t Time) Location() *Location { //md5:320904942ebf3a70
-
+	返回 := t.F.Location()
+	if 返回 == nil {
+		panic("time.Location方法,返回为nil,触发panic")
+	}
+	return &Location{*返回}
 }
 
-// Zone computes the time zone in effect at time t, returning the abbreviated
-// name of the zone (such as "CET") and its offset in seconds east of UTC.
+// Zone 计算在时间t生效的时区，返回该时区的缩写名称（如"CET"）及其相对于UTC向东的秒偏移量。
+// md5:6bc1ff0aad02056b
 func (t Time) Zone() (name string, offset int) { //md5:f6bf762564bdb7bd
-
+	return t.F.Zone()
 }
 
-// ZoneBounds returns the bounds of the time zone in effect at time t.
-// The zone begins at start and the next zone begins at end.
-// If the zone begins at the beginning of time, start will be returned as a zero Time.
-// If the zone goes on forever, end will be returned as a zero Time.
-// The Location of the returned times will be the same as t.
+// ZoneBounds 返回在时间 t 有效的时间区域边界。
+// 区域从 start 开始，下一个区域从 end 开始。
+// 如果区域从时间的开始时刻开始，start 将被返回为零时间。
+// 如果区域持续到永远，end 将被返回为零时间。
+// 返回时间的地点与 t 相同。
+// md5:15d397b4b14f6445
 func (t Time) ZoneBounds() (start, end Time) { //md5:764bd854389bfd7e
-
+	t1, t2 := t.F.ZoneBounds()
+	return Time{t1}, Time{t2}
 }
 
-// Unix returns t as a Unix time, the number of seconds elapsed
-// since January 1, 1970 UTC. The result does not depend on the
-// location associated with t.
-// Unix-like operating systems often record time as a 32-bit
-// count of seconds, but since the method here returns a 64-bit
-// value it is valid for billions of years into the past or future.
+// Unix 返回 t 作为 Unix 时间，即自 1970 年 1 月 1 日 UTC 起经过的秒数。结果不依赖于与 t 关联的位置。
+// 类 Unix 操作系统通常记录时间为以秒为单位的 32 位计数，但由于这里的方法返回的是 64 位值，因此在未来数十亿年或过去也是有效的。
+// md5:6eee6141cce29453
 func (t Time) Unix() int64 { //md5:708a59c5afafb133
-
+	return t.F.Unix()
 }
 
-// UnixMilli returns t as a Unix time, the number of milliseconds elapsed since
-// January 1, 1970 UTC. The result is undefined if the Unix time in
-// milliseconds cannot be represented by an int64 (a date more than 292 million
-// years before or after 1970). The result does not depend on the
-// location associated with t.
+// UnixMilli 将 t 转换为自 1970 年 1 月 1 日 UTC 起经过的毫秒数。如果超过 int64 类型可以表示的最大值（即 1970 年前或后超过 292 百万年的时间），结果是未定义的。转换结果不受 t 关联的位置影响。
+// md5:fac7c190fc89c5a2
 func (t Time) UnixMilli() int64 { //md5:8ad355b089164e81
-
+	return t.F.UnixMilli()
 }
 
-// UnixMicro returns t as a Unix time, the number of microseconds elapsed since
-// January 1, 1970 UTC. The result is undefined if the Unix time in
-// microseconds cannot be represented by an int64 (a date before year -290307 or
-// after year 294246). The result does not depend on the location associated
-// with t.
+// UnixMicro 返回 t 作为 Unix 时间，即从 1970 年 1 月 1 日 UTC 开始流逝的微秒数。
+// 如果微秒级的 Unix 时间不能被 int64 表示（日期早于公元前 290307 年或晚于公元 294246 年），结果是未定义的。
+// 结果与 t 关联的时区无关。
+// md5:f78d98a12030333c
 func (t Time) UnixMicro() int64 { //md5:df74c29f1d20ba8a
-
+	return t.F.UnixMicro()
 }
 
-// UnixNano returns t as a Unix time, the number of nanoseconds elapsed
-// since January 1, 1970 UTC. The result is undefined if the Unix time
-// in nanoseconds cannot be represented by an int64 (a date before the year
-// 1678 or after 2262). Note that this means the result of calling UnixNano
-// on the zero Time is undefined. The result does not depend on the
-// location associated with t.
+// UnixNano 返回 t 的 Unix 时间，即自 1970 年 1 月 1 日 UTC 以来经过的纳秒数。如果以纳秒为单位的 Unix 时间不能用 int64 表示（日期早于 1678 年或晚于 2262 年），结果是未定义的。注意，这意味着对零值 Time 调用 UnixNano 的结果是未定义的。结果与 t 关联的位置无关。
+// md5:ca4946b1370d3715
 func (t Time) UnixNano() int64 { //md5:e37c334610d19b98
-
+	return t.F.UnixNano()
 }
 
-// MarshalBinary implements the encoding.BinaryMarshaler interface.
+// MarshalBinary 实现了 encoding.BinaryMarshaler 接口。. md5:330de8d0c2918ee7
 func (t Time) MarshalBinary() ([]byte, error) { //md5:da3dea82d6dc9326
-
+	return t.F.MarshalBinary()
 }
 
-// UnmarshalBinary implements the encoding.BinaryUnmarshaler interface.
+// UnmarshalBinary实现了encoding.BinaryUnmarshaler接口。. md5:943a77fbd3310dbb
 func (t *Time) UnmarshalBinary(data []byte) error { //md5:a4a2ca872058057e
-
+	return t.F.UnmarshalBinary(data)
 }
 
-// GobEncode implements the gob.GobEncoder interface.
+// GobEncode 实现了 gob.GobEncoder 接口。. md5:2123f9f64f9e5072
 func (t Time) GobEncode() ([]byte, error) { //md5:bd28fa55c2574953
-
+	return t.F.GobEncode()
 }
 
-// GobDecode implements the gob.GobDecoder interface.
+// GobDecode 实现了 gob.GobDecoder 接口。. md5:cab7a156d7ee388c
 func (t *Time) GobDecode(data []byte) error { //md5:f1c31f760b2eb0ef
-
+	return t.F.GobDecode(data)
 }
 
-// MarshalJSON implements the json.Marshaler interface.
-// The time is a quoted string in the RFC 3339 format with sub-second precision.
-// If the timestamp cannot be represented as valid RFC 3339
-// (e.g., the year is out of range), then an error is reported.
+// MarshalJSON 实现了 json.Marshaler 接口。
+// 时间以 RFC 3339 格式（精确到毫秒）作为引号字符串表示。
+// 如果时间戳无法表示为有效的 RFC 3339 格式（例如，年份超出范围），则会报告错误。
+// md5:4c8ae3f9584f964f
 func (t Time) MarshalJSON() ([]byte, error) { //md5:45b1e08736011f81
-
+	return t.F.MarshalJSON()
 }
 
-// UnmarshalJSON implements the json.Unmarshaler interface.
-// The time must be a quoted string in the RFC 3339 format.
+// UnmarshalJSON实现了json.Unmarshaler接口。
+// 时间必须是RFC 3339格式的引用字符串。
+// md5:abd2b9bf29f6f8c2
 func (t *Time) UnmarshalJSON(data []byte) error { //md5:471a9f0fcd628553
-
+	return t.F.UnmarshalJSON(data)
 }
 
-// MarshalText implements the encoding.TextMarshaler interface.
-// The time is formatted in RFC 3339 format with sub-second precision.
-// If the timestamp cannot be represented as valid RFC 3339
-// (e.g., the year is out of range), then an error is reported.
+// 实现encoding.TextMarshaler接口的MarshalText方法。
+// 时间以RFC 3339格式表示，包含秒以下的精度。
+// 如果时间戳无法表示为有效的RFC 3339格式（例如，年份超出范围），则会报告错误。
+// md5:a394cd3ee2adc414
 func (t Time) MarshalText() ([]byte, error) { //md5:53833c0a151d9869
-
+	return t.F.MarshalText()
 }
 
-// UnmarshalText implements the encoding.TextUnmarshaler interface.
-// The time must be in the RFC 3339 format.
+// UnmarshalText 实现了 encoding.TextUnmarshaler 接口。
+// 时间必须遵循 RFC 3339 格式。
+// md5:0d2034e46c63ce93
 func (t *Time) UnmarshalText(data []byte) error { //md5:ba75915cc097f6f0
-
+	return t.F.UnmarshalText(data)
 }
 
-// Unix returns the local Time corresponding to the given Unix time,
-// sec seconds and nsec nanoseconds since January 1, 1970 UTC.
-// It is valid to pass nsec outside the range [0, 999999999].
-// Not all sec values have a corresponding time value. One such
-// value is 1<<63-1 (the largest int64 value).
+// Unix根据给定的Unix时间（自1970年UTC 1月1日以来的秒数和纳秒数）返回本地时间。
+// 可以传递超出[0, 999999999]范围的nsec值。不是所有sec值都对应一个时间值。其中一个例子是1<<63-1（最大的int64值）。
+// md5:c015127582e82f24
 func Unix(sec int64, nsec int64) Time { //md5:8f372b5d16d3f416
-
+	return Time{time.Unix(sec, nsec)}
 }
 
-// UnixMilli returns the local Time corresponding to the given Unix time,
-// msec milliseconds since January 1, 1970 UTC.
+// UnixMilli 返回给定 Unix 时间（从 UTC 的 1970 年 1 月 1 日开始计算的毫秒数）对应的本地时间。
+// md5:b3c1c9e51febfd0d
 func UnixMilli(msec int64) Time { //md5:94c00e0069987ce8
-
+	return Time{time.UnixMilli(msec)}
 }
 
-// UnixMicro returns the local Time corresponding to the given Unix time,
-// usec microseconds since January 1, 1970 UTC.
+// UnixMicro 返回对应于给定Unix时间的本地时间，该Unix时间是从1970年1月1日UTC开始的usec微秒。
+// md5:4f4e706fb188cc2e
 func UnixMicro(usec int64) Time { //md5:a519cb1431da9d9d
-
+	return Time{time.UnixMicro(usec)}
 }
 
-// IsDST reports whether the time in the configured location is in Daylight Savings Time.
+// IsDST 报告配置的时区中给定时间是否处于夏令时。. md5:48b3bf0c1d4aba01
 func (t Time) IsDST() bool { //md5:6a98901b623dee23
-
+	return t.F.IsDST()
 }
 
-// Date returns the Time corresponding to
+// Date返回与给定位置中相应时间的适当时区对应的Time。
 //
-//	yyyy-mm-dd hh:mm:ss + nsec nanoseconds
+// 月份、日期、小时、分钟、秒和纳秒值可能超出常规范围，在转换期间将被规范化。例如，10月32日会转换为11月1日。
 //
-// in the appropriate zone for that time in the given location.
+// 夏令时转换会跳过或重复时间。例如，在美国，2011年3月13日2:15am并未发生，而2011年11月6日1:15am发生了两次。在这种情况下，时区的选择（以及因此对应的时间）并不明确。Date返回的是两个相关时区中的一个正确时间，但并不能保证是哪一个。
 //
-// The month, day, hour, min, sec, and nsec values may be outside
-// their usual ranges and will be normalized during the conversion.
-// For example, October 32 converts to November 1.
-//
-// A daylight savings time transition skips or repeats times.
-// For example, in the United States, March 13, 2011 2:15am never occurred,
-// while November 6, 2011 1:15am occurred twice. In such cases, the
-// choice of time zone, and therefore the time, is not well-defined.
-// Date returns a time that is correct in one of the two zones involved
-// in the transition, but it does not guarantee which.
-//
-// Date panics if loc is nil.
+// 如果loc为nil，Date函数会引发panic。
+// md5:db3e840a23378f8a
 func Date(year int, month Month, day, hour, min, sec, nsec int, loc *Location) Time { //md5:fc73fa423236be91
-
+	if loc == nil {
+		panic("time.Date方法,loc参数为nil,触发panic")
+	}
+	return Time{time.Date(year, time.Month(month), day, hour, min, sec, nsec, &loc.F)}
 }
 
-// Truncate returns the result of rounding t down to a multiple of d (since the zero time).
-// If d <= 0, Truncate returns t stripped of any monotonic clock reading but otherwise unchanged.
+// Truncate 函数将时间 t 向下舍入到 d 的倍数（从零时间开始）。如果 d 小于等于 0，Truncate 将去掉时间的单调时钟读数，但保持不变。
 //
-// Truncate operates on the time as an absolute duration since the
-// zero time; it does not operate on the presentation form of the
-// time. Thus, Truncate(Hour) may return a time with a non-zero
-// minute, depending on the time's Location.
+// Truncate 以绝对自零时间以来的持续时间对时间进行操作；它不处理时间的呈现形式。因此，Truncate(Hour) 可能返回一个非零分钟的时间，具体取决于时间的时区。
+// md5:f72e0e00b245e691
 func (t Time) Truncate(d Duration) Time { //md5:6c9853dfe8f0ce4e
-
+	return Time{t.F.Truncate(time.Duration(d))}
 }
 
-// Round returns the result of rounding t to the nearest multiple of d (since the zero time).
-// The rounding behavior for halfway values is to round up.
-// If d <= 0, Round returns t stripped of any monotonic clock reading but otherwise unchanged.
+// Round 返回将时间 t 四舍五入到最接近 d 的整数倍的结果（从零时间开始计算）。
+// 对于中间值的舍入规则是向上舍入。
+// 如果 d <= 0，则 Round 返回 t，但会剥离任何单调时钟读数，其他不变。
 //
-// Round operates on the time as an absolute duration since the
-// zero time; it does not operate on the presentation form of the
-// time. Thus, Round(Hour) may return a time with a non-zero
-// minute, depending on the time's Location.
+// Round 是基于时间作为从零时间起的绝对持续时间来进行操作的；
+// 它并不作用于时间的展示形式。因此，Round(Hour) 可能会返回一个带有非零分钟的时间，
+// 具体取决于该时间的时区位置。
+// md5:b2557220790fc058
 func (t Time) Round(d Duration) Time { //md5:514f2ad77ae8743a
-
+	return Time{t.F.Round(time.Duration(d))}
 }

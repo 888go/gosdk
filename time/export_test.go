@@ -1,59 +1,56 @@
-// Copyright 2013 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 2013 Go 作者。保留所有权利。
+// 使用此源代码受BSD风格许可证约束，该许可证可从LICENSE文件中找到。
+// md5:19d1a3ed91182ee4
 
 package time
 
-import (
-	"sync"
-)
+//
+//func ResetLocalOnceForTest() {
+//	localOnce = sync.Once{}
+//	localLoc = Location{}
+//}
+//
+//func ForceUSPacificForTesting() {
+//	ResetLocalOnceForTest()
+//	localOnce.Do(initTestingZone)
+//}
+//
+//func ZoneinfoForTesting() *string {
+//	return zoneinfo
+//}
+//
+//func ResetZoneinfoForTesting() {
+//	zoneinfo = nil
+//	zoneinfoOnce = sync.Once{}
+//}
 
-func ResetLocalOnceForTest() {
-	localOnce = sync.Once{}
-	localLoc = Location{}
-}
+//var (
+//	DisablePlatformSources = disablePlatformSources
+//	GorootZoneSource       = gorootZoneSource
+//	ParseTimeZone          = parseTimeZone
+//	SetMono                = (*Time).setMono
+//	GetMono                = (*Time).mono
+//	ErrLocation            = errLocation
+//	ReadFile               = readFile
+//	LoadTzinfo             = loadTzinfo
+//	NextStdChunk           = nextStdChunk
+//	Tzset                  = tzset
+//	TzsetName              = tzsetName
+//	TzsetOffset            = tzsetOffset
+//)
 
-func ForceUSPacificForTesting() {
-	ResetLocalOnceForTest()
-	localOnce.Do(initTestingZone)
-}
-
-func ZoneinfoForTesting() *string {
-	return zoneinfo
-}
-
-func ResetZoneinfoForTesting() {
-	zoneinfo = nil
-	zoneinfoOnce = sync.Once{}
-}
-
-var (
-	DisablePlatformSources = disablePlatformSources
-	GorootZoneSource       = gorootZoneSource
-	ParseTimeZone          = parseTimeZone
-	SetMono                = (*Time).setMono
-	GetMono                = (*Time).mono
-	ErrLocation            = errLocation
-	ReadFile               = readFile
-	LoadTzinfo             = loadTzinfo
-	NextStdChunk           = nextStdChunk
-	Tzset                  = tzset
-	TzsetName              = tzsetName
-	TzsetOffset            = tzsetOffset
-)
-
-func LoadFromEmbeddedTZData(zone string) (string, error) {
-	return loadFromEmbeddedTZData(zone)
-}
+//func LoadFromEmbeddedTZData(zone string) (string, error) {
+//	return loadFromEmbeddedTZData(zone)
+//}
 
 type RuleKind int
 
-const (
-	RuleJulian       = RuleKind(ruleJulian)
-	RuleDOY          = RuleKind(ruleDOY)
-	RuleMonthWeekDay = RuleKind(ruleMonthWeekDay)
-	UnixToInternal   = unixToInternal
-)
+//const (
+//	RuleJulian       = RuleKind(ruleJulian)
+//	RuleDOY          = RuleKind(ruleDOY)
+//	RuleMonthWeekDay = RuleKind(ruleMonthWeekDay)
+//	UnixToInternal   = unixToInternal
+//)
 
 type Rule struct {
 	Kind RuleKind
@@ -63,19 +60,19 @@ type Rule struct {
 	Time int
 }
 
-func TzsetRule(s string) (Rule, string, bool) {
-	r, rs, ok := tzsetRule(s)
-	rr := Rule{
-		Kind: RuleKind(r.kind),
-		Day:  r.day,
-		Week: r.week,
-		Mon:  r.mon,
-		Time: r.time,
-	}
-	return rr, rs, ok
-}
+//func TzsetRule(s string) (Rule, string, bool) {
+//	r, rs, ok := tzsetRule(s)
+//	rr := Rule{
+//		Kind: RuleKind(r.kind),
+//		Day:  r.day,
+//		Week: r.week,
+//		Mon:  r.mon,
+//		Time: r.time,
+//	}
+//	return rr, rs, ok
+//}
 
-// StdChunkNames maps from nextStdChunk results to the matched strings.
+// StdChunkNames 将 nextStdChunk 的结果映射到匹配的字符串。. md5:ffc355085bc58245
 var StdChunkNames = map[int]string{
 	0:                               "",
 	stdLongMonth:                    "January",
@@ -131,10 +128,10 @@ var StdChunkNames = map[int]string{
 	stdFracSecond9 | 9<<stdArgShift: ".999999999",
 }
 
-var Quote = quote
-
-var AppendInt = appendInt
-var AppendFormatAny = Time.appendFormat
-var AppendFormatRFC3339 = Time.appendFormatRFC3339
-var ParseAny = parse
-var ParseRFC3339 = parseRFC3339[string]
+//var Quote = quote
+//
+//var AppendInt = appendInt
+//var AppendFormatAny = Time.appendFormat
+//var AppendFormatRFC3339 = Time.appendFormatRFC3339
+//var ParseAny = parse
+//var ParseRFC3339 = parseRFC3339[string]

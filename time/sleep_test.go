@@ -1,51 +1,49 @@
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+//版权所有2009年Go作者。所有权利保留。
+//使用此源代码受BSD风格
+//可以在LICENSE文件中找到的许可证。
+// md5:2e9dc81828a3be8a
 
 package time_test
 
 import (
 	"errors"
 	"fmt"
-	"internal/testenv"
-	"math/rand"
+	. "github.com/888go/gosdk/time"
 	"runtime"
 	"strings"
 	"sync"
 	"sync/atomic"
 	"testing"
-	. "time"
 )
 
-// Go runtime uses different Windows timers for time.Now and sleeping.
-// These can tick at different frequencies and can arrive out of sync.
-// The effect can be seen, for example, as time.Sleep(100ms) is actually
-// shorter then 100ms when measured as difference between time.Now before and
-// after time.Sleep call. This was observed on Windows XP SP3 (windows/386).
-// windowsInaccuracy is to ignore such errors.
+// Go运行时使用不同的Windows定时器来获取time.Now和睡眠时间。
+// 这些定时器可能以不同的频率工作，并且可能会不同步。
+// 这种影响可以通过观察到，例如，在Windows XP SP3（windows/386）上，调用time.Sleep(100ms)实际上比100ms短，
+// 在time.Sleep调用前后的时间.Now之间的差异中可以看到。windowsInaccuracy是为了忽略此类错误。
+// md5:413315af6e6e879d
 const windowsInaccuracy = 17 * Millisecond
 
-func TestSleep(t *testing.T) {
-	const delay = 100 * Millisecond
-	go func() {
-		Sleep(delay / 2)
-		Interrupt()
-	}()
-	start := Now()
-	Sleep(delay)
-	delayadj := delay
-	if runtime.GOOS == "windows" {
-		delayadj -= windowsInaccuracy
-	}
-	duration := Now().Sub(start)
-	if duration < delayadj {
-		t.Fatalf("Sleep(%s) slept for only %s", delay, duration)
-	}
-}
+//
+//func TestSleep(t *testing.T) {
+//	const delay = 100 * Millisecond
+//	go func() {
+//		Sleep(delay / 2)
+//		Interrupt()
+//	}()
+//	start := Now()
+//	Sleep(delay)
+//	delayadj := delay
+//	if runtime.GOOS == "windows" {
+//		delayadj -= windowsInaccuracy
+//	}
+//	duration := Now().Sub(start)
+//	if duration < delayadj {
+//		t.Fatalf("Sleep(%s) slept for only %s", delay, duration)
+//	}
+//}
 
-// Test the basic function calling behavior. Correct queueing
-// behavior is tested elsewhere, since After and AfterFunc share
-// the same code.
+// 测试基本的函数调用行为。由于`After`和`AfterFunc`共享相同的代码，所以在这里只测试队列行为的基本正确性。
+// md5:ea0a035c0fadf390
 func TestAfterFunc(t *testing.T) {
 	i := 10
 	c := make(chan bool)
@@ -69,15 +67,16 @@ func TestAfterStress(t *testing.T) {
 	go func() {
 		for !stop.Load() {
 			runtime.GC()
-			// Yield so that the OS can wake up the timer thread,
-			// so that it can generate channel sends for the main goroutine,
-			// which will eventually set stop = 1 for us.
+			// 让出执行权以便操作系统唤醒计时器线程，
+			// 这样计时器线程就可以为主goroutine生成通道发送操作，
+			// 而主goroutine最终会为我们设置stop = 1。
+			// md5:ccb50fd753147a7c
 			Sleep(Nanosecond)
 		}
 	}()
 	ticker := NewTicker(1)
 	for i := 0; i < 100; i++ {
-		<-ticker.C
+		<-ticker.F.C
 	}
 	ticker.Stop()
 	stop.Store(true)
@@ -85,8 +84,8 @@ func TestAfterStress(t *testing.T) {
 
 func benchmark(b *testing.B, bench func(n int)) {
 
-	// Create equal number of garbage timers on each P before starting
-	// the benchmark.
+	// 在开始基准测试之前，在每个P上创建数量相等的垃圾回收定时器。
+	// md5:a87f583366d1d2f7
 	var wg sync.WaitGroup
 	garbageAll := make([][]*Timer, runtime.GOMAXPROCS(0))
 	for i := range garbageAll {
@@ -210,7 +209,7 @@ func TestAfter(t *testing.T) {
 	if duration := Now().Sub(start); duration < delayadj {
 		t.Fatalf("After(%s) slept for only %d ns", delay, duration)
 	}
-	if min := start.Add(delayadj); end.Before(min) {
+	if min := start.Add(delayadj); end.Before(min.F) {
 		t.Fatalf("After(%s) expect >= %s, got %s", delay, min, end)
 	}
 }
@@ -237,11 +236,11 @@ func TestAfterTick(t *testing.T) {
 }
 
 func TestAfterStop(t *testing.T) {
-	// We want to test that we stop a timer before it runs.
-	// We also want to test that it didn't run after a longer timer.
-	// Since we don't want the test to run for too long, we don't
-	// want to use lengthy times. That makes the test inherently flaky.
-	// So only report an error if it fails five times in a row.
+	// 我们想测试在计时器运行前是否能停止它。
+	// 同时，我们也想测试在较长的计时器后它是否未运行。
+	// 由于我们不想让测试运行太久，所以我们不会使用过长的时间。这使得测试本质上具有一定的不稳定性。
+	// 因此，只有当连续五次失败时才报告错误。
+	// md5:69b5ca4d4ffdeb2e
 
 	var errs []string
 	logErrs := func() {
@@ -266,7 +265,7 @@ func TestAfterStop(t *testing.T) {
 		}
 		<-c2
 		select {
-		case <-t0.C:
+		case <-t0.F.C:
 			errs = append(errs, "event 0 was not stopped")
 			continue
 		case <-c1:
@@ -279,7 +278,7 @@ func TestAfterStop(t *testing.T) {
 			continue
 		}
 
-		// Test passed, so all done.
+		// 测试通过，所以大功告成。. md5:898d4f57bd6d9649
 		if len(errs) > 0 {
 			t.Logf("saw %d errors, ignoring to avoid flakiness", len(errs))
 			logErrs()
@@ -292,21 +291,22 @@ func TestAfterStop(t *testing.T) {
 	logErrs()
 }
 
-func TestAfterQueuing(t *testing.T) {
-	// This test flakes out on some systems,
-	// so we'll try it a few times before declaring it a failure.
-	const attempts = 5
-	err := errors.New("!=nil")
-	for i := 0; i < attempts && err != nil; i++ {
-		delta := Duration(20+i*50) * Millisecond
-		if err = testAfterQueuing(delta); err != nil {
-			t.Logf("attempt %v failed: %v", i, err)
-		}
-	}
-	if err != nil {
-		t.Fatal(err)
-	}
-}
+//func TestAfterQueuing(t *testing.T) {
+//	// 此测试在某些系统上可能出现不稳定，
+//	// 因此我们在认定失败之前会尝试运行几次。
+//	// md5:1c0a70fc679d8303
+//	const attempts = 5
+//	err := errors.New("!=nil")
+//	for i := 0; i < attempts && err != nil; i++ {
+//		delta := Duration(20+i*50) * Millisecond
+//		if err = testAfterQueuing(delta); err != nil {
+//			t.Logf("attempt %v failed: %v", i, err)
+//		}
+//	}
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//}
 
 var slots = []int{5, 3, 6, 6, 6, 1, 1, 2, 7, 9, 4, 8, 0}
 
@@ -319,37 +319,38 @@ func await(slot int, result chan<- afterResult, ac <-chan Time) {
 	result <- afterResult{slot, <-ac}
 }
 
-func testAfterQueuing(delta Duration) error {
-	// make the result channel buffered because we don't want
-	// to depend on channel queueing semantics that might
-	// possibly change in the future.
-	result := make(chan afterResult, len(slots))
-
-	t0 := Now()
-	for _, slot := range slots {
-		go await(slot, result, After(Duration(slot)*delta))
-	}
-	var order []int
-	var times []Time
-	for range slots {
-		r := <-result
-		order = append(order, r.slot)
-		times = append(times, r.t)
-	}
-	for i := range order {
-		if i > 0 && order[i] < order[i-1] {
-			return fmt.Errorf("After calls returned out of order: %v", order)
-		}
-	}
-	for i, t := range times {
-		dt := t.Sub(t0)
-		target := Duration(order[i]) * delta
-		if dt < target-delta/2 || dt > target+delta*10 {
-			return fmt.Errorf("After(%s) arrived at %s, expected [%s,%s]", target, dt, target-delta/2, target+delta*10)
-		}
-	}
-	return nil
-}
+//
+//func testAfterQueuing(delta Duration) error {
+//	// 将结果通道设置为缓冲通道，因为我们不希望依赖于
+//	// 可能在未来发生改变的通道排队语义。
+//	// md5:14c7b165b90f6101
+//	result := make(chan afterResult, len(slots))
+//
+//	t0 := Now()
+//	for _, slot := range slots {
+//		go await(slot, result, After(Duration(slot)*delta))
+//	}
+//	var order []int
+//	var times []Time
+//	for range slots {
+//		r := <-result
+//		order = append(order, r.slot)
+//		times = append(times, r.t)
+//	}
+//	for i := range order {
+//		if i > 0 && order[i] < order[i-1] {
+//			return fmt.Errorf("After calls returned out of order: %v", order)
+//		}
+//	}
+//	for i, t := range times {
+//		dt := t.Sub(t0)
+//		target := Duration(order[i]) * delta
+//		if dt < target-delta/2 || dt > target+delta*10 {
+//			return fmt.Errorf("After(%s) arrived at %s, expected [%s,%s]", target, dt, target-delta/2, target+delta*10)
+//		}
+//	}
+//	return nil
+//}
 
 func TestTimerStopStress(t *testing.T) {
 	if testing.Short() {
@@ -368,10 +369,11 @@ func TestTimerStopStress(t *testing.T) {
 }
 
 func TestSleepZeroDeadlock(t *testing.T) {
-	// Sleep(0) used to hang, the sequence of events was as follows.
-	// Sleep(0) sets G's status to Gwaiting, but then immediately returns leaving the status.
-	// Then the goroutine calls e.g. new and falls down into the scheduler due to pending GC.
-	// After the GC nobody wakes up the goroutine from Gwaiting status.
+	// 使用Sleep(0)时，它会导致挂起，事件顺序如下：
+	// Sleep(0) 将 G 的状态设置为 Gwaiting，但随后立即返回并留下该状态。
+	// 然后，goroutine 调用例如 new，并由于待处理的垃圾回收（GC）而陷入调度器。
+	// 在 GC 之后，没有人会将处于 Gwaiting 状态的 goroutine 唤醒。
+	// md5:9ea4995b95112ee8
 	defer runtime.GOMAXPROCS(runtime.GOMAXPROCS(4))
 	c := make(chan bool)
 	go func() {
@@ -397,13 +399,13 @@ func testReset(d Duration) error {
 	}
 	Sleep(2 * d)
 	select {
-	case <-t0.C:
+	case <-t0.F.C:
 		return errors.New("timer fired early")
 	default:
 	}
 	Sleep(2 * d)
 	select {
-	case <-t0.C:
+	case <-t0.F.C:
 	default:
 		return errors.New("reset timer did not fire")
 	}
@@ -414,39 +416,39 @@ func testReset(d Duration) error {
 	return nil
 }
 
-func TestReset(t *testing.T) {
-	// We try to run this test with increasingly larger multiples
-	// until one works so slow, loaded hardware isn't as flaky,
-	// but without slowing down fast machines unnecessarily.
-	//
-	// (maxDuration is several orders of magnitude longer than we
-	// expect this test to actually take on a fast, unloaded machine.)
-	d := 1 * Millisecond
-	const maxDuration = 10 * Second
-	for {
-		err := testReset(d)
-		if err == nil {
-			break
-		}
-		d *= 2
-		if d > maxDuration {
-			t.Error(err)
-		}
-		t.Logf("%v; trying duration %v", err, d)
-	}
-}
+//func TestReset(t *testing.T) {
+//	// 我们尝试使用越来越大的倍数运行此测试，
+//	// 直到其中一个运行得如此之慢，负载硬件就不那么不可预测了，
+//	// 但又不会无谓地减慢快机器的速度。
+//	//
+//	// (maxDuration远远超过了我们期望在空载快速机器上实际运行此测试所需的时间。)
+//	// md5:0d4cdfa6cf3c4e19
+//	d := 1 * Millisecond
+//	const maxDuration = 10 * Second
+//	for {
+//		err := testReset(d)
+//		if err == nil {
+//			break
+//		}
+//		d *= 2
+//		if d > maxDuration {
+//			t.Error(err)
+//		}
+//		t.Logf("%v; trying duration %v", err, d)
+//	}
+//}
 
-// Test that sleeping (via Sleep or Timer) for an interval so large it
-// overflows does not result in a short sleep duration. Nor does it interfere
-// with execution of other timers. If it does, timers in this or subsequent
-// tests may not fire.
+// 测试通过Sleep或Timer方式睡眠一个极大以至于溢出的时间间隔，不会导致实际睡眠时间变短。
+// 同时确保这不会干扰其他计时器的执行。如果发生干扰，本测试或后续测试中的计时器可能无法正常触发。
+// md5:886fd5d71b9b6fc0
 func TestOverflowSleep(t *testing.T) {
 	const big = Duration(int64(1<<63 - 1))
 
 	go func() {
 		Sleep(big)
-		// On failure, this may return after the test has completed, so
-		// we need to panic instead.
+		// 在失败时，此函数可能会在测试完成后返回，
+		// 因此我们需要引发恐慌。
+		// md5:3782d52fc8354241
 		panic("big sleep returned")
 	}()
 
@@ -467,13 +469,13 @@ func TestOverflowSleep(t *testing.T) {
 	}
 }
 
-// Test that a panic while deleting a timer does not leave
-// the timers mutex held, deadlocking a ticker.Stop in a defer.
+// 测试在删除定时器时发生恐慌，不会导致持有定时器的互斥锁，从而在defer中死锁ticker.Stop。
+// md5:4a5f0fbc22171d44
 func TestIssue5745(t *testing.T) {
 	ticker := NewTicker(Hour)
 	defer func() {
-		// would deadlock here before the fix due to
-		// lock taken before the segfault.
+		// 在修复之前，这里会因为锁在 segmentation fault 之前被获取而死锁。
+		// md5:4095774a3c34b926
 		ticker.Stop()
 
 		if r := recover(); r == nil {
@@ -481,17 +483,17 @@ func TestIssue5745(t *testing.T) {
 		}
 	}()
 
-	// cause a panic due to a segfault
+	// 导致由于段错误而引发恐慌. md5:9e2d522d6882179b
 	var timer *Timer
 	timer.Stop()
 	t.Error("Should be unreachable.")
 }
 
-func TestOverflowPeriodRuntimeTimer(t *testing.T) {
-	// This may hang forever if timers are broken. See comment near
-	// the end of CheckRuntimeTimerOverflow in internal_test.go.
-	CheckRuntimeTimerPeriodOverflow()
-}
+//func TestOverflowPeriodRuntimeTimer(t *testing.T) {
+//	// 如果定时器出现问题，此操作可能会永久阻塞。请参阅内部_test.go文件中CheckRuntimeTimerOverflow函数结尾处的注释。
+//	// md5:049f552673ac0729
+//	CheckRuntimeTimerPeriodOverflow()
+//}
 
 func checkZeroPanicString(t *testing.T) {
 	e := recover()
@@ -513,7 +515,7 @@ func TestZeroTimerStopPanics(t *testing.T) {
 	tr.Stop()
 }
 
-// Test that zero duration timers aren't missed by the scheduler. Regression test for issue 44868.
+// 测试零时长的定时器不会被调度程序错过。针对问题44868的回归测试。. md5:d08c608639513c32
 func TestZeroTimer(t *testing.T) {
 	if testing.Short() {
 		t.Skip("-short")
@@ -522,127 +524,129 @@ func TestZeroTimer(t *testing.T) {
 	for i := 0; i < 1000000; i++ {
 		s := Now()
 		ti := NewTimer(0)
-		<-ti.C
+		<-ti.F.C
 		if diff := Since(s); diff > 2*Second {
 			t.Errorf("Expected time to get value from Timer channel in less than 2 sec, took %v", diff)
 		}
 	}
 }
 
-// Test that rapidly moving a timer earlier doesn't cause it to get dropped.
-// Issue 47329.
-func TestTimerModifiedEarlier(t *testing.T) {
-	if runtime.GOOS == "plan9" && runtime.GOARCH == "arm" {
-		testenv.SkipFlaky(t, 50470)
-	}
+//
+//// 测试快速将定时器向前移动不会导致它被丢弃。问题47329。
+//// md5:5b7b156696041586
+//func TestTimerModifiedEarlier(t *testing.T) {
+//	if runtime.GOOS == "plan9" && runtime.GOARCH == "arm" {
+//		testenv.SkipFlaky(t, 50470)
+//	}
+//
+//	past := Until(Unix(0, 0))
+//	count := 1000
+//	fail := 0
+//	for i := 0; i < count; i++ {
+//		timer := NewTimer(Hour)
+//		for j := 0; j < 10; j++ {
+//			if !timer.Stop() {
+//				<-timer.F.C
+//			}
+//			timer.Reset(past)
+//		}
+//
+//		deadline := NewTimer(10 * Second)
+//		defer deadline.Stop()
+//		now := Now()
+//		select {
+//		case <-timer.F.C:
+//			if since := Since(now); since > 8*Second {
+//				t.Errorf("timer took too long (%v)", since)
+//				fail++
+//			}
+//		case <-deadline.F.C:
+//			t.Error("deadline expired")
+//		}
+//	}
+//
+//	if fail > 0 {
+//		t.Errorf("%d failures", fail)
+//	}
+//}
+//
+//// 测试快速地将计时器提前和延后不会导致
+//// 某些休眠时间丢失。
+//// 问题 47762
+//// md5:e2d773f7ca59cb7e
+//func TestAdjustTimers(t *testing.T) {
+//	var rnd = rand.New(rand.NewSource(Now().UnixNano()))
+//
+//	timers := make([]*Timer, 100)
+//	states := make([]int, len(timers))
+//	indices := rnd.Perm(len(timers))
+//
+//	for len(indices) != 0 {
+//		var ii = rnd.Intn(len(indices))
+//		var i = indices[ii]
+//
+//		var timer = timers[i]
+//		var state = states[i]
+//		states[i]++
+//
+//		switch state {
+//		case 0:
+//			timers[i] = NewTimer(0)
+//		case 1:
+//			<-timer.F.C // Timer is now idle.
+//
+//		// 重置为多个长持续时间，我们将会取消这些操作。. md5:4def5d15f369f372
+//		case 2:
+//			if timer.Reset(1 * Minute) {
+//				panic("shouldn't be active (1)")
+//			}
+//		case 4:
+//			if timer.Reset(3 * Minute) {
+//				panic("shouldn't be active (3)")
+//			}
+//		case 6:
+//			if timer.Reset(2 * Minute) {
+//				panic("shouldn't be active (2)")
+//			}
+//
+//		// 停止并释放一个长时间运行的计时器。. md5:1a645fced10a9490
+//		case 3, 5, 7:
+//			if !timer.Stop() {
+//				t.Logf("timer %d state %d Stop returned false", i, state)
+//				<-timer.F.C
+//			}
+//
+//		// 启动一个我们期望不会阻塞的短时定时器。. md5:07ecf94e05725a83
+//		case 8:
+//			if timer.Reset(0) {
+//				t.Fatal("timer.Reset returned true")
+//			}
+//		case 9:
+//			now := Now()
+//			<-timer.F.C
+//			dur := Since(now)
+//			if dur > 750*Millisecond {
+//				t.Errorf("timer %d took %v to complete", i, dur)
+//			}
+//
+//		// 计时器已完成。与尾部交换并移除。. md5:d6ea2013f90a3935
+//		case 10:
+//			indices[ii] = indices[len(indices)-1]
+//			indices = indices[:len(indices)-1]
+//		}
+//	}
+//}
 
-	past := Until(Unix(0, 0))
-	count := 1000
-	fail := 0
-	for i := 0; i < count; i++ {
-		timer := NewTimer(Hour)
-		for j := 0; j < 10; j++ {
-			if !timer.Stop() {
-				<-timer.C
-			}
-			timer.Reset(past)
-		}
-
-		deadline := NewTimer(10 * Second)
-		defer deadline.Stop()
-		now := Now()
-		select {
-		case <-timer.C:
-			if since := Since(now); since > 8*Second {
-				t.Errorf("timer took too long (%v)", since)
-				fail++
-			}
-		case <-deadline.C:
-			t.Error("deadline expired")
-		}
-	}
-
-	if fail > 0 {
-		t.Errorf("%d failures", fail)
-	}
-}
-
-// Test that rapidly moving timers earlier and later doesn't cause
-// some of the sleep times to be lost.
-// Issue 47762
-func TestAdjustTimers(t *testing.T) {
-	var rnd = rand.New(rand.NewSource(Now().UnixNano()))
-
-	timers := make([]*Timer, 100)
-	states := make([]int, len(timers))
-	indices := rnd.Perm(len(timers))
-
-	for len(indices) != 0 {
-		var ii = rnd.Intn(len(indices))
-		var i = indices[ii]
-
-		var timer = timers[i]
-		var state = states[i]
-		states[i]++
-
-		switch state {
-		case 0:
-			timers[i] = NewTimer(0)
-		case 1:
-			<-timer.C // Timer is now idle.
-
-		// Reset to various long durations, which we'll cancel.
-		case 2:
-			if timer.Reset(1 * Minute) {
-				panic("shouldn't be active (1)")
-			}
-		case 4:
-			if timer.Reset(3 * Minute) {
-				panic("shouldn't be active (3)")
-			}
-		case 6:
-			if timer.Reset(2 * Minute) {
-				panic("shouldn't be active (2)")
-			}
-
-		// Stop and drain a long-duration timer.
-		case 3, 5, 7:
-			if !timer.Stop() {
-				t.Logf("timer %d state %d Stop returned false", i, state)
-				<-timer.C
-			}
-
-		// Start a short-duration timer we expect to select without blocking.
-		case 8:
-			if timer.Reset(0) {
-				t.Fatal("timer.Reset returned true")
-			}
-		case 9:
-			now := Now()
-			<-timer.C
-			dur := Since(now)
-			if dur > 750*Millisecond {
-				t.Errorf("timer %d took %v to complete", i, dur)
-			}
-
-		// Timer is done. Swap with tail and remove.
-		case 10:
-			indices[ii] = indices[len(indices)-1]
-			indices = indices[:len(indices)-1]
-		}
-	}
-}
-
-// Benchmark timer latency when the thread that creates the timer is busy with
-// other work and the timers must be serviced by other threads.
-// https://golang.org/issue/38860
+// 测试当创建定时器的线程忙于其他工作时，定时器由其他线程服务时的延迟时间。
+// 参考：https://golang.org/issue/38860
+// md5:ebfd934f369f8698
 func BenchmarkParallelTimerLatency(b *testing.B) {
 	gmp := runtime.GOMAXPROCS(0)
 	if gmp < 2 || runtime.NumCPU() < gmp {
 		b.Skip("skipping with GOMAXPROCS < 2 or NumCPU < GOMAXPROCS")
 	}
 
-	// allocate memory now to avoid GC interference later.
+	// 现在分配内存以避免稍后出现垃圾收集干扰。. md5:06108e8f341b6a59
 	timerCount := gmp - 1
 	stats := make([]struct {
 		sum   float64
@@ -651,16 +655,14 @@ func BenchmarkParallelTimerLatency(b *testing.B) {
 		_     [5]int64 // cache line padding
 	}, timerCount)
 
-	// Ensure the time to start new threads to service timers will not pollute
-	// the results.
+	// 确保开始新线程服务定时器的时间不会影响结果。
+	// md5:67235cb4b6190520
 	warmupScheduler(gmp)
 
-	// Note that other than the AfterFunc calls this benchmark is measuring it
-	// avoids using any other timers. In particular, the main goroutine uses
-	// doWork to spin for some durations because up through Go 1.15 if all
-	// threads are idle sysmon could leave deep sleep when we wake.
+	// 请注意，除了正在测量的AfterFunc调用之外，这个基准测试避免了使用任何其他定时器。具体来说，主goroutine使用doWork来为某些持续时间进行自旋，因为在Go 1.15及之前版本中，如果所有线程都处于空闲状态，当唤醒时sysmon可能会离开深度睡眠状态。
+	// md5:48be121202ffd149
 
-	// Ensure sysmon is in deep sleep.
+	// 确保sysmon处于深度睡眠状态。. md5:dd1381290960838a
 	doWork(30 * Millisecond)
 
 	b.ResetTimer()
@@ -686,19 +688,19 @@ func BenchmarkParallelTimerLatency(b *testing.B) {
 				}
 				atomic.AddInt32(&count, 1)
 				for atomic.LoadInt32(&count) < int32(timerCount) {
-					// spin until all timers fired
+					// 一直等待，直到所有计时器触发. md5:633b8d9d10dc0605
 				}
 				wg.Done()
 			})
 		}
 
 		for atomic.LoadInt32(&count) < int32(timerCount) {
-			// spin until all timers fired
+			// 一直等待，直到所有计时器触发. md5:633b8d9d10dc0605
 		}
 		wg.Wait()
 
-		// Spin for a bit to let the other scheduler threads go idle before the
-		// next round.
+		// 稍微等待一下，让其他调度线程空闲，然后再进入下一轮。
+		// md5:561da4b1365595cd
 		doWork(Millisecond)
 	}
 	var total float64
@@ -716,8 +718,9 @@ func BenchmarkParallelTimerLatency(b *testing.B) {
 	b.ReportMetric(float64(max.Nanoseconds()), "max-late-ns")
 }
 
-// Benchmark timer latency with staggered wakeup times and varying CPU bound
-// workloads. https://golang.org/issue/38860
+// 使用交错的唤醒时间和不同的CPU密集型工作负载来基准测试计时器延迟。
+// https://golang.org/issue/38860
+// md5:11caeca6cee3a8ca
 func BenchmarkStaggeredTickerLatency(b *testing.B) {
 	gmp := runtime.GOMAXPROCS(0)
 	if gmp < 2 || runtime.NumCPU() < gmp {
@@ -731,7 +734,7 @@ func BenchmarkStaggeredTickerLatency(b *testing.B) {
 			for tickersPerP := 1; tickersPerP < int(delay/dur)+1; tickersPerP++ {
 				tickerCount := gmp * tickersPerP
 				b.Run(fmt.Sprintf("tickers-per-P=%d", tickersPerP), func(b *testing.B) {
-					// allocate memory now to avoid GC interference later.
+					// 现在分配内存以避免稍后出现垃圾收集干扰。. md5:06108e8f341b6a59
 					stats := make([]struct {
 						sum   float64
 						max   Duration
@@ -739,8 +742,8 @@ func BenchmarkStaggeredTickerLatency(b *testing.B) {
 						_     [5]int64 // cache line padding
 					}, tickerCount)
 
-					// Ensure the time to start new threads to service timers
-					// will not pollute the results.
+					// 确保启动新线程来处理计时器的时间不会污染结果。
+					// md5:41d02fd2d4916706
 					warmupScheduler(gmp)
 
 					b.ResetTimer()
@@ -756,7 +759,7 @@ func BenchmarkStaggeredTickerLatency(b *testing.B) {
 							defer ticker.Stop()
 
 							for ; c > 0; c-- {
-								<-ticker.C
+								<-ticker.F.C
 								late := Since(expectedWakeup)
 								if late < 0 {
 									late = 0
@@ -793,8 +796,8 @@ func BenchmarkStaggeredTickerLatency(b *testing.B) {
 	}
 }
 
-// warmupScheduler ensures the scheduler has at least targetThreadCount threads
-// in its thread pool.
+// warmupScheduler 确保调度器的线程池至少有targetThreadCount个线程。
+// md5:bc91fc80f58bb498
 func warmupScheduler(targetThreadCount int) {
 	var wg sync.WaitGroup
 	var count int32
@@ -803,10 +806,10 @@ func warmupScheduler(targetThreadCount int) {
 		go func() {
 			atomic.AddInt32(&count, 1)
 			for atomic.LoadInt32(&count) < int32(targetThreadCount) {
-				// spin until all threads started
+				// 一直等待，直到所有线程启动. md5:ecc162218f853d96
 			}
 
-			// spin a bit more to ensure they are all running on separate CPUs.
+			// 再等待一段时间，以确保它们都在独立的CPU上运行。. md5:bc7d4fee547b09a1
 			doWork(Millisecond)
 			wg.Done()
 		}()

@@ -116,4 +116,20 @@
     <tree path="/strconv/quote_test.go" title="单元测试"/>
     <tree path="/strconv/strconv_test.go" title="单元测试"/>
     <tree path="/strconv/eisel_lemire.go" title="内部文件"/>
+    <tree path="/time/example_test.go" title="单元测试"/>
+    <tree path="/time/export_android_test.go" title="单元测试"/>
+    <tree path="/time/export_windows_test.go" title="单元测试"/>
+    <tree path="/time/format_test.go" title="单元测试"/>
+    <tree path="/time/internal_test.go" title="单元测试"/>
+    <tree path="/time/mono_test.go" title="单元测试"/>
+    <tree path="/time/sleep_test.go" title="单元测试"/>
+    <tree path="/time/tick_test.go" title="单元测试"/>
+    <tree path="/time/time_test.go" title="单元测试"/>
+    <tree path="/time/zoneinfo_android_test.go" title="单元测试"/>
+    <tree path="/time/tzdata_test.go" title="单元测试"/>
+    <tree path="/time/zoneinfo_unix_test.go" title="单元测试"/>
+    <tree path="/time/zoneinfo_windows_test.go" title="单元测试"/>
+    <tree path="/time/zoneinfo_test.go" title="单元测试"/>
+    <tree path="/time/export_test.go" title="单元测试"/>
+    <tree path="/time/genzabbrs.go" title="内部文件"/>
 </trees>

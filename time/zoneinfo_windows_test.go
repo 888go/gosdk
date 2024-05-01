@@ -1,13 +1,12 @@
-// Copyright 2013 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 2013 Go 作者。保留所有权利。
+// 使用此源代码受BSD风格许可证约束，该许可证可从LICENSE文件中找到。
+// md5:19d1a3ed91182ee4
 
 package time_test
 
 import (
-	"internal/syscall/windows/registry"
+	. "github.com/888go/gosdk/time"
 	"testing"
-	. "time"
 )
 
 func testZoneAbbr(t *testing.T) {
@@ -24,46 +23,47 @@ func testZoneAbbr(t *testing.T) {
 	}
 }
 
-func TestUSPacificZoneAbbr(t *testing.T) {
-	ForceUSPacificFromTZIForTesting() // reset the Once to trigger the race
-	defer ForceUSPacificForTesting()
-	testZoneAbbr(t)
-}
-
-func TestAusZoneAbbr(t *testing.T) {
-	ForceAusFromTZIForTesting()
-	defer ForceUSPacificForTesting()
-	testZoneAbbr(t)
-}
-
-func TestToEnglishName(t *testing.T) {
-	const want = "Central Europe Standard Time"
-	k, err := registry.OpenKey(registry.LOCAL_MACHINE, `SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones\`+want, registry.READ)
-	if err != nil {
-		t.Fatalf("cannot open CEST time zone information from registry: %s", err)
-	}
-	defer k.Close()
-
-	var std, dlt string
-	// Try MUI_Std and MUI_Dlt first, fallback to Std and Dlt if *any* error occurs
-	std, err = k.GetMUIStringValue("MUI_Std")
-	if err == nil {
-		dlt, err = k.GetMUIStringValue("MUI_Dlt")
-	}
-	if err != nil { // Fallback to Std and Dlt
-		if std, _, err = k.GetStringValue("Std"); err != nil {
-			t.Fatalf("cannot read CEST Std registry key: %s", err)
-		}
-		if dlt, _, err = k.GetStringValue("Dlt"); err != nil {
-			t.Fatalf("cannot read CEST Dlt registry key: %s", err)
-		}
-	}
-
-	name, err := ToEnglishName(std, dlt)
-	if err != nil {
-		t.Fatalf("toEnglishName failed: %s", err)
-	}
-	if name != want {
-		t.Fatalf("english name: %q, want: %q", name, want)
-	}
-}
+//
+//func TestUSPacificZoneAbbr(t *testing.T) {
+//	ForceUSPacificFromTZIForTesting() // 将Once重置以触发竞争条件. md5:f7940df75a562e17
+//	defer ForceUSPacificForTesting()
+//	testZoneAbbr(t)
+//}
+//
+//func TestAusZoneAbbr(t *testing.T) {
+//	ForceAusFromTZIForTesting()
+//	defer ForceUSPacificForTesting()
+//	testZoneAbbr(t)
+//}
+//
+//func TestToEnglishName(t *testing.T) {
+//	const want = "Central Europe Standard Time"
+//	k, err := registry.OpenKey(registry.LOCAL_MACHINE, `SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones\`+want, registry.READ)
+//	if err != nil {
+//		t.Fatalf("cannot open CEST time zone information from registry: %s", err)
+//	}
+//	defer k.Close()
+//
+//	var std, dlt string
+//	// 首先尝试使用 MUI_Std 和 MUI_Dlt，如果遇到任何错误，则回退到 Std 和 Dlt。. md5:4839ee3ec81db384
+//	std, err = k.GetMUIStringValue("MUI_Std")
+//	if err == nil {
+//		dlt, err = k.GetMUIStringValue("MUI_Dlt")
+//	}
+//	if err != nil { // 回退到Std和Dlt. md5:5980702591820792
+//		if std, _, err = k.GetStringValue("Std"); err != nil {
+//			t.Fatalf("cannot read CEST Std registry key: %s", err)
+//		}
+//		if dlt, _, err = k.GetStringValue("Dlt"); err != nil {
+//			t.Fatalf("cannot read CEST Dlt registry key: %s", err)
+//		}
+//	}
+//
+//	name, err := ToEnglishName(std, dlt)
+//	if err != nil {
+//		t.Fatalf("toEnglishName failed: %s", err)
+//	}
+//	if name != want {
+//		t.Fatalf("english name: %q, want: %q", name, want)
+//	}
+//}

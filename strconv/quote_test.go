@@ -1,6 +1,7 @@
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+//版权所有2009年Go作者。所有权利保留。
+//使用此源代码受BSD风格
+//可以在LICENSE文件中找到的许可证。
+// md5:2e9dc81828a3be8a
 
 package strconv_test
 
@@ -11,7 +12,7 @@ import (
 	"unicode"
 )
 
-// Verify that our IsPrint agrees with unicode.IsPrint.
+// 验证我们的IsPrint方法是否与unicode.IsPrint一致。. md5:5e874793f8fc1f0e
 func TestIsPrint(t *testing.T) {
 	n := 0
 	for r := rune(0); r <= unicode.MaxRune; r++ {
@@ -25,7 +26,7 @@ func TestIsPrint(t *testing.T) {
 	}
 }
 
-// Verify that our IsGraphic agrees with unicode.IsGraphic.
+// 验证我们的IsGraphic方法与unicode.IsGraphic是否一致。. md5:8e209dd71d1c6c1c
 func TestIsGraphic(t *testing.T) {
 	n := 0
 	for r := rune(0); r <= unicode.MaxRune; r++ {
@@ -53,7 +54,7 @@ var quotetests = []quoteTest{
 	{"\u263a", `"☺"`, `"\u263a"`, `"☺"`},
 	{"\U0010ffff", `"\U0010ffff"`, `"\U0010ffff"`, `"\U0010ffff"`},
 	{"\x04", `"\x04"`, `"\x04"`, `"\x04"`},
-	// Some non-printable but graphic runes. Final column is double-quoted.
+	// 一些非可打印但可视的字符。最后一列使用双引号括起。. md5:ecc063c1010c3543
 	{"!\u00a0!\u2000!\u3000!", `"!\u00a0!\u2000!\u3000!"`, `"!\u00a0!\u2000!\u3000!"`, "\"!\u00a0!\u2000!\u3000!\""},
 	{"\x7f", `"\x7f"`, `"\x7f"`, `"\x7f"`},
 }
@@ -137,7 +138,7 @@ var quoterunetests = []quoteRuneTest{
 	{0x0010ffff, `'\U0010ffff'`, `'\U0010ffff'`, `'\U0010ffff'`},
 	{0x0010ffff + 1, `'�'`, `'\ufffd'`, `'�'`},
 	{0x04, `'\x04'`, `'\x04'`, `'\x04'`},
-	// Some differences between graphic and printable. Note the last column is double-quoted.
+	// graphic和printable之间的一些差异。请注意最后一列是使用双引号的。. md5:2b885147fc3d3a86
 	{'\u00a0', `'\u00a0'`, `'\u00a0'`, "'\u00a0'"},
 	{'\u2000', `'\u2000'`, `'\u2000'`, "'\u2000'"},
 	{'\u3000', `'\u3000'`, `'\u3000'`, "'\u3000'"},
@@ -323,7 +324,7 @@ func TestUnquote(t *testing.T) {
 	}
 }
 
-// Issue 23685: invalid UTF-8 should not go through the fast path.
+// 问题 23685：无效的 UTF-8 不应该通过快速路径处理。. md5:3e0c097fad6333f0
 func TestUnquoteInvalidUTF8(t *testing.T) {
 	tests := []struct {
 		in string
@@ -350,20 +351,21 @@ func testUnquote(t *testing.T, in, want string, wantErr error) {
 		t.Errorf("Unquote(%q) = (%q, %v), want (%q, %v)", in, got, gotErr, want, wantErr)
 	}
 
-	// Test QuotedPrefix.
-	// Adding an arbitrary suffix should not change the result of QuotedPrefix
-	// assume that the suffix doesn't accidentally terminate a truncated input.
+// 测试QuotedPrefix。
+// 添加任意后缀不应该改变QuotedPrefix的结果
+// 假设后缀不会意外地终止截断的输入。
+// md5:95e27f90457e7585
 	if gotErr == nil {
 		want = in
 	}
-	suffix := "\n\r\\\"`'" // special characters for quoted strings
+	suffix := "\n\r\\\"`'" // 引用字符串中的特殊字符. md5:feb054bcd5874ca7
 	if len(in) > 0 {
 		suffix = strings.ReplaceAll(suffix, in[:1], "")
 	}
 	in += suffix
 	got, gotErr = QuotedPrefix(in)
 	if gotErr == nil && wantErr != nil {
-		_, wantErr = Unquote(got) // original input had trailing junk, reparse with only valid prefix
+		_, wantErr = Unquote(got) // 原始输入包含多余的尾部内容，使用有效的前缀重新解析. md5:8621be0d2464073a
 		want = got
 	}
 	if got != want || gotErr != wantErr {

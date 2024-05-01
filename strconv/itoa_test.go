@@ -1,6 +1,7 @@
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+//版权所有2009年Go作者。所有权利保留。
+//使用此源代码受BSD风格
+//可以在LICENSE文件中找到的许可证。
+// md5:2e9dc81828a3be8a
 
 package strconv_test
 
@@ -94,7 +95,7 @@ func TestItoa(t *testing.T) {
 		}
 	}
 
-	// Override when base is illegal
+	// 当基础（base）不合法时重写. md5:a3b1c26b64be8d68
 	defer func() {
 		if r := recover(); r == nil {
 			t.Fatalf("expected panic due to illegal base")
@@ -240,4 +241,4 @@ func BenchmarkAppendUintVarlen(b *testing.B) {
 	}
 }
 
-var BenchSink int // make sure compiler cannot optimize away benchmarks
+var BenchSink int // 确保编译器不会优化掉基准测试. md5:ee2c1261a81ea22c

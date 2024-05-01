@@ -1,6 +1,7 @@
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+//版权所有2009年Go作者。所有权利保留。
+//使用此源代码受BSD风格
+//可以在LICENSE文件中找到的许可证。
+// md5:2e9dc81828a3be8a
 
 package strconv_test
 
@@ -30,7 +31,7 @@ var parseUint64Tests = []parseUint64Test{
 	{"18446744073709551615", 1<<64 - 1, nil},
 	{"18446744073709551616", 1<<64 - 1, ErrRange},
 	{"18446744073709551620", 1<<64 - 1, ErrRange},
-	{"1_2_3_4_5", 0, ErrSyntax}, // base=10 so no underscores allowed
+	{"1_2_3_4_5", 0, ErrSyntax}, // 基数为10，因此不允许使用下划线. md5:f670300ddc72402d
 	{"_12345", 0, ErrSyntax},
 	{"1__2345", 0, ErrSyntax},
 	{"12345_", 0, ErrSyntax},
@@ -78,7 +79,7 @@ var parseUint64BaseTests = []parseUint64BaseTest{
 	{"0o377", 0, 255, nil},
 	{"0O377", 0, 255, nil},
 
-	// underscores allowed with base == 0 only
+	// 只有当基数为0时，允许使用下划线. md5:07328923f549ba85
 	{"1_2_3_4_5", 0, 12345, nil}, // base 0 => 10
 	{"_12345", 0, 0, ErrSyntax},
 	{"1__2345", 0, 0, ErrSyntax},
@@ -160,7 +161,7 @@ var parseInt64Tests = []parseInt64Test{
 	{"-9223372036854775808", -1 << 63, nil},
 	{"9223372036854775809", 1<<63 - 1, ErrRange},
 	{"-9223372036854775809", -1 << 63, ErrRange},
-	{"-1_2_3_4_5", 0, ErrSyntax}, // base=10 so no underscores allowed
+	{"-1_2_3_4_5", 0, ErrSyntax}, // 基数为10，因此不允许使用下划线. md5:f670300ddc72402d
 	{"-_12345", 0, ErrSyntax},
 	{"_12345", 0, ErrSyntax},
 	{"1__2345", 0, ErrSyntax},
@@ -266,7 +267,7 @@ var parseUint32Tests = []parseUint32Test{
 	{"987654321", 987654321, nil},
 	{"4294967295", 1<<32 - 1, nil},
 	{"4294967296", 1<<32 - 1, ErrRange},
-	{"1_2_3_4_5", 0, ErrSyntax}, // base=10 so no underscores allowed
+	{"1_2_3_4_5", 0, ErrSyntax}, // 基数为10，因此不允许使用下划线. md5:f670300ddc72402d
 	{"_12345", 0, ErrSyntax},
 	{"_12345", 0, ErrSyntax},
 	{"1__2345", 0, ErrSyntax},
@@ -299,7 +300,7 @@ var parseInt32Tests = []parseInt32Test{
 	{"-2147483648", -1 << 31, nil},
 	{"2147483649", 1<<31 - 1, ErrRange},
 	{"-2147483649", -1 << 31, ErrRange},
-	{"-1_2_3_4_5", 0, ErrSyntax}, // base=10 so no underscores allowed
+	{"-1_2_3_4_5", 0, ErrSyntax}, // 基数为10，因此不允许使用下划线. md5:f670300ddc72402d
 	{"-_12345", 0, ErrSyntax},
 	{"_12345", 0, ErrSyntax},
 	{"1__2345", 0, ErrSyntax},
@@ -318,8 +319,8 @@ var numErrorTests = []numErrorTest{
 }
 
 func init() {
-	// The parse routines return NumErrors wrapping
-	// the error and the string. Convert the tables above.
+// 解析程序返回一个包含错误和字符串的NumErrors。请将上述表格转换。
+// md5:b0db1d179531d30c
 	for i := range parseUint64Tests {
 		test := &parseUint64Tests[i]
 		if test.err != nil {

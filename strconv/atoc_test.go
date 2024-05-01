@@ -1,6 +1,6 @@
-// Copyright 2020 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 2020 Go 作者。保留所有权利。
+// 使用此源代码受BSD风格许可证管辖，该许可证可从LICENSE文件中找到。
+// md5:97282fec9c34c48c
 
 package strconv_test
 
@@ -135,8 +135,9 @@ func TestParseComplex(t *testing.T) {
 		{"1p2", 0, ErrSyntax},
 		{"0x1e2i", 0, ErrSyntax},
 
-		// ErrRange
-		// next float64 - too large
+// ErrRange
+// next float64 - 太大了
+// md5:31e15d10be038abe
 		{"+0x1p1024", infp0, ErrRange},
 		{"-0x1p1024", infm0, ErrRange},
 		{"+0x1p1024i", inf0p, ErrRange},
@@ -145,8 +146,9 @@ func TestParseComplex(t *testing.T) {
 		{"+0x1p1024-0x1p1024i", infpm, ErrRange},
 		{"-0x1p1024+0x1p1024i", infmp, ErrRange},
 		{"-0x1p1024-0x1p1024i", infmm, ErrRange},
-		// the border is ...158079
-		// borderline - okay
+// 边界是...158079
+// 边缘情况 - 可以接受
+// md5:be60ebc8cf2be750
 		{"+0x1.fffffffffffff7fffp1023+0x1.fffffffffffff7fffp1023i", 1.7976931348623157e+308 + 1.7976931348623157e+308i, nil},
 		{"+0x1.fffffffffffff7fffp1023-0x1.fffffffffffff7fffp1023i", 1.7976931348623157e+308 - 1.7976931348623157e+308i, nil},
 		{"-0x1.fffffffffffff7fffp1023+0x1.fffffffffffff7fffp1023i", -1.7976931348623157e+308 + 1.7976931348623157e+308i, nil},
@@ -176,7 +178,7 @@ func TestParseComplex(t *testing.T) {
 		{"+1e310-1e310i", infpm, ErrRange},
 		{"-1e310+1e310i", infmp, ErrRange},
 		{"-1e310-1e310i", infmm, ErrRange},
-		// under/overflow exponent
+		// 下溢出/上溢出指数. md5:85c42f5a239e8f37
 		{"1e-4294967296", 0, nil},
 		{"1e-4294967296i", 0, nil},
 		{"1e-4294967296+1i", 1i, nil},
@@ -213,7 +215,7 @@ func TestParseComplex(t *testing.T) {
 	}
 }
 
-// Issue 42297: allow ParseComplex(s, not_32_or_64) for legacy reasons
+// Issue 42297：出于历史原因，允许ParseComplex(s, not_32_or_64). md5:2da366efe415c498
 func TestParseComplexIncorrectBitSize(t *testing.T) {
 	const s = "1.5e308+1.0e307i"
 	const want = 1.5e308 + 1.0e307i

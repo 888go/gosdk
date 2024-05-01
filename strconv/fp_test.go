@@ -1,6 +1,7 @@
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+//版权所有2009年Go作者。所有权利保留。
+//使用此源代码受BSD风格
+//可以在LICENSE文件中找到的许可证。
+// md5:2e9dc81828a3be8a
 
 package strconv_test
 
@@ -25,8 +26,8 @@ func pow2(i int) float64 {
 	return pow2(i/2) * pow2(i-i/2)
 }
 
-// Wrapper around strconv.ParseFloat(x, 64).  Handles dddddp+ddd (binary exponent)
-// itself, passes the rest on to strconv.ParseFloat.
+// 这是一个 strconv.ParseFloat(x, 64) 的包装器。它自身处理 dddddp+ddd（二进制指数）部分，其余的传递给 strconv.ParseFloat。
+// md5:da10d8aa57bdf05c
 func myatof64(s string) (f float64, ok bool) {
 	if mant, exp, ok := strings.Cut(s, "p"); ok {
 		n, err := strconv.ParseInt(mant, 10, 64)
@@ -39,8 +40,9 @@ func myatof64(s string) (f float64, ok bool) {
 			return 0, false
 		}
 		v := float64(n)
-		// We expect that v*pow2(e) fits in a float64,
-		// but pow2(e) by itself may not. Be careful.
+// 我们期望 v*pow2(e) 能够适应一个 float64 的范围，
+// 但 pow2(e) 单独计算时可能超出了这个范围。因此需要格外小心。
+// md5:f5e925857d3ba2e6
 		if e <= -1000 {
 			v *= pow2(-1000)
 			e += 1000
@@ -68,8 +70,8 @@ func myatof64(s string) (f float64, ok bool) {
 	return f1, true
 }
 
-// Wrapper around strconv.ParseFloat(x, 32).  Handles dddddp+ddd (binary exponent)
-// itself, passes the rest on to strconv.ParseFloat.
+// 包装了strconv.ParseFloat(x, 32)。处理dddddp+ddd（二进制指数）本身，其余的传递给strconv.ParseFloat。
+// md5:a03fed9d2a4eb26f
 func myatof32(s string) (f float32, ok bool) {
 	if mant, exp, ok := strings.Cut(s, "p"); ok {
 		n, err := strconv.Atoi(mant)

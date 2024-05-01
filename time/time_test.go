@@ -1,6 +1,7 @@
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+//版权所有2009年Go作者。所有权利保留。
+//使用此源代码受BSD风格
+//可以在LICENSE文件中找到的许可证。
+// md5:2e9dc81828a3be8a
 
 package time_test
 
@@ -9,31 +10,29 @@ import (
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
+	. "github.com/888go/gosdk/time"
 	"math"
 	"math/big"
 	"math/rand"
-	"os"
 	"runtime"
 	"strings"
 	"sync"
 	"testing"
 	"testing/quick"
-	. "time"
 )
 
-// We should be in PST/PDT, but if the time zone files are missing we
-// won't be. The purpose of this test is to at least explain why some of
-// the subsequent tests fail.
+// 我们应该在PST/PDT时区，但如果时区文件缺失，我们不会在。这个测试的目的是至少解释为什么后续的一些测试会失败。
+// md5:a877153cf135d94d
 func TestZoneData(t *testing.T) {
 	lt := Now()
-	// PST is 8 hours west, PDT is 7 hours west. We could use the name but it's not unique.
+	// PST位于西边8小时，PDT位于西边7小时。我们可以使用这个名字，但它并不唯一。. md5:cbe7a8e2be638df6
 	if name, off := lt.Zone(); off != -8*60*60 && off != -7*60*60 {
 		t.Errorf("Unable to find US Pacific time zone data for testing; time zone is %q offset %d", name, off)
 		t.Error("Likely problem: the time zone files have not been installed.")
 	}
 }
 
-// parsedTime is the struct representing a parsed time value.
+// parsedTime 是表示解析后时间值的结构体。. md5:a90be61d11060ff5
 type parsedTime struct {
 	Year                 int
 	Month                Month
@@ -41,7 +40,7 @@ type parsedTime struct {
 	Hour, Minute, Second int // 15:04:05 is 15, 4, 5.
 	Nanosecond           int // Fractional second.
 	Weekday              Weekday
-	ZoneOffset           int    // seconds east of UTC, e.g. -7*60*60 for -0700
+	ZoneOffset           int    // UTC以东的秒数，例如-7*60*60表示-0700. md5:5eace65a71c2a861
 	Zone                 string // e.g., "MST"
 }
 
@@ -91,7 +90,7 @@ func same(t Time, u *parsedTime) bool {
 		name != u.Zone || offset != u.ZoneOffset {
 		return false
 	}
-	// Check individual entries.
+	// 检查单个条目。. md5:c7203452782bccc9
 	return t.Year() == u.Year &&
 		t.Month() == u.Month &&
 		t.Day() == u.Day &&
@@ -175,7 +174,7 @@ func TestSecondsToUTCAndBack(t *testing.T) {
 	f32 := func(sec int32) bool { return f(int64(sec)) }
 	cfg := &quick.Config{MaxCount: 10000}
 
-	// Try a reasonable date first, then the huge ones.
+	// 首先尝试一个合理的日期，然后尝试较大的日期。. md5:379431a5c1a862c0
 	if err := quick.Check(f32, cfg); err != nil {
 		t.Fatal(err)
 	}
@@ -193,8 +192,8 @@ func TestNanosecondsToUTCAndBack(t *testing.T) {
 	f32 := func(nsec int32) bool { return f(int64(nsec)) }
 	cfg := &quick.Config{MaxCount: 10000}
 
-	// Try a small date first, then the large ones. (The span is only a few hundred years
-	// for nanoseconds in an int64.)
+	// 首先尝试一个小的日期，然后是大的日期。（对于int64中的纳秒，跨度只有几百年）
+	// md5:3360e6892f5fb9e4
 	if err := quick.Check(f32, cfg); err != nil {
 		t.Fatal(err)
 	}
@@ -225,23 +224,21 @@ func TestUnixMicro(t *testing.T) {
 	}
 }
 
-// The time routines provide no way to get absolute time
-// (seconds since zero), but we need it to compute the right
-// answer for bizarre roundings like "to the nearest 3 ns".
-// Compute as t - year1 = (t - 1970) + (1970 - 2001) + (2001 - 1).
-// t - 1970 is returned by Unix and Nanosecond.
-// 1970 - 2001 is -(31*365+8)*86400 = -978307200 seconds.
-// 2001 - 1 is 2000*365.2425*86400 = 63113904000 seconds.
+// 时间 routines（调度）无法获取绝对时间（自零点的秒数），但我们需要它来计算出像"四舍五入到最近的3 ns"这样的奇数结果。计算方法为：t - year1 = (t - 1970) + (1970 - 2001) + (2001 - 1)。
+// t - 1970 由 Unix 和 Nanosecond 返回。
+// 1970 - 2001 是 -(31 * 365 + 8) * 86400 = -978307200 秒。
+// 2001 - 1 是 2000 * 365.2425 * 86400 = 63113904000 秒。
+// md5:a5c6dba33aaa4bcd
 const unixToZero = -978307200 + 63113904000
 
-// abs returns the absolute time stored in t, as seconds and nanoseconds.
+// abs 返回存储在 t 中的绝对时间，以秒和纳秒为单位。. md5:9b3a61e1f35f15df
 func abs(t Time) (sec, nsec int64) {
 	unix := t.Unix()
 	nano := t.Nanosecond()
 	return unix + unixToZero, int64(nano)
 }
 
-// absString returns abs as a decimal string.
+// absString 将 abs 转换为十进制字符串。. md5:f4ecea5809009a31
 func absString(t Time) string {
 	sec, nsec := abs(t)
 	if sec < 0 {
@@ -264,7 +261,7 @@ var truncateRoundTests = []struct {
 	{Date(-1, January, 1, 12, 15, 31, 5e8, UTC), 3},
 	{Date(2012, January, 1, 12, 15, 30, 5e8, UTC), Second},
 	{Date(2012, January, 1, 12, 15, 31, 5e8, UTC), Second},
-	{Unix(-19012425939, 649146258), 7435029458905025217}, // 5.8*d rounds to 6*d, but .8*d+.8*d < 0 < d
+	{Unix(-19012425939, 649146258), 7435029458905025217}, // 5.8 * d 向上舍入到 6 * d，但是 .8 * d + .8 * d < 0 < d. md5:17cdc3615444f015
 }
 
 func TestTruncateRound(t *testing.T) {
@@ -292,23 +289,24 @@ func TestTruncateRound(t *testing.T) {
 			d = 1
 		}
 
-		// Compute bt = absolute nanoseconds.
+		// 计算bt为绝对纳秒。. md5:bb29a5c2c2e5fcb0
 		sec, nsec := abs(t0)
 		bsec.SetInt64(sec)
 		bnsec.SetInt64(nsec)
 		bt.Mul(bsec, b1e9)
 		bt.Add(bt, bnsec)
 
-		// Compute quotient and remainder mod d.
+		// 计算商和模d的余数。. md5:1ad7456726aa86c2
 		bd.SetInt64(int64(d))
 		bq.DivMod(bt, bd, br)
 
-		// To truncate, subtract remainder.
-		// br is < d, so it fits in an int64.
+		// 通过取余来截断。
+		// br 小于 d，所以它可以容纳在 int64 中。
+		// md5:44c8c5d861d5fb5b
 		r := br.Int64()
 		t1 := t0.Add(-Duration(r))
 
-		// Check that time.Truncate works.
+		// 检查time.Truncate是否正常工作。. md5:51e423e287005315
 		if trunc := t0.Truncate(d); trunc != t1 {
 			t.Errorf("Time.Truncate(%s, %s) = %s, want %s\n"+
 				"%v trunc %v =\n%v want\n%v",
@@ -317,14 +315,14 @@ func TestTruncateRound(t *testing.T) {
 			return false
 		}
 
-		// To round, add d back if remainder r > d/2 or r == exactly d/2.
-		// The commented out code would round half to even instead of up,
-		// but that makes it time-zone dependent, which is a bit strange.
+		// 如果余数 r 大于 d/2 或者等于 d/2，为了四舍五入，我们将 d 添加回去。
+		// 注释掉的代码会将半数四舍五入到偶数，而不是向上取整。但这会使它依赖时区，这有点奇怪。
+		// md5:5621afa60a7d98b6
 		if r > int64(d)/2 || r+r == int64(d) /*&& bq.Bit(0) == 1*/ {
 			t1 = t1.Add(d)
 		}
 
-		// Check that time.Round works.
+		// 检查time.Round函数是否正常工作。. md5:e5b2f97fd408128f
 		if rnd := t0.Round(d); rnd != t1 {
 			t.Errorf("Time.Round(%s, %s) = %s, want %s\n"+
 				"%v round %v =\n%v want\n%v",
@@ -355,7 +353,7 @@ func TestTruncateRound(t *testing.T) {
 		return
 	}
 
-	// randomly generated test cases
+	// 随机生成的测试用例. md5:e6955df765195da3
 	cfg := &quick.Config{MaxCount: 100000}
 	if testing.Short() {
 		cfg.MaxCount = 1000
@@ -459,7 +457,7 @@ var isoWeekTests = []ISOWeekTest{
 }
 
 func TestISOWeek(t *testing.T) {
-	// Selected dates and corner cases
+	// 选择的日期和边界情况. md5:4202016edce8d9ff
 	for _, wt := range isoWeekTests {
 		dt := Date(wt.year, Month(wt.month), wt.day, 0, 0, 0, 0, UTC)
 		y, w := dt.ISOWeek()
@@ -469,7 +467,7 @@ func TestISOWeek(t *testing.T) {
 		}
 	}
 
-	// The only real invariant: Jan 04 is in week 1
+	// 唯一真正的不变性：1月4日是在第1周内。. md5:278b4045520e4ef0
 	for year := 1950; year < 2100; year++ {
 		if y, w := Date(year, January, 4, 0, 0, 0, 0, UTC).ISOWeek(); y != year || w != 1 {
 			t.Errorf("got %d/%d; expected %d/1 for Jan 04", y, w, year)
@@ -482,8 +480,8 @@ type YearDayTest struct {
 	yday             int
 }
 
-// Test YearDay in several different scenarios
-// and corner cases
+// 在多种不同场景和边界情况下测试YearDay
+// md5:467db368371fe934
 var yearDayTests = []YearDayTest{
 	// Non-leap-year tests
 	{2007, 1, 1, 1},
@@ -505,7 +503,7 @@ var yearDayTests = []YearDayTest{
 	{2008, 4, 1, 92},
 	{2008, 12, 31, 366},
 
-	// Looks like leap-year (but isn't) tests
+	// 看起来像是闰年（但实际上不是）的测试. md5:ce6d977814d12f28
 	{1900, 1, 1, 1},
 	{1900, 1, 15, 15},
 	{1900, 2, 1, 32},
@@ -515,7 +513,7 @@ var yearDayTests = []YearDayTest{
 	{1900, 4, 1, 91},
 	{1900, 12, 31, 365},
 
-	// Year one tests (non-leap)
+	// 第一年的测试（非闰年）. md5:4d82de1d5378f886
 	{1, 1, 1, 1},
 	{1, 1, 15, 15},
 	{1, 2, 1, 32},
@@ -525,7 +523,7 @@ var yearDayTests = []YearDayTest{
 	{1, 4, 1, 91},
 	{1, 12, 31, 365},
 
-	// Year minus one tests (non-leap)
+	// 减去一年的测试（非闰年）. md5:9b77b30db967b744
 	{-1, 1, 1, 1},
 	{-1, 1, 15, 15},
 	{-1, 2, 1, 32},
@@ -535,7 +533,7 @@ var yearDayTests = []YearDayTest{
 	{-1, 4, 1, 91},
 	{-1, 12, 31, 365},
 
-	// 400 BC tests (leap-year)
+	// 400年前的BC测试（闰年）. md5:e252a45b423cb8ca
 	{-400, 1, 1, 1},
 	{-400, 1, 15, 15},
 	{-400, 2, 1, 32},
@@ -547,12 +545,12 @@ var yearDayTests = []YearDayTest{
 
 	// Special Cases
 
-	// Gregorian calendar change (no effect)
+	// 公历变更（无影响）. md5:93bdb417c060cda9
 	{1582, 10, 4, 277},
 	{1582, 10, 15, 288},
 }
 
-// Check to see if YearDay is location sensitive
+// 检查YearDay是否为位置敏感的. md5:5b8dab4efd11f82d
 var yearDayLocations = []*Location{
 	FixedZone("UTC-8", -8*60*60),
 	FixedZone("UTC-4", -4*60*60),
@@ -634,7 +632,7 @@ var dateTests = []struct {
 	{2011, 3, 13, 2, 30, 0, 0, Local, 1300008600},  // 2:30:00 PDT ≡ 1:30 PST
 	{2012, 12, 24, 0, 0, 0, 0, Local, 1356336000},  // Leap year
 
-	// Many names for Fri Nov 18 7:56:35 PST 2011
+	// 2011年11月18日星期五7:56:35 PST的多种名称. md5:8dd2ad304f033b90
 	{2011, 11, 18, 7, 56, 35, 0, Local, 1321631795},                 // Nov 18 7:56:35
 	{2011, 11, 19, -17, 56, 35, 0, Local, 1321631795},               // Nov 19 -17:56:35
 	{2011, 11, 17, 31, 56, 35, 0, Local, 1321631795},                // Nov 17 31:56:35
@@ -644,8 +642,10 @@ var dateTests = []struct {
 	{2011, 11, 18, 7, 56, 34, 1e9, Local, 1321631795},               // Nov 18 7:56:34 + 10⁹ns
 	{2011, 12, -12, 7, 56, 35, 0, Local, 1321631795},                // Dec -21 7:56:35
 	{2012, 1, -43, 7, 56, 35, 0, Local, 1321631795},                 // Jan -52 7:56:35 2012
-	{2012, int(January - 2), 18, 7, 56, 35, 0, Local, 1321631795},   // (Jan-2) 18 7:56:35 2012
-	{2010, int(December + 11), 18, 7, 56, 35, 0, Local, 1321631795}, // (Dec+11) 18 7:56:35 2010
+	{2012, int(January - 2), 18, 7, 56, 35, 0, Local, 1321631795},   // (一月-2) 18 7:56:35 2012. md5:6af96243b33568b3
+	{2010, int(December + 11), 18, 7, 56, 35, 0, Local, 1321631795}, //(Dec+11) 18 07:56:35 2010
+	//
+	// 这段Go语言注释的中文翻译是："（Dec+11）2010年12月11日 18:07:56"。这是时间戳的格式，Dec+11表示月份（12月后加11，即1月），18:07:56是24小时制的时间，2010则是年份。. md5:edaae9041aa5b491
 }
 
 func TestDate(t *testing.T) {
@@ -660,10 +660,12 @@ func TestDate(t *testing.T) {
 	}
 }
 
-// Several ways of getting from
-// Fri Nov 18 7:56:35 PST 2011
-// to
-// Thu Mar 19 7:56:35 PST 2016
+// 从
+// 2011年11月18日星期五，太平洋标准时间7:56:35
+// 到
+// 2016年3月19日星期四，太平洋标准时间7:56:35
+// 的多种方式
+// md5:85909e1e910bda87
 var addDateTests = []struct {
 	years, months, days int
 }{
@@ -689,29 +691,30 @@ func TestAddDate(t *testing.T) {
 var daysInTests = []struct {
 	year, month, di int
 }{
-	{2011, 1, 31},  // January, first month, 31 days
-	{2011, 2, 28},  // February, non-leap year, 28 days
-	{2012, 2, 29},  // February, leap year, 29 days
+	{2011, 1, 31},  // 一月，第一个月，31天. md5:3158b6d74f31a42d
+	{2011, 2, 28},  // 二月，非闰年，28天. md5:e49798a45ef3f35c
+	{2012, 2, 29},  // 二月，闰年，29天. md5:5026573ed7f29c97
 	{2011, 6, 30},  // June, 30 days
-	{2011, 12, 31}, // December, last month, 31 days
+	{2011, 12, 31}, // 上个月，12月，有31天. md5:f795504febd08823
 }
 
-func TestDaysIn(t *testing.T) {
-	// The daysIn function is not exported.
-	// Test the daysIn function via the `var DaysIn = daysIn`
-	// statement in the internal_test.go file.
-	for _, tt := range daysInTests {
-		di := DaysIn(Month(tt.month), tt.year)
-		if di != tt.di {
-			t.Errorf("got %d; expected %d for %d-%02d",
-				di, tt.di, tt.year, tt.month)
-		}
-	}
-}
+//func TestDaysIn(t *testing.T) {
+//// daysIn 函数没有被导出。
+//// 通过在 internal_test.go 文件中的 `var DaysIn = daysIn` 语句来测试 daysIn 函数。
+//// md5:a45861afd1e9e8fa
+//	for _, tt := range daysInTests {
+//		di := DaysIn(Month(tt.month), tt.year)
+//		if di != tt.di {
+//			t.Errorf("got %d; expected %d for %d-%02d",
+//				di, tt.di, tt.year, tt.month)
+//		}
+//	}
+//}
 
 func TestAddToExactSecond(t *testing.T) {
-	// Add an amount to the current time to round it up to the next exact second.
-	// This test checks that the nsec field still lies within the range [0, 999999999].
+	// 向当前时间添加一个量，使其向上舍入到下一个精确的秒。
+	// 此测试检查nsec字段是否仍然在范围[0, 999999999]内。
+	// md5:c18836b1f3d78e03
 	t1 := Now()
 	t2 := t1.Add(Second - Duration(t1.Nanosecond()))
 	sec := (t1.Second() + 1) % 60
@@ -730,7 +733,13 @@ var gobTests = []Time{
 	Date(0, 1, 2, 3, 4, 5, 6, UTC),
 	Date(7, 8, 9, 10, 11, 12, 13, FixedZone("", 0)),
 	Unix(81985467080890095, 0x76543210), // Time.sec: 0x0123456789ABCDEF
-	{},                                  // nil location
+	// Time.sec: 0x0123456789ABCDEF
+	// Time.sec: 0x0123456789ABCDEF
+	// Time.sec: 0x0123456789ABCDEF
+	// Time.sec: 0x0123456789ABCDEF
+	// Time.sec: 0x0123456789ABCDEF
+	// 时间.sec: 0x0123456789ABCDEF（十六进制表示的秒值）. md5:9b45ef185347f6e0
+	{}, // nil location
 	Date(1, 2, 3, 4, 5, 6, 7, FixedZone("", 32767*60)),
 	Date(1, 2, 3, 4, 5, 6, 7, FixedZone("", -32768*60)),
 }
@@ -929,11 +938,11 @@ var parseDurationTests = []struct {
 	{"39h9m14.425s", 39*Hour + 9*Minute + 14*Second + 425*Millisecond},
 	// large value
 	{"52763797000ns", 52763797000 * Nanosecond},
-	// more than 9 digits after decimal point, see https://golang.org/issue/6617
+	// 小数点后有超过9位数字，参见 https://golang.org/issue/6617. md5:d67cd94bd42d243f
 	{"0.3333333333333333333h", 20 * Minute},
-	// 9007199254740993 = 1<<53+1 cannot be stored precisely in a float64
+	// 9007199254740993 = 1 左移 53 位再加上 1，这个数值无法精确地存储在一个 float64 类型中。. md5:c17cfac2fa94c135
 	{"9007199254740993ns", (1<<53 + 1) * Nanosecond},
-	// largest duration that can be represented by int64 in nanoseconds
+	// 可以用int64表示的最大纳秒时间间隔. md5:0e44b710b3398879
 	{"9223372036854775807ns", (1<<63 - 1) * Nanosecond},
 	{"9223372036854775.807us", (1<<63 - 1) * Nanosecond},
 	{"9223372036s854ms775us807ns", (1<<63 - 1) * Nanosecond},
@@ -942,11 +951,11 @@ var parseDurationTests = []struct {
 	{"-9223372036s854ms775us808ns", -1 << 63 * Nanosecond},
 	// largest negative value
 	{"-9223372036854775808ns", -1 << 63 * Nanosecond},
-	// largest negative round trip value, see https://golang.org/issue/48629
+	// 最大的负回环值，参见：https://golang.org/issue/48629. md5:5b191ebe8da8d694
 	{"-2562047h47m16.854775808s", -1 << 63 * Nanosecond},
-	// huge string; issue 15011.
+	// 大字符串；问题15011。. md5:07e8867ae8029c1f
 	{"0.100000000000000000000h", 6 * Minute},
-	// This value tests the first overflow check in leadingFraction.
+	// 此值用于测试leadingFraction中第一个溢出检查。. md5:0e26e39dfc483cd4
 	{"0.830103483285477580700h", 49*Minute + 48*Second + 372539827*Nanosecond},
 }
 
@@ -1000,7 +1009,7 @@ func TestParseDurationErrors(t *testing.T) {
 }
 
 func TestParseDurationRoundTrip(t *testing.T) {
-	// https://golang.org/issue/48629
+	// https://golang.org/issue/48629 该问题链接指向Go语言官方仓库的一个问题讨论或报告。. md5:0add436cff6ef0f2
 	max0 := Duration(math.MaxInt64)
 	max1, err := ParseDuration(max0.String())
 	if err != nil || max0 != max1 {
@@ -1014,8 +1023,8 @@ func TestParseDurationRoundTrip(t *testing.T) {
 	}
 
 	for i := 0; i < 100; i++ {
-		// Resolutions finer than milliseconds will result in
-		// imprecise round-trips.
+		// 毫秒级以下的分辨率会导致不精确的往返。
+		// md5:77015c25f30f6270
 		d0 := Duration(rand.Int31()) * Millisecond
 		s := d0.String()
 		d1, err := ParseDuration(s)
@@ -1025,21 +1034,21 @@ func TestParseDurationRoundTrip(t *testing.T) {
 	}
 }
 
-// golang.org/issue/4622
-func TestLocationRace(t *testing.T) {
-	ResetLocalOnceForTest() // reset the Once to trigger the race
-
-	c := make(chan string, 1)
-	go func() {
-		c <- Now().String()
-	}()
-	_ = Now().String()
-	<-c
-	Sleep(100 * Millisecond)
-
-	// Back to Los Angeles for subsequent tests:
-	ForceUSPacificForTesting()
-}
+//// golang.org/issue/4622
+//func TestLocationRace(t *testing.T) {
+//	ResetLocalOnceForTest() // 将Once重置以触发竞争条件. md5:f7940df75a562e17
+//
+//	c := make(chan string, 1)
+//	go func() {
+//		c <- Now().String()
+//	}()
+//	_ = Now().String()
+//	<-c
+//	Sleep(100 * Millisecond)
+//
+//	// 返回洛杉矶进行后续测试：. md5:97e94316d288fb0e
+//	ForceUSPacificForTesting()
+//}
 
 var (
 	t Time
@@ -1073,18 +1082,17 @@ func TestCountMallocs(t *testing.T) {
 }
 
 func TestLoadFixed(t *testing.T) {
-	// Issue 4064: handle locations without any zone transitions.
+	// 问题4064：处理没有时区转换的地理位置。. md5:39d7da51684886db
 	loc, err := LoadLocation("Etc/GMT+1")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	// The tzdata name Etc/GMT+1 uses "east is negative",
-	// but Go and most other systems use "east is positive".
-	// So GMT+1 corresponds to -3600 in the Go zone, not +3600.
+	// Etc/GMT+1在tzdata中使用"东为负"的约定，但Go和其他大多数系统使用"东为正"。因此，GMT+1在Go时区中对应的是-3600秒，而不是+3600秒。
+	// md5:ba8d98a3734e5d88
 	name, offset := Now().In(loc).Zone()
-	// The zone abbreviation is "-01" since tzdata-2016g, and "GMT+1"
-	// on earlier versions; we accept both. (Issue #17276).
+	// 自tzdata-2016g以来，时区缩写为"-01"，早期版本为"GMT+1"；我们接受两者。（问题#17276）。
+	// md5:6d7d3da8d78f3359
 	if !(name == "GMT+1" || name == "-01") || offset != -1*60*60 {
 		t.Errorf("Now().In(loc).Zone() = %q, %d, want %q or %q, %d",
 			name, offset, "GMT+1", "-01", -1*60*60)
@@ -1096,37 +1104,37 @@ const (
 	maxDuration Duration = 1<<63 - 1
 )
 
-var subTests = []struct {
-	t Time
-	u Time
-	d Duration
-}{
-	{Time{}, Time{}, Duration(0)},
-	{Date(2009, 11, 23, 0, 0, 0, 1, UTC), Date(2009, 11, 23, 0, 0, 0, 0, UTC), Duration(1)},
-	{Date(2009, 11, 23, 0, 0, 0, 0, UTC), Date(2009, 11, 24, 0, 0, 0, 0, UTC), -24 * Hour},
-	{Date(2009, 11, 24, 0, 0, 0, 0, UTC), Date(2009, 11, 23, 0, 0, 0, 0, UTC), 24 * Hour},
-	{Date(-2009, 11, 24, 0, 0, 0, 0, UTC), Date(-2009, 11, 23, 0, 0, 0, 0, UTC), 24 * Hour},
-	{Time{}, Date(2109, 11, 23, 0, 0, 0, 0, UTC), minDuration},
-	{Date(2109, 11, 23, 0, 0, 0, 0, UTC), Time{}, maxDuration},
-	{Time{}, Date(-2109, 11, 23, 0, 0, 0, 0, UTC), maxDuration},
-	{Date(-2109, 11, 23, 0, 0, 0, 0, UTC), Time{}, minDuration},
-	{Date(2290, 1, 1, 0, 0, 0, 0, UTC), Date(2000, 1, 1, 0, 0, 0, 0, UTC), 290*365*24*Hour + 71*24*Hour},
-	{Date(2300, 1, 1, 0, 0, 0, 0, UTC), Date(2000, 1, 1, 0, 0, 0, 0, UTC), maxDuration},
-	{Date(2000, 1, 1, 0, 0, 0, 0, UTC), Date(2290, 1, 1, 0, 0, 0, 0, UTC), -290*365*24*Hour - 71*24*Hour},
-	{Date(2000, 1, 1, 0, 0, 0, 0, UTC), Date(2300, 1, 1, 0, 0, 0, 0, UTC), minDuration},
-	{Date(2311, 11, 26, 02, 16, 47, 63535996, UTC), Date(2019, 8, 16, 2, 29, 30, 268436582, UTC), 9223372036795099414},
-	{MinMonoTime, MaxMonoTime, minDuration},
-	{MaxMonoTime, MinMonoTime, maxDuration},
-}
+//var subTests = []struct {
+//	t Time
+//	u Time
+//	d Duration
+//}{
+//	{Time{}, Time{}, Duration(0)},
+//	{Date(2009, 11, 23, 0, 0, 0, 1, UTC), Date(2009, 11, 23, 0, 0, 0, 0, UTC), Duration(1)},
+//	{Date(2009, 11, 23, 0, 0, 0, 0, UTC), Date(2009, 11, 24, 0, 0, 0, 0, UTC), -24 * Hour},
+//	{Date(2009, 11, 24, 0, 0, 0, 0, UTC), Date(2009, 11, 23, 0, 0, 0, 0, UTC), 24 * Hour},
+//	{Date(-2009, 11, 24, 0, 0, 0, 0, UTC), Date(-2009, 11, 23, 0, 0, 0, 0, UTC), 24 * Hour},
+//	{Time{}, Date(2109, 11, 23, 0, 0, 0, 0, UTC), minDuration},
+//	{Date(2109, 11, 23, 0, 0, 0, 0, UTC), Time{}, maxDuration},
+//	{Time{}, Date(-2109, 11, 23, 0, 0, 0, 0, UTC), maxDuration},
+//	{Date(-2109, 11, 23, 0, 0, 0, 0, UTC), Time{}, minDuration},
+//	{Date(2290, 1, 1, 0, 0, 0, 0, UTC), Date(2000, 1, 1, 0, 0, 0, 0, UTC), 290*365*24*Hour + 71*24*Hour},
+//	{Date(2300, 1, 1, 0, 0, 0, 0, UTC), Date(2000, 1, 1, 0, 0, 0, 0, UTC), maxDuration},
+//	{Date(2000, 1, 1, 0, 0, 0, 0, UTC), Date(2290, 1, 1, 0, 0, 0, 0, UTC), -290*365*24*Hour - 71*24*Hour},
+//	{Date(2000, 1, 1, 0, 0, 0, 0, UTC), Date(2300, 1, 1, 0, 0, 0, 0, UTC), minDuration},
+//	{Date(2311, 11, 26, 02, 16, 47, 63535996, UTC), Date(2019, 8, 16, 2, 29, 30, 268436582, UTC), 9223372036795099414},
+//	{MinMonoTime, MaxMonoTime, minDuration},
+//	{MaxMonoTime, MinMonoTime, maxDuration},
+//}
 
-func TestSub(t *testing.T) {
-	for i, st := range subTests {
-		got := st.t.Sub(st.u)
-		if got != st.d {
-			t.Errorf("#%d: Sub(%v, %v): got %v; want %v", i, st.t, st.u, got, st.d)
-		}
-	}
-}
+//func TestSub(t *testing.T) {
+//	for i, st := range subTests {
+//		got := st.t.Sub(st.u)
+//		if got != st.d {
+//			t.Errorf("#%d: Sub(%v, %v): got %v; want %v", i, st.t, st.u, got, st.d)
+//		}
+//	}
+//}
 
 var nsDurationTests = []struct {
 	d    Duration
@@ -1350,11 +1358,11 @@ var defaultLocTests = []struct {
 	{"Nanosecond", func(t1, t2 Time) bool { return t1.Hour() == t2.Hour() }},
 	{"YearDay", func(t1, t2 Time) bool { return t1.YearDay() == t2.YearDay() }},
 
-	// Using Equal since Add don't modify loc using "==" will cause a fail
+	// 使用Equal是因为Add操作不会修改loc，如果使用"=="比较会导致错误. md5:3622609b0185b9c0
 	{"Add", func(t1, t2 Time) bool { return t1.Add(Hour).Equal(t2.Add(Hour)) }},
 	{"Sub", func(t1, t2 Time) bool { return t1.Sub(t2) == t2.Sub(t1) }},
 
-	//Original caus for this test case bug 15852
+	//此测试用例的原始原因：bug 15852. md5:a83da26ab0c43f24
 	{"AddDate", func(t1, t2 Time) bool { return t1.AddDate(1991, 9, 3) == t2.AddDate(1991, 9, 3) }},
 
 	{"UTC", func(t1, t2 Time) bool { return t1.UTC() == t2.UTC() }},
@@ -1401,8 +1409,8 @@ var defaultLocTests = []struct {
 }
 
 func TestDefaultLoc(t *testing.T) {
-	// Verify that all of Time's methods behave identically if loc is set to
-	// nil or UTC.
+	// 验证如果loc被设置为nil或UTC，Time的所有方法行为是否相同。
+	// md5:ffb3babe06d51eb3
 	for _, tt := range defaultLocTests {
 		t1 := Time{}
 		t2 := Time{}.UTC()
@@ -1458,8 +1466,8 @@ func BenchmarkFormatRFC3339Nano(b *testing.B) {
 }
 
 func BenchmarkFormatNow(b *testing.B) {
-	// Like BenchmarkFormat, but easier, because the time zone
-	// lookup cache is optimized for the present.
+	// 类似 BenchmarkFormat，但是更简单，因为时区查找缓存是针对当前优化的。
+	// md5:f06dd1b142ed8305
 	t := Now()
 	for i := 0; i < b.N; i++ {
 		t.Format("Mon Jan  2 15:04:05 2006")
@@ -1622,7 +1630,7 @@ func TestMarshalBinaryVersion2(t *testing.T) {
 }
 
 func TestUnmarshalTextAllocations(t *testing.T) {
-	in := []byte(testdataRFC3339UTC) // short enough to be stack allocated
+	in := []byte(testdataRFC3339UTC) // 足够短以在栈上分配. md5:195247dda0133cd7
 	if allocs := testing.AllocsPerRun(100, func() {
 		var t Time
 		t.UnmarshalText(in)
@@ -1631,14 +1639,14 @@ func TestUnmarshalTextAllocations(t *testing.T) {
 	}
 }
 
-// Issue 17720: Zero value of time.Month fails to print
+// 问题17720：time.Month的零值无法正常打印. md5:db136c905142b832
 func TestZeroMonthString(t *testing.T) {
 	if got, want := Month(0).String(), "%!Month(0)"; got != want {
 		t.Errorf("zero month = %q; want %q", got, want)
 	}
 }
 
-// Issue 24692: Out of range weekday panics
+// 问题 24692：超出范围的工作日恐慌. md5:20b30cd630c70a9f
 func TestWeekdayString(t *testing.T) {
 	if got, want := Tuesday.String(), "Tuesday"; got != want {
 		t.Errorf("Tuesday weekday = %q; want %q", got, want)
@@ -1648,22 +1656,22 @@ func TestWeekdayString(t *testing.T) {
 	}
 }
 
-func TestReadFileLimit(t *testing.T) {
-	const zero = "/dev/zero"
-	if _, err := os.Stat(zero); err != nil {
-		t.Skip("skipping test without a /dev/zero")
-	}
-	_, err := ReadFile(zero)
-	if err == nil || !strings.Contains(err.Error(), "is too large") {
-		t.Errorf("readFile(%q) error = %v; want error containing 'is too large'", zero, err)
-	}
-}
+//func TestReadFileLimit(t *testing.T) {
+//	const zero = "/dev/zero"
+//	if _, err := os.Stat(zero); err != nil {
+//		t.Skip("skipping test without a /dev/zero")
+//	}
+//	_, err := ReadFile(zero)
+//	if err == nil || !strings.Contains(err.Error(), "is too large") {
+//		t.Errorf("readFile(%q) error = %v; want error containing 'is too large'", zero, err)
+//	}
+//}
 
-// Issue 25686: hard crash on concurrent timer access.
-// Issue 37400: panic with "racy use of timers"
-// This test deliberately invokes a race condition.
-// We are testing that we don't crash with "fatal error: panic holding locks",
-// and that we also don't panic.
+// Issue 25686：并发访问定时器时的硬崩溃。
+// Issue 37400：使用定时器时出现“竞态条件”导致panic。
+// 此测试故意触发竞态条件。
+// 我们正在测试在持有锁的情况下不出现“致命错误：panic”，并且也不会panic。
+// md5:62f83f45c1a23d84
 func TestConcurrentTimerReset(t *testing.T) {
 	const goroutines = 8
 	const tries = 1000
@@ -1681,7 +1689,7 @@ func TestConcurrentTimerReset(t *testing.T) {
 	wg.Wait()
 }
 
-// Issue 37400: panic with "racy use of timers".
+// Issue 37400: 因“计时器的竞态使用”导致的 panic。. md5:256cc7c7f68e7bb5
 func TestConcurrentTimerResetStop(t *testing.T) {
 	const goroutines = 8
 	const tries = 1000
@@ -1703,189 +1711,195 @@ func TestConcurrentTimerResetStop(t *testing.T) {
 	wg.Wait()
 }
 
-func TestTimeIsDST(t *testing.T) {
-	undo := DisablePlatformSources()
-	defer undo()
-
-	tzWithDST, err := LoadLocation("Australia/Sydney")
-	if err != nil {
-		t.Fatalf("could not load tz 'Australia/Sydney': %v", err)
-	}
-	tzWithoutDST, err := LoadLocation("Australia/Brisbane")
-	if err != nil {
-		t.Fatalf("could not load tz 'Australia/Brisbane': %v", err)
-	}
-	tzFixed := FixedZone("FIXED_TIME", 12345)
-
-	tests := [...]struct {
-		time Time
-		want bool
-	}{
-		0: {Date(2009, 1, 1, 12, 0, 0, 0, UTC), false},
-		1: {Date(2009, 6, 1, 12, 0, 0, 0, UTC), false},
-		2: {Date(2009, 1, 1, 12, 0, 0, 0, tzWithDST), true},
-		3: {Date(2009, 6, 1, 12, 0, 0, 0, tzWithDST), false},
-		4: {Date(2009, 1, 1, 12, 0, 0, 0, tzWithoutDST), false},
-		5: {Date(2009, 6, 1, 12, 0, 0, 0, tzWithoutDST), false},
-		6: {Date(2009, 1, 1, 12, 0, 0, 0, tzFixed), false},
-		7: {Date(2009, 6, 1, 12, 0, 0, 0, tzFixed), false},
-	}
-
-	for i, tt := range tests {
-		got := tt.time.IsDST()
-		if got != tt.want {
-			t.Errorf("#%d:: (%#v).IsDST()=%t, want %t", i, tt.time.Format(RFC3339), got, tt.want)
-		}
-	}
-}
-
-func TestTimeAddSecOverflow(t *testing.T) {
-	// Test it with positive delta.
-	var maxInt64 int64 = 1<<63 - 1
-	timeExt := maxInt64 - UnixToInternal - 50
-	notMonoTime := Unix(timeExt, 0)
-	for i := int64(0); i < 100; i++ {
-		sec := notMonoTime.Unix()
-		notMonoTime = notMonoTime.Add(Duration(i * 1e9))
-		if newSec := notMonoTime.Unix(); newSec != sec+i && newSec+UnixToInternal != maxInt64 {
-			t.Fatalf("time ext: %d overflows with positive delta, overflow threshold: %d", newSec, maxInt64)
-		}
-	}
-
-	// Test it with negative delta.
-	maxInt64 = -maxInt64
-	notMonoTime = NotMonoNegativeTime
-	for i := int64(0); i > -100; i-- {
-		sec := notMonoTime.Unix()
-		notMonoTime = notMonoTime.Add(Duration(i * 1e9))
-		if newSec := notMonoTime.Unix(); newSec != sec+i && newSec+UnixToInternal != maxInt64 {
-			t.Fatalf("time ext: %d overflows with positive delta, overflow threshold: %d", newSec, maxInt64)
-		}
-	}
-}
-
-// Issue 49284: time: ParseInLocation incorrectly because of Daylight Saving Time
-func TestTimeWithZoneTransition(t *testing.T) {
-	undo := DisablePlatformSources()
-	defer undo()
-
-	loc, err := LoadLocation("Asia/Shanghai")
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	tests := [...]struct {
-		give Time
-		want Time
-	}{
-		// 14 Apr 1991 - Daylight Saving Time Started
-		// When time of "Asia/Shanghai" was about to reach
-		// Sunday, 14 April 1991, 02:00:00 clocks were turned forward 1 hour to
-		// Sunday, 14 April 1991, 03:00:00 local daylight time instead.
-		// The UTC time was 13 April 1991, 18:00:00
-		0: {Date(1991, April, 13, 17, 50, 0, 0, loc), Date(1991, April, 13, 9, 50, 0, 0, UTC)},
-		1: {Date(1991, April, 13, 18, 0, 0, 0, loc), Date(1991, April, 13, 10, 0, 0, 0, UTC)},
-		2: {Date(1991, April, 14, 1, 50, 0, 0, loc), Date(1991, April, 13, 17, 50, 0, 0, UTC)},
-		3: {Date(1991, April, 14, 3, 0, 0, 0, loc), Date(1991, April, 13, 18, 0, 0, 0, UTC)},
-
-		// 15 Sep 1991 - Daylight Saving Time Ended
-		// When local daylight time of "Asia/Shanghai" was about to reach
-		// Sunday, 15 September 1991, 02:00:00 clocks were turned backward 1 hour to
-		// Sunday, 15 September 1991, 01:00:00 local standard time instead.
-		// The UTC time was 14 September 1991, 17:00:00
-		4: {Date(1991, September, 14, 16, 50, 0, 0, loc), Date(1991, September, 14, 7, 50, 0, 0, UTC)},
-		5: {Date(1991, September, 14, 17, 0, 0, 0, loc), Date(1991, September, 14, 8, 0, 0, 0, UTC)},
-		6: {Date(1991, September, 15, 0, 50, 0, 0, loc), Date(1991, September, 14, 15, 50, 0, 0, UTC)},
-		7: {Date(1991, September, 15, 2, 00, 0, 0, loc), Date(1991, September, 14, 18, 00, 0, 0, UTC)},
-	}
-
-	for i, tt := range tests {
-		if !tt.give.Equal(tt.want) {
-			t.Errorf("#%d:: %#v is not equal to %#v", i, tt.give.Format(RFC3339), tt.want.Format(RFC3339))
-		}
-	}
-}
-
-func TestZoneBounds(t *testing.T) {
-	undo := DisablePlatformSources()
-	defer undo()
-	loc, err := LoadLocation("Asia/Shanghai")
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	// The ZoneBounds of a UTC location would just return two zero Time.
-	for _, test := range utctests {
-		sec := test.seconds
-		golden := &test.golden
-		tm := Unix(sec, 0).UTC()
-		start, end := tm.ZoneBounds()
-		if !(start.IsZero() && end.IsZero()) {
-			t.Errorf("ZoneBounds of %+v expects two zero Time, got:\n  start=%v\n  end=%v", *golden, start, end)
-		}
-	}
-
-	// If the zone begins at the beginning of time, start will be returned as a zero Time.
-	// Use math.MinInt32 to avoid overflow of int arguments on 32-bit systems.
-	beginTime := Date(math.MinInt32, January, 1, 0, 0, 0, 0, loc)
-	start, end := beginTime.ZoneBounds()
-	if !start.IsZero() || end.IsZero() {
-		t.Errorf("ZoneBounds of %v expects start is zero Time, got:\n  start=%v\n  end=%v", beginTime, start, end)
-	}
-
-	// If the zone goes on forever, end will be returned as a zero Time.
-	// Use math.MaxInt32 to avoid overflow of int arguments on 32-bit systems.
-	foreverTime := Date(math.MaxInt32, January, 1, 0, 0, 0, 0, loc)
-	start, end = foreverTime.ZoneBounds()
-	if start.IsZero() || !end.IsZero() {
-		t.Errorf("ZoneBounds of %v expects end is zero Time, got:\n  start=%v\n  end=%v", foreverTime, start, end)
-	}
-
-	// Check some real-world cases to make sure we're getting the right bounds.
-	boundOne := Date(1990, September, 16, 1, 0, 0, 0, loc)
-	boundTwo := Date(1991, April, 14, 3, 0, 0, 0, loc)
-	boundThree := Date(1991, September, 15, 1, 0, 0, 0, loc)
-	makeLocalTime := func(sec int64) Time { return Unix(sec, 0) }
-	realTests := [...]struct {
-		giveTime  Time
-		wantStart Time
-		wantEnd   Time
-	}{
-		// The ZoneBounds of "Asia/Shanghai" Daylight Saving Time
-		0: {Date(1991, April, 13, 17, 50, 0, 0, loc), boundOne, boundTwo},
-		1: {Date(1991, April, 13, 18, 0, 0, 0, loc), boundOne, boundTwo},
-		2: {Date(1991, April, 14, 1, 50, 0, 0, loc), boundOne, boundTwo},
-		3: {boundTwo, boundTwo, boundThree},
-		4: {Date(1991, September, 14, 16, 50, 0, 0, loc), boundTwo, boundThree},
-		5: {Date(1991, September, 14, 17, 0, 0, 0, loc), boundTwo, boundThree},
-		6: {Date(1991, September, 15, 0, 50, 0, 0, loc), boundTwo, boundThree},
-
-		// The ZoneBounds of a "Asia/Shanghai" after the last transition (Standard Time)
-		7:  {boundThree, boundThree, Time{}},
-		8:  {Date(1991, December, 15, 1, 50, 0, 0, loc), boundThree, Time{}},
-		9:  {Date(1992, April, 13, 17, 50, 0, 0, loc), boundThree, Time{}},
-		10: {Date(1992, April, 13, 18, 0, 0, 0, loc), boundThree, Time{}},
-		11: {Date(1992, April, 14, 1, 50, 0, 0, loc), boundThree, Time{}},
-		12: {Date(1992, September, 14, 16, 50, 0, 0, loc), boundThree, Time{}},
-		13: {Date(1992, September, 14, 17, 0, 0, 0, loc), boundThree, Time{}},
-		14: {Date(1992, September, 15, 0, 50, 0, 0, loc), boundThree, Time{}},
-
-		// The ZoneBounds of a local time would return two local Time.
-		// Note: We preloaded "America/Los_Angeles" as time.Local for testing
-		15: {makeLocalTime(0), makeLocalTime(-5756400), makeLocalTime(9972000)},
-		16: {makeLocalTime(1221681866), makeLocalTime(1205056800), makeLocalTime(1225616400)},
-		17: {makeLocalTime(2152173599), makeLocalTime(2145916800), makeLocalTime(2152173600)},
-		18: {makeLocalTime(2152173600), makeLocalTime(2152173600), makeLocalTime(2172733200)},
-		19: {makeLocalTime(2152173601), makeLocalTime(2152173600), makeLocalTime(2172733200)},
-		20: {makeLocalTime(2159200800), makeLocalTime(2152173600), makeLocalTime(2172733200)},
-		21: {makeLocalTime(2172733199), makeLocalTime(2152173600), makeLocalTime(2172733200)},
-		22: {makeLocalTime(2172733200), makeLocalTime(2172733200), makeLocalTime(2177452800)},
-	}
-	for i, tt := range realTests {
-		start, end := tt.giveTime.ZoneBounds()
-		if !start.Equal(tt.wantStart) || !end.Equal(tt.wantEnd) {
-			t.Errorf("#%d:: ZoneBounds of %v expects right bounds:\n  got start=%v\n  want start=%v\n  got end=%v\n  want end=%v",
-				i, tt.giveTime, start, tt.wantStart, end, tt.wantEnd)
-		}
-	}
-}
+//
+//func TestTimeIsDST(t *testing.T) {
+//	undo := DisablePlatformSources()
+//	defer undo()
+//
+//	tzWithDST, err := LoadLocation("Australia/Sydney")
+//	if err != nil {
+//		t.Fatalf("could not load tz 'Australia/Sydney': %v", err)
+//	}
+//	tzWithoutDST, err := LoadLocation("Australia/Brisbane")
+//	if err != nil {
+//		t.Fatalf("could not load tz 'Australia/Brisbane': %v", err)
+//	}
+//	tzFixed := FixedZone("FIXED_TIME", 12345)
+//
+//	tests := [...]struct {
+//		time Time
+//		want bool
+//	}{
+//		0: {Date(2009, 1, 1, 12, 0, 0, 0, UTC), false},
+//		1: {Date(2009, 6, 1, 12, 0, 0, 0, UTC), false},
+//		2: {Date(2009, 1, 1, 12, 0, 0, 0, tzWithDST), true},
+//		3: {Date(2009, 6, 1, 12, 0, 0, 0, tzWithDST), false},
+//		4: {Date(2009, 1, 1, 12, 0, 0, 0, tzWithoutDST), false},
+//		5: {Date(2009, 6, 1, 12, 0, 0, 0, tzWithoutDST), false},
+//		6: {Date(2009, 1, 1, 12, 0, 0, 0, tzFixed), false},
+//		7: {Date(2009, 6, 1, 12, 0, 0, 0, tzFixed), false},
+//	}
+//
+//	for i, tt := range tests {
+//		got := tt.time.IsDST()
+//		if got != tt.want {
+//			t.Errorf("#%d:: (%#v).IsDST()=%t, want %t", i, tt.time.Format(RFC3339), got, tt.want)
+//		}
+//	}
+//}
+//
+//func TestTimeAddSecOverflow(t *testing.T) {
+//	// 使用正向的delta进行测试。. md5:4de1a0f28de88248
+//	var maxInt64 int64 = 1<<63 - 1
+//	timeExt := maxInt64 - UnixToInternal - 50
+//	notMonoTime := Unix(timeExt, 0)
+//	for i := int64(0); i < 100; i++ {
+//		sec := notMonoTime.Unix()
+//		notMonoTime = notMonoTime.Add(Duration(i * 1e9))
+//		if newSec := notMonoTime.Unix(); newSec != sec+i && newSec+UnixToInternal != maxInt64 {
+//			t.Fatalf("time ext: %d overflows with positive delta, overflow threshold: %d", newSec, maxInt64)
+//		}
+//	}
+//
+//	// 使用负的delta值进行测试。. md5:e045f2e98546ccfc
+//	maxInt64 = -maxInt64
+//	notMonoTime = NotMonoNegativeTime
+//	for i := int64(0); i > -100; i-- {
+//		sec := notMonoTime.Unix()
+//		notMonoTime = notMonoTime.Add(Duration(i * 1e9))
+//		if newSec := notMonoTime.Unix(); newSec != sec+i && newSec+UnixToInternal != maxInt64 {
+//			t.Fatalf("time ext: %d overflows with positive delta, overflow threshold: %d", newSec, maxInt64)
+//		}
+//	}
+//}
+//
+//// 问题 49284：由于夏令时，time.ParseInLocation 函数解析错误. md5:485ad6976ad20904
+//func TestTimeWithZoneTransition(t *testing.T) {
+//	undo := DisablePlatformSources()
+//	defer undo()
+//
+//	loc, err := LoadLocation("Asia/Shanghai")
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	tests := [...]struct {
+//		give Time
+//		want Time
+//	}{
+//		// 1991年4月14日 - 夏令时开始
+//		// 当“亚洲/上海”时间即将到达
+//		// 1991年4月14日，星期日，凌晨02:00:00时，时钟向前调整了1小时，
+//		// 变为1991年4月14日，星期日，凌晨03:00:00的当地夏令时。
+//		// 这时的UTC时间是1991年4月13日，18:00:00。
+//		// md5:154cc70a3ad2ed2f
+//		0: {Date(1991, April, 13, 17, 50, 0, 0, loc), Date(1991, April, 13, 9, 50, 0, 0, UTC)},
+//		1: {Date(1991, April, 13, 18, 0, 0, 0, loc), Date(1991, April, 13, 10, 0, 0, 0, UTC)},
+//		2: {Date(1991, April, 14, 1, 50, 0, 0, loc), Date(1991, April, 13, 17, 50, 0, 0, UTC)},
+//		3: {Date(1991, April, 14, 3, 0, 0, 0, loc), Date(1991, April, 13, 18, 0, 0, 0, UTC)},
+//
+//		// 1991年9月15日 - 夏令时结束
+//		// 当"Asia/Shanghai"的本地夏令时即将达到
+//		// 1991年9月15日，02:00:00 时，时钟回拨一小时至
+//		// 1991年9月15日，01:00:00 本地标准时间。
+//		// UTC时间为1991年9月14日，17:00:00。
+//		// md5:200f61ea8b858f25
+//		4: {Date(1991, September, 14, 16, 50, 0, 0, loc), Date(1991, September, 14, 7, 50, 0, 0, UTC)},
+//		5: {Date(1991, September, 14, 17, 0, 0, 0, loc), Date(1991, September, 14, 8, 0, 0, 0, UTC)},
+//		6: {Date(1991, September, 15, 0, 50, 0, 0, loc), Date(1991, September, 14, 15, 50, 0, 0, UTC)},
+//		7: {Date(1991, September, 15, 2, 00, 0, 0, loc), Date(1991, September, 14, 18, 00, 0, 0, UTC)},
+//	}
+//
+//	for i, tt := range tests {
+//		if !tt.give.Equal(tt.want) {
+//			t.Errorf("#%d:: %#v is not equal to %#v", i, tt.give.Format(RFC3339), tt.want.Format(RFC3339))
+//		}
+//	}
+//}
+//
+//func TestZoneBounds(t *testing.T) {
+//	undo := DisablePlatformSources()
+//	defer undo()
+//	loc, err := LoadLocation("Asia/Shanghai")
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	// UTC位置的区划边界将只返回两个零Time。. md5:3223c57808e355f0
+//	for _, test := range utctests {
+//		sec := test.seconds
+//		golden := &test.golden
+//		tm := Unix(sec, 0).UTC()
+//		start, end := tm.ZoneBounds()
+//		if !(start.IsZero() && end.IsZero()) {
+//			t.Errorf("ZoneBounds of %+v expects two zero Time, got:\n  start=%v\n  end=%v", *golden, start, end)
+//		}
+//	}
+//
+//	// 如果时区从时间的开始处开始，start将作为零Time返回。
+//	// 使用math.MinInt32可以避免在32位系统上int参数溢出的问题。
+//	// md5:b75e6e21de334f47
+//	beginTime := Date(math.MinInt32, January, 1, 0, 0, 0, 0, loc)
+//	start, end := beginTime.ZoneBounds()
+//	if !start.IsZero() || end.IsZero() {
+//		t.Errorf("ZoneBounds of %v expects start is zero Time, got:\n  start=%v\n  end=%v", beginTime, start, end)
+//	}
+//
+//	// 如果时区无限延续，end将被返回为一个零时间值。
+//	// 在32位系统上，请使用math.MaxInt32以避免int型参数溢出。
+//	// md5:f77aba81d8f5afa3
+//	foreverTime := Date(math.MaxInt32, January, 1, 0, 0, 0, 0, loc)
+//	start, end = foreverTime.ZoneBounds()
+//	if start.IsZero() || !end.IsZero() {
+//		t.Errorf("ZoneBounds of %v expects end is zero Time, got:\n  start=%v\n  end=%v", foreverTime, start, end)
+//	}
+//
+//	// 检查一些现实世界的情况，确保我们得到正确的边界。. md5:3e7391ac63d3b374
+//	boundOne := Date(1990, September, 16, 1, 0, 0, 0, loc)
+//	boundTwo := Date(1991, April, 14, 3, 0, 0, 0, loc)
+//	boundThree := Date(1991, September, 15, 1, 0, 0, 0, loc)
+//	makeLocalTime := func(sec int64) Time { return Unix(sec, 0) }
+//	realTests := [...]struct {
+//		giveTime  Time
+//		wantStart Time
+//		wantEnd   Time
+//	}{
+//		// "Asia/Shanghai"夏令时的区域边界. md5:3ec7dffa23c5942e
+//		0: {Date(1991, April, 13, 17, 50, 0, 0, loc), boundOne, boundTwo},
+//		1: {Date(1991, April, 13, 18, 0, 0, 0, loc), boundOne, boundTwo},
+//		2: {Date(1991, April, 14, 1, 50, 0, 0, loc), boundOne, boundTwo},
+//		3: {boundTwo, boundTwo, boundThree},
+//		4: {Date(1991, September, 14, 16, 50, 0, 0, loc), boundTwo, boundThree},
+//		5: {Date(1991, September, 14, 17, 0, 0, 0, loc), boundTwo, boundThree},
+//		6: {Date(1991, September, 15, 0, 50, 0, 0, loc), boundTwo, boundThree},
+//
+//		// "Asia/Shanghai"时区在最后一次（标准时间）转换之后的边界范围. md5:27f997ff7dc24c8c
+//		7:  {boundThree, boundThree, Time{}},
+//		8:  {Date(1991, December, 15, 1, 50, 0, 0, loc), boundThree, Time{}},
+//		9:  {Date(1992, April, 13, 17, 50, 0, 0, loc), boundThree, Time{}},
+//		10: {Date(1992, April, 13, 18, 0, 0, 0, loc), boundThree, Time{}},
+//		11: {Date(1992, April, 14, 1, 50, 0, 0, loc), boundThree, Time{}},
+//		12: {Date(1992, September, 14, 16, 50, 0, 0, loc), boundThree, Time{}},
+//		13: {Date(1992, September, 14, 17, 0, 0, 0, loc), boundThree, Time{}},
+//		14: {Date(1992, September, 15, 0, 50, 0, 0, loc), boundThree, Time{}},
+//
+//		// 获取一个本地时间的ZoneBounds将返回两个本地时间。
+//		// 注意：为了测试，我们预先加载了"America/Los_Angeles"作为time.Local。
+//		// md5:8bcb336908b3115a
+//		15: {makeLocalTime(0), makeLocalTime(-5756400), makeLocalTime(9972000)},
+//		16: {makeLocalTime(1221681866), makeLocalTime(1205056800), makeLocalTime(1225616400)},
+//		17: {makeLocalTime(2152173599), makeLocalTime(2145916800), makeLocalTime(2152173600)},
+//		18: {makeLocalTime(2152173600), makeLocalTime(2152173600), makeLocalTime(2172733200)},
+//		19: {makeLocalTime(2152173601), makeLocalTime(2152173600), makeLocalTime(2172733200)},
+//		20: {makeLocalTime(2159200800), makeLocalTime(2152173600), makeLocalTime(2172733200)},
+//		21: {makeLocalTime(2172733199), makeLocalTime(2152173600), makeLocalTime(2172733200)},
+//		22: {makeLocalTime(2172733200), makeLocalTime(2172733200), makeLocalTime(2177452800)},
+//	}
+//	for i, tt := range realTests {
+//		start, end := tt.giveTime.ZoneBounds()
+//		if !start.Equal(tt.wantStart) || !end.Equal(tt.wantEnd) {
+//			t.Errorf("#%d:: ZoneBounds of %v expects right bounds:\n  got start=%v\n  want start=%v\n  got end=%v\n  want end=%v",
+//				i, tt.giveTime, start, tt.wantStart, end, tt.wantEnd)
+//		}
+//	}
+//}

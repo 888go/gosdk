@@ -1,6 +1,7 @@
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+//版权所有2009年Go作者。所有权利保留。
+//使用此源代码受BSD风格
+//可以在LICENSE文件中找到的许可证。
+// md5:2e9dc81828a3be8a
 
 package strconv_test
 
@@ -42,7 +43,7 @@ var ftoatests = []ftoaTest{
 	{2000000, 'g', -1, "2e+06"},
 	{1e10, 'g', -1, "1e+10"},
 
-	// g conversion and zero suppression
+	// g 转换和零抑制. md5:07f7fda4241ba26e
 	{400, 'g', 2, "4e+02"},
 	{40, 'g', 2, "40"},
 	{4, 'g', 2, "4"},
@@ -111,8 +112,8 @@ var ftoatests = []ftoaTest{
 	{above1e23, 'f', -1, "100000000000000010000000"},
 	{above1e23, 'g', -1, "1.0000000000000001e+23"},
 
-	{fdiv(5e-304, 1e20), 'g', -1, "5e-324"},   // avoid constant arithmetic
-	{fdiv(-5e-304, 1e20), 'g', -1, "-5e-324"}, // avoid constant arithmetic
+	{fdiv(5e-304, 1e20), 'g', -1, "5e-324"},   // 避免使用常量进行算术运算. md5:cd59063a304ac75f
+	{fdiv(-5e-304, 1e20), 'g', -1, "-5e-324"}, // 避免使用常量进行算术运算. md5:cd59063a304ac75f
 
 	{32, 'g', -1, "32"},
 	{32, 'g', 0, "3e+01"},
@@ -139,8 +140,30 @@ var ftoatests = []ftoaTest{
 	{1.5, 'f', 0, "2"},
 
 	// https://www.exploringbinary.com/java-hangs-when-converting-2-2250738585072012e-308/
+// 这段Go注释的中文翻译是：
+// 
+// https://www.exploringbinary.com/java-hangs-when-converting-2-2250738585072012e-308/
+// 这段Go注释的中文翻译是：
+// 
+// https://www.exploringbinary.com/java-hangs-when-converting-2-2250738585072012e-308/
+// 这段Go注释的中文翻译是：
+// 
+// https://www.exploringbinary.com/java-hangs-when-converting-2-2250738585072012e-308/
+// 这段Go注释的中文翻译是：
+// 
+// https://www.exploringbinary.com/java-hangs-when-converting-2-2250738585072012e-308/
+// 这段Go注释的中文翻译是：
+// 
+// https://www.exploringbinary.com/java-hangs-when-converting-2-2250738585072012e-308/
+// 这段Go注释的中文翻译是：
+// 
+// 当将2.2250738585072012e-308转换时，Java会挂起（或停止响应）：https://www.exploringbinary.com/java-hangs-when-converting-2-2250738585072012e-308/. md5:230c0c4f17858772
 	{2.2250738585072012e-308, 'g', -1, "2.2250738585072014e-308"},
-	// https://www.exploringbinary.com/php-hangs-on-numeric-value-2-2250738585072011e-308/
+	// https://www.exploringbinary.com/php-hangs-on-numeric-value-2.2250738585072011e-308/ 
+// 
+// 这段Go注释翻译成中文是：
+// 
+// 这是一个链接，内容是关于PHP中数值2.2250738585072011e-308会导致程序挂起的问题（https://www.exploringbinary.com/php-hangs-on-numeric-value-2.2250738585072011e-308/）. md5:e6656740a836a448
 	{2.2250738585072011e-308, 'g', -1, "2.225073858507201e-308"},
 
 	// Issue 2625.
@@ -286,19 +309,20 @@ var ftoaBenches = []struct {
 	{"64Fixed4", 1.23456e-78, 'e', 3, 64},
 	{"64Fixed12", 1.23456e-78, 'e', 12, 64},
 	{"64Fixed16", 1.23456e-78, 'e', 16, 64},
-	// From testdata/testfp.txt
+	// 从testdata/testfp.txt文件中获取内容. md5:6ec3941400a0dbb7
 	{"64Fixed12Hard", math.Ldexp(6965949469487146, -249), 'e', 12, 64},
 	{"64Fixed17Hard", math.Ldexp(8887055249355788, 665), 'e', 17, 64},
 	{"64Fixed18Hard", math.Ldexp(6994187472632449, 690), 'e', 18, 64},
 
-	// Trigger slow path (see issue #15672).
-	// The shortest is: 8.034137530808823e+43
+// 触发慢路径（参见问题 #15672）。
+// 最短的是：8.034137530808823e+43
+// md5:89ce162ade0f1f48
 	{"Slowpath64", 8.03413753080882349e+43, 'e', -1, 64},
-	// This denormal is pathological because the lower/upper
-	// halfways to neighboring floats are:
-	// 622666234635.321003e-320 ~= 622666234635.321e-320
-	// 622666234635.321497e-320 ~= 622666234635.3215e-320
-	// making it hard to find the 3rd digit
+// 这种去规范化是病态的，因为相邻浮点数的下/上一半是：
+// 622666234635.321003e-320 约等于 622666234635.321e-320
+// 622666234635.321497e-320 约等于 622666234635.3215e-320
+// 这使得很难找到第三位小数
+// md5:689dcf2d456f9d0a
 	{"SlowpathDenormal64", 622666234635.3213e-320, 'e', -1, 64},
 }
 

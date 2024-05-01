@@ -1,6 +1,7 @@
-// Copyright 2015 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权所有 2015 年 The Go 作者。保留所有权利。
+// 使用此源代码须遵循 BSD 风格的许可协议，
+// 许可协议具体内容可在 LICENSE 文件中找到。
+// md5:620fafc6f6b07ee7
 
 package strconv_test
 
@@ -135,7 +136,7 @@ func ExampleFormatFloat() {
 	s64 := strconv.FormatFloat(v, 'E', -1, 64)
 	fmt.Printf("%T, %v\n", s64, s64)
 
-	// fmt.Println uses these arguments to print floats
+	// fmt.Println 使用这些参数打印浮点数. md5:e121138fe5f687a5
 	fmt64 := strconv.FormatFloat(v, 'g', -1, 64)
 	fmt.Printf("%T, %v\n", fmt64, fmt64)
 
@@ -231,7 +232,7 @@ func ExampleParseFloat() {
 	if s, err := strconv.ParseFloat("NaN", 32); err == nil {
 		fmt.Printf("%T, %v\n", s, s)
 	}
-	// ParseFloat is case insensitive
+	// ParseFloat 不区分大小写. md5:f6416d571961f41b
 	if s, err := strconv.ParseFloat("nan", 32); err == nil {
 		fmt.Printf("%T, %v\n", s, s)
 	}
@@ -300,7 +301,7 @@ func ExampleParseUint() {
 }
 
 func ExampleQuote() {
-	// This string literal contains a tab character.
+	// 这个字符串字面量中包含一个制表符字符。. md5:5bda08a3303bc2df
 	s := strconv.Quote(`"Fran & Freddie's Diner	☺"`)
 	fmt.Println(s)
 
@@ -345,7 +346,7 @@ func ExampleQuoteRuneToGraphic() {
 }
 
 func ExampleQuoteToASCII() {
-	// This string literal contains a tab character.
+	// 这个字符串字面量中包含一个制表符字符。. md5:5bda08a3303bc2df
 	s := strconv.QuoteToASCII(`"Fran & Freddie's Diner	☺"`)
 	fmt.Println(s)
 
@@ -357,7 +358,7 @@ func ExampleQuoteToGraphic() {
 	s := strconv.QuoteToGraphic("☺")
 	fmt.Println(s)
 
-	// This string literal contains a tab character.
+	// 这个字符串字面量中包含一个制表符字符。. md5:5bda08a3303bc2df
 	s = strconv.QuoteToGraphic("This is a \u263a	\u000a")
 	fmt.Println(s)
 
@@ -394,7 +395,7 @@ func ExampleUnquote() {
 	fmt.Printf("%q, %v\n", s, err)
 	s, err = strconv.Unquote("`or backquoted.`")
 	fmt.Printf("%q, %v\n", s, err)
-	s, err = strconv.Unquote("'\u263a'") // single character only allowed in single quotes
+	s, err = strconv.Unquote("'\u263a'") // 只允许在单引号中使用单个字符. md5:dfad0c15676a862b
 	fmt.Printf("%q, %v\n", s, err)
 	s, err = strconv.Unquote("'\u2639\u2639'")
 	fmt.Printf("%q, %v\n", s, err)

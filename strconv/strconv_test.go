@@ -1,6 +1,7 @@
-// Copyright 2012 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+// 版权归2012年的Go作者所有。保留所有权利。
+// 使用此源代码受BSD风格的
+// 许可证管理，可在LICENSE文件中找到。
+// md5:a2b8441cca608eb8
 
 package strconv_test
 
@@ -31,8 +32,9 @@ var (
 			AppendFloat(localBuf[:0], 1.23, 'g', 5, 64)
 		}},
 		{0, `AppendFloat(globalBuf[:0], 1.23, 'g', 5, 64)`, func() { AppendFloat(globalBuf[:0], 1.23, 'g', 5, 64) }},
-		// In practice we see 7 for the next one, but allow some slop.
-		// Before pre-allocation in appendQuotedWith, we saw 39.
+// 实际上，我们看到的是7，但允许一些余地。
+// 在appendQuotedWith中的预分配之前，我们看到了39。
+// md5:b6a2063e2e48e7da
 		{10, `AppendQuoteToASCII(nil, oneMB)`, func() { AppendQuoteToASCII(nil, string(oneMB)) }},
 		{0, `ParseFloat("123.45", 64)`, func() { ParseFloat("123.45", 64) }},
 		{0, `ParseFloat("123.456789123456789", 64)`, func() { ParseFloat("123.456789123456789", 64) }},
@@ -45,7 +47,7 @@ var (
 	}
 )
 
-var oneMB []byte // Will be allocated to 1MB of random data by TestCountMallocs.
+var oneMB []byte // 将被TestCountMallocs 分配到1MB随机数据中。. md5:d666fd3c9c268d06
 
 func TestCountMallocs(t *testing.T) {
 	if testing.Short() {
@@ -54,7 +56,7 @@ func TestCountMallocs(t *testing.T) {
 	if runtime.GOMAXPROCS(0) > 1 {
 		t.Skip("skipping; GOMAXPROCS>1")
 	}
-	// Allocate a big messy buffer for AppendQuoteToASCII's test.
+	// 为AppendQuoteToASCII的测试分配一个大的复杂缓冲区。. md5:745e6d2733a84320
 	oneMB = make([]byte, 1e6)
 	for i := range oneMB {
 		oneMB[i] = byte(i)
@@ -67,7 +69,7 @@ func TestCountMallocs(t *testing.T) {
 	}
 }
 
-// Sink makes sure the compiler cannot optimize away the benchmarks.
+// Sink 确保编译器不会优化掉基准测试。. md5:81649cbac1142a71
 var Sink struct {
 	Bool       bool
 	Int        int
