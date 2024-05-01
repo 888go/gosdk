@@ -46,7 +46,7 @@ const (
 
 // LinkError 记录链接、符号链接或重命名系统调用期间发生的错误，以及导致错误的路径。
 type LinkError struct { //md5:e482108b96c3226d02e9e4db482a6af0
-	F *os.LinkError
+	F os.LinkError
 }
 
 // Name 返回传递给 Open 的文件名。
@@ -136,7 +136,7 @@ func Open(name string) (*File, error) { //md5:24216d7be3066e53419929b0c658593e
 	if err != nil {
 		return nil, err
 	}
-	return &File{返回}, err
+	return &File{*返回}, err
 }
 
 // Create 用于创建或截断指定名称的文件。若该文件已存在，将会被截断；若不存在，则会以0666（应用umask之前）的模式创建。操作成功后，可使用返回的File对象进行I/O操作，其关联的文件描述符具有O_RDWR模式。如果出现错误，其类型将为*PathError。
@@ -145,7 +145,7 @@ func Create(name string) (*File, error) { //md5:0901909cad4273888ab622dc826bfd50
 	if err != nil {
 		return nil, err
 	}
-	return &File{返回}, err
+	return &File{*返回}, err
 }
 
 // OpenFile 是通用的打开文件调用；大多数用户应使用 Open 或 Create。它以指定的标志（如 O_RDONLY 等）
@@ -157,7 +157,7 @@ func OpenFile(name string, flag int, perm FileMode) (*File, error) { //md5:c46ec
 	if err != nil {
 		return nil, err
 	}
-	return &File{返回}, err
+	return &File{*返回}, err
 }
 
 // Rename 将 oldpath 重命名（移动）到 newpath。如果 newpath 已经存在且不是目录，Rename 将替换它。当 oldpath 和 newpath 在不同的目录时，可能存在特定于操作系统的限制。即使在同一个目录内，在非 Unix 平台上，Rename 也不是一个原子操作。如果出现错误，错误类型将为 *LinkError。
@@ -319,7 +319,7 @@ func NewFile(fd uintptr, name string) *File { //md5:4240320d589243e180f39489a70f
 	if 返回 == nil {
 		return nil
 	}
-	return &File{返回}
+	return &File{*返回}
 }
 
 // Close 关闭文件，使其无法进行输入/输出操作。
@@ -377,10 +377,10 @@ func Pipe() (r *File, w *File, err error) { //md5:62203dc59d8a2aaf2d9c0f2693b287
 	}
 
 	f2 := &File{
-		F: f1,
+		F: *f1,
 	}
 	w2 := &File{
-		F: w1,
+		F: *w1,
 	}
 	return f2, w2, 错误
 }

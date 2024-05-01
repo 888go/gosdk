@@ -13,7 +13,7 @@ func CreateTemp(dir, pattern string) (*File, error) { //md5:4d048d31bcaa4a9c6fbf
 	if err != nil {
 		return nil, err
 	}
-	return &File{返回}, err
+	return &File{*返回}, err
 }
 
 // MkdirTemp 在目录 dir 下创建一个新的临时目录，并返回新目录的路径名。

@@ -24,12 +24,12 @@ var ErrProcessDone = errors.New("os: process already finished") //md5:60b2fab43e
 
 // Process 存储了通过 StartProcess 创建的进程的信息。
 type Process struct { //md5:1853bd128399ed63025af6e19df5e5e9
-	F *os.Process
+	F os.Process
 }
 
 // ProcAttr 保存了将应用于通过 StartProcess 启动的新进程的属性
 type ProcAttr struct { //md5:8961e05ca2979cd28c54469a8c4cd56e
-	F *os.ProcAttr
+	F os.ProcAttr
 }
 
 // Getpid 返回调用者（caller）的进程ID。
@@ -53,7 +53,7 @@ func FindProcess(pid int) (*Process, error) { //md5:551f3e9284260b7c7de683688f3e
 		return nil, err
 	}
 	return &Process{
-		F: p,
+		F: *p,
 	}, err
 }
 
@@ -65,12 +65,12 @@ func FindProcess(pid int) (*Process, error) { //md5:551f3e9284260b7c7de683688f3e
 //
 // 如果出现错误，错误类型将是 *PathError。
 func StartProcess(name string, argv []string, attr *ProcAttr) (*Process, error) { //md5:2da46d468b16dd888e099b0858527a73
-	p, err := os.StartProcess(name, argv, attr.F)
+	p, err := os.StartProcess(name, argv, &attr.F)
 	if err != nil {
 		return nil, err
 	}
 	return &Process{
-		F: p,
+		F: *p,
 	}, err
 
 }
@@ -95,7 +95,7 @@ func (p *Process) Wait() (*ProcessState, error) { //md5:9d22de8522c835ac20c20984
 		return nil, err
 	}
 	return &ProcessState{
-		F: 返回,
+		F: *返回,
 	}, err
 }
 
@@ -141,7 +141,7 @@ func (p *ProcessState) SysUsage() any { //md5:34d570db1d021dcc42e0d59d9b97763d
 
 // ProcessState 存储了由 Wait 方法报告的进程信息。
 type ProcessState struct { //md5:47f04d3d87bb0ee5c5f2cc6218fd1203
-	F *os.ProcessState
+	F os.ProcessState
 }
 
 // Pid 返回已退出进程的进程ID。

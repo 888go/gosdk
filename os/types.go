@@ -30,7 +30,7 @@ const (
 
 // File 代表一个打开的文件描述符。
 type File struct { //md5:1b6a20b413818c28d384dba920ab157e
-	F *os.File
+	F os.File
 }
 
 // FileInfo 用于描述一个文件，由 Stat 和 Lstat 函数返回。

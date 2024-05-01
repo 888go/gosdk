@@ -2600,7 +2600,7 @@ func testKillProcess(t *testing.T, processKiller func(p *Process)) {
 	// （当它达到TestMain时，它将关闭其stdout。）
 	io.Copy(io.Discard, stdout)
 	processKiller(&Process{
-		F: cmd.Process,
+		F: *cmd.Process,
 	})
 
 }
