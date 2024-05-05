@@ -12,23 +12,14 @@
 # zz= 正则表达式,用于结构名称替换或者复杂替换
 #     如待替换: type authPair struct { //zz:^type *authPair
 
-[ErrInvalid          = os.ErrInvalid]
-qm=常量_错误_无效参数
+[type Buffer struct {]
+hm=结构体
+cz=type Buffer
 
-[ErrPermission       = os.ErrPermission]
-qm=常量_错误_权限拒绝
+[F bytes.Buffer]
+qm=父类
+cz=F bytes.Buffer
 
-[ErrExist            = os.ErrExist]
-qm=常量_错误_文件已存在
-
-[ErrNotExist         = os.ErrNotExist]
-qm=常量_错误_文件不存在
-
-[ErrClosed           = os.ErrClosed]
-qm=常量_错误_文件已关闭
-
-[ErrNoDeadline       = os.ErrNoDeadline]
-qm=常量_错误_文件类型不支持超时截止
-
-[ErrDeadlineExceeded = os.ErrDeadlineExceeded]
-qm=常量_错误_IO超时
+[OpRead      readOp = -1]
+qm=常量
+cz=OpRead      readOp

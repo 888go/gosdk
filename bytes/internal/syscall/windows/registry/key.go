@@ -63,11 +63,19 @@ const (
 )
 
 // Close 关闭打开的键 k。
+
+// ff:
 func (k Key) Close() error {
 	return syscall.RegCloseKey(syscall.Handle(k))
 }
 
 // OpenKey 打开一个新的密钥，其路径名相对于键 k。它接受任何打开的密钥，包括 CURRENT_USER 等，并返回新的密钥和一个错误。access 参数指定了要打开的密钥所需的访问权限。
+
+// ff:
+// Key:
+// access:
+// path:
+// k:
 func OpenKey(k Key, path string, access uint32) (Key, error) {
 	p, err := syscall.UTF16PtrFromString(path)
 	if err != nil {
@@ -82,6 +90,8 @@ func OpenKey(k Key, path string, access uint32) (Key, error) {
 }
 
 // ReadSubKeyNames 返回键k的子键名称。
+
+// ff:
 func (k Key) ReadSubKeyNames() ([]string, error) {
 // 必须反复调用且直至完成RegEnumKeyEx。
 // 在此期间，此goroutine不能从其当前线程迁移离开。参见#49320。
@@ -120,6 +130,14 @@ loopItems:
 // CreateKey 返回新创建的键以及一个布尔标志，该标志报告
 // 键是否已存在。
 // 参数 access 指定要创建的键的访问权限。
+
+// ff:
+// err:
+// openedExisting:
+// newk:
+// access:
+// path:
+// k:
 func CreateKey(k Key, path string, access uint32) (newk Key, openedExisting bool, err error) {
 	var h syscall.Handle
 	var d uint32
@@ -132,6 +150,10 @@ func CreateKey(k Key, path string, access uint32) (newk Key, openedExisting bool
 }
 
 // DeleteKey 删除键k的子键路径及其值。
+
+// ff:
+// path:
+// k:
 func DeleteKey(k Key, path string) error {
 	return regDeleteKey(syscall.Handle(k), syscall.StringToUTF16Ptr(path))
 }
@@ -147,6 +169,8 @@ type KeyInfo struct {
 }
 
 // Stat获取打开的键k的信息。
+
+// ff:
 func (k Key) Stat() (*KeyInfo, error) {
 	var ki KeyInfo
 	err := syscall.RegQueryInfoKey(syscall.Handle(k), nil, nil, nil,

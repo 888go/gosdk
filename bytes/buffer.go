@@ -32,6 +32,8 @@ var ErrTooLarge = bytes.ErrTooLarge //md5:5fb25188c1ad1858
 // 这个切片只在下一次修改缓冲区（即调用诸如 [Buffer.Read]、[Buffer.Write]、[Buffer.Reset] 或 [Buffer.Truncate] 等方法之前）有效。
 // 切片至少会引用缓冲区的内容，直到下一次修改，因此立即对切片进行更改将影响未来读取的结果。
 // md5:1dfdc5bab519f911
+
+// ff:
 func (b *Buffer) Bytes() []byte { //md5:3f81aeed184ada90
 	return b.F.Bytes()
 }
@@ -40,6 +42,8 @@ func (b *Buffer) Bytes() []byte { //md5:3f81aeed184ada90
 // 此缓冲区旨在被追加到并传递给下一个立即接续的 [Buffer.Write] 调用。
 // 直到对 b 进行下一次写操作，这个缓冲区才有效。
 // md5:ffac6549b637e07e
+
+// ff:
 func (b *Buffer) AvailableBuffer() []byte { //md5:b8ff3178cd46fd06
 	return b.F.AvailableBuffer()
 }
@@ -49,6 +53,8 @@ func (b *Buffer) AvailableBuffer() []byte { //md5:b8ff3178cd46fd06
 //
 // 要更高效地构建字符串，请参见 strings.Builder 类型。
 // md5:1c3184cdbc946e8a
+
+// ff:
 func (b *Buffer) String() string { //md5:2a07d671bd398c91
 	return b.F.String()
 }
@@ -56,17 +62,23 @@ func (b *Buffer) String() string { //md5:2a07d671bd398c91
 // Len 返回缓冲区中未读部分的字节数量；
 // b.Len() 等于 len(b.Bytes())。
 // md5:435301354c6501b1
+
+// ff:
 func (b *Buffer) Len() int { //md5:3808bf9c6d07bc82
 	return b.F.Len()
 }
 
 // Cap返回缓冲区底层字节切片的容量，即分配给缓冲区数据的总空间。
 // md5:7bf4166f47a43520
+
+// ff:
 func (b *Buffer) Cap() int { //md5:9ccaf75b2ffee8c7
 	return b.F.Cap()
 }
 
 // Available 返回缓冲区中未使用的字节数。. md5:fbfc156036bbe683
+
+// ff:
 func (b *Buffer) Available() int { //md5:aaf1cbad512fc481
 	return b.F.Available()
 }
@@ -75,6 +87,9 @@ func (b *Buffer) Available() int { //md5:aaf1cbad512fc481
 // 但仍然使用相同的已分配存储空间。
 // 如果n是负数或大于缓冲区的长度，它会引发恐慌。
 // md5:98136bb1970ac81b
+
+// ff:
+// n:
 func (b *Buffer) Truncate(n int) { //md5:fed2f1e2c899cb47
 	b.F.Truncate(n)
 }
@@ -83,6 +98,8 @@ func (b *Buffer) Truncate(n int) { //md5:fed2f1e2c899cb47
 // 但保留底层存储，以便将来写入使用。
 // Reset 功能等同于 [Buffer.Truncate](0)。
 // md5:5e5cecee92025b5d
+
+// ff:
 func (b *Buffer) Reset() { //md5:a00af8e06e8f397f
 	b.F.Reset()
 }
@@ -91,24 +108,42 @@ func (b *Buffer) Reset() { //md5:a00af8e06e8f397f
 // 如果 n 是负数，Grow 将会引发 panic。
 // 如果缓冲区无法增长，它将使用 [ErrTooLarge] 错误引发 panic。
 // md5:48df9b8648f9a546
+
+// ff:
+// n:
 func (b *Buffer) Grow(n int) { //md5:e9e4897870e0d141
 	b.F.Grow(n)
 }
 
 // Write 将 p 的内容追加到缓冲区，如果需要会扩大缓冲区。返回值 n 是 p 的长度；err 总是为 nil。如果缓冲区变得过大，Write 会引发一个 [ErrTooLarge] 的 panic。
 // md5:1dde3924b7871834
+
+// ff:
+// err:
+// n:
+// p:
 func (b *Buffer) Write(p []byte) (n int, err error) { //md5:6f1eceb67804b19f
 	return b.F.Write(p)
 }
 
 // WriteString 将 s 的内容追加到缓冲区中，根据需要扩大缓冲区的大小。返回值 n 是 s 的长度；err 始终为 nil。如果缓冲区变得过大，WriteString 将会因 [ErrTooLarge] 而发生恐慌。
 // md5:90c00c4ec56819db
-func (b *Buffer) WriteString(s string) (n int, err error) { //md5:74161787fa18801b
+
+// ff:
+// err:
+// n:
+// s:
+func (b *Buffer) WriteString(s string) (n int, err error) { //md5:74161787fa18801b  //zzq:WriteString(s string) zzq:
 	return b.F.WriteString(s)
 }
 
 // ReadFrom从r读取数据直到EOF，并将数据追加到缓冲区，根据需要增长缓冲区。返回值n是读取的字节数。在读取过程中遇到的任何错误（除了io.EOF）也会被返回。如果缓冲区变得太大，ReadFrom将会因[ErrTooLarge]引发恐慌。
 // md5:eaa622ebea86d082
+
+// ff:
+// err:
+// n:
+// r:
 func (b *Buffer) ReadFrom(r io.Reader) (n int64, err error) { //md5:8c6eeb83f74f22c8
 	return b.F.ReadFrom(r)
 }
@@ -116,12 +151,20 @@ func (b *Buffer) ReadFrom(r io.Reader) (n int64, err error) { //md5:8c6eeb83f74f
 // WriteTo 将数据写入到 w，直到缓冲区被耗尽或出现错误。
 // 返回值 n 是已写入的字节数；它始终可以容纳到一个 int 类型，但使用 int64 类型以匹配 io.WriterTo 接口。在写入过程中遇到的任何错误也会一并返回。
 // md5:c7017c8e4e76bc05
+
+// ff:
+// err:
+// n:
+// w:
 func (b *Buffer) WriteTo(w io.Writer) (n int64, err error) { //md5:c9cb2afb71c7aea9
 	return b.F.WriteTo(w)
 }
 
 // WriteByte 将字节 c 追加到缓冲区，如果需要会扩大缓冲区。返回的错误始终为 nil，但包含它以匹配 [bufio.Writer] 的 WriteByte 方法。如果缓冲区变得太大，WriteByte 会用 [ErrTooLarge] 引发 panic。
 // md5:3807962fe1acfbac
+
+// ff:
+// c:
 func (b *Buffer) WriteByte(c byte) error { //md5:d3b248f48547dbf9
 	return b.F.WriteByte(c)
 }
@@ -130,24 +173,39 @@ func (b *Buffer) WriteByte(c byte) error { //md5:d3b248f48547dbf9
 // 并返回其长度和一个错误，该错误总是为nil，但为了与[bufio.Writer]的WriteRune方法匹配而包含在内。
 // 缓冲区会根据需要自动扩展；如果缓冲区变得过大，WriteRune将会因[ErrTooLarge]错误而引发恐慌。
 // md5:fcd3a4d673494541
+
+// ff:
+// err:
+// n:
+// r:
 func (b *Buffer) WriteRune(r rune) (n int, err error) { //md5:488284b1d4dd43e2
 	return b.F.WriteRune(r)
 }
 
 // Read 从缓冲区中读取接下来的 len(p) 个字节，或者直到缓冲区被读空。返回值 n 是读取的字节数。如果缓冲区没有数据可读，err 将是 io.EOF（除非 len(p) 为零）；否则 err 为 nil。
 // md5:6dec72f7698c2809
+
+// ff:
+// err:
+// n:
+// p:
 func (b *Buffer) Read(p []byte) (n int, err error) { //md5:d77b54302f43331e
 	return b.F.Read(p)
 }
 
 // Next 函数从缓冲区中返回包含接下来 n 个字节的切片，就像 [Buffer.Read] 返回的一样。如果缓冲区中的字节数少于 n，Next 将返回整个缓冲区。这个切片在下一次调用读写方法之前都是有效的。
 // md5:4b6d65f5719e684a
+
+// ff:
+// n:
 func (b *Buffer) Next(n int) []byte { //md5:e9b6b3c188f56ffc
 	return b.F.Next(n)
 }
 
 // ReadByte 从缓冲区读取并返回下一个字节。如果没有可用的字节，它将返回错误 io.EOF。
 // md5:9a65c587bf66dcf3
+
+// ff:
 func (b *Buffer) ReadByte() (byte, error) { //md5:8e7cb56a75e9df65
 	return b.F.ReadByte()
 }
@@ -156,6 +214,11 @@ func (b *Buffer) ReadByte() (byte, error) { //md5:8e7cb56a75e9df65
 // 如果没有可用的字节，返回的错误是io.EOF。
 // 如果字节是错误的UTF-8编码，它将消耗一个字节并返回U+FFFD，1。
 // md5:e6188dfcfac12306
+
+// ff:
+// err:
+// size:
+// r:
 func (b *Buffer) ReadRune() (r rune, size int, err error) { //md5:9e9f745d7cd0e7b2
 	return b.F.ReadRune()
 }
@@ -164,18 +227,27 @@ func (b *Buffer) ReadRune() (r rune, size int, err error) { //md5:9e9f745d7cd0e7
 // 如果对缓冲区的最近一次读写操作不是成功的 ReadRune，UnreadRune 将返回一个错误。
 // 在这方面，它比 Buffer.UnreadByte 更严格，因为 Buffer.UnreadByte 可以回退任何读取操作的最后一个字节。
 // md5:239e0a258391add0
+
+// ff:
 func (b *Buffer) UnreadRune() error { //md5:3e89d3d1a29568ab
 	return b.F.UnreadRune()
 }
 
 // UnreadByte 将最近一次成功读取（至少读取了一个字节）后返回的最后一个字节 unread。如果在上次读取之后有写操作发生，或者上次读取返回了错误，或者读取了0个字节，UnreadByte 将返回一个错误。
 // md5:ebefc8dc07168356
+
+// ff:
 func (b *Buffer) UnreadByte() error { //md5:1635a851b5d4816b
 	return b.F.UnreadByte()
 }
 
 // ReadBytes 读取到输入中的第一个分隔符，返回包含到和包括分隔符的数据切片。如果在找到分隔符之前遇到错误，它将返回错误发生前已读取的数据以及错误（通常是 io.EOF）。只有当返回的数据不以分隔符结束时，ReadBytes 才会返回 err != nil。
 // md5:4d18e9ed50415556
+
+// ff:
+// err:
+// line:
+// delim:
 func (b *Buffer) ReadBytes(delim byte) (line []byte, err error) { //md5:43a270cb44071660
 	return b.F.ReadBytes(delim)
 }
@@ -186,6 +258,11 @@ func (b *Buffer) ReadBytes(delim byte) (line []byte, err error) { //md5:43a270cb
 // 它会返回遇到错误之前读取的数据以及该错误本身（常为 io.EOF）。
 // ReadString 在且仅在返回的数据没有以 delim 结尾时，返回 err != nil。
 // md5:2dbe6334091e50c0
+
+// ff:
+// err:
+// line:
+// delim:
 func (b *Buffer) ReadString(delim byte) (line string, err error) { //md5:d0fb6e8518de22bf
 	return b.F.ReadString(delim)
 }
@@ -194,6 +271,9 @@ func (b *Buffer) ReadString(delim byte) (line string, err error) { //md5:d0fb6e8
 //
 // 在大多数情况下，new([Buffer])（或者直接声明一个 [Buffer] 变量）就足以初始化一个 [Buffer]。
 // md5:160089e06b42c9d0
+
+// ff:
+// buf:
 func NewBuffer(buf []byte) *Buffer { //md5:eb38ebfe0970b97b
 	b := bytes.NewBuffer(buf)
 	if b == nil {
@@ -203,9 +283,12 @@ func NewBuffer(buf []byte) *Buffer { //md5:eb38ebfe0970b97b
 }
 
 // NewBufferString 通过字符串 s 创建并初始化一个新的 [Buffer]。它的目的是准备一个缓冲区来读取已存在的字符串。
-// 
+//
 // 在大多数情况下，使用 new([Buffer])（或者只是声明一个 [Buffer] 变量）就足以初始化一个 [Buffer]。
 // md5:52db730cdb1471dd
+
+// ff:
+// s:
 func NewBufferString(s string) *Buffer { //md5:65590cc504d5130e
 	b := bytes.NewBufferString(s)
 	if b == nil {

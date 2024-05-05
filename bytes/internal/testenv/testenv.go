@@ -29,12 +29,16 @@ var origEnv = os.Environ()
 
 // Builder 返回运行此测试的构建器的名称（例如，“linux-amd64”或“windows-386-gce”）。
 // 如果测试不在构建基础设施上运行，Builder 将返回空字符串。
+
+// ff:
 func Builder() string {
 	return os.Getenv("GO_BUILDER_NAME")
 }
 
 // HasGoBuild reports whether the current system can build programs with “go build”
 // and then run them with os.StartProcess or exec.Command.
+
+// ff:
 func HasGoBuild() bool {
 	if os.Getenv("GO_GCFLAGS") != "" {
 		// 要求每次调用`go`命令的用户都传递`"-gcflags="+os.Getenv("GO_GCFLAGS")`太麻烦了。
@@ -98,6 +102,9 @@ var (
 // MustHaveGoBuild checks that the current system can build programs with “go build”
 // and then run them with os.StartProcess or exec.Command.
 // If not, MustHaveGoBuild calls t.Skip with an explanation.
+
+// ff:
+// t:
 func MustHaveGoBuild(t testing.TB) {
 	if os.Getenv("GO_GCFLAGS") != "" {
 		t.Helper()
@@ -110,6 +117,8 @@ func MustHaveGoBuild(t testing.TB) {
 }
 
 // HasGoRun reports whether the current system can run programs with “go run”.
+
+// ff:
 func HasGoRun() bool {
 	// 目前，使用"go run"和使用"go build"是相同的。
 	return HasGoBuild()
@@ -117,6 +126,9 @@ func HasGoRun() bool {
 
 // MustHaveGoRun checks that the current system can run programs with “go run”.
 // If not, MustHaveGoRun calls t.Skip with an explanation.
+
+// ff:
+// t:
 func MustHaveGoRun(t testing.TB) {
 	if !HasGoRun() {
 		t.Skipf("skipping test: 'go run' not available on %s/%s", runtime.GOOS, runtime.GOARCH)
@@ -125,6 +137,8 @@ func MustHaveGoRun(t testing.TB) {
 
 // HasParallelism报告当前系统是否可以并行执行多个线程。
 // 在cmd/dist/test.go中有一个此函数的副本。
+
+// ff:
 func HasParallelism() bool {
 	switch runtime.GOOS {
 	case "js", "wasip1":
@@ -134,6 +148,9 @@ func HasParallelism() bool {
 }
 
 // MustHaveParallelism 检查当前系统是否可以同时执行多个线程。如果不可以，MustHaveParallelism 会调用 t.Skip 并附带一个解释。
+
+// ff:
+// t:
 func MustHaveParallelism(t testing.TB) {
 	if !HasParallelism() {
 		t.Skipf("skipping test: no parallelism available on %s/%s", runtime.GOOS, runtime.GOARCH)
@@ -144,6 +161,9 @@ func MustHaveParallelism(t testing.TB) {
 // 它是对 GoTool 的便捷包装。
 // 若工具不可用，GoToolPath 将调用 t.Skip。
 // 若工具本应可用但实际不可用，GoToolPath 将调用 t.Fatal。
+
+// ff:
+// t:
 func GoToolPath(t testing.TB) string {
 	MustHaveGoBuild(t)
 	path, err := GoTool()
@@ -231,6 +251,9 @@ func findGOROOT() (string, error) {
 // GOROOT 会报告包含 Go 项目源代码树根目录的路径。这通常等同于 runtime.GOROOT，但在使用 -trimpath 构建测试二进制文件且无法执行 'go env GOROOT' 的情况下仍然有效。
 //
 // 如果找不到 GOROOT，如果 t 不为 nil，则跳过 t，否则会 panic。
+
+// ff:
+// t:
 func GOROOT(t testing.TB) string {
 	path, err := findGOROOT()
 	if err != nil {
@@ -244,6 +267,8 @@ func GOROOT(t testing.TB) string {
 }
 
 // GoTool报告Go工具的路径。
+
+// ff:
 func GoTool() (string, error) {
 	if !HasGoBuild() {
 		return "", errors.New("platform cannot run go tool")
@@ -261,6 +286,8 @@ var (
 )
 
 // HasSrc 报告整个源代码树是否可在 GOROOT 下获取。
+
+// ff:
 func HasSrc() bool {
 	switch runtime.GOOS {
 	case "ios":
@@ -270,12 +297,17 @@ func HasSrc() bool {
 }
 
 // HasExternalNetwork 报告当前系统是否可以使用外部（非本地回环）网络。
+
+// ff:
 func HasExternalNetwork() bool {
 	return !testing.Short() && runtime.GOOS != "js" && runtime.GOOS != "wasip1"
 }
 
 // MustHaveExternalNetwork 检查当前系统是否可以使用外部（非localhost）网络。
 // 如果不能，MustHaveExternalNetwork 会调用 t.Skip 并附带一个解释。
+
+// ff:
+// t:
 func MustHaveExternalNetwork(t testing.TB) {
 	if runtime.GOOS == "js" || runtime.GOOS == "wasip1" {
 		t.Helper()
@@ -288,6 +320,8 @@ func MustHaveExternalNetwork(t testing.TB) {
 }
 
 // HasCGO报告当前系统是否可以使用cgo。
+
+// ff:
 func HasCGO() bool {
 	hasCgoOnce.Do(func() {
 		goTool, err := GoTool()
@@ -314,6 +348,9 @@ var (
 )
 
 // MustHaveCGO 若无 cgo 可用则调用 t.Skip
+
+// ff:
+// t:
 func MustHaveCGO(t testing.TB) {
 	if !HasCGO() {
 		t.Skipf("skipping test: no cgo")
@@ -321,12 +358,19 @@ func MustHaveCGO(t testing.TB) {
 }
 
 // CanInternalLink 报告当前系统是否支持使用内部链接来链接程序。
+
+// ff:
+// withCgo:
 func CanInternalLink(withCgo bool) bool {
 	return !platform.MustLinkExternal(runtime.GOOS, runtime.GOARCH, withCgo)
 }
 
 // MustInternalLink 检查当前系统是否支持内部链接程序。
 // 如果不支持，MustInternalLink 会调用 t.Skip 并附带一个解释。
+
+// ff:
+// withCgo:
+// t:
 func MustInternalLink(t testing.TB, withCgo bool) {
 	if !CanInternalLink(withCgo) {
 		if withCgo && CanInternalLink(false) {
@@ -338,6 +382,10 @@ func MustInternalLink(t testing.TB, withCgo bool) {
 
 // MustHaveBuildMode 检查当前系统是否能够在给定的构建模式下构建程序。
 // 如果不能，MustHaveBuildMode 将调用 t.Skip 并附带一个解释。
+
+// ff:
+// buildmode:
+// t:
 func MustHaveBuildMode(t testing.TB, buildmode string) {
 	if !platform.BuildModeSupported(runtime.Compiler, buildmode, runtime.GOOS, runtime.GOARCH) {
 		t.Skipf("skipping test: build mode %s on %s/%s is not supported by the %s compiler", buildmode, runtime.GOOS, runtime.GOARCH, runtime.Compiler)
@@ -345,6 +393,8 @@ func MustHaveBuildMode(t testing.TB, buildmode string) {
 }
 
 // HasSymlink 报告当前系统是否可以使用 os.Symlink。
+
+// ff:
 func HasSymlink() bool {
 	ok, _ := hasSymlink()
 	return ok
@@ -352,6 +402,9 @@ func HasSymlink() bool {
 
 // MustHaveSymlink 检查当前系统是否支持使用 os.Symlink。
 // 如果不支持，MustHaveSymlink 将调用 t.Skip 并附带解释。
+
+// ff:
+// t:
 func MustHaveSymlink(t testing.TB) {
 	ok, reason := hasSymlink()
 	if !ok {
@@ -360,6 +413,8 @@ func MustHaveSymlink(t testing.TB) {
 }
 
 // HasLink报告当前系统是否可以使用os.Link。
+
+// ff:
 func HasLink() bool {
 	// 从Android M（棉花糖）版本开始，硬链接文件被阻止，并尝试对文件调用link()会返回EACCES错误。
 	// - https://code.google.com/p/android-developer-preview/issues/detail?id=3150
@@ -368,6 +423,9 @@ func HasLink() bool {
 
 // MustHaveLink 判断当前系统是否支持使用 os.Link。
 // 若不支持，MustHaveLink 会调用 t.Skip 并附带解释原因。
+
+// ff:
+// t:
 func MustHaveLink(t testing.TB) {
 	if !HasLink() {
 		t.Skipf("skipping test: hardlinks are not supported on %s/%s", runtime.GOOS, runtime.GOARCH)
@@ -376,6 +434,10 @@ func MustHaveLink(t testing.TB) {
 
 var flaky = flag.Bool("flaky", false, "run known-flaky tests too")
 
+
+// ff:
+// issue:
+// t:
 func SkipFlaky(t testing.TB, issue int) {
 	t.Helper()
 	if !*flaky {
@@ -383,6 +445,9 @@ func SkipFlaky(t testing.TB, issue int) {
 	}
 }
 
+
+// ff:
+// t:
 func SkipFlakyNet(t testing.TB) {
 	t.Helper()
 	if v, _ := strconv.ParseBool(os.Getenv("GO_BUILDER_FLAKY_NET")); v {
@@ -391,6 +456,8 @@ func SkipFlakyNet(t testing.TB) {
 }
 
 // CPUIsSlow 报告测试运行的CPU是否疑似性能较慢。
+
+// ff:
 func CPUIsSlow() bool {
 	switch runtime.GOARCH {
 	case "arm", "mips", "mipsle", "mips64", "mips64le", "wasm":
@@ -402,6 +469,9 @@ func CPUIsSlow() bool {
 // SkipIfShortAndSlow 如果设置了 `-short` 并且怀疑运行测试的 CPU 性能较慢，则跳过 `t`。
 //
 // （这对于那些通常很快完成但需要大量 CPU 资源的测试很有用。）
+
+// ff:
+// t:
 func SkipIfShortAndSlow(t testing.TB) {
 	if testing.Short() && CPUIsSlow() {
 		t.Helper()
@@ -410,6 +480,9 @@ func SkipIfShortAndSlow(t testing.TB) {
 }
 
 // SkipIfOptimizationOff 如果优化被关闭，则跳过t。
+
+// ff:
+// t:
 func SkipIfOptimizationOff(t testing.TB) {
 	if OptimizationOff() {
 		t.Helper()
@@ -423,6 +496,12 @@ func SkipIfOptimizationOff(t testing.TB) {
 //
 // pkgs可以包含任何可合法传递给'go list'命令的包模式，
 // 因此它也可以是一组位于同一目录下的Go源文件列表。
+
+// ff:
+// pkgs:
+// packageFiles:
+// dstPath:
+// t:
 func WriteImportcfg(t testing.TB, dstPath string, packageFiles map[string]string, pkgs ...string) {
 	t.Helper()
 
@@ -462,6 +541,9 @@ func WriteImportcfg(t testing.TB, dstPath string, packageFiles map[string]string
 }
 
 // SyscallIsNotSupported 检查错误是否可能表示当前平台或执行环境不支持系统调用。
+
+// ff:
+// err:
 func SyscallIsNotSupported(err error) bool {
 	return syscallIsNotSupported(err)
 }

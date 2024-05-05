@@ -132,4 +132,11 @@
     <tree path="/time/zoneinfo_test.go" title="单元测试"/>
     <tree path="/time/export_test.go" title="单元测试"/>
     <tree path="/time/genzabbrs.go" title="内部文件"/>
+    <tree path="/bytes/boundary_test.go" title="单元测试"/>
+    <tree path="/bytes/buffer_test.go" title="单元测试"/>
+    <tree path="/bytes/bytes_test.go" title="单元测试"/>
+    <tree path="/bytes/compare_test.go" title="单元测试"/>
+    <tree path="/bytes/example_test.go" title="单元测试"/>
+    <tree path="/bytes/export_test.go" title="单元测试"/>
+    <tree path="/bytes/reader_test.go" title="单元测试"/>
 </trees>

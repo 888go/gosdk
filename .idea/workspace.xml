@@ -5,6 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
+      <change afterPath="$PROJECT_DIR$/翻译/函数/tmp/main_其他.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DirectoryV3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DirectoryV3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/buffer.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/buffer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/bytes.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/bytes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/platform/supported.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/platform/supported.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/net_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/net_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/key.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/key.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/value.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/value.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/reparse_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/reparse_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/security_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/security_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/syscall_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/syscall_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/sysdll/sysdll.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/sysdll/sysdll.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/zsyscall_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/zsyscall_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/exec.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/exec.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/noopt.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/noopt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/opt.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/opt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/testenv.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/testenv.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/reader.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/reader.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tmp/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -143,7 +162,7 @@
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/SVN/GO/code/gosdk",
+    "last_opened_file_path": "E:/SVN/GO/code/WanCheng",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",

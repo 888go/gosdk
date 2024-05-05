@@ -12,9 +12,17 @@ var c chan int
 func handle(int) {}
 func main() {
 	lt := time.Now()
-	// PST位于西边8小时，PDT位于西边7小时。我们可以使用这个名字，但它并不唯一。. md5:cbe7a8e2be638df6
+
 	if name, off := lt.Zone(); off != -8*60*60 && off != -7*60*60 {
 		fmt.Printf("Unable to find US Pacific time zone data for testing; time zone is %q offset %d", name, off)
 		fmt.Printf("Likely problem: the time zone files have not been installed.")
 	}
 }
+
+type X结构体 struct { //hm:结构体 cz:type Buffer     
+	X父类 bytes.Buffer //qm:父类 cz:F bytes.Buffer     
+}
+
+const (
+	X常量 readOp = -1 //qm:常量 cz:OpRead      readOp     
+)
