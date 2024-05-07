@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12" />
+    <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
+      <change afterPath="$PROJECT_DIR$/翻译/函数/bytes/buffer_其他.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/函数/bytes/buffer_方法.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DirectoryV3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DirectoryV3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/buffer.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/buffer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/bytes.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/bytes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/os/file_方法.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/os/file_方法.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -141,15 +150,15 @@
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/SVN/GO/code/WanCheng/amis编辑器",
+    "last_opened_file_path": "E:/SVN/GO/code/WanCheng",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui"
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
-  <component name="RunManager" selected="Go 测试.go test time">
+  <component name="RunManager" selected="Go 构建.go build github.com/888go/gosdk/tmp">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gosdk" />
       <working_directory value="$PROJECT_DIR$" />
@@ -223,8 +232,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go 测试.go test time" />
         <item itemvalue="Go 构建.go build github.com/888go/gosdk/tmp" />
+        <item itemvalue="Go 测试.go test time" />
         <item itemvalue="Go 测试.go test time (1)" />
         <item itemvalue="Go 测试.github.com/888go/gosdk/time 中的 TestFormatFractionalSecondSeparators" />
         <item itemvalue="Go 测试.github.com/888go/gosdk/time 中的 TestParseYday" />

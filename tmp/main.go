@@ -18,11 +18,3 @@ func main() {
 		fmt.Printf("Likely problem: the time zone files have not been installed.")
 	}
 }
-
-type X结构体 struct { //hm:结构体 cz:type Buffer     
-	X父类 bytes.Buffer //qm:父类 cz:F bytes.Buffer     
-}
-
-const (
-	X常量 readOp = -1 //qm:常量 cz:OpRead      readOp     
-)

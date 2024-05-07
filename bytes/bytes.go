@@ -137,11 +137,11 @@ func LastIndexAny(s []byte, chars string) int { //md5:b7c6c3d4157d4ce8
 // SplitN 将字符串 s 按照分隔符 sep 进行切片，并返回这些分隔符之间的子切片的切片。
 // 如果 sep 为空，SplitN 将在每个 UTF-8 序列后进行切分。
 // count 决定返回的子切片数量：
-// 
+//
 //	> 0：最多返回 n 个子切片；最后一个子切片将是未被分割的部分。
 //	n == 0：结果为 nil（没有子切片）
 //	n < 0：返回所有子切片
-// 
+//
 // 要在第一个分隔符周围进行切分，请参阅 Cut 函数。
 // md5:0be3f8772a05e662
 
@@ -160,6 +160,7 @@ func SplitN(s, sep []byte, n int) [][]byte { //md5:2ef42e1e1c8b9efa
 //	n > 0: 最多 n 个子切片；最后一个子切片将是未被切分的剩余部分。
 //	n == 0: 结果为 nil（零个子切片）
 //	n < 0: 所有子切片
+//
 // md5:93042132420aa229
 
 // ff:
@@ -527,7 +528,7 @@ func Index(s, sep []byte) int { //md5:7c8755646e2ccdea
 
 // 在s中第一个出现sep的位置周围切割，返回sep前后的文本。
 // 找到的结果报告sep是否出现在s中。如果sep不在s中，cut将返回s、nil和false。
-// 
+//
 // cut返回的是原始切片s的切片，而不是副本。
 // md5:d93766c814c08f4c
 

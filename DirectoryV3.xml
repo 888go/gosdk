@@ -139,4 +139,6 @@
     <tree path="/bytes/example_test.go" title="单元测试"/>
     <tree path="/bytes/export_test.go" title="单元测试"/>
     <tree path="/bytes/reader_test.go" title="单元测试"/>
+    <tree path="/bytes/buffer.go" title="缓冲区"/>
+    <tree path="/bytes/bytes.go" title="主要方法"/>
 </trees>

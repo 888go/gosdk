@@ -35,7 +35,7 @@ off=偏移量
 b=缓冲区变量
 
 [func (f *File) ReadFrom(r io.Reader) (n int64, err error) {]
-ff=写数据并从ioReader
+ff=写数据并从io读取器
 err=错误
 n=写入长度
 
@@ -53,7 +53,7 @@ off=偏移量
 b=字节集
 
 [func (f *File) WriteTo(w io.Writer) (n int64, err error) {]
-ff=写数据并从IoWriter
+ff=写数据并从Io写入器
 err=错误
 n=写入长度
 
