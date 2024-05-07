@@ -112,3 +112,6 @@ buf=字节集
 [func NewBufferString(s string) *Buffer {]
 ff=创建缓冲区并按文本
 s=文本
+
+[func (b *Buffer) Bytes() #左中括号##右中括号#byte {]
+ff=取缓冲区底层切片

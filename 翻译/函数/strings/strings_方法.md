@@ -28,7 +28,7 @@ chars=检索字符s
 s=原文本
 
 [func ContainsRune(s string, r rune) bool {]
-ff=是否包含字符
+ff=是否包含Unicode字符
 r=检索字符
 s=原文本
 
@@ -48,7 +48,7 @@ c=检索字节
 s=原文本
 
 [func IndexRune(s string, r rune) int {]
-ff=取字符索引
+ff=取Unicode字符索引
 r=检索字符
 s=原文本
 
@@ -68,33 +68,33 @@ c=字节
 s=原文本
 
 [func SplitN(s, sep string, n int) #左中括号##右中括号#string {]
-ff=分割文本并按数量
+ff=分割并按数量
 n=返回数量
 sep=分隔符
 s=原文本
 
 [func SplitAfterN(s, sep string, n int) #左中括号##右中括号#string {]
-ff=分割文本并按数量2
+ff=分割并按数量2
 n=返回数量
 sep=分隔符
 s=原文本
 
 [func Split(s, sep string) #左中括号##右中括号#string {]
-ff=分割文本
+ff=分割
 sep=分隔符
 s=原文本
 
 [func SplitAfter(s, sep string) #左中括号##右中括号#string {]
-ff=分割文本2
+ff=分割2
 sep=分隔符
 s=原文本
 
 [func Fields(s string) #左中括号##右中括号#string {]
-ff=分割单词
+ff=分割并按空白
 s=原文本
 
 [func FieldsFunc(s string, f func(rune) bool) #左中括号##右中括号#string {]
-ff=分割单词FUNC
+ff=分割FUNC
 f=回调函数
 s=原文本
 
@@ -175,13 +175,17 @@ f=回调函数
 s=原文本
 
 [func IndexFunc(s string, f func(rune) bool) int {]
+ff=查找字符索引FUNC
 f=回调函数
 s=原文本
 
 [func LastIndexFunc(s string, f func(rune) bool) int {]
+ff=查找最后字符索引FUNC
+f=回调函数
 s=原文本
 
 [func TrimRight(s, cutset string) string {]
+ff=删尾部字符
 s=原文本
 
 [func TrimSpace(s string) string {]
