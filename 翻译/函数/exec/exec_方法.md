@@ -51,4 +51,4 @@ ff=取标准管道
 ff=取Stderr管道
 
 [func (c *Cmd) Environ() #左中括号##右中括号#string {]
-ff=取环境变量数组
+ff=取环境变量切片

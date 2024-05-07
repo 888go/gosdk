@@ -101,7 +101,7 @@ s=原文本
 [func Join(elems #左中括号##右中括号#string, sep string) string {]
 ff=连接
 sep=连接符
-elems=数组
+elems=切片
 
 [func HasPrefix(s, prefix string) bool {]
 ff=是否为前缀

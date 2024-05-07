@@ -35,10 +35,10 @@ ff=解析环境变量
 value=值
 
 [func (k Key) GetStringsValue(name string) (val #左中括号##右中括号#string, valtype uint32, err error) {]
-ff=取文本数组值
+ff=取文本切片值
 err=错误
 valtype=值类型
-val=数组值
+val=切片值
 name=名称
 
 [func (k Key) GetIntegerValue(name string) (val uint64, valtype uint32, err error) {]
@@ -76,8 +76,8 @@ value=值
 name=名称
 
 [func (k Key) SetStringsValue(name string, value #左中括号##右中括号#string) error {]
-ff=设置文本数组值
-value=数组值
+ff=设置文本切片值
+value=切片值
 name=名称
 
 [func (k Key) SetBinaryValue(name string, value #左中括号##右中括号#byte) error {]
