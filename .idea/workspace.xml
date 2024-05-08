@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
+      <change afterPath="$PROJECT_DIR$/tmp/接口定义传参/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/函数/bytes/reader_其他.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/函数/bytes/reader_方法.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/bytes.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/bytes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/bytes/buffer_方法.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/bytes/buffer_方法.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/strings/strings_方法.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/strings/strings_方法.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/reader.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/reader.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +148,7 @@
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/SVN/GO/code/WanCheng&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/SVN/GO/code/gosdk&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
