@@ -2,7 +2,7 @@
 // 使用本源代码须遵循 BSD 风格的许可证，
 // 该许可证可在 LICENSE 文件中找到。
 
-//go:build windows
+//---build---//go:build windows
 
 package os_test
 

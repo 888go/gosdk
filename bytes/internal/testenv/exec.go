@@ -27,9 +27,6 @@ import (
 //
 // 要在测试之外检查 exec 支持情况，只需尝试执行命令即可。若不支持 exec，
 // 对于由此产生的错误，testenv.SyscallIsNotSupported 将返回 true。
-
-// ff:
-// t:
 func MustHaveExec(t testing.TB) {
 	tryExecOnce.Do(func() {
 		tryExecErr = tryExec()
@@ -75,10 +72,6 @@ var execPaths sync.Map // path -> error
 
 // MustHaveExecPath 检查当前系统是否能够使用 os.StartProcess 或（更常见地）exec.Command 启动指定的可执行文件。
 // 如果不能，MustHaveExecPath 将调用 t.Skip 并给出解释。
-
-// ff:
-// path:
-// t:
 func MustHaveExecPath(t testing.TB, path string) {
 	MustHaveExec(t)
 
@@ -95,9 +88,6 @@ func MustHaveExecPath(t testing.TB, path string) {
 // CleanCmdEnv 将向 cmd.Env 中填充环境，但排除可能修改 Go 工具行为的某些变量，如 GODEBUG 和 GOTRACEBACK。
 // 
 // 如果调用者想要设置 cmd.Dir，请在调用此函数之前设置，以便 PWD 在环境中被正确设置。
-
-// ff:
-// cmd:
 func CleanCmdEnv(cmd *exec.Cmd) *exec.Cmd {
 	if cmd.Env != nil {
 		panic("environment already set")
@@ -122,12 +112,6 @@ func CleanCmdEnv(cmd *exec.Cmd) *exec.Cmd {
 //   - 如果测试有截止时间，会在测试截止时间前添加一个上下文超时和 WaitDelay 以提供一段任意的宽限期
 //   - 如果命令在测试的截止时间之前未完成，会导致测试失败
 //   - 设置一个 Cleanup 函数，用于检查测试是否泄漏了子进程
-
-// ff:
-// args:
-// name:
-// ctx:
-// t:
 func CommandContext(t testing.TB, ctx context.Context, name string, args ...string) *exec.Cmd {
 	t.Helper()
 	MustHaveExec(t)
@@ -204,11 +188,6 @@ func CommandContext(t testing.TB, ctx context.Context, name string, args ...stri
 }
 
 // Command 类似于 exec.Command，但会应用与 testenv.CommandContext（使用默认的 Context）相同的变化。
-
-// ff:
-// args:
-// name:
-// t:
 func Command(t testing.TB, name string, args ...string) *exec.Cmd {
 	t.Helper()
 	return CommandContext(t, context.Background(), name, args...)

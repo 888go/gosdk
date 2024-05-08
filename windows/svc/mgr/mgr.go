@@ -2,7 +2,7 @@
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
-//go:build windows
+//---build---//go:build windows
 
 // Package mgr 用于管理 Windows 服务程序。
 // 可以使用它来安装和卸载服务，以及启动、停止和暂停服务。该包可以查询/更改当前服务状态和配置参数。

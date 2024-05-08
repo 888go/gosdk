@@ -2,7 +2,7 @@
 // 使用本源代码须遵循 BSD 风格
 // 许可协议，该协议可在 LICENSE 文件中找到。
 
-//go:build !js && !plan9 && !wasip1 && !windows
+//---build---//go:build !js && !plan9 && !wasip1 && !windows
 
 package os_test
 

@@ -54,8 +54,6 @@ type SymbolicLinkReparseBuffer struct {
 }
 
 // Path 返回 rb 中存储的路径。
-
-// ff:
 func (rb *SymbolicLinkReparseBuffer) Path() string {
 	n1 := rb.SubstituteNameOffset / 2
 	n2 := (rb.SubstituteNameOffset + rb.SubstituteNameLength) / 2
@@ -75,8 +73,6 @@ type MountPointReparseBuffer struct {
 }
 
 // Path 返回 rb 中存储的路径。
-
-// ff:
 func (rb *MountPointReparseBuffer) Path() string {
 	n1 := rb.SubstituteNameOffset / 2
 	n2 := (rb.SubstituteNameOffset + rb.SubstituteNameLength) / 2

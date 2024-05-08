@@ -2,7 +2,7 @@
 // 使用本源代码受 BSD 风格许可协议约束，
 // 该协议可在 LICENSE 文件中找到。
 
-//go:build unix
+//---build---//go:build unix
 
 package exec_test
 

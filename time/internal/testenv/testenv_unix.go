@@ -1,7 +1,7 @@
 // 版权所有 2021 Go 作者。保留所有权利。
 // 本源代码的使用受BSD风格许可证管辖，该许可证可在LICENSE文件中找到。
 
-//go:build unix
+//---build---//go:build unix
 
 package testenv
 

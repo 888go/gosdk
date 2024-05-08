@@ -2,7 +2,7 @@
 // 使用此源代码受BSD风格许可证约束，该许可证可从LICENSE文件中找到。
 // md5:19d1a3ed91182ee4
 
-//go:build !race
+//---build---//go:build !race
 
 package regexp
 

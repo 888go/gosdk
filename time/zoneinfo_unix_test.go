@@ -2,7 +2,7 @@
 // 使用此源代码受BSD风格许可证管辖，该许可证可从LICENSE文件中找到。
 // md5:97282fec9c34c48c
 
-//go:build unix && !ios && !android
+//---build---//go:build unix && !ios && !android
 
 package time_test
 

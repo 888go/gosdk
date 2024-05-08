@@ -5,12 +5,125 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
-      <change afterPath="$PROJECT_DIR$/tmp/接口定义传参/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/bytes/reader_其他.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/bytes/reader_方法.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/函数/bytes/buffer_test_package.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/函数/bytes/bytes_package.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/boundary_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/boundary_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/buffer.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/buffer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/buffer_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/buffer_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/bytes.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/bytes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/bytes_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/bytes_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/compare_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/compare_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/platform/supported.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/platform/supported.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/mksyscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/net_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/net_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/key.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/key.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/mksyscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/syscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/syscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/value.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/value.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/reparse_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/reparse_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/security_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/security_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/syscall_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/syscall_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/sysdll/sysdll.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/sysdll/sysdll.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/zsyscall_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/zsyscall_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/exec.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/exec.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/noopt.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/noopt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/opt.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/opt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/testenv.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/testenv.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/testenv_notunix.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/testenv_notunix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/testenv_notwin.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/testenv_notwin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/testenv_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/testenv_unix.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/reader.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/reader.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/reader_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/reader_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/exec_linux_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec_linux_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/exec_other_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec_other_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/exec_posix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec_posix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/exec_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec_unix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/exec_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec_windows_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/fdtest/exists_plan9.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/fdtest/exists_plan9.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/fdtest/exists_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/fdtest/exists_unix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/fdtest/exists_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/fdtest/exists_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/testenv/noopt.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/testenv/noopt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/testenv/opt.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/testenv/opt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/testenv/testenv_notunix.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/testenv/testenv_notunix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/testenv/testenv_notwin.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/testenv/testenv_notwin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/testenv/testenv_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/testenv/testenv_unix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/lp_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/lp_unix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/internal/race/norace.go" beforeDir="false" afterPath="$PROJECT_DIR$/fmt/internal/race/norace.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/internal/race/race.go" beforeDir="false" afterPath="$PROJECT_DIR$/fmt/internal/race/race.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/env_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/env_unix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/error_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/error_unix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/error_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/error_windows_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/exec_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/exec_unix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/exec_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/exec_windows_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/export_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/export_unix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/fifo_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/fifo_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/exec_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/exec_windows_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/mksyscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/export_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/registry/export_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/key.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/registry/key.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/registry/mksyscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/registry_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/registry/registry_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/syscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/registry/syscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/value.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/registry/value.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/sysdll/sysdll.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/sysdll/sysdll.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/testenv/noopt.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/testenv/noopt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/testenv/opt.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/testenv/opt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/testenv/testenv_notunix.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/testenv/testenv_notunix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/testenv/testenv_notwin.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/testenv/testenv_notwin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/testenv/testenv_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/testenv/testenv_unix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/os_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/os_unix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/pipe_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/pipe_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/rawconn_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/rawconn_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/timeout_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/timeout_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/exec2_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/regexp/exec2_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/syscall/windows/mksyscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/registry/key.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/syscall/windows/registry/key.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/registry/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/syscall/windows/registry/mksyscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/registry/syscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/syscall/windows/registry/syscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/registry/value.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/syscall/windows/registry/value.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/sysdll/sysdll.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/syscall/windows/sysdll/sysdll.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/testenv/noopt.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/testenv/noopt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/testenv/opt.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/testenv/opt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/testenv/testenv_notunix.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/testenv/testenv_notunix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/testenv/testenv_notwin.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/testenv/testenv_notwin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/testenv/testenv_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/testenv/testenv_unix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/zoneinfo_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/zoneinfo_unix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/aliases.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/aliases.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/env_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/env_windows_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/eventlog.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/eventlog.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/mksyscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/race.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/race.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/race0.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/race0.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/registry/export_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/export_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/registry/key.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/key.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/registry/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/mksyscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/registry/registry_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/registry_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/registry/syscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/syscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/registry/value.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/value.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/str.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/str.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/debug/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/debug/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/debug/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/debug/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/eventlog/install.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/eventlog/install.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/eventlog/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/eventlog/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/eventlog/log_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/eventlog/log_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/example/beep.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/example/beep.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/example/install.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/example/install.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/example/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/example/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/example/manage.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/example/manage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/example/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/example/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/mgr.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/mgr.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/mgr_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/mgr_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/recovery.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/recovery.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/security.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/security.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/svc/svc_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/svc_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/syscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/syscall.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/syscall_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/syscall_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

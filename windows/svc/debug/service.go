@@ -2,7 +2,7 @@
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
-//go:build windows
+//---build---//go:build windows
 
 // Package debug 提供在控制台执行 svc.Handler 的功能。
 package debug

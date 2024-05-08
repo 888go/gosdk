@@ -2,7 +2,7 @@
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
-//go:build linux && cgo
+//---build---//go:build linux && cgo
 
 // 在使用glibc的系统中，调用malloc可能会创建一个新的内存区域（arena），
 // 而创建新的内存区域可能会读取/sys/devices/system/cpu/online文件。

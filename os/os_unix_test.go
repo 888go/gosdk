@@ -2,7 +2,7 @@
 // 本源代码的使用受 BSD 风格许可证约束，
 // 此许可证可在 LICENSE 文件中找到。
 
-//go:build unix || (js && wasm) || wasip1
+//---build---//go:build unix || (js && wasm) || wasip1
 
 package os_test
 

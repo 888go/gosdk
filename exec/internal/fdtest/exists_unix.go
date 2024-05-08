@@ -2,7 +2,7 @@
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
-//go:build unix || wasm
+//---build---//go:build unix || wasm
 
 // 包 fdtest 提供了在 exec 中处理文件描述符的测试辅助工具。
 package fdtest

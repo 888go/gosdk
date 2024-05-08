@@ -2,7 +2,7 @@
 //使用此源代码受BSD风格的
 //可在LICENSE文件中找到的许可协议管辖。
 
-//go:build windows
+//---build---//go:build windows
 
 // 包sysdll是一个内部的叶子包，用于记录和报告Go自身使用了哪些Windows DLL名称。这些DLL随后仅从System32目录加载。参见问题14959。
 package sysdll

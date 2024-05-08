@@ -2,7 +2,7 @@
 // 本源代码的使用受 BSD 风格许可证约束，
 // 此许可证可在 LICENSE 文件中找到。
 
-//go:build windows
+//---build---//go:build windows
 
 // Package windows 提供了对底层操作系统原语的接口。具体的操作系统细节会因底层系统的不同而有所变化，且默认情况下，godoc 会显示当前系统的特定文档。如果你想让 godoc 显示其他系统的 syscall 文档，请将 $GOOS 和 $GOARCH 环境变量分别设置为所期望的系统。例如，如果你在 linux/amd64 平台上想查看 freebsd/arm 的文档，应将 $GOOS 设为 freebsd，$GOARCH 设为 arm。
 // 

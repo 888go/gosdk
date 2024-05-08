@@ -2,7 +2,7 @@
 //使用此源代码受BSD风格的
 //可在LICENSE文件中找到的许可协议管辖。
 
-//go:build !windows
+//---build---//go:build !windows
 
 package testenv
 

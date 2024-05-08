@@ -2,7 +2,7 @@
 // 本源代码的使用受 BSD 风格许可协议约束，
 // 该协议可在 LICENSE 文件中找到。
 
-//go:build windows
+//---build---//go:build windows
 
 package windows_test
 

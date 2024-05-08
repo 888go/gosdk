@@ -2,7 +2,7 @@
 // 使用本源代码须遵循 BSD 风格许可证，
 // 该许可证可在 LICENSE 文件中找到。
 
-//go:build windows && go1.9
+//---build---//go:build windows && go1.9
 
 package windows
 
