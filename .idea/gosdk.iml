@@ -10,5 +10,6 @@
     <orderEntry type="module" module-name="sys@v0.19.0" />
     <orderEntry type="module" module-name="go_src" />
     <orderEntry type="module" module-name="go_src" />
+    <orderEntry type="module" module-name="go_src" />
   </component>
 </module>

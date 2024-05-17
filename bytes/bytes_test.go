@@ -1,7 +1,6 @@
-//版权所有2009年Go作者。所有权利保留。
-//使用此源代码受BSD风格
-//可以在LICENSE文件中找到的许可证。
-// md5:2e9dc81828a3be8a
+// Copyright 2009 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 package bytes_test
 
@@ -39,8 +38,8 @@ func sliceOfString(s [][]byte) []string {
 	return result
 }
 
-// 为了便于阅读，测试用例使用在调用函数之前转换为字节切片的字符串。
-// md5:cc0119a5cedee1b2
+// For ease of reading, the test cases use strings that are converted to byte
+// slices before invoking the functions.
 
 var abcd = "abcd"
 var faces = "☺☻☹"
@@ -54,7 +53,7 @@ type BinOpTest struct {
 }
 
 func TestEqual(t *testing.T) {
-	// 同时运行测试并检查内存分配情况。. md5:7eeb37e33320936f
+	// Run the tests and check for allocation at the same time.
 	allocs := testing.AllocsPerRun(10, func() {
 		for _, tt := range compareTests {
 			eql := Equal(tt.a, tt.b)
@@ -76,7 +75,7 @@ func TestEqualExhaustive(t *testing.T) {
 	a := make([]byte, size)
 	b := make([]byte, size)
 	b_init := make([]byte, size)
-	// 随机但确定的数据. md5:74d5619b89612fd4
+	// randomish but deterministic data
 	for i := 0; i < size; i++ {
 		a[i] = byte(17 * i)
 		b_init[i] = byte(23*i + 100)
@@ -95,9 +94,8 @@ func TestEqualExhaustive(t *testing.T) {
 	}
 }
 
-// 确保Equal函数对于稍微不同的字符串返回false。数据全部为零，
-// 除了在某个位置有一个一。
-// md5:e67bbd551b9ae3b6
+// make sure Equal returns false for minimally different strings. The data
+// is all zeros except for a single one in one location.
 func TestNotEqual(t *testing.T) {
 	var size = 128
 	if testing.Short() {
@@ -134,7 +132,7 @@ var indexTests = []BinOpTest{
 	{"foo", "", 0},
 	{"foo", "o", 1},
 	{"abcABCabc", "A", 3},
-	// 一个字节字符串的案例 - 测试IndexByte和Index()的特殊情况. md5:f42df8c179943cdc
+	// cases with one byte strings - test IndexByte and special case in Index()
 	{"", "a", -1},
 	{"x", "a", -1},
 	{"x", "x", 0},
@@ -177,7 +175,7 @@ var indexTests = []BinOpTest{
 	{"oooooooooooooooooooooo", "r", -1},
 	{"oxoxoxoxoxoxoxoxoxoxoxoy", "oy", 22},
 	{"oxoxoxoxoxoxoxoxoxoxoxox", "oy", -1},
-	// 测试使用Rabin-Karp算法的备份。. md5:44782e3f078ab24b
+	// test fallback to Rabin-Karp.
 	{"000000000000000000000000000000000000000000000000000000000000000000000001", "0000000000000000000000000000000000000000000000000000000000000000001", 5},
 }
 
@@ -237,8 +235,8 @@ var lastIndexAnyTests = []BinOpTest{
 	{"0123456\xcf\x80abc", "\xcfb\x80", 10},
 }
 
-// 对每个测试用例执行f。funcName应该是f的名称；它在失败报告中使用。
-// md5:c1927b781dfa03e1
+// Execute f on each test case.  funcName should be the name of f; it's used
+// in failure reports.
 func runIndexTests(t *testing.T, f func(s, sep []byte) int, funcName string, testCases []BinOpTest) {
 	for _, test := range testCases {
 		a := []byte(test.a)
@@ -253,9 +251,9 @@ func runIndexTests(t *testing.T, f func(s, sep []byte) int, funcName string, tes
 		b []byte
 		i int
 	}{
-		// 用于函数 Index 的情况。. md5:3908461a593ff220
+		// case for function Index.
 		{[]byte("000000000000000000000000000000000000000000000000000000000000000000000001"), []byte("0000000000000000000000000000000000000000000000000000000000000000001"), 5},
-		// 对LastIndex函数的案例。. md5:110e5bc369debd5a
+		// case for function LastIndex.
 		{[]byte("000000000000000000000000000000000000000000000000000000000000000010000"), []byte("00000000000000000000000000000000000000000000000000000000000001"), 3},
 	}
 	allocs := testing.AllocsPerRun(100, func() {
@@ -288,29 +286,29 @@ func TestLastIndexAny(t *testing.T) {
 	runIndexAnyTests(t, LastIndexAny, "LastIndexAny", lastIndexAnyTests)
 }
 
-//func TestIndexByte(t *testing.T) {
-//	for _, tt := range indexTests {
-//		if len(tt.b) != 1 {
-//			continue
-//		}
-//		a := []byte(tt.a)
-//		b := tt.b[0]
-//		pos := IndexByte(a, b)
-//		if pos != tt.i {
-//			t.Errorf(`IndexByte(%q, '%c') = %v`, tt.a, b, pos)
-//		}
-//		posp := IndexBytePortable(a, b)
-//		if posp != tt.i {
-//			t.Errorf(`indexBytePortable(%q, '%c') = %v`, tt.a, b, posp)
-//		}
-//	}
-//}
+func TestIndexByte(t *testing.T) {
+	for _, tt := range indexTests {
+		if len(tt.b) != 1 {
+			continue
+		}
+		a := []byte(tt.a)
+		b := tt.b[0]
+		pos := IndexByte(a, b)
+		if pos != tt.i {
+			t.Errorf(`IndexByte(%q, '%c') = %v`, tt.a, b, pos)
+		}
+		posp := IndexBytePortable(a, b)
+		if posp != tt.i {
+			t.Errorf(`indexBytePortable(%q, '%c') = %v`, tt.a, b, posp)
+		}
+	}
+}
 
 func TestLastIndexByte(t *testing.T) {
 	testCases := []BinOpTest{
 		{"", "q", -1},
 		{"abcdef", "q", -1},
-		{"abcdefabcdef", "a", len("abcdef")},      // 中间的一些东西. md5:33e6ce4fb316248e
+		{"abcdefabcdef", "a", len("abcdef")},      // something in the middle
 		{"abcdefabcdef", "f", len("abcdefabcde")}, // last byte
 		{"zabcdefabcdef", "z", 0},                 // first byte
 		{"a☺b☻c☹d", "b", len("a☺")},               // non-ascii
@@ -323,7 +321,7 @@ func TestLastIndexByte(t *testing.T) {
 	}
 }
 
-// 测试具有不同大小和对齐方式的较大缓冲区. md5:bdd23843bfb9fd53
+// test a larger buffer with different sizes and alignments
 func TestIndexByteBig(t *testing.T) {
 	var n = 1024
 	if testing.Short() {
@@ -331,7 +329,7 @@ func TestIndexByteBig(t *testing.T) {
 	}
 	b := make([]byte, n)
 	for i := 0; i < n; i++ {
-		// 不同的起始对齐方式. md5:3c1d2601274622bb
+		// different start alignments
 		b1 := b[i:]
 		for j := 0; j < len(b1); j++ {
 			b1[j] = 'x'
@@ -345,7 +343,7 @@ func TestIndexByteBig(t *testing.T) {
 				t.Errorf("IndexByte(%q, 'x') = %v", b1, pos)
 			}
 		}
-		// 不同的结束对齐方式. md5:03ebb91baeab54f1
+		// different end alignments
 		b1 = b[:i]
 		for j := 0; j < len(b1); j++ {
 			b1[j] = 'x'
@@ -359,7 +357,7 @@ func TestIndexByteBig(t *testing.T) {
 				t.Errorf("IndexByte(%q, 'x') = %v", b1, pos)
 			}
 		}
-		// 不同的开始和结束对齐方式. md5:9c3f4acdc0b00b1c
+		// different start and end alignments
 		b1 = b[i/2 : n-(i+1)/2]
 		for j := 0; j < len(b1); j++ {
 			b1[j] = 'x'
@@ -376,10 +374,10 @@ func TestIndexByteBig(t *testing.T) {
 	}
 }
 
-// 测试小索引在所有页面偏移上的情况. md5:b0600eaff691216a
+// test a small index across all page offsets
 func TestIndexByteSmall(t *testing.T) {
 	b := make([]byte, 5015) // bigger than a page
-	// 确保我们即使在跨越页面的情况下也能找到正确的字节。. md5:91c3ac76aa5ffb4b
+	// Make sure we find the correct byte even when straddling a page.
 	for i := 0; i <= len(b)-15; i++ {
 		for j := 0; j < 15; j++ {
 			b[i+j] = byte(100 + j)
@@ -394,7 +392,7 @@ func TestIndexByteSmall(t *testing.T) {
 			b[i+j] = 0
 		}
 	}
-	// 确保切片外部的匹配项永远不会触发。. md5:77a9d5f02b1924b6
+	// Make sure matches outside the slice never trigger.
 	for i := 0; i <= len(b)-15; i++ {
 		for j := 0; j < 15; j++ {
 			b[i+j] = 1
@@ -428,7 +426,7 @@ func TestIndexRune(t *testing.T) {
 		{"☺a", 'a', 3},
 		{"a☻☺b", '☺', 4},
 
-		// RuneError应该匹配任何无效的UTF-8字节序列。. md5:435d81d1f5f4f637
+		// RuneError should match any invalid UTF-8 byte sequence.
 		{"�", '�', 0},
 		{"\xff", '�', 0},
 		{"☻x�", '�', len("☻x")},
@@ -436,7 +434,7 @@ func TestIndexRune(t *testing.T) {
 		{"☻x\xe2\x98�", '�', len("☻x")},
 		{"☻x\xe2\x98x", '�', len("☻x")},
 
-		// 无效的字符值应当永不匹配。. md5:e2994b05bbd0f2e8
+		// Invalid rune values should never match.
 		{"a☺b☻c☹d\xe2\x98�\xff�\xed\xa0\x80", -1, -1},
 		{"a☺b☻c☹d\xe2\x98�\xff�\xed\xa0\x80", 0xD800, -1}, // Surrogate pair
 		{"a☺b☻c☹d\xe2\x98�\xff�\xed\xa0\x80", utf8.MaxRune + 1, -1},
@@ -461,7 +459,7 @@ func TestIndexRune(t *testing.T) {
 	}
 }
 
-// 测试单个字节在页面偏移量上的计数. md5:e62bbb3f055c41a3
+// test count of a single byte across page offsets
 func TestCountByte(t *testing.T) {
 	b := make([]byte, 5015) // bigger than a page
 	windows := []int{1, 2, 3, 4, 15, 16, 17, 31, 32, 33, 63, 64, 65, 128}
@@ -501,7 +499,7 @@ func TestCountByte(t *testing.T) {
 	}
 }
 
-// 确保我们不会计算窗口之外的字节. md5:eb48fa1ed06414ad
+// Make sure we don't count bytes outside our window
 func TestCountByteNoMatch(t *testing.T) {
 	b := make([]byte, 5015)
 	windows := []int{1, 2, 3, 4, 15, 16, 17, 31, 32, 33, 63, 64, 65, 128}
@@ -510,11 +508,11 @@ func TestCountByteNoMatch(t *testing.T) {
 			if window > len(b[i:]) {
 				window = len(b[i:])
 			}
-			// 用非匹配填充窗口. md5:ee183c337a4b466f
+			// Fill the window with non-match
 			for j := 0; j < window; j++ {
 				b[i+j] = byte(100)
 			}
-			// 尝试查找不存在的项. md5:8e7643a6e64b7d13
+			// Try to find something that doesn't exist
 			p := Count(b[i:i+window], []byte{0})
 			if p != 0 {
 				t.Errorf("TestCountByteNoMatch(%q, 0) = %d", b[i:i+window], p)
@@ -561,9 +559,9 @@ func BenchmarkIndexByte(b *testing.B) {
 	benchBytes(b, indexSizes, bmIndexByte(IndexByte))
 }
 
-//func BenchmarkIndexBytePortable(b *testing.B) {
-//	benchBytes(b, indexSizes, bmIndexByte(IndexBytePortable))
-//}
+func BenchmarkIndexBytePortable(b *testing.B) {
+	benchBytes(b, indexSizes, bmIndexByte(IndexBytePortable))
+}
 
 func bmIndexByte(index func([]byte, byte) int) func(b *testing.B, n int) {
 	return func(b *testing.B, n int) {
@@ -651,38 +649,6 @@ func bmEqual(equal func([]byte, []byte) bool) func(b *testing.B, n int) {
 		}
 		buf1[n-1] = '\x00'
 		buf2[n-1] = '\x00'
-	}
-}
-
-func BenchmarkEqualBothUnaligned(b *testing.B) {
-	sizes := []int{64, 4 << 10}
-	if !isRaceBuilder {
-		sizes = append(sizes, []int{4 << 20, 64 << 20}...)
-	}
-	maxSize := 2 * (sizes[len(sizes)-1] + 8)
-	if len(bmbuf) < maxSize {
-		bmbuf = make([]byte, maxSize)
-	}
-
-	for _, n := range sizes {
-		for _, off := range []int{0, 1, 4, 7} {
-			buf1 := bmbuf[off : off+n]
-			buf2Start := (len(bmbuf) / 2) + off
-			buf2 := bmbuf[buf2Start : buf2Start+n]
-			buf1[n-1] = 'x'
-			buf2[n-1] = 'x'
-			b.Run(fmt.Sprint(n, off), func(b *testing.B) {
-				b.SetBytes(int64(n))
-				for i := 0; i < b.N; i++ {
-					eq := Equal(buf1, buf2)
-					if !eq {
-						b.Fatal("bad equal")
-					}
-				}
-			})
-			buf1[n-1] = '\x00'
-			buf2[n-1] = '\x00'
-		}
 	}
 }
 
@@ -798,7 +764,7 @@ func TestSplit(t *testing.T) {
 	for _, tt := range splittests {
 		a := SplitN([]byte(tt.s), []byte(tt.sep), tt.n)
 
-		// 向结果中追加内容不应该改变未来的结果。. md5:96afbc6aa8af6e48
+		// Appending to the results should not change future results.
 		var x []byte
 		for _, v := range a {
 			x = append(v, 'z')
@@ -856,7 +822,7 @@ func TestSplitAfter(t *testing.T) {
 	for _, tt := range splitaftertests {
 		a := SplitAfterN([]byte(tt.s), []byte(tt.sep), tt.n)
 
-		// 向结果中追加内容不应该改变未来的结果。. md5:96afbc6aa8af6e48
+		// Appending to the results should not change future results.
 		var x []byte
 		for _, v := range a {
 			x = append(v, 'z')
@@ -909,7 +875,7 @@ func TestFields(t *testing.T) {
 		b := []byte(tt.s)
 		a := Fields(b)
 
-		// 向结果中追加内容不应该改变未来的结果。. md5:96afbc6aa8af6e48
+		// Appending to the results should not change future results.
 		var x []byte
 		for _, v := range a {
 			x = append(v, 'z')
@@ -952,7 +918,7 @@ func TestFieldsFunc(t *testing.T) {
 		b := []byte(tt.s)
 		a := FieldsFunc(b, pred)
 
-		// 向结果中追加内容不应该改变未来的结果。. md5:96afbc6aa8af6e48
+		// Appending to the results should not change future results.
 		var x []byte
 		for _, v := range a {
 			x = append(v, 'z')
@@ -974,8 +940,8 @@ func TestFieldsFunc(t *testing.T) {
 	}
 }
 
-// 用于测试任何接受并返回字节切片的函数。为了方便创建，我们将输入字节切片写为字符串。
-// md5:0a5359f1b96a57fc
+// Test case for any function which accepts and returns a byte slice.
+// For ease of creation, we write the input byte slice as a string.
 type StringTest struct {
 	in  string
 	out []byte
@@ -989,8 +955,8 @@ var upperTests = []StringTest{
 	{"azAZ09_", []byte("AZAZ09_")},
 	{"longStrinGwitHmixofsmaLLandcAps", []byte("LONGSTRINGWITHMIXOFSMALLANDCAPS")},
 	{"long\u0250string\u0250with\u0250nonascii\u2C6Fchars", []byte("LONG\u2C6FSTRING\u2C6FWITH\u2C6FNONASCII\u2C6FCHARS")},
-	{"\u0250\u0250\u0250\u0250\u0250", []byte("\u2C6F\u2C6F\u2C6F\u2C6F\u2C6F")}, // 每个字符增长1字节. md5:41ef86d4dc86aeae
-	{"a\u0080\U0010FFFF", []byte("A\u0080\U0010FFFF")},                           // 测试 utf8.RuneSelf 和 utf8.MaxRune. md5:9be232d2f4ce5636
+	{"\u0250\u0250\u0250\u0250\u0250", []byte("\u2C6F\u2C6F\u2C6F\u2C6F\u2C6F")}, // grows one byte per char
+	{"a\u0080\U0010FFFF", []byte("A\u0080\U0010FFFF")},                           // test utf8.RuneSelf and utf8.MaxRune
 }
 
 var lowerTests = []StringTest{
@@ -1000,8 +966,8 @@ var lowerTests = []StringTest{
 	{"azAZ09_", []byte("azaz09_")},
 	{"longStrinGwitHmixofsmaLLandcAps", []byte("longstringwithmixofsmallandcaps")},
 	{"LONG\u2C6FSTRING\u2C6FWITH\u2C6FNONASCII\u2C6FCHARS", []byte("long\u0250string\u0250with\u0250nonascii\u0250chars")},
-	{"\u2C6D\u2C6D\u2C6D\u2C6D\u2C6D", []byte("\u0251\u0251\u0251\u0251\u0251")}, // 每个字符缩小一个字节. md5:61f8c9702d4cc969
-	{"A\u0080\U0010FFFF", []byte("a\u0080\U0010FFFF")},                           // 测试 utf8.RuneSelf 和 utf8.MaxRune. md5:9be232d2f4ce5636
+	{"\u2C6D\u2C6D\u2C6D\u2C6D\u2C6D", []byte("\u0251\u0251\u0251\u0251\u0251")}, // shrinks one byte per char
+	{"A\u0080\U0010FFFF", []byte("a\u0080\U0010FFFF")},                           // test utf8.RuneSelf and utf8.MaxRune
 }
 
 const space = "\t\v\r\f\n\u0085\u00a0\u2000\u3000"
@@ -1029,8 +995,8 @@ var trimSpaceTests = []StringTest{
 	{"x ☺ ", []byte("x ☺")},
 }
 
-// 对每个测试用例执行f。funcName应该是f的名称；它在失败报告中使用。
-// md5:c1927b781dfa03e1
+// Execute f on each test case.  funcName should be the name of f; it's used
+// in failure reports.
 func runStringTests(t *testing.T, f func([]byte) []byte, funcName string, testCases []StringTest) {
 	for _, tc := range testCases {
 		actual := f([]byte(tc.in))
@@ -1054,7 +1020,7 @@ func tenRunes(r rune) string {
 	return string(runes)
 }
 
-// 用户自定义的自逆映射函数. md5:3f01f9afc8855318
+// User-defined self-inverse mapping function
 func rot13(r rune) rune {
 	const step = 13
 	if r >= 'a' && r <= 'z' {
@@ -1067,10 +1033,10 @@ func rot13(r rune) rune {
 }
 
 func TestMap(t *testing.T) {
-	// 运行一些糟糕的生长/收缩测试. md5:92178dba5f26024e
+	// Run a couple of awful growth/shrinkage tests
 	a := tenRunes('a')
 
-	// 1. 扩容。这将触发映射(Map)中的两次重新分配。. md5:2251939b1fa5eb1b
+	// 1.  Grow. This triggers two reallocations in Map.
 	maxRune := func(r rune) rune { return unicode.MaxRune }
 	m := Map(maxRune, []byte(a))
 	expect := tenRunes(unicode.MaxRune)
@@ -1203,7 +1169,7 @@ var RepeatTests = []RepeatTest{
 	{"-", "-", 1},
 	{"-", "----------", 10},
 	{"abc ", "abc abc abc ", 3},
-	// 对超过chunkLimit限制的结果进行测试. md5:f1cb95f92cb7c08d
+	// Tests for results over the chunkLimit
 	{string(rune(0)), string(make([]byte, 1<<16)), 1 << 16},
 	{longString, longString + longString, 2},
 }
@@ -1237,7 +1203,7 @@ func repeat(b []byte, count int) (err error) {
 	return
 }
 
-// 请参阅问题 golang.org/issue/16237. md5:cb3e34cc0fbca988
+// See Issue golang.org/issue/16237
 func TestRepeatCatchesOverflow(t *testing.T) {
 	tests := [...]struct {
 		s      string
@@ -1305,7 +1271,7 @@ func TestRunes(t *testing.T) {
 			continue
 		}
 		if !tt.lossy {
-			// 只有当我们没有丢失信息时，才能测试重装. md5:2c1bd20acd2e952a
+			// can only test reassembly if we didn't lose information
 			s := string(a)
 			if s != tt.in {
 				t.Errorf("string(Runes(%q)) = %x; want %x", tin, s, tin)
@@ -1519,8 +1485,8 @@ var trimFuncTests = []TrimFuncTest{
 		[]byte("a"),
 		[]byte("a\xc0"),
 		[]byte("\xc0a")},
-	// TrimLeftFunc 返回的nils表现出奇特的行为，但我们需要保持向后兼容性。
-	// md5:b1a69a537dcc0f5f
+	// The nils returned by TrimLeftFunc are odd behavior, but we need
+	// to preserve backwards compatibility.
 	{isSpace, "",
 		nil,
 		nil,
@@ -1568,7 +1534,7 @@ var indexFuncTests = []IndexFuncTest{
 	{"abc", isDigit, -1, -1},
 	{"0123", isDigit, 0, 3},
 	{"a1b", isDigit, 1, 1},
-	{space, isSpace, 0, len(space) - 3}, // space中的最后一个字符是3个字节. md5:750aad870675d5f5
+	{space, isSpace, 0, len(space) - 3}, // last rune in space is 3 bytes
 	{"\u0e50\u0e5212hello34\u0e50\u0e51", isDigit, 0, 18},
 	{"\u2C6F\u2C6F\u2C6F\u2C6FABCDhelloEF\u2C6F\u2C6FGH\u2C6F\u2C6F", isUpper, 0, 34},
 	{"12\u0e50\u0e52hello34\u0e50\u0e51", not(isDigit), 8, 12},
@@ -1762,7 +1728,7 @@ func TestCutPrefix(t *testing.T) {
 
 var cutSuffixTests = []struct {
 	s, sep string
-	before string
+	after  string
 	found  bool
 }{
 	{"abc", "bc", "a", true},
@@ -1775,8 +1741,8 @@ var cutSuffixTests = []struct {
 
 func TestCutSuffix(t *testing.T) {
 	for _, tt := range cutSuffixTests {
-		if before, found := CutSuffix([]byte(tt.s), []byte(tt.sep)); string(before) != tt.before || found != tt.found {
-			t.Errorf("CutSuffix(%q, %q) = %q, %v, want %q, %v", tt.s, tt.sep, before, found, tt.before, tt.found)
+		if after, found := CutSuffix([]byte(tt.s), []byte(tt.sep)); string(after) != tt.after || found != tt.found {
+			t.Errorf("CutSuffix(%q, %q) = %q, %v, want %q, %v", tt.s, tt.sep, after, found, tt.after, tt.found)
 		}
 	}
 }
@@ -1881,20 +1847,9 @@ func TestContainsRune(t *testing.T) {
 	}
 }
 
-func TestContainsFunc(t *testing.T) {
-	for _, ct := range ContainsRuneTests {
-		if ContainsFunc(ct.b, func(r rune) bool {
-			return ct.r == r
-		}) != ct.expected {
-			t.Errorf("ContainsFunc(%q, func(%q)) = %v, want %v",
-				ct.b, ct.r, !ct.expected, ct.expected)
-		}
-	}
-}
-
 var makeFieldsInput = func() []byte {
 	x := make([]byte, 1<<20)
-	// 输入大约是10%的空格，约10%的2字节UTF-8编码，其余是ASCII非空格字符。. md5:d6a20654cb2dd72f
+	// Input is ~10% space, ~10% 2-byte UTF-8, rest ASCII non-space.
 	for i := range x {
 		switch rand.Intn(10) {
 		case 0:
@@ -1914,7 +1869,7 @@ var makeFieldsInput = func() []byte {
 
 var makeFieldsInputASCII = func() []byte {
 	x := make([]byte, 1<<20)
-	// 输入大约是10%的空格，其余是ASCII非空格字符。. md5:2595a4bcaddb9459
+	// Input is ~10% space, rest ASCII non-space.
 	for i := range x {
 		if rand.Intn(10) == 0 {
 			x[i] = ' '

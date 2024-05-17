@@ -1,107 +1,107 @@
 @Echo Off
 color 2e
-Title ÃüÁî
+Title å‘½ä»¤
 :begin
 
 cls
-Echo. ÇëÑ¡ÔñĞèÒªµÄ²Ù×÷
-Echo     0 ĞÂ½¨ÏîÄ¿ go mod init *ÏîÄ¿Ãû³Æ*
-Echo     1 °²×°µÚÈı·½°ü go mod download
-Echo     2 ¸´ÖÆµÚÈı·½°üµ½Ä¿Â¼ go mod vendor
-echo     3 ¸üĞÂµÚÈı·½°ü go mod tidy
-echo     4 ¸üĞÂ×îĞÂµÚÈı·½°ü go get -u *°üµØÖ·*
-echo     5 ¸üĞÂÈ«²¿×îĞÂµÚÈı·½°ü go get -u -all
-echo     6 ÎŞºÚ¿ò±àÒë go build -ldflags -H=windowsgui 
-echo     7 ³£¹æ±àÒë go build 
-echo     8 ÆßÅ£´úÀí go env -w GOPROXY=*´úÀíµØÖ·*
-echo     9 ÉèÖÃ²»×ßproxyµÄË½ÓĞ²Ö¿â go env -w GOPRIVATE=*°üµØÖ·*
-echo     10 ×Ô½¨´úÀí
-echo     11 ²é¿´go±äÁ¿ go env 
-echo     12 ĞÂ½¨¹¤×÷Çø»ò¼ÓÈë¹¤×÷Çø
-echo     13 ÇĞ»»µ½x86
-echo     14 ÇĞ»»µ½x64
-Set /P Choice= ¡¡¡¡¡¡¡¡¡¡ÇëÑ¡ÔñÒª½øĞĞµÄ²Ù×÷Êı×Ö £¬È»ºó°´»Ø³µ£º
+Echo. è¯·é€‰æ‹©éœ€è¦çš„æ“ä½œ
+Echo     0 æ–°å»ºé¡¹ç›® go mod init *é¡¹ç›®åç§°*
+Echo     1 å®‰è£…ç¬¬ä¸‰æ–¹åŒ… go mod download
+Echo     2 å¤åˆ¶ç¬¬ä¸‰æ–¹åŒ…åˆ°ç›®å½• go mod vendor
+echo     3 æ›´æ–°ç¬¬ä¸‰æ–¹åŒ… go mod tidy
+echo     4 æ›´æ–°æœ€æ–°ç¬¬ä¸‰æ–¹åŒ… go get -u *åŒ…åœ°å€*
+echo     5 æ›´æ–°å…¨éƒ¨æœ€æ–°ç¬¬ä¸‰æ–¹åŒ… go get -u -all
+echo     6 æ— é»‘æ¡†ç¼–è¯‘ go build -ldflags -H=windowsgui 
+echo     7 å¸¸è§„ç¼–è¯‘ go build 
+echo     8 ä¸ƒç‰›ä»£ç† go env -w GOPROXY=*ä»£ç†åœ°å€*
+echo     9 è®¾ç½®ä¸èµ°proxyçš„ç§æœ‰ä»“åº“ go env -w GOPRIVATE=*åŒ…åœ°å€*
+echo     10 è‡ªå»ºä»£ç†
+echo     11 æŸ¥çœ‹goå˜é‡ go env 
+echo     12 æ–°å»ºå·¥ä½œåŒºæˆ–åŠ å…¥å·¥ä½œåŒº
+echo     13 åˆ‡æ¢åˆ°x86
+echo     14 åˆ‡æ¢åˆ°x64
+Set /P Choice= ã€€ã€€ã€€ã€€ã€€è¯·é€‰æ‹©è¦è¿›è¡Œçš„æ“ä½œæ•°å­— ï¼Œç„¶åæŒ‰å›è½¦ï¼š
 
 
 If not "%Choice%"=="" (
-  If "%Choice%"=="0" goto ĞÂ½¨ÏîÄ¿
-  If "%Choice%"=="1" goto °²×°µÚÈı·½°ü
-  If "%Choice%"=="2" goto ¸´ÖÆµÚÈı·½°üµ½Ä¿Â¼
-  If "%Choice%"=="3" goto ¸üĞÂµÚÈı·½°ü
-  If "%Choice%"=="4" goto ¸üĞÂ×îĞÂµÚÈı·½°ü
-  If "%Choice%"=="5" goto ¸üĞÂÈ«²¿×îĞÂµÚÈı·½°ü
-  If "%Choice%"=="6" goto ÎŞºÚ¿ò±àÒë
-  If "%Choice%"=="7" goto ³£¹æ±àÒë
-  If "%Choice%"=="8" goto ÆßÅ£´úÀí
-  If "%Choice%"=="9" goto ÉèÖÃ²»×ßproxyµÄË½ÓĞ²Ö¿â
-  If "%Choice%"=="10" goto ×Ô½¨´úÀí
-  If "%Choice%"=="11" goto ²é¿´go±äÁ¿
-  If "%Choice%"=="12" goto ĞÂ½¨¹¤×÷Çø»ò¼ÓÈë¹¤×÷Çø
-  If "%Choice%"=="13" goto ÇĞ»»µ½x86
-  If "%Choice%"=="14" goto ÇĞ»»µ½x64
+  If "%Choice%"=="0" goto æ–°å»ºé¡¹ç›®
+  If "%Choice%"=="1" goto å®‰è£…ç¬¬ä¸‰æ–¹åŒ…
+  If "%Choice%"=="2" goto å¤åˆ¶ç¬¬ä¸‰æ–¹åŒ…åˆ°ç›®å½•
+  If "%Choice%"=="3" goto æ›´æ–°ç¬¬ä¸‰æ–¹åŒ…
+  If "%Choice%"=="4" goto æ›´æ–°æœ€æ–°ç¬¬ä¸‰æ–¹åŒ…
+  If "%Choice%"=="5" goto æ›´æ–°å…¨éƒ¨æœ€æ–°ç¬¬ä¸‰æ–¹åŒ…
+  If "%Choice%"=="6" goto æ— é»‘æ¡†ç¼–è¯‘
+  If "%Choice%"=="7" goto å¸¸è§„ç¼–è¯‘
+  If "%Choice%"=="8" goto ä¸ƒç‰›ä»£ç†
+  If "%Choice%"=="9" goto è®¾ç½®ä¸èµ°proxyçš„ç§æœ‰ä»“åº“
+  If "%Choice%"=="10" goto è‡ªå»ºä»£ç†
+  If "%Choice%"=="11" goto æŸ¥çœ‹goå˜é‡
+  If "%Choice%"=="12" goto æ–°å»ºå·¥ä½œåŒºæˆ–åŠ å…¥å·¥ä½œåŒº
+  If "%Choice%"=="13" goto åˆ‡æ¢åˆ°x86
+  If "%Choice%"=="14" goto åˆ‡æ¢åˆ°x64
 )
 
-:ĞÂ½¨ÏîÄ¿
+:æ–°å»ºé¡¹ç›®
 @Echo on
 set input=
-set /p input=ÇëÊäÈëÏîÄ¿Ãû³Æ:
+set /p input=è¯·è¾“å…¥é¡¹ç›®åç§°:
 go mod init %input%
 pause
 @Echo Off
 goto :begin
 
-:°²×°µÚÈı·½°ü
+:å®‰è£…ç¬¬ä¸‰æ–¹åŒ…
 @Echo on
 go mod download
 pause
 @Echo Off
 goto :begin
 
-:¸´ÖÆµÚÈı·½°üµ½Ä¿Â¼
+:å¤åˆ¶ç¬¬ä¸‰æ–¹åŒ…åˆ°ç›®å½•
 @Echo on
 go mod vendor
 pause
 @Echo Off
 goto :begin
 
-:¸üĞÂµÚÈı·½°ü
+:æ›´æ–°ç¬¬ä¸‰æ–¹åŒ…
 @Echo on
 go mod tidy
 pause
 @Echo Off
 goto :begin
 
-:¸üĞÂ×îĞÂµÚÈı·½°ü
+:æ›´æ–°æœ€æ–°ç¬¬ä¸‰æ–¹åŒ…
 @Echo on
 set input=
-set /p input=ÊäÈëµÚÈı·½°üµØÖ·:
+set /p input=è¾“å…¥ç¬¬ä¸‰æ–¹åŒ…åœ°å€:
 go get -u %input%
 pause
 @Echo Off
 goto :begin
 
-:¸üĞÂÈ«²¿×îĞÂµÚÈı·½°ü
+:æ›´æ–°å…¨éƒ¨æœ€æ–°ç¬¬ä¸‰æ–¹åŒ…
 @Echo on
 go get -u -all
 pause
 @Echo Off
 goto :begin
 
-:ÎŞºÚ¿ò±àÒë
+:æ— é»‘æ¡†ç¼–è¯‘
 @Echo on
 go build -ldflags -H=windowsgui 
 pause
 @Echo Off
 goto :begin
 
-:³£¹æ±àÒë
+:å¸¸è§„ç¼–è¯‘
 @Echo on
 go build 
 pause
 @Echo Off
 goto :begin
 
-:ÆßÅ£´úÀí
+:ä¸ƒç‰›ä»£ç†
 @Echo on
 go env -w GO111MODULE=on
 go env -w GOPROXY=https://goproxy.cn,direct
@@ -109,10 +109,10 @@ pause
 @Echo Off
 goto :begin
 
-:×Ô½¨´úÀí
+:è‡ªå»ºä»£ç†
 @Echo on
 set input=
-set /p input=ÇëÊäÈëipµØÖ·, Èç127.0.0.1:
+set /p input=è¯·è¾“å…¥ipåœ°å€, å¦‚127.0.0.1:
 go env -w GO111MODULE=on
 go env -w GOPROXY=http://%input%,direct
 pause
@@ -120,10 +120,10 @@ pause
 goto :begin
 
 
-:ÉèÖÃ²»×ßproxyµÄË½ÓĞ²Ö¿â
+:è®¾ç½®ä¸èµ°proxyçš„ç§æœ‰ä»“åº“
 @Echo on
 set input=
-set /p input=ÇëÊäÈë²»×ßproxyµÄË½ÓĞ²Ö¿â, Èç git.mycompany.com,github.com/my/private
+set /p input=è¯·è¾“å…¥ä¸èµ°proxyçš„ç§æœ‰ä»“åº“, å¦‚ git.mycompany.com,github.com/my/private
 go env -w GO111MODULE=on
 go env -w GOPRIVATE="%input%"
 pause
@@ -131,24 +131,24 @@ pause
 goto :begin
 
 
-:²é¿´go±äÁ¿
+:æŸ¥çœ‹goå˜é‡
 @Echo on
 go env 
 pause
 @Echo Off
 goto :begin
 
-:ĞÂ½¨¹¤×÷Çø»ò¼ÓÈë¹¤×÷Çø
+:æ–°å»ºå·¥ä½œåŒºæˆ–åŠ å…¥å·¥ä½œåŒº
 @Echo on
 set input=
-set /p input=ÇëÊäÈëĞèÒª¼ÓÈëĞÂ¹¤×÷ÇøµÄÄ¿Â¼Ãû³Æ, Èçdemo:
+set /p input=è¯·è¾“å…¥éœ€è¦åŠ å…¥æ–°å·¥ä½œåŒºçš„ç›®å½•åç§°, å¦‚demo:
 @Echo Off
 
 if not exist "%cd%\go.work" (
-echo go.work²»´æÔÚ£¡ĞÂ½¨¹¤×÷Çøºó¼ÓÈë%input%
+echo go.workä¸å­˜åœ¨ï¼æ–°å»ºå·¥ä½œåŒºååŠ å…¥%input%
 go work init %input%
 )else (
-echo go.work´æÔÚ£¡¼ÓÈë¹¤×÷Çø%input%
+echo go.workå­˜åœ¨ï¼åŠ å…¥å·¥ä½œåŒº%input%
 go work use %input%
 )
 
@@ -160,14 +160,14 @@ pause>nul
 goto :begin
 
 
-:ÇĞ»»µ½x86
+:åˆ‡æ¢åˆ°x86
 @Echo on
 go env -w GOARCH=386
 pause
 @Echo Off
 goto :begin
 
-:ÇĞ»»µ½x64
+:åˆ‡æ¢åˆ°x64
 @Echo on
 go env -w GOARCH=amd64
 pause

@@ -1,8 +1,8 @@
-// 版权所有 ? 2021 Go作者。保留所有权利。
-// 本源代码的使用受 BSD 风格许可证约束，
-// 该许可证可在 LICENSE 文件中找到。
+// Copyright 2021 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
-//---build---//go:build plan9
+//go:build plan9
 
 package fdtest
 
@@ -12,7 +12,7 @@ import (
 
 const errBadFd = syscall.ErrorString("fd out of range or not open")
 
-// Exists 返回 true，如果 fd 是一个有效的文件描述符。
+// Exists returns true if fd is a valid file descriptor.
 func Exists(fd uintptr) bool {
 	var buf [1]byte
 	_, err := syscall.Fstat(int(fd), buf[:])

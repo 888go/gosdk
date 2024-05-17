@@ -1,6 +1,6 @@
-// 版权所有 ? 2017 The Go Authors。保留所有权利。
-// 本源代码的使用受 BSD 风格许可证约束，
-// 该许可证可在 LICENSE 文件中找到。
+// Copyright 2017 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 package exec
 
@@ -30,7 +30,7 @@ package exec
 //			want: []string{"=b", "foo", "bar"},
 //		},
 //		{
-//			// #49886：保留带有前导"="符号的Windows奇特键。
+//			// #49886: preserve weird Windows keys with leading "=" signs.
 //			noCase: true,
 //			in:     []string{`=C:=C:\golang`, `=D:=D:\tmp`, `=D:=D:\`},
 //			want:   []string{`=C:=C:\golang`, `=D:=D:\`},
@@ -42,13 +42,13 @@ package exec
 //			want: []string{"dodgy", "entries"},
 //		},
 //		{
-//			// 过滤掉包含 NUL 的条目。
+//			// Filter out entries containing NULs.
 //			in:      []string{"A=a\x00b", "B=b", "C\x00C=c"},
 //			want:    []string{"B=b"},
 //			wantErr: true,
 //		},
 //		{
-//			// Plan 9需要保留带有NUL（空字符）的环境变量（#56544）。
+//			// Plan 9 needs to preserve environment variables with NUL (#56544).
 //			nulOK: true,
 //			in:    []string{"path=one\x00two"},
 //			want:  []string{"path=one\x00two"},

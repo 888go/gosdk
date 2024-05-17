@@ -1,6 +1,6 @@
-// 版权所有 2011 The Go 作者。保留所有权利。
-// 本源代码的使用受 BSD 风格许可协议约束，
-// 该协议可在 LICENSE 文件中找到。
+// Copyright 2011 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 package exec
 
@@ -9,6 +9,7 @@ var nonExistentPaths = []string{
 	"non-existent-path/slashed",
 }
 
+//
 //func TestLookPathNotFound(t *testing.T) {
 //	for _, name := range nonExistentPaths {
 //		path, err := LookPath(name)

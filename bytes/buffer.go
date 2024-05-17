@@ -36,14 +36,6 @@ func (b *Buffer) Bytes() []byte { //md5:3f81aeed184ada90
 	return b.F.Bytes()
 }
 
-// AvailableBuffer 返回一个容量为 b.Available() 的空缓冲区。
-// 此缓冲区旨在被追加到并传递给下一个立即接续的 [Buffer.Write] 调用。
-// 直到对 b 进行下一次写操作，这个缓冲区才有效。
-// md5:ffac6549b637e07e
-func (b *Buffer) AvailableBuffer() []byte { //md5:b8ff3178cd46fd06
-	return b.F.AvailableBuffer()
-}
-
 // String 方法返回缓冲区未读部分内容作为字符串。
 // 如果 [Buffer] 是一个空指针，它将返回 "<nil>"。
 //
@@ -64,11 +56,6 @@ func (b *Buffer) Len() int { //md5:3808bf9c6d07bc82
 // md5:7bf4166f47a43520
 func (b *Buffer) Cap() int { //md5:9ccaf75b2ffee8c7
 	return b.F.Cap()
-}
-
-// Available 返回缓冲区中未使用的字节数。. md5:fbfc156036bbe683
-func (b *Buffer) Available() int { //md5:aaf1cbad512fc481
-	return b.F.Available()
 }
 
 // Truncate 方法丢弃缓冲区中除前n个未读取字节以外的所有字节，

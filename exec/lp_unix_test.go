@@ -1,22 +1,33 @@
-// 版权所有 2013 The Go Authors。保留所有权利。
-// 使用本源代码受 BSD 风格许可协议约束，
-// 该协议可在 LICENSE 文件中找到。
+// Copyright 2013 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
-//---build---//go:build unix
+//go:build unix
 
-package exec_test
+package exec
 
 import (
 	"os"
-	"os/exec"
 	"testing"
 )
 
 func TestLookPathUnixEmptyPath(t *testing.T) {
-	// 非并行：使用了 Chdir 和 Setenv。
+	// Not parallel: uses os.Chdir.
 
-	tmp := t.TempDir()
-	chdir(t, tmp)
+	tmp, err := os.MkdirTemp("", "TestLookPathUnixEmptyPath")
+	if err != nil {
+		t.Fatal("TempDir failed: ", err)
+	}
+	defer os.RemoveAll(tmp)
+	wd, err := os.Getwd()
+	if err != nil {
+		t.Fatal("Getwd failed: ", err)
+	}
+	err = os.Chdir(tmp)
+	if err != nil {
+		t.Fatal("Chdir failed: ", err)
+	}
+	defer os.Chdir(wd)
 
 	f, err := os.OpenFile("exec_me", os.O_CREATE|os.O_EXCL, 0700)
 	if err != nil {
@@ -29,7 +40,7 @@ func TestLookPathUnixEmptyPath(t *testing.T) {
 
 	t.Setenv("PATH", "")
 
-	path, err := exec.LookPath("exec_me")
+	path, err := LookPath("exec_me")
 	if err == nil {
 		t.Fatal("LookPath found exec_me in empty $PATH")
 	}

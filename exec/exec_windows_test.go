@@ -1,17 +1,14 @@
-// 版权所有 ? 2021 Go作者。保留所有权利。
-// 本源代码的使用受 BSD 风格许可证约束，
-// 该许可证可在 LICENSE 文件中找到。
+// Copyright 2021 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
-//---build---//go:build windows
+//go:build windows
 
-//2024-04-17 备注,单元测试通不过, 保留单元测试文件为了方便查看使用方法.
 package exec_test
 
 import (
 	"fmt"
 	"github.com/888go/gosdk/exec"
-	"github.com/888go/gosdk/exec/internal/testenv"
-
 	"io"
 	"os"
 	"strconv"
@@ -72,8 +69,8 @@ func TestPipePassing(t *testing.T) {
 func TestNoInheritHandles(t *testing.T) {
 	t.Parallel()
 
-	cmd := testenv.Command(t, "cmd", "/c exit 88")
-	cmd.SysProcAttr = &syscall.SysProcAttr{NoInheritHandles: true}
+	cmd := exec.Command("cmd", "/c exit 88")
+	cmd.F.SysProcAttr = &syscall.SysProcAttr{NoInheritHandles: true}
 	err := cmd.Run()
 	exitError, ok := err.(*exec.ExitError)
 	if !ok {
@@ -84,13 +81,14 @@ func TestNoInheritHandles(t *testing.T) {
 	}
 }
 
-// 在不需用户代码明确从父进程的SYSTEMROOT开始的情况下启动子进程
-// （参考问题25210）
+// start a child process without the user code explicitly starting
+// with a copy of the parent's SYSTEMROOT.
+// (See issue 25210.)
 func TestChildCriticalEnv(t *testing.T) {
 	t.Parallel()
 	cmd := helperCommand(t, "echoenv", "SYSTEMROOT")
 
-	// 显式地从命令的环境变量中移除 SYSTEMROOT
+	// Explicitly remove SYSTEMROOT from the command's environment.
 	var env []string
 	for _, kv := range cmd.Environ() {
 		k, _, ok := strings.Cut(kv, "=")

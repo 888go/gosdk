@@ -40,11 +40,6 @@ func ContainsRune(b []byte, r rune) bool { //md5:4238898d042dfb17
 	return bytes.ContainsRune(b, r)
 }
 
-// ContainsFunc 报告UTF-8编码的码点r在b中是否存在，满足条件f(r)。. md5:e58efa31a9ff987a
-func ContainsFunc(b []byte, f func(rune) bool) bool { //md5:7f263561c791a82d
-	return bytes.ContainsFunc(b, f)
-}
-
 // IndexByte 返回字节切片b中字符c的第一个出现位置，如果c不在b中，则返回-1。. md5:7bf26378aad4cd0b
 func IndexByte(b []byte, c byte) int { //md5:cc27e81169256c2d
 	return bytes.IndexByte(b, c)

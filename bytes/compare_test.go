@@ -1,12 +1,13 @@
-// 版权所有 2013 Go 作者。保留所有权利。
-// 使用此源代码受BSD风格许可证约束，该许可证可从LICENSE文件中找到。
-// md5:19d1a3ed91182ee4
+// Copyright 2013 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 package bytes_test
 
 import (
 	"fmt"
 	. "github.com/888go/gosdk/bytes"
+	"github.com/888go/gosdk/bytes/internal/testenv"
 	"testing"
 )
 
@@ -43,7 +44,7 @@ func TestCompare(t *testing.T) {
 	for _, tt := range compareTests {
 		numShifts := 16
 		buffer := make([]byte, len(tt.b)+numShifts)
-		// 改变输入对齐方式为 tt.b. md5:ce1433df219092cd
+		// vary the input alignment of tt.b
 		for offset := 0; offset <= numShifts; offset++ {
 			shiftedB := buffer[offset : len(tt.b)+offset]
 			copy(shiftedB, tt.b)
@@ -66,13 +67,13 @@ func TestCompareIdenticalSlice(t *testing.T) {
 }
 
 func TestCompareBytes(t *testing.T) {
-	lengths := make([]int, 0) // 以递增顺序进行测试的长度. md5:d422e60df7501431
+	lengths := make([]int, 0) // lengths to test in ascending order
 	for i := 0; i <= 128; i++ {
 		lengths = append(lengths, i)
 	}
 	lengths = append(lengths, 256, 512, 1024, 1333, 4095, 4096, 4097)
 
-	if !testing.Short() {
+	if !testing.Short() || testenv.Builder() != "" {
 		lengths = append(lengths, 65535, 65536, 65537, 99999)
 	}
 
@@ -80,12 +81,12 @@ func TestCompareBytes(t *testing.T) {
 	a := make([]byte, n+1)
 	b := make([]byte, n+1)
 	for _, len := range lengths {
-		// 随机但确定的数据。不包含0或255。. md5:60ed4a09009d8428
+		// randomish but deterministic data. No 0 or 255.
 		for i := 0; i < len; i++ {
 			a[i] = byte(1 + 31*i%254)
 			b[i] = byte(1 + 31*i%254)
 		}
-		// 数据末尾之后的内容是不同的. md5:8d87dd9025a7c19f
+		// data past the end is different
 		for i := len; i <= n; i++ {
 			a[i] = 8
 			b[i] = 9
@@ -121,14 +122,14 @@ func TestCompareBytes(t *testing.T) {
 }
 
 func TestEndianBaseCompare(t *testing.T) {
-// 该测试比较两个几乎相同的字节切片，唯一的区别在于某个索引j处，a[j]大于b[j]并且a[j+1]小于b[j+1]。
-// 如果实现方式错误地以错误的字节序比较了大块数据，它将得到错误的结果。
-// 目前没有任何向量寄存器大于512字节。
-// md5:4bc7ed687468d65e
+	// This test compares byte slices that are almost identical, except one
+	// difference that for some j, a[j]>b[j] and a[j+1]<b[j+1]. If the implementation
+	// compares large chunks with wrong endianness, it gets wrong result.
+	// no vector register is larger than 512 bytes for now
 	const maxLength = 512
 	a := make([]byte, maxLength)
 	b := make([]byte, maxLength)
-	// 随机但确定的数据。不包含0或255。. md5:60ed4a09009d8428
+	// randomish but deterministic data. No 0 or 255.
 	for i := 0; i < maxLength; i++ {
 		a[i] = byte(1 + 31*i%254)
 		b[i] = byte(1 + 31*i%254)
@@ -233,32 +234,6 @@ func BenchmarkCompareBytesBigUnaligned(b *testing.B) {
 	for i := 1; i < 8; i++ {
 		b.Run(fmt.Sprintf("offset=%d", i), func(b *testing.B) {
 			benchmarkCompareBytesBigUnaligned(b, i)
-		})
-	}
-}
-
-func benchmarkCompareBytesBigBothUnaligned(b *testing.B, offset int) {
-	b.StopTimer()
-	pattern := []byte("Hello Gophers!")
-	b1 := make([]byte, 0, 1<<20+len(pattern))
-	for len(b1) < 1<<20 {
-		b1 = append(b1, pattern...)
-	}
-	b2 := make([]byte, len(b1))
-	copy(b2, b1)
-	b.StartTimer()
-	for j := 0; j < b.N; j++ {
-		if Compare(b1[offset:], b2[offset:]) != 0 {
-			b.Fatal("b1 != b2")
-		}
-	}
-	b.SetBytes(int64(len(b1[offset:])))
-}
-
-func BenchmarkCompareBytesBigBothUnaligned(b *testing.B) {
-	for i := 0; i < 8; i++ {
-		b.Run(fmt.Sprintf("offset=%d", i), func(b *testing.B) {
-			benchmarkCompareBytesBigBothUnaligned(b, i)
 		})
 	}
 }

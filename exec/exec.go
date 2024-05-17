@@ -13,7 +13,9 @@ import (
 //
 //}
 
-// ErrWaitDelay 是在以下情况下由 (*Cmd).Wait 返回的错误：如果进程以成功状态退出，但在命令的 WaitDelay 超时之前其输出管道尚未关闭。
+// ErrWaitDelay is returned by (*Cmd).Wait if the process exits with a
+// successful status code but its output pipes are not closed before the
+// command's WaitDelay expires.
 var ErrWaitDelay = errors.New("exec: WaitDelay expired before I/O complete") //md5:a9b7691a47b44f05
 
 // ErrDot indicates that a path lookup resolved to an executable

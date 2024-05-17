@@ -1,7 +1,6 @@
-// 版权归2012年的Go作者所有。保留所有权利。
-// 使用此源代码受BSD风格的
-// 许可证管理，可在LICENSE文件中找到。
-// md5:a2b8441cca608eb8
+// Copyright 2012 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 package bytes_test
 
@@ -100,8 +99,8 @@ func TestReaderAt(t *testing.T) {
 }
 
 func TestReaderAtConcurrent(t *testing.T) {
-// 为竞态条件检测器进行的测试，以验证 ReadAt 方法不改变任何状态。
-// md5:9cd790971d166721
+	// Test for the race detector, to verify ReadAt doesn't mutate
+	// any state.
 	r := NewReader([]byte("0123456789"))
 	var wg sync.WaitGroup
 	for i := 0; i < 5; i++ {
@@ -116,10 +115,9 @@ func TestReaderAtConcurrent(t *testing.T) {
 }
 
 func TestEmptyReaderConcurrent(t *testing.T) {
-// 此测试用于检测竞态条件检测器，以确认多个goroutine使用一个没有读取到任何字节的Read操作是安全的。
-// 这是我们历史上的行为。
-// 参见golang.org/issue/7856
-// md5:ec9e90217f9da7a3
+	// Test for the race detector, to verify a Read that doesn't yield any bytes
+	// is okay to use from multiple goroutines. This was our historic behavior.
+	// See golang.org/issue/7856
 	r := NewReader([]byte{})
 	var wg sync.WaitGroup
 	for i := 0; i < 5; i++ {
@@ -223,8 +221,8 @@ func TestReaderDoubleUnreadRune(t *testing.T) {
 	}
 }
 
-// 验证从空读取器复制始终具有相同的结果，无论是否存在WriteTo方法。
-// md5:c49f3acaa8519966
+// verify that copying from an empty reader always has the same results,
+// regardless of the presence of a WriteTo method.
 func TestReaderCopyNothing(t *testing.T) {
 	type nErr struct {
 		n   int64
@@ -246,7 +244,7 @@ func TestReaderCopyNothing(t *testing.T) {
 	}
 }
 
-// 测试Len是否受读取影响，但Size不受影响。. md5:1c7a92525f02f091
+// tests that Len is affected by reads, but Size is not.
 func TestReaderLenSize(t *testing.T) {
 	r := NewReader([]byte("abc"))
 	io.CopyN(io.Discard, r, 1)

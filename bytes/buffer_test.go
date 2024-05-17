@@ -1,7 +1,6 @@
-//版权所有2009年Go作者。所有权利保留。
-//使用此源代码受BSD风格
-//可以在LICENSE文件中找到的许可证。
-// md5:2e9dc81828a3be8a
+// Copyright 2009 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 package bytes_test
 
@@ -10,14 +9,13 @@ import (
 	. "github.com/888go/gosdk/bytes"
 	"io"
 	"math/rand"
-	"strconv"
 	"testing"
 	"unicode/utf8"
 )
 
-const N = 10000       // 将其增大以便进行更大（但更慢）的测试. md5:bf0c2bf33a8d9434
-var testString string // 写入测试的测试数据. md5:fb12fba62e7a297f
-var testBytes []byte  // 测试数据；与testString相同，但以切片形式表示。. md5:84211fa4bf8f2e04
+const N = 10000       // make this bigger for a larger (and slower) test
+var testString string // test data for write tests
+var testBytes []byte  // test data; same as testString but as a slice.
 
 type negativeReader struct{}
 
@@ -31,7 +29,7 @@ func init() {
 	testString = string(testBytes)
 }
 
-// 验证buf中的内容与字符串s匹配。. md5:126cb1dbac61397b
+// Verify that contents of buf match the string s.
 func check(t *testing.T, testname string, buf *Buffer, s string) {
 	bytes := buf.Bytes()
 	str := buf.String()
@@ -52,8 +50,9 @@ func check(t *testing.T, testname string, buf *Buffer, s string) {
 	}
 }
 
-// 通过将字符串fus写入n次来填充buf。buf的初始内容对应于字符串s；返回的结果是buf的最终内容，以字符串形式返回。
-// md5:4a2535b01b6cdaaa
+// Fill buf through n writes of string fus.
+// The initial contents of buf corresponds to the string s;
+// the result is the final contents of buf returned as a string.
 func fillString(t *testing.T, testname string, buf *Buffer, s string, n int, fus string) string {
 	check(t, testname+" (fill 1)", buf, s)
 	for ; n > 0; n-- {
@@ -70,10 +69,9 @@ func fillString(t *testing.T, testname string, buf *Buffer, s string, n int, fus
 	return s
 }
 
-// 通过n次写入字节片fub来填充buf。
-// buf的初始内容对应于字符串s；
-// 结果是以字符串形式返回buf的最终内容。
-// md5:ffa83d80493fdd8d
+// Fill buf through n writes of byte slice fub.
+// The initial contents of buf corresponds to the string s;
+// the result is the final contents of buf returned as a string.
 func fillBytes(t *testing.T, testname string, buf *Buffer, s string, n int, fub []byte) string {
 	check(t, testname+" (fill 1)", buf, s)
 	for ; n > 0; n-- {
@@ -100,9 +98,8 @@ func TestNewBufferString(t *testing.T) {
 	check(t, "NewBufferString", buf, testString)
 }
 
-// 通过反复读取到fub中清空buf。
-// buf的初始内容对应于字符串s。
-// md5:930d750514b1c416
+// Empty buf through repeated reads into fub.
+// The initial contents of buf corresponds to the string s.
 func empty(t *testing.T, testname string, buf *Buffer, s string, fub []byte) {
 	check(t, testname+" (empty 1)", buf, s)
 
@@ -270,16 +267,16 @@ type panicReader struct{ panic bool }
 
 func (r panicReader) Read(p []byte) (int, error) {
 	if r.panic {
-		panic("oops")
+		panic(nil)
 	}
 	return 0, io.EOF
 }
 
-// 确保在发生恐慌的读取之前，一个空的Buffer在增长（"grown"）后仍然保持为空。
-// md5:0e205b51231f8eb6
+// Make sure that an empty Buffer remains empty when
+// it is "grown" before a Read that panics
 func TestReadFromPanicReader(t *testing.T) {
 
-	// 首先验证非 panic 行为. md5:d0442d9c9eefa946
+	// First verify non-panic behaviour
 	var buf Buffer
 	i, err := buf.ReadFrom(panicReader{})
 	if err != nil {
@@ -290,7 +287,7 @@ func TestReadFromPanicReader(t *testing.T) {
 	}
 	check(t, "TestReadFromPanicReader (1)", &buf, "")
 
-	// 确认当Reader发生恐慌时，空缓冲区仍然保持为空. md5:1e5afdd5554f8adb
+	// Confirm that when Reader panics, the empty buffer remains empty
 	var buf2 Buffer
 	defer func() {
 		recover()
@@ -306,7 +303,7 @@ func TestReadFromNegativeReader(t *testing.T) {
 		case nil:
 			t.Fatal("bytes.Buffer.ReadFrom didn't panic")
 		case error:
-			// 这是errNegativeRead错误的字符串表示. md5:1f249ec61c28b754
+			// this is the error string of errNegativeRead
 			wantError := "bytes.Buffer: reader returned negative count from Read"
 			if err.Error() != wantError {
 				t.Fatalf("recovered panic: got %v, want %v", err.Error(), wantError)
@@ -329,36 +326,9 @@ func TestWriteTo(t *testing.T) {
 	}
 }
 
-func TestWriteAppend(t *testing.T) {
-	var got Buffer
-	var want []byte
-	for i := 0; i < 1000; i++ {
-		b := got.AvailableBuffer()
-		b = strconv.AppendInt(b, int64(i), 10)
-		want = strconv.AppendInt(want, int64(i), 10)
-		got.Write(b)
-	}
-	if !Equal(got.Bytes(), want) {
-		t.Fatalf("Bytes() = %q, want %q", got, want)
-	}
-
-	// 如果缓冲区足够大，就无需分配内存。. md5:91e6a0658a4d1773
-	n := testing.AllocsPerRun(100, func() {
-		got.Reset()
-		for i := 0; i < 1000; i++ {
-			b := got.AvailableBuffer()
-			b = strconv.AppendInt(b, int64(i), 10)
-			got.Write(b)
-		}
-	})
-	if n > 0 {
-		t.Errorf("allocations occurred while appending")
-	}
-}
-
 func TestRuneIO(t *testing.T) {
 	const NRune = 1000
-	// 在写入数据的同时，构建测试切片. md5:297726db76b7b32f
+	// Built a test slice while we write the data
 	b := make([]byte, utf8.UTFMax*NRune)
 	var buf Buffer
 	n := 0
@@ -375,13 +345,13 @@ func TestRuneIO(t *testing.T) {
 	}
 	b = b[0:n]
 
-	// 检查生成的字节. md5:d96610169d4659e0
+	// Check the resulting bytes
 	if !Equal(buf.Bytes(), b) {
 		t.Fatalf("incorrect result from WriteRune: %q not %q", buf.Bytes(), b)
 	}
 
 	p := make([]byte, utf8.UTFMax)
-	// 通过ReadRune读取回来. md5:7eff8ed0af3ba587
+	// Read it back with ReadRune
 	for r := rune(0); r < NRune; r++ {
 		size := utf8.EncodeRune(p, r)
 		nr, nbytes, err := buf.ReadRune()
@@ -390,7 +360,7 @@ func TestRuneIO(t *testing.T) {
 		}
 	}
 
-	// 检查UnreadRune是否正常工作. md5:4bee260d2e0cfec6
+	// Check that UnreadRune works
 	buf.Reset()
 
 	// check at EOF
@@ -419,8 +389,8 @@ func TestRuneIO(t *testing.T) {
 }
 
 func TestWriteInvalidRune(t *testing.T) {
-	// 无效的 runes，包括负值，应写为 utf8.RuneError。
-	// md5:681b779ca55ae8d0
+	// Invalid runes, including negative ones, should be written as
+	// utf8.RuneError.
 	for _, r := range []rune{-1, utf8.MaxRune + 1} {
 		var buf Buffer
 		buf.WriteRune(r)
@@ -435,8 +405,9 @@ func TestNext(t *testing.T) {
 		for j := i; j <= 5; j++ {
 			for k := 0; k <= 6; k++ {
 				// 0 <= i <= j <= 5; 0 <= k <= 6
-				// 检查如果我们从偏移量i处的长度为j的缓冲区开始，并请求Next(k)，我们得到正确的字节。
-				// md5:e2c406f6e1abd245
+				// Check that if we start with a buffer
+				// of length j at offset i and ask for
+				// Next(k), we get the right bytes.
 				buf := NewBuffer(b[0:j])
 				n, _ := buf.Read(tmp[0:i])
 				if n != i {
@@ -539,18 +510,18 @@ func TestGrow(t *testing.T) {
 			xBytes := Repeat(x, startLen)
 
 			buf := NewBuffer(xBytes)
-			// 如果我们进行读取操作，这会影响到buf.off的值，这是需要测试的一个重点。. md5:de673857faeb3086
+			// If we read, this affects buf.off, which is good to test.
 			readBytes, _ := buf.Read(tmp)
 			yBytes := Repeat(y, growLen)
 			allocs := testing.AllocsPerRun(100, func() {
 				buf.Grow(growLen)
 				buf.Write(yBytes)
 			})
-			// 检查在单线程情况下，write操作中没有发生内存分配。. md5:345a0c0930748e59
+			// Check no allocation occurs in write, as long as we're single-threaded.
 			if allocs != 0 {
 				t.Errorf("allocation occurred during write")
 			}
-			// 检查缓冲区是否有正确的数据。. md5:7fafa1ff34cff099
+			// Check that buffer has correct data.
 			if !Equal(buf.Bytes()[0:startLen-readBytes], xBytes[readBytes:]) {
 				t.Errorf("bad initial data at %d %d", startLen, growLen)
 			}
@@ -573,7 +544,7 @@ func TestGrowOverflow(t *testing.T) {
 	buf.Grow(maxInt)
 }
 
-// 这是一个bug：在读取空切片时，它以前会返回EOF错误。. md5:b7f29e023c3d64c0
+// Was a bug: used to give EOF reading empty slice at EOF.
 func TestReadEmptyAtEOF(t *testing.T) {
 	b := new(Buffer)
 	slice := make([]byte, 0)
@@ -603,7 +574,7 @@ func TestUnreadByte(t *testing.T) {
 	// check not at EOF
 	b.WriteString("abcdefghijklmnopqrstuvwxyz")
 
-	// 在读取失败后. md5:0ffe0e6d68de7072
+	// after unsuccessful read
 	if n, err := b.Read(nil); n != 0 || err != nil {
 		t.Fatalf("Read(nil) = %d,%v; want 0,nil", n, err)
 	}
@@ -627,7 +598,7 @@ func TestUnreadByte(t *testing.T) {
 	}
 }
 
-// 测试我们偶尔进行的压缩。问题5154。. md5:4ab768dd436e6b2d
+// Tests that we occasionally compact. Issue 5154.
 func TestBufferGrowth(t *testing.T) {
 	var b Buffer
 	buf := make([]byte, 1024)
@@ -641,8 +612,8 @@ func TestBufferGrowth(t *testing.T) {
 		}
 	}
 	cap1 := b.Cap()
-	//（*Buffer）.grow允许在滑动之前有2倍容量的冗余，所以我们将错误阈值设置为3倍。
-	// md5:15593711c654c6c2
+	// (*Buffer).grow allows for 2x capacity slop before sliding,
+	// so set our error threshold at 3x.
 	if cap1 > cap0*3 {
 		t.Errorf("buffer cap = %d; too big (grew from %d)", cap1, cap0)
 	}
@@ -686,7 +657,7 @@ func BenchmarkBufferNotEmptyWriteRead(b *testing.B) {
 	}
 }
 
-// 检查我们不要过于频繁地进行紧凑。参考问题5154。. md5:094d39788b27155d
+// Check that we don't compact too often. From Issue 5154.
 func BenchmarkBufferFullSmallReads(b *testing.B) {
 	buf := make([]byte, 1024)
 	for i := 0; i < b.N; i++ {
@@ -714,18 +685,5 @@ func BenchmarkBufferWriteBlock(b *testing.B) {
 				}
 			}
 		})
-	}
-}
-
-func BenchmarkBufferAppendNoCopy(b *testing.B) {
-	var bb Buffer
-	bb.Grow(16 << 20)
-	b.SetBytes(int64(bb.Available()))
-	b.ReportAllocs()
-	for i := 0; i < b.N; i++ {
-		bb.Reset()
-		b := bb.AvailableBuffer()
-		b = b[:cap(b)] // 使用最大容量来模拟一个大的追加操作. md5:40dfb5f3c522b160
-		bb.Write(b)    // 应该几乎是无限快速的. md5:1fd3483bfdabd715
 	}
 }

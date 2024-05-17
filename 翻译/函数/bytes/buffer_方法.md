@@ -5,6 +5,22 @@
 # bm= 包名,更换新的包名称, 如: package gin //bm:gin类
 #
 # **_其他.md 文件备注:
+# qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
+# hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
+# cz= 查找,配合前面/后面使用,如 //qm:翻译名称 cz:One(result interface{}) error
+# th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
+# cf= 重复,用于重命名多次,如: 一个文档内有2个"One(result interface{}) error"需要重命名.
+#     但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
+# zz= 正则表达式,用于结构名称替换或者复杂替换
+#     如待替换: type authPair struct { //zz:^type *authPair
+
+# **_方法.md 文件备注:
+# ff= 方法,重命名方法名称
+# 
+# **_package.md 文件备注:
+# bm= 包名,更换新的包名称, 如: package gin //bm:gin类
+#
+# **_其他.md 文件备注:
 # hs= 行首,跳转到行首进行重命名.文档内如果有多个相同的,会一起重命名.
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
 # cf= 重复,用于重命名多次,如: 一个文档内有2个"One(result interface{}) error"需要重命名.
@@ -12,8 +28,7 @@
 # zz= 正则表达式,用于结构名称替换或者复杂替换
 #     如待替换: type authPair struct { //zz:^type *authPair
 
-[func (b *Buffer) AvailableBuffer() #左中括号##右中括号#byte {]
-ff=取可用缓冲区
+ 
 
 [func (b *Buffer) Len() int {]
 ff=取未读长度
@@ -21,8 +36,6 @@ ff=取未读长度
 [func (b *Buffer) Cap() int {]
 ff=取容量
 
-[func (b *Buffer) Available() int {]
-ff=取可用空间
 
 [func (b *Buffer) Truncate(n int) {]
 ff=截断至长度
@@ -36,7 +49,6 @@ ff=扩展容量
 n=扩展长度
 
 [func (b *Buffer) Write(p #左中括号##右中括号#byte) (n int, err error) {]
-ff=写入字节集
 err=错误
 n=写入长度
 p=写入字节集
@@ -70,7 +82,6 @@ n=写入长度
 r=字符
 
 [func (b *Buffer) Read(p #左中括号##右中括号#byte) (n int, err error) {]
-ff=读取字节集
 err=错误
 n=读取长度
 p=字节集变量

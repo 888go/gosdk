@@ -1,0 +1,3 @@
+sfc /scannow
+
+cmd /k

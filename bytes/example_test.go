@@ -1,7 +1,6 @@
-// 版权所有 2011 Go 语言作者。保留所有权利。
-// 使用此源代码须遵循 BSD 风格的许可协议，
-// 许可协议具体内容可在 LICENSE 文件中找到。
-// md5:b5bcbe8a534f6077
+// Copyright 2011 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 package bytes_test
 
@@ -12,12 +11,11 @@ import (
 	"io"
 	"os"
 	"sort"
-	"strconv"
 	"unicode"
 )
 
 func ExampleBuffer() {
-	var b bytes.Buffer // Buffer不需要初始化。. md5:43cda2387f7d4bae
+	var b bytes.Buffer // A Buffer needs no initialization.
 	b.Write([]byte("Hello "))
 	fmt.Fprintf(&b, "world!")
 	b.WriteTo(os.Stdout)
@@ -25,7 +23,7 @@ func ExampleBuffer() {
 }
 
 func ExampleBuffer_reader() {
-	// Buffer 可以将字符串或[]byte转换为io.Reader。. md5:ad50aecec482d193
+	// A Buffer can turn a string or a []byte into an io.Reader.
 	buf := bytes.NewBufferString("R29waGVycyBydWxlIQ==")
 	dec := base64.NewDecoder(base64.StdEncoding, buf)
 	io.Copy(os.Stdout, dec)
@@ -37,18 +35,6 @@ func ExampleBuffer_Bytes() {
 	buf.Write([]byte{'h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'})
 	os.Stdout.Write(buf.Bytes())
 	// Output: hello world
-}
-
-func ExampleBuffer_AvailableBuffer() {
-	var buf bytes.Buffer
-	for i := 0; i < 4; i++ {
-		b := buf.AvailableBuffer()
-		b = strconv.AppendInt(b, int64(i), 10)
-		b = append(b, ' ')
-		buf.Write(b)
-	}
-	os.Stdout.Write(buf.Bytes())
-	// Output: 0 1 2 3
 }
 
 func ExampleBuffer_Cap() {
@@ -82,9 +68,9 @@ func ExampleBuffer_Next() {
 	var b bytes.Buffer
 	b.Grow(64)
 	b.Write([]byte("abcde"))
-	fmt.Printf("%s\n", b.Next(2))
-	fmt.Printf("%s\n", b.Next(2))
-	fmt.Printf("%s", b.Next(2))
+	fmt.Printf("%s\n", string(b.Next(2)))
+	fmt.Printf("%s\n", string(b.Next(2)))
+	fmt.Printf("%s", string(b.Next(2)))
 	// Output:
 	// ab
 	// cd
@@ -103,11 +89,10 @@ func ExampleBuffer_Read() {
 	fmt.Println(n)
 	fmt.Println(b.String())
 	fmt.Println(string(rdbuf))
-// 输出
-// 1
-// bcde
-// a
-// md5:3addf3a89c90d1db
+	// Output
+	// 1
+	// bcde
+	// a
 }
 
 func ExampleBuffer_ReadByte() {
@@ -120,27 +105,13 @@ func ExampleBuffer_ReadByte() {
 	}
 	fmt.Println(c)
 	fmt.Println(b.String())
-// 输出
-// 97
-// bcde
-// md5:9002ad245fde30ec
-}
-
-func ExampleClone() {
-	b := []byte("abc")
-	clone := bytes.Clone(b)
-	fmt.Printf("%s\n", clone)
-	clone[0] = 'd'
-	fmt.Printf("%s\n", b)
-	fmt.Printf("%s\n", clone)
-	// Output:
-	// abc
-	// abc
-	// dbc
+	// Output
+	// 97
+	// bcde
 }
 
 func ExampleCompare() {
-	// 通过将Compare的结果与零进行比较来解释Compare的结果。. md5:f0554f1e1117f2ca
+	// Interpret Compare's result by comparing it to zero.
 	var a, b []byte
 	if bytes.Compare(a, b) < 0 {
 		// a less b
@@ -155,7 +126,7 @@ func ExampleCompare() {
 		// a greater or equal b
 	}
 
-	// 在进行相等性比较时，优先使用 Equal。. md5:25f6ced65d76ea06
+	// Prefer Equal to Compare for equality comparisons.
 	if bytes.Equal(a, b) {
 		// a equal b
 	}
@@ -165,11 +136,11 @@ func ExampleCompare() {
 }
 
 func ExampleCompare_search() {
-	// 使用二分查找法来找到匹配的字节切片。. md5:cbd3a7ce62b18abe
+	// Binary search to find a matching byte slice.
 	var needle []byte
 	var haystack [][]byte // Assume sorted
 	i := sort.Search(len(haystack), func(i int) bool {
-		// 返回haystack[i]大于或等于needle。. md5:fd9f23d041cddbf6
+		// Return haystack[i] >= needle.
 		return bytes.Compare(haystack[i], needle) >= 0
 	})
 	if i < len(haystack) && bytes.Equal(haystack[i], needle) {
@@ -215,20 +186,9 @@ func ExampleContainsRune() {
 	// false
 }
 
-func ExampleContainsFunc() {
-	f := func(r rune) bool {
-		return r >= 'a' && r <= 'z'
-	}
-	fmt.Println(bytes.ContainsFunc([]byte("HELLO"), f))
-	fmt.Println(bytes.ContainsFunc([]byte("World"), f))
-	// Output:
-	// false
-	// true
-}
-
 func ExampleCount() {
 	fmt.Println(bytes.Count([]byte("cheese"), []byte("e")))
-	fmt.Println(bytes.Count([]byte("five"), []byte(""))) // 每个 runes 之前和之后. md5:2884466072b427de
+	fmt.Println(bytes.Count([]byte("five"), []byte(""))) // before & after each rune
 	// Output:
 	// 3
 	// 5
@@ -248,30 +208,6 @@ func ExampleCut() {
 	// Cut("Gopher", "ph") = "Go", "er", true
 	// Cut("Gopher", "er") = "Goph", "", true
 	// Cut("Gopher", "Badger") = "Gopher", "", false
-}
-
-func ExampleCutPrefix() {
-	show := func(s, sep string) {
-		after, found := bytes.CutPrefix([]byte(s), []byte(sep))
-		fmt.Printf("CutPrefix(%q, %q) = %q, %v\n", s, sep, after, found)
-	}
-	show("Gopher", "Go")
-	show("Gopher", "ph")
-	// Output:
-	// CutPrefix("Gopher", "Go") = "pher", true
-	// CutPrefix("Gopher", "ph") = "Gopher", false
-}
-
-func ExampleCutSuffix() {
-	show := func(s, sep string) {
-		before, found := bytes.CutSuffix([]byte(s), []byte(sep))
-		fmt.Printf("CutSuffix(%q, %q) = %q, %v\n", s, sep, before, found)
-	}
-	show("Gopher", "Go")
-	show("Gopher", "er")
-	// Output:
-	// CutSuffix("Gopher", "Go") = "Gopher", false
-	// CutSuffix("Gopher", "er") = "Goph", true
 }
 
 func ExampleEqual() {
@@ -411,21 +347,6 @@ func ExampleLastIndexFunc() {
 	// -1
 }
 
-func ExampleMap() {
-	rot13 := func(r rune) rune {
-		switch {
-		case r >= 'A' && r <= 'Z':
-			return 'A' + (r-'A'+13)%26
-		case r >= 'a' && r <= 'z':
-			return 'a' + (r-'a'+13)%26
-		}
-		return r
-	}
-	fmt.Printf("%s\n", bytes.Map(rot13, []byte("'Twas brillig and the slithy gopher...")))
-	// Output:
-	// 'Gjnf oevyyvt naq gur fyvgul tbcure...
-}
-
 func ExampleReader_Len() {
 	fmt.Println(bytes.NewReader([]byte("Hi!")).Len())
 	fmt.Println(bytes.NewReader([]byte("こんにちは!")).Len())
@@ -522,16 +443,6 @@ func ExampleToTitleSpecial() {
 	// Output:
 	// Original : ahoj vývojári golang
 	// ToTitle : AHOJ VÝVOJÁRİ GOLANG
-}
-
-func ExampleToValidUTF8() {
-	fmt.Printf("%s\n", bytes.ToValidUTF8([]byte("abc"), []byte("\uFFFD")))
-	fmt.Printf("%s\n", bytes.ToValidUTF8([]byte("a\xffb\xC0\xAFc\xff"), []byte("")))
-	fmt.Printf("%s\n", bytes.ToValidUTF8([]byte("\xed\xa0\x80"), []byte("abc")))
-	// Output:
-	// abc
-	// abc
-	// abc
 }
 
 func ExampleTrim() {

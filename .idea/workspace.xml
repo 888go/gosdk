@@ -5,28 +5,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-04-12">
-      <change afterPath="$PROJECT_DIR$/翻译/函数/bytes/buffer_test_package.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/翻译/函数/bytes/bytes_package.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bytes/internal/goroot/gc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bytes/internal/goroot/gccgo.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bytes/internal/goroot/importcfg.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bytes/internal/goroot/tmp.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bytes/internal/testenv/testenv_cgo.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/internal/fdtest/exists_js.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/internal/goroot/gc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/internal/goroot/gccgo.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/internal/goroot/importcfg.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/internal/goroot/tmp.s" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exec/internal/testenv/testenv_cgo.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gosdk.rar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmp/1.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmp/ListIME.ps1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmp/tmp.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmp/命令 V1.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/函数/bytes/buffer_追加.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/翻译/函数/tmp/main_追加.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gosdk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gosdk.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/boundary_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/boundary_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/buffer.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/buffer.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/buffer_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/buffer_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/bytes.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/bytes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/bytes.rar" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/bytes.rar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/bytes_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/bytes_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/compare_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/compare_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/export_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/export_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/cfg/cfg.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/cfg/cfg.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/internal/platform/supported.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/platform/supported.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/mksyscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/net_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/net_windows.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/key.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/key.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/mksyscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/syscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/syscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/value.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/value.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/reparse_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/reparse_windows.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/security_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/security_windows.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/syscall_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/syscall_windows.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/sysdll/sysdll.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/sysdll/sysdll.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/zsyscall_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/syscall/windows/zsyscall_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/platform/zosarch.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/memory_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/mksyscall.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/net_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/psapi_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/key.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/mksyscall.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/syscall.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/value.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/registry/zsyscall_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/reparse_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/security_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/symlink_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/syscall_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/sysdll/sysdll.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/syscall/windows/zsyscall_windows.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/exec.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/exec.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/noopt.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/noopt.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/opt.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/opt.go" afterDir="false" />
@@ -34,96 +60,275 @@
       <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/testenv_notunix.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/testenv_notunix.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/testenv_notwin.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/testenv_notwin.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/testenv_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/testenv_unix.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/reader.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/reader.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bytes/internal/testenv/testenv_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/internal/testenv/testenv_windows.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bytes/reader_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/reader_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/bench_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/bench_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/dot_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/dot_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/env_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/env_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/example_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/exec.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/exec.rar" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec.rar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/exec_linux_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec_linux_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/exec_other_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec_other_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/exec_posix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec_posix_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/exec_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/exec_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec_unix_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/exec_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/exec_windows_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/cfg/cfg.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/cfg/cfg.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/diff.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/diff_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/testdata/allnew.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/testdata/allold.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/testdata/basic.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/testdata/dups.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/testdata/end.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/testdata/eof.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/testdata/eof1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/testdata/eof2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/testdata/long.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/testdata/same.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/testdata/start.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/diff/testdata/triv.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/internal/fdtest/exists_plan9.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/fdtest/exists_plan9.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/fdtest/exists_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/fdtest/exists_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/internal/fdtest/exists_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/fdtest/exists_unix.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/internal/fdtest/exists_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/fdtest/exists_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/platform/supported.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/platform/supported.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/platform/zosarch.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/platform/zosarch_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/testenv/exec.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/testenv/exec.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/internal/testenv/noopt.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/testenv/noopt.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/internal/testenv/opt.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/testenv/opt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/testenv/testenv.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/testenv/testenv.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/internal/testenv/testenv_notunix.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/testenv/testenv_notunix.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/internal/testenv/testenv_notwin.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/testenv/testenv_notwin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/testenv/testenv_test.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/internal/testenv/testenv_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/testenv/testenv_unix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/testenv/testenv_windows.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal/testenv/testenv_windows.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal/txtar/archive.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/internal_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/internal_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/lp.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/lp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/lp_linux_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/lp_linux_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/lp_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/lp_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exec/lp_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/lp_unix_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fmt/internal/race/norace.go" beforeDir="false" afterPath="$PROJECT_DIR$/fmt/internal/race/norace.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fmt/internal/race/race.go" beforeDir="false" afterPath="$PROJECT_DIR$/fmt/internal/race/race.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/env_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/env_unix_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/error_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/error_unix_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/error_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/error_windows_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/exec_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/exec_unix_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/exec_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/exec_windows_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/export_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/export_unix_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/fifo_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/fifo_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/exec_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/exec_windows_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/mksyscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/export_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/registry/export_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/key.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/registry/key.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/registry/mksyscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/registry_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/registry/registry_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/syscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/registry/syscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/value.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/registry/value.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/sysdll/sysdll.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/syscall/windows/sysdll/sysdll.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/testenv/noopt.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/testenv/noopt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/testenv/opt.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/testenv/opt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/testenv/testenv_notunix.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/testenv/testenv_notunix.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/testenv/testenv_notwin.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/testenv/testenv_notwin.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/internal/testenv/testenv_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/internal/testenv/testenv_unix.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/os_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/os_unix_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/pipe_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/pipe_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/rawconn_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/rawconn_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/timeout_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/timeout_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/regexp/exec2_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/regexp/exec2_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/syscall/windows/mksyscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/registry/key.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/syscall/windows/registry/key.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/registry/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/syscall/windows/registry/mksyscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/registry/syscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/syscall/windows/registry/syscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/registry/value.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/syscall/windows/registry/value.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/sysdll/sysdll.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/syscall/windows/sysdll/sysdll.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/time/internal/testenv/noopt.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/testenv/noopt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/time/internal/testenv/opt.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/testenv/opt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/time/internal/testenv/testenv_notunix.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/testenv/testenv_notunix.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/time/internal/testenv/testenv_notwin.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/testenv/testenv_notwin.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/time/internal/testenv/testenv_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/internal/testenv/testenv_unix.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/time/zoneinfo_unix_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/time/zoneinfo_unix_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/aliases.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/aliases.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/env_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/env_windows_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/eventlog.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/eventlog.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/mksyscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/race.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/race.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/race0.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/race0.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/registry/export_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/export_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/registry/key.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/key.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/registry/mksyscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/mksyscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/registry/registry_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/registry_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/registry/syscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/syscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/registry/value.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/registry/value.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/str.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/str.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/debug/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/debug/log.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/debug/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/debug/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/eventlog/install.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/eventlog/install.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/eventlog/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/eventlog/log.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/eventlog/log_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/eventlog/log_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/example/beep.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/example/beep.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/example/install.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/example/install.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/example/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/example/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/example/manage.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/example/manage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/example/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/example/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/mgr.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/mgr.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/mgr_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/mgr_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/recovery.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/recovery.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/mgr/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/mgr/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/security.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/security.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/svc/svc_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/svc/svc_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/syscall.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/syscall.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/syscall_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/windows/syscall_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/lp_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/exec/lp_windows_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/errors.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/errors_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/example_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/export_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/fmt_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/format.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/gostringer_example_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/internal/race/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/internal/race/norace.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/internal/race/race.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/print.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/scan.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/scan_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/state_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/stringer_example_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fmt/stringer_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/dir.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/env.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/env_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/env_unix_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/error.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/error_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/error_unix_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/error_windows_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/example_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/exec.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/exec_unix_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/exec_windows_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/executable.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/executable_dragonfly.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/executable_freebsd.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/executable_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/export_linux_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/export_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/export_unix_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/export_windows_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/fifo_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/file.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/getwd.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/cfg/cfg.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/platform/supported.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/platform/zosarch.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/exec_windows_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/memory_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/mksyscall.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/net_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/psapi_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/export_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/key.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/mksyscall.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/registry_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/syscall.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/value.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/registry/zsyscall_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/reparse_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/security_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/symlink_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/syscall_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/sysdll/sysdll.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/syscall/windows/zsyscall_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/testenv/exec.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/testenv/noopt.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/testenv/opt.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/testenv/testenv.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/testenv/testenv_notunix.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/testenv/testenv_notwin.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/testenv/testenv_unix.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/internal/testenv/testenv_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/os_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/os_unix_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/os_windows_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/path.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/path_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/path_windows_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/pipe_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/proc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/rawconn_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/read_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/readfrom_linux_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/removeall_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/stat.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/stat_solaris.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/stat_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/sys.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/tempfile.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/tempfile_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/testdata/dirfs/a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/testdata/dirfs/b" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/testdata/dirfs/dir/x" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/testdata/hello" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/testdata/issue37161/a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/testdata/issue37161/b" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/testdata/issue37161/c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/timeout_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/types.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/writeto_linux_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/os/zero_copy_linux.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/all_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/backtrack.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/example_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/exec2_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/exec_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/find_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/onepass.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/onepass_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/regexp.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/testdata/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/testdata/basic.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/testdata/nullsubexpr.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/testdata/re2-exhaustive.txt.bz2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/testdata/re2-search.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/testdata/repetition.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/regexp/testdata/testregex.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atob.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atob_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atoc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atoc_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atof.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atof_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atoi.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/atoi_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/ctoa.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/ctoa_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/decimal.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/decimal_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/eisel_lemire.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/example_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/export_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/fp_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/ftoa.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/ftoa_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/ftoaryu_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/internal_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/itoa.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/itoa_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/makeisprint.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/quote.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/quote_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/strconv_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strconv/testdata/testfp.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/builder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/builder_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/clone.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/clone_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/compare.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/compare_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/example_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/export_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/reader.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/reader_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/replace.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/replace_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/search_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/strings.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/strings_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/example_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/export_android_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/export_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/export_windows_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/format.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/format_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/genzabbrs.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/cfg/cfg.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/platform/supported.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/platform/zosarch.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/memory_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/mksyscall.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/net_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/psapi_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/registry/key.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/registry/mksyscall.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/registry/syscall.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/registry/value.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/registry/zsyscall_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/reparse_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/security_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/symlink_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/syscall_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/sysdll/sysdll.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/syscall/windows/zsyscall_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/testenv/exec.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/testenv/noopt.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/testenv/opt.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/testenv/testenv.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/testenv/testenv_notunix.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/testenv/testenv_notwin.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/testenv/testenv_unix.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal/testenv/testenv_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/internal_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/mono_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/sleep.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/sleep_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/testdata/2020b_Europe_Berlin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/testdata/2021a_America_Nuuk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/testdata/2021a_Asia_Gaza" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/testdata/2021a_Europe_Dublin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/tick.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/tick_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/time.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/time_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/tzdata_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/zoneinfo.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/zoneinfo_android_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/zoneinfo_read.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/zoneinfo_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/zoneinfo_unix_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/time/zoneinfo_windows_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/命令 V1.bat" beforeDir="false" afterPath="$PROJECT_DIR$/命令 V1.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/备注.xls" beforeDir="false" afterPath="$PROJECT_DIR$/备注.xls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/bytes/buffer_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/bytes/buffer_其他.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/bytes/buffer_方法.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/bytes/buffer_方法.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/bytes/bytes_方法.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/bytes/bytes_方法.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/bytes/reader_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/bytes/reader_其他.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/bytes/reader_方法.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/bytes/reader_方法.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/tmp/main_其他.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/注释/bytes/buffer_GO.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/注释/bytes/buffer_GO.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,100 +381,102 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;DefaultGoTemplateProperty&quot;: &quot;Go Application&quot;,
-    &quot;Go 构建.go build github.com/888go/gosdk.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 构建.go build github.com/888go/gosdk/exec.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 构建.go build github.com/888go/gosdk/exec/internal.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 构建.go build github.com/888go/gosdk/exec/internal/poll.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 构建.go build github.com/888go/gosdk/registry.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 构建.go build github.com/888go/gosdk/strings.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 构建.go build github.com/888go/gosdk/tmp.executor&quot;: &quot;Run&quot;,
-    &quot;Go 构建.go build github.com/888go/gosdk/windows.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 构建.go build github.com/888go/gosdk/windows/mkwinsyscall.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 构建.go build strings (1).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 构建.go build strings (2).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 构建.go build strings.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.exec_test.go.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.exec_windows_test.go.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/bytes 中的 TestNil.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 BenchmarkExecHostname.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestCatGoodAndBadFile.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestCatStdin.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestCommand.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestCommandRelativeName.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestEcho.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestEchoFileRace.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestExitStatus.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestIgnorePipeErrorOnSuccess.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestLookPath.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestNoExistExecutable.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestNoPath.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestOutputStderrCapture.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/exec 中的 TestStdinClose.executor&quot;: &quot;Debug&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/fmt 中的 TestMultiLine.executor&quot;: &quot;Debug&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/os 中的 BenchmarkExpand/multiple.executor&quot;: &quot;Debug&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/os 中的 TestClearenv.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/os 中的 TestEnvironConsistency.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/os 中的 TestLookupEnv.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/os 中的 TestNilProcessStateString.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/os 中的 TestUnsetenv.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/strconv 中的 ExampleNumError.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/strconv 中的 TestErrorPrefixes.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/strconv 中的 TestParseBool.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/strings 中的 ExampleContainsFunc.executor&quot;: &quot;Debug&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/strings 中的 ExampleFieldsFunc.executor&quot;: &quot;Debug&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/strings 中的 TestBuilder.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/time 中的 TestFormat.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/time 中的 TestFormatFractionalSecondSeparators.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/time 中的 TestGoString.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/time 中的 TestParseYday.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.github.com/888go/gosdk/time 中的 TestReset.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.go test bytes.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test cpu.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test exec.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test fmt (1).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test fmt.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test github.com/888go/gosdk/strings (1).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test github.com/888go/gosdk/strings.executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.go test gosdk.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test os (1).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test os.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test regexp.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test registry.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test strconv.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test strings (1).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test strings.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test time (1).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test time.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test windows (1).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test windows (2).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test windows (3).executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.go test windows.executor&quot;: &quot;Coverage&quot;,
-    &quot;Go 测试.time 中的 TestFormat (1).executor&quot;: &quot;Run&quot;,
-    &quot;Go 测试.time 中的 TestFormat.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;ToolWindow覆盖率.ShowToolbar&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/SVN/GO/code/gosdk&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "DefaultGoTemplateProperty": "Go Application",
+    "Go 构建.go build github.com/888go/gosdk.executor": "Coverage",
+    "Go 构建.go build github.com/888go/gosdk/exec.executor": "Coverage",
+    "Go 构建.go build github.com/888go/gosdk/exec/internal.executor": "Coverage",
+    "Go 构建.go build github.com/888go/gosdk/exec/internal/poll.executor": "Coverage",
+    "Go 构建.go build github.com/888go/gosdk/registry.executor": "Coverage",
+    "Go 构建.go build github.com/888go/gosdk/strings.executor": "Coverage",
+    "Go 构建.go build github.com/888go/gosdk/tmp.executor": "Run",
+    "Go 构建.go build github.com/888go/gosdk/windows.executor": "Coverage",
+    "Go 构建.go build github.com/888go/gosdk/windows/mkwinsyscall.executor": "Coverage",
+    "Go 构建.go build strings (1).executor": "Coverage",
+    "Go 构建.go build strings (2).executor": "Coverage",
+    "Go 构建.go build strings.executor": "Coverage",
+    "Go 测试.exec_test.go.executor": "Coverage",
+    "Go 测试.exec_windows_test.go.executor": "Coverage",
+    "Go 测试.github.com/888go/gosdk/bytes 中的 TestNil.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 BenchmarkExecHostname.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestCatGoodAndBadFile.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestCatStdin.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestCommand.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestCommandRelativeName.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestEcho.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestEchoFileRace.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestExitStatus.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestIgnorePipeErrorOnSuccess.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestLookPath.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestNoExistExecutable.executor": "Coverage",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestNoPath.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestOutputStderrCapture.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/exec 中的 TestStdinClose.executor": "Debug",
+    "Go 测试.github.com/888go/gosdk/fmt 中的 TestMultiLine.executor": "Debug",
+    "Go 测试.github.com/888go/gosdk/os 中的 BenchmarkExpand/multiple.executor": "Debug",
+    "Go 测试.github.com/888go/gosdk/os 中的 TestClearenv.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/os 中的 TestEnvironConsistency.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/os 中的 TestLookupEnv.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/os 中的 TestNilProcessStateString.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/os 中的 TestUnsetenv.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/strconv 中的 ExampleNumError.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/strconv 中的 TestErrorPrefixes.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/strconv 中的 TestParseBool.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/strings 中的 ExampleContainsFunc.executor": "Debug",
+    "Go 测试.github.com/888go/gosdk/strings 中的 ExampleFieldsFunc.executor": "Debug",
+    "Go 测试.github.com/888go/gosdk/strings 中的 TestBuilder.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/time 中的 TestFormat.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/time 中的 TestFormatFractionalSecondSeparators.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/time 中的 TestGoString.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/time 中的 TestParseYday.executor": "Run",
+    "Go 测试.github.com/888go/gosdk/time 中的 TestReset.executor": "Run",
+    "Go 测试.go test bytes.executor": "Coverage",
+    "Go 测试.go test cpu.executor": "Coverage",
+    "Go 测试.go test exec.executor": "Coverage",
+    "Go 测试.go test fmt (1).executor": "Coverage",
+    "Go 测试.go test fmt.executor": "Coverage",
+    "Go 测试.go test github.com/888go/gosdk/strings (1).executor": "Coverage",
+    "Go 测试.go test github.com/888go/gosdk/strings.executor": "Run",
+    "Go 测试.go test gosdk.executor": "Coverage",
+    "Go 测试.go test os (1).executor": "Coverage",
+    "Go 测试.go test os.executor": "Coverage",
+    "Go 测试.go test regexp.executor": "Coverage",
+    "Go 测试.go test registry.executor": "Coverage",
+    "Go 测试.go test strconv.executor": "Coverage",
+    "Go 测试.go test strings (1).executor": "Coverage",
+    "Go 测试.go test strings.executor": "Coverage",
+    "Go 测试.go test time (1).executor": "Coverage",
+    "Go 测试.go test time.executor": "Coverage",
+    "Go 测试.go test windows (1).executor": "Coverage",
+    "Go 测试.go test windows (2).executor": "Coverage",
+    "Go 测试.go test windows (3).executor": "Coverage",
+    "Go 测试.go test windows.executor": "Coverage",
+    "Go 测试.time 中的 TestFormat (1).executor": "Run",
+    "Go 测试.time 中的 TestFormat.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ToolWindow覆盖率.ShowToolbar": "false",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "E:/SVN/GO/code/go_src",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "Errors"
   }
-}</component>
-  <component name="RunManager" selected="Go 构建.go build github.com/888go/gosdk/tmp">
+}]]></component>
+  <component name="RunManager" selected="Go 测试.go test exec">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gosdk" />
       <working_directory value="$PROJECT_DIR$" />
@@ -296,36 +503,35 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
-    <configuration name="github.com/888go/gosdk/time 中的 TestFormatFractionalSecondSeparators" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="github.com/888go/gosdk/bytes 中的 TestNil" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gosdk" />
-      <working_directory value="$PROJECT_DIR$/time" />
+      <working_directory value="$PROJECT_DIR$/bytes" />
       <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="github.com/888go/gosdk/time" />
+      <package value="github.com/888go/gosdk/bytes" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
-      <pattern value="^\QTestFormatFractionalSecondSeparators\E$" />
+      <pattern value="^\QTestNil\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="github.com/888go/gosdk/time 中的 TestParseYday" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="go test bytes" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gosdk" />
-      <working_directory value="$PROJECT_DIR$/time" />
+      <working_directory value="$PROJECT_DIR$/bytes" />
       <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="github.com/888go/gosdk/time" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestParseYday\E$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go test time (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="src" />
-      <working_directory value="C:/Go/src/time" />
-      <root_directory value="C:/Go/src" />
       <kind value="DIRECTORY" />
-      <directory value="C:/Go/src/time" />
+      <package value="github.com/888go/gosdk/bytes" />
+      <directory value="$PROJECT_DIR$/bytes" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go test exec" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="gosdk" />
+      <working_directory value="$PROJECT_DIR$/exec" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$/exec" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
       <method v="2" />
@@ -343,11 +549,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 测试.go test exec" />
+        <item itemvalue="Go 测试.go test bytes" />
+        <item itemvalue="Go 测试.github.com/888go/gosdk/bytes 中的 TestNil" />
         <item itemvalue="Go 构建.go build github.com/888go/gosdk/tmp" />
         <item itemvalue="Go 测试.go test time" />
-        <item itemvalue="Go 测试.go test time (1)" />
-        <item itemvalue="Go 测试.github.com/888go/gosdk/time 中的 TestFormatFractionalSecondSeparators" />
-        <item itemvalue="Go 测试.github.com/888go/gosdk/time 中的 TestParseYday" />
       </list>
     </recent_temporary>
   </component>
@@ -383,22 +589,6 @@
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/strings/example_test.go</url>
-          <line>84</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/strings/example_test.go</url>
-          <line>158</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/gosdk$go_test_windows__3_.out" NAME="go test windows (3) 覆盖结果" MODIFIED="1713617204462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_github_com_888go_gosdk_strings__1_.out" NAME="go test github.com/888go/gosdk/strings (1) 覆盖结果" MODIFIED="1712970766270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
@@ -417,10 +607,10 @@
     <SUITE FILE_PATH="coverage/gosdk$go_build_strings.out" NAME="go build strings 覆盖结果" MODIFIED="1712935189455" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_strings.out" NAME="go test strings 覆盖结果" MODIFIED="1714446369104" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_fmt.out" NAME="go test fmt 覆盖结果" MODIFIED="1714533578330" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/gosdk$go_test_exec.out" NAME="go test exec 覆盖结果" MODIFIED="1714409339300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/gosdk$go_test_exec.out" NAME="go test exec 覆盖结果" MODIFIED="1715963276664" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_os__1_.out" NAME="go test os (1) 覆盖结果" MODIFIED="1713895323571" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_build_github_com_888go_gosdk_registry.out" NAME="go build github.com/888go/gosdk/registry 覆盖结果" MODIFIED="1713366524863" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/gosdk$go_test_bytes.out" NAME="go test bytes 覆盖结果" MODIFIED="1714505782922" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/gosdk$go_test_bytes.out" NAME="go test bytes 覆盖结果" MODIFIED="1715962209135" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_build_strings__2_.out" NAME="go build strings (2) 覆盖结果" MODIFIED="1712935315792" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_windows__1_.out" NAME="go test windows (1) 覆盖结果" MODIFIED="1713617013339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_time.out" NAME="go test time 覆盖结果" MODIFIED="1714590192791" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

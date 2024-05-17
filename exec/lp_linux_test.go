@@ -1,15 +1,13 @@
-// 版权所有 ? 2022 Go作者。保留所有权利。
-// 本源代码的使用受 BSD 风格许可证约束，
-// 该许可证可在 LICENSE 文件中找到。
+// Copyright 2022 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
-package exec_test
+package exec
 
 import (
 	"errors"
-	"internal/syscall/unix"
-	"internal/testenv"
+	"github.com/888go/gosdk/exec/ internal/syscall/unix"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"syscall"
 	"testing"
@@ -18,7 +16,7 @@ import (
 func TestFindExecutableVsNoexec(t *testing.T) {
 	t.Parallel()
 
-	// 该测试用例依赖于Linux v5.8中出现的faccessat2(2)系统调用。
+	// This test case relies on faccessat2(2) syscall, which appeared in Linux v5.8.
 	if major, minor := unix.KernelVersion(); major < 5 || (major == 5 && minor < 8) {
 		t.Skip("requires Linux kernel v5.8 with faccessat2(2) syscall")
 	}
@@ -27,11 +25,10 @@ func TestFindExecutableVsNoexec(t *testing.T) {
 
 	// Create a tmpfs mount.
 	err := syscall.Mount("tmpfs", tmp, "tmpfs", 0, "")
-	if testenv.SyscallIsNotSupported(err) {
-// 通常这意味着缺少 CAP_SYS_ADMIN 权限，但在受限的测试环境中可能有其他原因。
+	if err != nil {
+		// Usually this means lack of CAP_SYS_ADMIN, but there might be
+		// other reasons, especially in restricted test environments.
 		t.Skipf("requires ability to mount tmpfs (%v)", err)
-	} else if err != nil {
-		t.Fatalf("mount %s failed: %v", tmp, err)
 	}
 	t.Cleanup(func() {
 		if err := syscall.Unmount(tmp, 0); err != nil {
@@ -46,40 +43,40 @@ func TestFindExecutableVsNoexec(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// 检查其是否按预期工作。
-	_, err = exec.LookPath(path)
+	// Check that it works as expected.
+	err = findExecutable(path)
 	if err != nil {
-		t.Fatalf("LookPath: got %v, want nil", err)
+		t.Fatalf("findExecutable: got %v, want nil", err)
 	}
 
 	for {
-		err = exec.Command(path).Run()
+		err = Command(path).Run()
 		if err == nil {
 			break
 		}
 		if errors.Is(err, syscall.ETXTBSY) {
-// 另一个进程中的fork+exec操作可能正持有我们用于写入可执行文件的文件描述符（参见https://go.dev/issue/22315）。
-// 由于该描述符应已设置CLOEXEC标志，当fork出的子进程到达其exec调用时，问题应得到解决。
-// 在此之前持续重试。
+			// A fork+exec in another process may be holding open the FD that we used
+			// to write the executable (see https://go.dev/issue/22315).
+			// Since the descriptor should have CLOEXEC set, the problem should resolve
+			// as soon as the forked child reaches its exec call.
+			// Keep retrying until that happens.
 		} else {
 			t.Fatalf("exec: got %v, want nil", err)
 		}
 	}
 
-	// 使用noexec标志重新挂载
+	// Remount with noexec flag.
 	err = syscall.Mount("", tmp, "", syscall.MS_REMOUNT|syscall.MS_NOEXEC, "")
-	if testenv.SyscallIsNotSupported(err) {
-		t.Skipf("requires ability to re-mount tmpfs (%v)", err)
-	} else if err != nil {
+	if err != nil {
 		t.Fatalf("remount %s with noexec failed: %v", tmp, err)
 	}
 
-	if err := exec.Command(path).Run(); err == nil {
+	if err := Command(path).Run(); err == nil {
 		t.Fatal("exec on noexec filesystem: got nil, want error")
 	}
 
-	_, err = exec.LookPath(path)
+	err = findExecutable(path)
 	if err == nil {
-		t.Fatalf("LookPath: got nil, want error")
+		t.Fatalf("findExecutable: got nil, want error")
 	}
 }

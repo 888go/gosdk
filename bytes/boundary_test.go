@@ -12,15 +12,17 @@ import (
 	"testing"
 )
 
-// 本文件测试了字节操作检查靠近页面边界数据的情况。
-// 我们要确保这些操作不会读取跨越边界并引发不应有的页面错误。
-// md5:75426777058c008d
+// This file tests the situation where byte operations are checking
+// data very near to a page boundary. We want to make sure those
+// operations do not read across the boundary and cause a page
+// fault where they shouldn't.
 
-// 这些测试仅在Linux上运行。被测试的代码不依赖特定操作系统，因此不需要在所有操作系统上进行测试。
-// md5:88ba7e84796d0671
+// These tests run only on linux. The code being tested is
+// not OS-specific, so it does not need to be tested on all
+// operating systems.
 
-// dangerousSlice 返回一个切片，它立即由一个出错的页面前后跟随。
-// md5:81173505fbc4ca2e
+// dangerousSlice returns a slice which is immediately
+// preceded and followed by a faulting page.
 func dangerousSlice(t *testing.T) []byte {
 	pagesize := syscall.Getpagesize()
 	b, err := syscall.Mmap(0, 0, 3*pagesize, syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_ANONYMOUS|syscall.MAP_PRIVATE)
@@ -65,16 +67,16 @@ func TestIndexNearPageBoundary(t *testing.T) {
 	t.Parallel()
 	q := dangerousSlice(t)
 	if len(q) > 64 {
-		// 只有在接近页面结束时才关心这个。. md5:b8599e6bc302cde8
+		// Only worry about when we're near the end of a page.
 		q = q[len(q)-64:]
 	}
 	b := dangerousSlice(t)
 	if len(b) > 256 {
-		// 只有在接近页面结束时才关心这个。. md5:b8599e6bc302cde8
+		// Only worry about when we're near the end of a page.
 		b = b[len(b)-256:]
 	}
 	for j := 1; j < len(q); j++ {
-		q[j-1] = 1 // 差异只在最后一个字节上发现. md5:15407f2f4c5ab9e5
+		q[j-1] = 1 // difference is only found on the last byte
 		for i := range b {
 			idx := Index(b[i:], q[:j])
 			if idx != -1 {
@@ -84,8 +86,8 @@ func TestIndexNearPageBoundary(t *testing.T) {
 		q[j-1] = 0
 	}
 
-	// 测试在页边界结束时，不同对齐方式和大小的q。. md5:257221af700ea72a
-	q[len(q)-1] = 1 // 差异只在最后一个字节上发现. md5:15407f2f4c5ab9e5
+	// Test differing alignments and sizes of q which always end on a page boundary.
+	q[len(q)-1] = 1 // difference is only found on the last byte
 	for j := 0; j < len(q); j++ {
 		for i := range b {
 			idx := Index(b[i:], q[j:])
@@ -95,19 +97,4 @@ func TestIndexNearPageBoundary(t *testing.T) {
 		}
 	}
 	q[len(q)-1] = 0
-}
-
-func TestCountNearPageBoundary(t *testing.T) {
-	t.Parallel()
-	b := dangerousSlice(t)
-	for i := range b {
-		c := Count(b[i:], []byte{1})
-		if c != 0 {
-			t.Fatalf("Count(b[%d:], {1})=%d, want 0\n", i, c)
-		}
-		c = Count(b[:i], []byte{0})
-		if c != i {
-			t.Fatalf("Count(b[:%d], {0})=%d, want %d\n", i, c, i)
-		}
-	}
 }
