@@ -4,53 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024.05.18">
-      <change afterPath="$PROJECT_DIR$/regexp/all_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/backtrack.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/example_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/exec2_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/exec_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/find_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/onepass.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/onepass_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/regexp.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/testdata/README" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/testdata/basic.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/testdata/nullsubexpr.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/testdata/re2-exhaustive.txt.bz2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/testdata/re2-search.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/testdata/repetition.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regexp/testdata/testregex.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/atob.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/atob_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/atoc.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/atoc_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/atof.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/atof_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/atoi.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/atoi_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/ctoa.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/ctoa_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/decimal.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/decimal_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/eisel_lemire.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/example_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/export_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/fp_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/ftoa.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/ftoa_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/ftoaryu_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/internal_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/itoa.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/itoa_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/makeisprint.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/quote.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/quote_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/strconv_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strconv/testdata/testfp.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/regexp/regexp.rar" beforeDir="false" afterPath="$PROJECT_DIR$/regexp/regexp.rar" afterDir="false" />
-    </list>
+    <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024.05.18" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -268,6 +222,7 @@
       <working_directory value="$PROJECT_DIR$/strconv" />
       <root_directory value="$PROJECT_DIR$" />
       <kind value="DIRECTORY" />
+      <package value="github.com/888go/gosdk/strconv" />
       <directory value="$PROJECT_DIR$/strconv" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -320,7 +275,7 @@
     <SUITE FILE_PATH="coverage/gosdk$go_test_windows__3_.out" NAME="go test windows (3) 覆盖结果" MODIFIED="1713617204462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_github_com_888go_gosdk_strings__1_.out" NAME="go test github.com/888go/gosdk/strings (1) 覆盖结果" MODIFIED="1712970766270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_internal.out" NAME="go test internal 覆盖结果" MODIFIED="1715996066535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/gosdk$go_test_strconv.out" NAME="go test strconv 覆盖结果" MODIFIED="1716037847981" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/gosdk$go_test_strconv.out" NAME="go test strconv 覆盖结果" MODIFIED="1716037884861" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_gosdk.out" NAME="go test gosdk 覆盖结果" MODIFIED="1713405393861" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_strings__1_.out" NAME="go test strings (1) 覆盖结果" MODIFIED="1712978751404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$exec_windows_test_go.out" NAME="exec_windows_test.go 覆盖结果" MODIFIED="1713263686867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
