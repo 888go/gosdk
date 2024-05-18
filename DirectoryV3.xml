@@ -94,7 +94,8 @@
     <tree path="/regexp/all_test.go" title="单元测试"/>
     <tree path="/regexp/example_test.go" title="单元测试"/>
     <tree path="/regexp/exec2_test.go" title="单元测试"/>
-    <tree path="/regexp/exec_test.go" title="单元测试"/>
+    <tree path="/regexp/exec_test.go" title="内部文件" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
     <tree path="/regexp/find_test.go" title="单元测试"/>
     <tree path="/regexp/onepass_test.go" title="单元测试"/>
     <tree path="/regexp/backtrack.go" title="内部文件"/>
