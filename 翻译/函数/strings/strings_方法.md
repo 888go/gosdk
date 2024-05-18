@@ -32,11 +32,7 @@ ff=是否包含Unicode字符
 r=检索字符
 s=原文本
 
-[func ContainsFunc(s string, f func(rune) bool) bool {]
-ff=是否包含任意字符FUNC
-f=回调函数
-s=原文本
-
+ 
 [func LastIndex(s, substr string) int {]
 ff=取文本最后索引
 substr=检索文本

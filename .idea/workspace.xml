@@ -4,7 +4,52 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024.05.18" />
+    <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024.05.18">
+      <change afterPath="$PROJECT_DIR$/strings/builder.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/builder_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/clone.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/clone_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/compare.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/compare_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/example_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/export_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/reader.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/reader_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/replace.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/replace_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/search_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/strings.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strings/strings_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/example_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/export_android_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/export_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/export_windows_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/format.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/format_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/genzabbrs.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/internal_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/mono_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/sleep.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/sleep_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/testdata/2020b_Europe_Berlin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/testdata/2021a_America_Nuuk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/testdata/2021a_Asia_Gaza" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/testdata/2021a_Europe_Dublin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/tick.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/tick_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/time.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/time_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/tzdata_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/zoneinfo.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/zoneinfo_android_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/zoneinfo_read.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/zoneinfo_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/zoneinfo_unix_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time/zoneinfo_windows_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strings/strings.rar" beforeDir="false" afterPath="$PROJECT_DIR$/strings/strings.rar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/strings/strings_方法.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/strings/strings_方法.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -154,7 +199,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;
   }
 }</component>
-  <component name="RunManager" selected="Go 测试.go test strconv">
+  <component name="RunManager" selected="Go 测试.go test time">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gosdk" />
       <working_directory value="$PROJECT_DIR$" />
@@ -184,28 +229,6 @@
       <pattern value="^\QTestExecutable\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="go test fmt" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="gosdk" />
-      <working_directory value="$PROJECT_DIR$/fmt" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="DIRECTORY" />
-      <package value="github.com/888go/gosdk/fmt" />
-      <directory value="$PROJECT_DIR$/fmt" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go test os" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="gosdk" />
-      <working_directory value="$PROJECT_DIR$/os" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="DIRECTORY" />
-      <package value="github.com/888go/gosdk/os" />
-      <directory value="$PROJECT_DIR$/os" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <method v="2" />
-    </configuration>
     <configuration name="go test regexp" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gosdk" />
       <working_directory value="$PROJECT_DIR$/regexp" />
@@ -228,13 +251,35 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
+    <configuration name="go test strings" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="gosdk" />
+      <working_directory value="$PROJECT_DIR$/strings" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <package value="github.com/888go/gosdk/strings" />
+      <directory value="$PROJECT_DIR$/strings" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go test time" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="gosdk" />
+      <working_directory value="$PROJECT_DIR$/time" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <package value="github.com/888go/gosdk/time" />
+      <directory value="$PROJECT_DIR$/time" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 测试.go test time" />
+        <item itemvalue="Go 测试.go test strings" />
         <item itemvalue="Go 测试.go test strconv" />
         <item itemvalue="Go 测试.go test regexp" />
         <item itemvalue="Go 测试.github.com/888go/gosdk/os 中的 TestExecutable" />
-        <item itemvalue="Go 测试.go test os" />
-        <item itemvalue="Go 测试.go test fmt" />
       </list>
     </recent_temporary>
   </component>
@@ -288,8 +333,8 @@
     <SUITE FILE_PATH="coverage/gosdk$go_test_time__1_.out" NAME="go test time (1) 覆盖结果" MODIFIED="1714589778091" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_regexp.out" NAME="go test regexp 覆盖结果" MODIFIED="1716037306002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_build_strings.out" NAME="go build strings 覆盖结果" MODIFIED="1712935189455" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/gosdk$go_test_strings.out" NAME="go test strings 覆盖结果" MODIFIED="1714446369104" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_fmt.out" NAME="go test fmt 覆盖结果" MODIFIED="1716004311554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/gosdk$go_test_strings.out" NAME="go test strings 覆盖结果" MODIFIED="1716050357473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_exec.out" NAME="go test exec 覆盖结果" MODIFIED="1715963506813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_test_os__1_.out" NAME="go test os (1) 覆盖结果" MODIFIED="1713895323571" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/gosdk$go_build_github_com_888go_gosdk_registry.out" NAME="go build github.com/888go/gosdk/registry 覆盖结果" MODIFIED="1713366524863" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
