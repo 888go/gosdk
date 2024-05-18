@@ -141,4 +141,13 @@
     <tree path="/bytes/reader_test.go" title="单元测试"/>
     <tree path="/bytes/buffer.go" title="缓冲区"/>
     <tree path="/bytes/bytes.go" title="主要方法"/>
+    <tree path="/fmt/errors_test.go" title="单元测试"/>
+    <tree path="/fmt/example_test.go" title="单元测试"/>
+    <tree path="/fmt/export_test.go" title="单元测试"/>
+    <tree path="/fmt/fmt_test.go" title="单元测试"/>
+    <tree path="/fmt/gostringer_example_test.go" title="单元测试"/>
+    <tree path="/fmt/scan_test.go" title="单元测试"/>
+    <tree path="/fmt/state_test.go" title="单元测试"/>
+    <tree path="/fmt/stringer_example_test.go" title="单元测试"/>
+    <tree path="/fmt/stringer_test.go" title="单元测试"/>
 </trees>

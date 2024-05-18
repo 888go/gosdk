@@ -7,7 +7,7 @@ package bytes_test
 import (
 	"fmt"
 	. "github.com/888go/gosdk/bytes"
-	"github.com/888go/gosdk/bytes/internal/testenv"
+	"github.com/888go/gosdk/internal/testenv"
 	"math"
 	"math/rand"
 	"reflect"

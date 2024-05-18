@@ -7,7 +7,7 @@ package exec_test
 import (
 	"errors"
 	. "github.com/888go/gosdk/exec"
-	"github.com/888go/gosdk/exec/internal/testenv"
+	"github.com/888go/gosdk/internal/testenv"
 	"os"
 	"path/filepath"
 	"runtime"

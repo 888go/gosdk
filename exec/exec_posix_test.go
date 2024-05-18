@@ -8,7 +8,7 @@ package exec_test
 
 import (
 	"fmt"
-	"github.com/888go/gosdk/exec/ internal/testenv"
+	"github.com/888go/gosdk/internal/testenv"
 	"io"
 	"os"
 	"os/user"

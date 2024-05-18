@@ -11,7 +11,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/888go/gosdk/exec"
-	"github.com/888go/gosdk/exec/internal/testenv"
+	"github.com/888go/gosdk/internal/testenv"
 	"io"
 	"os"
 	"path/filepath"

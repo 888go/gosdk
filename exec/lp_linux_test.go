@@ -6,7 +6,7 @@ package exec
 
 import (
 	"errors"
-	"github.com/888go/gosdk/exec/ internal/syscall/unix"
+	"github.com/888go/gosdk/internal/syscall/unix"
 	"os"
 	"path/filepath"
 	"syscall"

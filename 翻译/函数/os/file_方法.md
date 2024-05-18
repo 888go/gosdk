@@ -52,11 +52,6 @@ n=写入长度
 off=偏移量
 b=字节集
 
-[func (f *File) WriteTo(w io.Writer) (n int64, err error) {]
-ff=写数据并从Io写入器
-err=错误
-n=写入长度
-
 [func (f *File) Seek(offset int64, whence int) (ret int64, err error) {]
 ff=设置偏移量
 err=错误
