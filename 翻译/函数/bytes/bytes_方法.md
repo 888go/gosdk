@@ -58,6 +58,7 @@ ff=是否包含Unicode字符
 r=检索字符
 b=原字节集
  
+
 [func IndexByte(b #左中括号##右中括号#byte, c byte) int {]
 ff=取字节索引
 c=检索字节
