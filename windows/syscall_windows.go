@@ -71,6 +71,9 @@ const (
 
 // StringToUTF16 已被弃用。请改用 UTF16FromString。
 // 若 s 中包含 NUL 字节，此函数将触发 panic，而非返回错误。
+
+// ff:StringToUTF16弃用
+// s:
 func StringToUTF16(s string) []uint16 {
 	a, err := UTF16FromString(s)
 	if err != nil {
@@ -80,21 +83,33 @@ func StringToUTF16(s string) []uint16 {
 }
 
 // UTF16FromString返回UTF-8字符串s的UTF-16编码，并在其末尾添加终止空字符（NUL）。如果s在任意位置包含空字节（NUL），则返回(nil, syscall.EINVAL)。
+
+// ff:文本到UTF16
+// s:文本
 func UTF16FromString(s string) ([]uint16, error) {
 	return syscall.UTF16FromString(s)
 }
 
 // UTF16ToString 将UTF-16序列s转换为UTF-8编码形式，
 // 并移除终止的空字符（NUL）及该字符之后的所有字节。
+
+// ff:UTF16到文本
+// s:
 func UTF16ToString(s []uint16) string {
 	return syscall.UTF16ToString(s)
 }
 
 // StringToUTF16Ptr 已被弃用。请改用 UTF16PtrFromString。
 // 若 s 中包含 NUL 字节，此函数将引发 panic，而非返回错误。
+
+// ff:StringToUTF16Ptr弃用
+// s:
 func StringToUTF16Ptr(s string) *uint16 { return &StringToUTF16(s)[0] }
 
 // UTF16PtrFromString返回对UTF-8字符串s的UTF-16编码的指针，同时在其末尾添加一个终止空字符（NUL）。如果s在任何位置包含空字节（NUL），则返回(nil, syscall.EINVAL)。
+
+// ff:文本到UTF16指针
+// s:文本
 func UTF16PtrFromString(s string) (*uint16, error) {
 	a, err := UTF16FromString(s)
 	if err != nil {
@@ -106,6 +121,9 @@ func UTF16PtrFromString(s string) (*uint16, error) {
 // UTF16PtrToString 接收一个指向UTF-16序列的指针，并返回对应的UTF-8编码字符串。
 // 若该指针为nil，则返回空字符串。此函数假设UTF-16序列以零字词（zero word）结尾；
 // 若未出现零字词，程序可能会崩溃。
+
+// ff:UTF16指针到文本
+// p:UTF16指针
 func UTF16PtrToString(p *uint16) string {
 	if p == nil {
 		return ""
@@ -122,11 +140,16 @@ func UTF16PtrToString(p *uint16) string {
 	return UTF16ToString(unsafe.Slice(p, n))
 }
 
+
+// ff:
 func Getpagesize() int { return 4096 }
 
 // NewCallback 将一个 Go 函数转换为遵循 stdcall 调用约定的函数指针。
 // 这在与需要回调的 Windows 代码进行互操作时非常有用。
 // 该参数应为具有一个 uintptr 大小结果的函数。该函数不得包含大小大于 uintptr 的参数。
+
+// ff:
+// fn:
 func NewCallback(fn interface{}) uintptr {
 	return syscall.NewCallback(fn)
 }
@@ -134,6 +157,9 @@ func NewCallback(fn interface{}) uintptr {
 // NewCallbackCDecl 将一个Go函数转换为遵循cdecl调用约定的函数指针。
 // 这在与需要回调的Windows代码进行互操作时非常有用。
 // 该参数应为具有一个uintptr大小结果的函数。该函数不得包含大小大于uintptr的参数。
+
+// ff:
+// fn:
 func NewCallbackCDecl(fn interface{}) uintptr {
 	return syscall.NewCallbackCDecl(fn)
 }
@@ -458,12 +484,17 @@ func NewCallbackCDecl(fn interface{}) uintptr {
 // 返回的错误始终为 nil。
 // 
 // 已弃用：使用 CurrentProcess 直接获取相同的 Handle，且无 nil 错误。
+
+// ff:GetCurrentProcess弃用
+// Handle:
 func GetCurrentProcess() (Handle, error) {
 	return CurrentProcess(), nil
 }
 
 // CurrentProcess 返回当前进程的句柄。
 // 它是一个无需关闭的伪句柄。
+
+// ff:取当前进程句柄
 func CurrentProcess() Handle { return Handle(^uintptr(1 - 1)) }
 
 // GetCurrentThread 返回当前线程的句柄。
@@ -471,15 +502,26 @@ func CurrentProcess() Handle { return Handle(^uintptr(1 - 1)) }
 // 返回的错误始终为 nil。
 //
 // 已废弃: 请使用 CurrentThread 直接获取相同的 Handle，其不会带有 nil 错误。
+
+// ff:GetCurrentThread弃用
+// Handle:
 func GetCurrentThread() (Handle, error) {
 	return CurrentThread(), nil
 }
 
 // CurrentThread 返回当前线程的句柄。
 // 它是一个伪句柄，无需关闭。
+
+// ff:取当前线程句柄
 func CurrentThread() Handle { return Handle(^uintptr(2 - 1)) }
 
 // GetProcAddressByOrdinal 通过序数从模块中获取导出函数的地址
+
+// ff:
+// err:
+// proc:
+// ordinal:
+// module:
 func GetProcAddressByOrdinal(module Handle, ordinal uintptr) (proc uintptr, err error) {
 	r0, _, e1 := syscall.Syscall(procGetProcAddress.Addr(), 2, uintptr(module), ordinal, 0)
 	proc = uintptr(r0)
@@ -489,6 +531,9 @@ func GetProcAddressByOrdinal(module Handle, ordinal uintptr) (proc uintptr, err 
 	return
 }
 
+
+// ff:
+// code:
 func Exit(code int) { ExitProcess(uint32(code)) }
 
 func makeInheritSa() *SecurityAttributes {
@@ -498,6 +543,13 @@ func makeInheritSa() *SecurityAttributes {
 	return &sa
 }
 
+
+// ff:
+// err:
+// fd:
+// perm:
+// mode:
+// path:
 func Open(path string, mode int, perm uint32) (fd Handle, err error) {
 	if len(path) == 0 {
 		return InvalidHandle, ERROR_FILE_NOT_FOUND
@@ -548,6 +600,12 @@ func Open(path string, mode int, perm uint32) (fd Handle, err error) {
 	return h, e
 }
 
+
+// ff:
+// err:
+// n:
+// p:
+// fd:
 func Read(fd Handle, p []byte) (n int, err error) {
 	var done uint32
 	e := ReadFile(fd, p, &done, nil)
@@ -561,6 +619,12 @@ func Read(fd Handle, p []byte) (n int, err error) {
 	return int(done), nil
 }
 
+
+// ff:
+// err:
+// n:
+// p:
+// fd:
 func Write(fd Handle, p []byte) (n int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
@@ -573,6 +637,12 @@ func Write(fd Handle, p []byte) (n int, err error) {
 	return int(done), nil
 }
 
+
+// ff:
+// overlapped:
+// done:
+// p:
+// fd:
 func ReadFile(fd Handle, p []byte, done *uint32, overlapped *Overlapped) error {
 	err := readFile(fd, p, done, overlapped)
 	if raceenabled {
@@ -584,6 +654,12 @@ func ReadFile(fd Handle, p []byte, done *uint32, overlapped *Overlapped) error {
 	return err
 }
 
+
+// ff:
+// overlapped:
+// done:
+// p:
+// fd:
 func WriteFile(fd Handle, p []byte, done *uint32, overlapped *Overlapped) error {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
@@ -597,6 +673,13 @@ func WriteFile(fd Handle, p []byte, done *uint32, overlapped *Overlapped) error 
 
 var ioSync int64
 
+
+// ff:
+// err:
+// newoffset:
+// whence:
+// offset:
+// fd:
 func Seek(fd Handle, offset int64, whence int) (newoffset int64, err error) {
 	var w uint32
 	switch whence {
@@ -621,6 +704,10 @@ func Seek(fd Handle, offset int64, whence int) (newoffset int64, err error) {
 	return int64(hi)<<32 + int64(rlo), nil
 }
 
+
+// ff:
+// err:
+// fd:
 func Close(fd Handle) (err error) {
 	return CloseHandle(fd)
 }
@@ -638,6 +725,10 @@ func getStdHandle(stdhandle uint32) (fd Handle) {
 
 const ImplementsGetwd = true
 
+
+// ff:
+// err:
+// wd:
 func Getwd() (wd string, err error) {
 	b := make([]uint16, 300)
 	n, e := GetCurrentDirectory(uint32(len(b)), &b[0])
@@ -647,6 +738,10 @@ func Getwd() (wd string, err error) {
 	return string(utf16.Decode(b[0:n])), nil
 }
 
+
+// ff:
+// err:
+// path:
 func Chdir(path string) (err error) {
 	pathp, err := UTF16PtrFromString(path)
 	if err != nil {
@@ -655,6 +750,11 @@ func Chdir(path string) (err error) {
 	return SetCurrentDirectory(pathp)
 }
 
+
+// ff:
+// err:
+// mode:
+// path:
 func Mkdir(path string, mode uint32) (err error) {
 	pathp, err := UTF16PtrFromString(path)
 	if err != nil {
@@ -663,6 +763,10 @@ func Mkdir(path string, mode uint32) (err error) {
 	return CreateDirectory(pathp, nil)
 }
 
+
+// ff:
+// err:
+// path:
 func Rmdir(path string) (err error) {
 	pathp, err := UTF16PtrFromString(path)
 	if err != nil {
@@ -671,6 +775,10 @@ func Rmdir(path string) (err error) {
 	return RemoveDirectory(pathp)
 }
 
+
+// ff:
+// err:
+// path:
 func Unlink(path string) (err error) {
 	pathp, err := UTF16PtrFromString(path)
 	if err != nil {
@@ -679,6 +787,11 @@ func Unlink(path string) (err error) {
 	return DeleteFile(pathp)
 }
 
+
+// ff:
+// err:
+// newpath:
+// oldpath:
 func Rename(oldpath, newpath string) (err error) {
 	from, err := UTF16PtrFromString(oldpath)
 	if err != nil {
@@ -691,6 +804,10 @@ func Rename(oldpath, newpath string) (err error) {
 	return MoveFileEx(from, to, MOVEFILE_REPLACE_EXISTING)
 }
 
+
+// ff:
+// err:
+// name:
 func ComputerName() (name string, err error) {
 	var n uint32 = MAX_COMPUTERNAME_LENGTH + 1
 	b := make([]uint16, n)
@@ -701,10 +818,17 @@ func ComputerName() (name string, err error) {
 	return string(utf16.Decode(b[0:n])), nil
 }
 
+
+// ff:
 func DurationSinceBoot() time.Duration {
 	return time.Duration(getTickCount64()) * time.Millisecond
 }
 
+
+// ff:
+// err:
+// length:
+// fd:
 func Ftruncate(fd Handle, length int64) (err error) {
 	curoffset, e := Seek(fd, 0, 1)
 	if e != nil {
@@ -722,6 +846,10 @@ func Ftruncate(fd Handle, length int64) (err error) {
 	return nil
 }
 
+
+// ff:
+// err:
+// tv:
 func Gettimeofday(tv *Timeval) (err error) {
 	var ft Filetime
 	GetSystemTimeAsFileTime(&ft)
@@ -729,6 +857,10 @@ func Gettimeofday(tv *Timeval) (err error) {
 	return nil
 }
 
+
+// ff:
+// err:
+// p:
 func Pipe(p []Handle) (err error) {
 	if len(p) != 2 {
 		return syscall.EINVAL
@@ -743,6 +875,11 @@ func Pipe(p []Handle) (err error) {
 	return nil
 }
 
+
+// ff:
+// err:
+// tv:
+// path:
 func Utimes(path string, tv []Timeval) (err error) {
 	if len(tv) != 2 {
 		return syscall.EINVAL
@@ -763,6 +900,11 @@ func Utimes(path string, tv []Timeval) (err error) {
 	return SetFileTime(h, nil, &a, &w)
 }
 
+
+// ff:
+// err:
+// ts:
+// path:
 func UtimesNano(path string, ts []Timespec) (err error) {
 	if len(ts) != 2 {
 		return syscall.EINVAL
@@ -783,10 +925,19 @@ func UtimesNano(path string, ts []Timespec) (err error) {
 	return SetFileTime(h, nil, &a, &w)
 }
 
+
+// ff:
+// err:
+// fd:
 func Fsync(fd Handle) (err error) {
 	return FlushFileBuffers(fd)
 }
 
+
+// ff:
+// err:
+// mode:
+// path:
 func Chmod(path string, mode uint32) (err error) {
 	p, e := UTF16PtrFromString(path)
 	if e != nil {
@@ -804,18 +955,31 @@ func Chmod(path string, mode uint32) (err error) {
 	return SetFileAttributes(p, attrs)
 }
 
+
+// ff:
 func LoadGetSystemTimePreciseAsFileTime() error {
 	return procGetSystemTimePreciseAsFileTime.Find()
 }
 
+
+// ff:
 func LoadCancelIoEx() error {
 	return procCancelIoEx.Find()
 }
 
+
+// ff:
 func LoadSetFileCompletionNotificationModes() error {
 	return procSetFileCompletionNotificationModes.Find()
 }
 
+
+// ff:
+// err:
+// event:
+// waitMilliseconds:
+// waitAll:
+// handles:
 func WaitForMultipleObjects(handles []Handle, waitAll bool, waitMilliseconds uint32) (event uint32, err error) {
 // 除本函数外，所有其他 Win32 数组 API 都采用“指针，计数”作为参数。因此，我们无法将其声明为常规的 [] 类型，因为 mksyscall 会使用相反的顺序。因此，我们自己为此简单地创建了一个存根（stub）。
 
@@ -1008,6 +1172,9 @@ func (sa *SockaddrBth) sockaddr() (unsafe.Pointer, int32, error) {
 	return unsafe.Pointer(&sa.raw), int32(unsafe.Sizeof(sa.raw)), nil
 }
 
+
+// ff:
+// Sockaddr:
 func (rsa *RawSockaddrAny) Sockaddr() (Sockaddr, error) {
 	switch rsa.Addr.Family {
 	case AF_UNIX:
@@ -1051,6 +1218,13 @@ func (rsa *RawSockaddrAny) Sockaddr() (Sockaddr, error) {
 	return nil, syscall.EAFNOSUPPORT
 }
 
+
+// ff:
+// err:
+// fd:
+// proto:
+// typ:
+// domain:
 func Socket(domain, typ, proto int) (fd Handle, err error) {
 	if domain == AF_INET6 && SocketDisableIPv6 {
 		return InvalidHandle, syscall.EAFNOSUPPORT
@@ -1058,11 +1232,23 @@ func Socket(domain, typ, proto int) (fd Handle, err error) {
 	return socket(int32(domain), int32(typ), int32(proto))
 }
 
+
+// ff:
+// err:
+// value:
+// opt:
+// level:
+// fd:
 func SetsockoptInt(fd Handle, level, opt int, value int) (err error) {
 	v := int32(value)
 	return Setsockopt(fd, int32(level), int32(opt), (*byte)(unsafe.Pointer(&v)), int32(unsafe.Sizeof(v)))
 }
 
+
+// ff:
+// err:
+// sa:
+// fd:
 func Bind(fd Handle, sa Sockaddr) (err error) {
 	ptr, n, err := sa.sockaddr()
 	if err != nil {
@@ -1071,6 +1257,11 @@ func Bind(fd Handle, sa Sockaddr) (err error) {
 	return bind(fd, ptr, n)
 }
 
+
+// ff:
+// err:
+// sa:
+// fd:
 func Connect(fd Handle, sa Sockaddr) (err error) {
 	ptr, n, err := sa.sockaddr()
 	if err != nil {
@@ -1079,6 +1270,11 @@ func Connect(fd Handle, sa Sockaddr) (err error) {
 	return connect(fd, ptr, n)
 }
 
+
+// ff:
+// err:
+// pdwBestIfIndex:
+// sa:
 func GetBestInterfaceEx(sa Sockaddr, pdwBestIfIndex *uint32) (err error) {
 	ptr, _, err := sa.sockaddr()
 	if err != nil {
@@ -1087,6 +1283,11 @@ func GetBestInterfaceEx(sa Sockaddr, pdwBestIfIndex *uint32) (err error) {
 	return getBestInterfaceEx(ptr, pdwBestIfIndex)
 }
 
+
+// ff:
+// err:
+// sa:
+// fd:
 func Getsockname(fd Handle) (sa Sockaddr, err error) {
 	var rsa RawSockaddrAny
 	l := int32(unsafe.Sizeof(rsa))
@@ -1096,6 +1297,11 @@ func Getsockname(fd Handle) (sa Sockaddr, err error) {
 	return rsa.Sockaddr()
 }
 
+
+// ff:
+// err:
+// sa:
+// fd:
 func Getpeername(fd Handle) (sa Sockaddr, err error) {
 	var rsa RawSockaddrAny
 	l := int32(unsafe.Sizeof(rsa))
@@ -1105,14 +1311,35 @@ func Getpeername(fd Handle) (sa Sockaddr, err error) {
 	return rsa.Sockaddr()
 }
 
+
+// ff:
+// err:
+// n:
+// s:
 func Listen(s Handle, n int) (err error) {
 	return listen(s, int32(n))
 }
 
+
+// ff:
+// err:
+// how:
+// fd:
 func Shutdown(fd Handle, how int) (err error) {
 	return shutdown(fd, int32(how))
 }
 
+
+// ff:
+// err:
+// croutine:
+// overlapped:
+// to:
+// flags:
+// sent:
+// bufcnt:
+// bufs:
+// s:
 func WSASendto(s Handle, bufs *WSABuf, bufcnt uint32, sent *uint32, flags uint32, to Sockaddr, overlapped *Overlapped, croutine *byte) (err error) {
 	var rsa unsafe.Pointer
 	var l int32
@@ -1125,6 +1352,8 @@ func WSASendto(s Handle, bufs *WSABuf, bufcnt uint32, sent *uint32, flags uint32
 	return WSASendTo(s, bufs, bufcnt, sent, flags, (*RawSockaddrAny)(unsafe.Pointer(rsa)), l, overlapped, croutine)
 }
 
+
+// ff:
 func LoadGetAddrInfo() error {
 	return procGetAddrInfoW.Find()
 }
@@ -1135,6 +1364,8 @@ var connectExFunc struct {
 	err  error
 }
 
+
+// ff:
 func LoadConnectEx() error {
 	connectExFunc.once.Do(func() {
 		var s Handle
@@ -1167,6 +1398,14 @@ func connectEx(s Handle, name unsafe.Pointer, namelen int32, sendBuf *byte, send
 	return
 }
 
+
+// ff:
+// overlapped:
+// bytesSent:
+// sendDataLen:
+// sendBuf:
+// sa:
+// fd:
 func ConnectEx(fd Handle, sa Sockaddr, sendBuf *byte, sendDataLen uint32, bytesSent *uint32, overlapped *Overlapped) error {
 	err := LoadConnectEx()
 	if err != nil {
@@ -1216,6 +1455,14 @@ func loadWSASendRecvMsg() error {
 	return sendRecvMsgFunc.err
 }
 
+
+// ff:
+// croutine:
+// overlapped:
+// bytesSent:
+// flags:
+// msg:
+// fd:
 func WSASendMsg(fd Handle, msg *WSAMsg, flags uint32, bytesSent *uint32, overlapped *Overlapped, croutine *byte) error {
 	err := loadWSASendRecvMsg()
 	if err != nil {
@@ -1228,6 +1475,13 @@ func WSASendMsg(fd Handle, msg *WSAMsg, flags uint32, bytesSent *uint32, overlap
 	return err
 }
 
+
+// ff:
+// croutine:
+// overlapped:
+// bytesReceived:
+// msg:
+// fd:
 func WSARecvMsg(fd Handle, msg *WSAMsg, bytesReceived *uint32, overlapped *Overlapped, croutine *byte) error {
 	err := loadWSASendRecvMsg()
 	if err != nil {
@@ -1252,22 +1506,40 @@ type WaitStatus struct {
 	ExitCode uint32
 }
 
+
+// ff:
 func (w WaitStatus) Exited() bool { return true }
 
+
+// ff:
 func (w WaitStatus) ExitStatus() int { return int(w.ExitCode) }
 
+
+// ff:
 func (w WaitStatus) Signal() Signal { return -1 }
 
+
+// ff:
 func (w WaitStatus) CoreDump() bool { return false }
 
+
+// ff:
 func (w WaitStatus) Stopped() bool { return false }
 
+
+// ff:
 func (w WaitStatus) Continued() bool { return false }
 
+
+// ff:
 func (w WaitStatus) StopSignal() Signal { return -1 }
 
+
+// ff:
 func (w WaitStatus) Signaled() bool { return false }
 
+
+// ff:
 func (w WaitStatus) TrapCause() int { return -1 }
 
 // Timespec 在 Windows 上是一个虚构的结构，但此处为了与其他操作系统对应的包保持一致性而存在。
@@ -1276,8 +1548,15 @@ type Timespec struct {
 	Nsec int64
 }
 
+
+// ff:
+// ts:
 func TimespecToNsec(ts Timespec) int64 { return int64(ts.Sec)*1e9 + int64(ts.Nsec) }
 
+
+// ff:
+// ts:
+// nsec:
 func NsecToTimespec(nsec int64) (ts Timespec) {
 	ts.Sec = nsec / 1e9
 	ts.Nsec = nsec % 1e9
@@ -1286,8 +1565,22 @@ func NsecToTimespec(nsec int64) (ts Timespec) {
 
 // TODO(brainman): 修复net所需的全部内容
 
+
+// ff:
+// err:
+// sa:
+// nfd:
+// fd:
 func Accept(fd Handle) (nfd Handle, sa Sockaddr, err error) { return 0, nil, syscall.EWINDOWS }
 
+
+// ff:
+// err:
+// from:
+// n:
+// flags:
+// p:
+// fd:
 func Recvfrom(fd Handle, p []byte, flags int) (n int, from Sockaddr, err error) {
 	var rsa RawSockaddrAny
 	l := int32(unsafe.Sizeof(rsa))
@@ -1300,6 +1593,13 @@ func Recvfrom(fd Handle, p []byte, flags int) (n int, from Sockaddr, err error) 
 	return
 }
 
+
+// ff:
+// err:
+// to:
+// flags:
+// p:
+// fd:
 func Sendto(fd Handle, p []byte, flags int, to Sockaddr) (err error) {
 	ptr, l, err := to.sockaddr()
 	if err != nil {
@@ -1308,6 +1608,13 @@ func Sendto(fd Handle, p []byte, flags int, to Sockaddr) (err error) {
 	return sendto(fd, p, int32(flags), ptr, l)
 }
 
+
+// ff:
+// err:
+// tv:
+// opt:
+// level:
+// fd:
 func SetsockoptTimeval(fd Handle, level, opt int, tv *Timeval) (err error) { return syscall.EWINDOWS }
 
 // Linger 结构体是错误的，但我们直到 Go 1 发布后才注意到。
@@ -1336,6 +1643,11 @@ type IPv6Mreq struct {
 	Interface uint32
 }
 
+
+// ff:
+// opt:
+// level:
+// fd:
 func GetsockoptInt(fd Handle, level, opt int) (int, error) {
 	v := int32(0)
 	l := int32(unsafe.Sizeof(v))
@@ -1343,21 +1655,53 @@ func GetsockoptInt(fd Handle, level, opt int) (int, error) {
 	return int(v), err
 }
 
+
+// ff:
+// err:
+// l:
+// opt:
+// level:
+// fd:
 func SetsockoptLinger(fd Handle, level, opt int, l *Linger) (err error) {
 	sys := sysLinger{Onoff: uint16(l.Onoff), Linger: uint16(l.Linger)}
 	return Setsockopt(fd, int32(level), int32(opt), (*byte)(unsafe.Pointer(&sys)), int32(unsafe.Sizeof(sys)))
 }
 
+
+// ff:
+// err:
+// value:
+// opt:
+// level:
+// fd:
 func SetsockoptInet4Addr(fd Handle, level, opt int, value [4]byte) (err error) {
 	return Setsockopt(fd, int32(level), int32(opt), (*byte)(unsafe.Pointer(&value[0])), 4)
 }
+
+// ff:
+// err:
+// mreq:
+// opt:
+// level:
+// fd:
 func SetsockoptIPMreq(fd Handle, level, opt int, mreq *IPMreq) (err error) {
 	return Setsockopt(fd, int32(level), int32(opt), (*byte)(unsafe.Pointer(mreq)), int32(unsafe.Sizeof(*mreq)))
 }
+
+// ff:
+// err:
+// mreq:
+// opt:
+// level:
+// fd:
 func SetsockoptIPv6Mreq(fd Handle, level, opt int, mreq *IPv6Mreq) (err error) {
 	return syscall.EWINDOWS
 }
 
+
+// ff:
+// bytesReturned:
+// processIds:
 func EnumProcesses(processIds []uint32, bytesReturned *uint32) error {
 // 函数EnumProcesses期望其size参数以字节为单位，但使用mksyscall生成的代码中，
 // 实际使用的是processIds切片的长度。因此，添加此封装函数以修正这一差异。
@@ -1369,8 +1713,17 @@ func EnumProcesses(processIds []uint32, bytesReturned *uint32) error {
 	return enumProcesses(p, size, bytesReturned)
 }
 
+
+// ff:
+// pid:
 func Getpid() (pid int) { return int(GetCurrentProcessId()) }
 
+
+// ff:
+// err:
+// handle:
+// data:
+// name:
 func FindFirstFile(name *uint16, data *Win32finddata) (handle Handle, err error) {
 // 注意(rsc): 对于系统调用，Win32finddata 结构体是错误的：
 // 两个路径各自缺少一个 uint16。使用正确的结构体 win32finddata1，
@@ -1386,6 +1739,11 @@ func FindFirstFile(name *uint16, data *Win32finddata) (handle Handle, err error)
 	return
 }
 
+
+// ff:
+// err:
+// data:
+// handle:
 func FindNextFile(handle Handle, data *Win32finddata) (err error) {
 	var data1 win32finddata1
 	err = findNextFile1(handle, &data1)
@@ -1417,6 +1775,9 @@ func getProcessEntry(pid int) (*ProcessEntry32, error) {
 	}
 }
 
+
+// ff:
+// ppid:
 func Getppid() (ppid int) {
 	pe, err := getProcessEntry(Getpid())
 	if err != nil {
@@ -1426,25 +1787,82 @@ func Getppid() (ppid int) {
 }
 
 // TODO(brainman): 修复os所需的全部内容
+
+// ff:
+// err:
+// fd:
 func Fchdir(fd Handle) (err error)             { return syscall.EWINDOWS }
+
+// ff:
+// err:
+// newpath:
+// oldpath:
 func Link(oldpath, newpath string) (err error) { return syscall.EWINDOWS }
+
+// ff:
+// err:
+// link:
+// path:
 func Symlink(path, link string) (err error)    { return syscall.EWINDOWS }
 
+
+// ff:
+// err:
+// mode:
+// fd:
 func Fchmod(fd Handle, mode uint32) (err error)        { return syscall.EWINDOWS }
+
+// ff:
+// err:
+// gid:
+// uid:
+// path:
 func Chown(path string, uid int, gid int) (err error)  { return syscall.EWINDOWS }
+
+// ff:
+// err:
+// gid:
+// uid:
+// path:
 func Lchown(path string, uid int, gid int) (err error) { return syscall.EWINDOWS }
+
+// ff:
+// err:
+// gid:
+// uid:
+// fd:
 func Fchown(fd Handle, uid int, gid int) (err error)   { return syscall.EWINDOWS }
 
+
+// ff:
+// uid:
 func Getuid() (uid int)                  { return -1 }
+
+// ff:
+// euid:
 func Geteuid() (euid int)                { return -1 }
+
+// ff:
+// gid:
 func Getgid() (gid int)                  { return -1 }
+
+// ff:
+// egid:
 func Getegid() (egid int)                { return -1 }
+
+// ff:
+// err:
+// gids:
 func Getgroups() (gids []int, err error) { return nil, syscall.EWINDOWS }
 
 type Signal int
 
+
+// ff:
 func (s Signal) Signal() {}
 
+
+// ff:
 func (s Signal) String() string {
 	if 0 <= s && int(s) < len(signals) {
 		str := signals[s]
@@ -1455,11 +1873,19 @@ func (s Signal) String() string {
 	return "signal " + itoa(int(s))
 }
 
+
+// ff:
 func LoadCreateSymbolicLink() error {
 	return procCreateSymbolicLinkW.Find()
 }
 
 // Readlink返回指定符号链接的目标。
+
+// ff:
+// err:
+// n:
+// buf:
+// path:
 func Readlink(path string, buf []byte) (n int, err error) {
 	fd, err := CreateFile(StringToUTF16Ptr(path), GENERIC_READ, 0, nil, OPEN_EXISTING,
 		FILE_FLAG_OPEN_REPARSE_POINT|FILE_FLAG_BACKUP_SEMANTICS, 0)
@@ -1497,6 +1923,10 @@ func Readlink(path string, buf []byte) (n int, err error) {
 
 // GUIDFromString 将形如
 // "{XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}" 的字符串解析为一个 GUID。
+
+// ff:
+// GUID:
+// str:
 func GUIDFromString(str string) (GUID, error) {
 	guid := GUID{}
 	str16, err := syscall.UTF16PtrFromString(str)
@@ -1511,6 +1941,9 @@ func GUIDFromString(str string) (GUID, error) {
 }
 
 // GenerateGUID 生成一个新的随机 GUID。
+
+// ff:
+// GUID:
 func GenerateGUID() (GUID, error) {
 	guid := GUID{}
 	err := coCreateGuid(&guid)
@@ -1522,6 +1955,8 @@ func GenerateGUID() (GUID, error) {
 
 // String 方法返回 GUID 的规范字符串形式，
 // 其格式为 "{XXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}"。
+
+// ff:
 func (guid GUID) String() string {
 	var str [100]uint16
 	chars := stringFromGUID2(&guid, &str[0], int32(len(str)))
@@ -1532,11 +1967,19 @@ func (guid GUID) String() string {
 }
 
 // KnownFolderPath 返回当前用户指定 FOLDERID_ 常量所表示的已知文件夹路径，该路径基于 KF_ 标志进行选择，并可选地根据该标志创建。
+
+// ff:
+// flags:
+// folderID:
 func KnownFolderPath(folderID *KNOWNFOLDERID, flags uint32) (string, error) {
 	return Token(0).KnownFolderPath(folderID, flags)
 }
 
 // KnownFolderPath 返回用户令牌中由 FOLDERID_ 常量指定的一个已知文件夹路径，该路径基于 KF_ 标志的选择和可选创建。
+
+// ff:
+// flags:
+// folderID:
 func (t Token) KnownFolderPath(folderID *KNOWNFOLDERID, flags uint32) (string, error) {
 	var p *uint16
 	err := shGetKnownFolderPath(folderID, flags, t, &p)
@@ -1548,6 +1991,8 @@ func (t Token) KnownFolderPath(folderID *KNOWNFOLDERID, flags uint32) (string, e
 }
 
 // RtlGetVersion 返回底层操作系统版本，忽略清单语义但受应用程序兼容性层影响。
+
+// ff:
 func RtlGetVersion() *OsVersionInfoEx {
 	info := &OsVersionInfoEx{}
 	info.osVersionInfoSize = uint32(unsafe.Sizeof(*info))
@@ -1561,6 +2006,11 @@ func RtlGetVersion() *OsVersionInfoEx {
 
 // RtlGetNtVersionNumbers 返回底层操作系统版本，
 // 忽略清单语义及应用程序兼容性层。
+
+// ff:
+// buildNumber:
+// minorVersion:
+// majorVersion:
 func RtlGetNtVersionNumbers() (majorVersion, minorVersion, buildNumber uint32) {
 	rtlGetNtVersionNumbers(&majorVersion, &minorVersion, &buildNumber)
 	buildNumber &= 0xffff
@@ -1568,21 +2018,33 @@ func RtlGetNtVersionNumbers() (majorVersion, minorVersion, buildNumber uint32) {
 }
 
 // 获取进程首选的UI语言
+
+// ff:
+// flags:
 func GetProcessPreferredUILanguages(flags uint32) ([]string, error) {
 	return getUILanguages(flags, getProcessPreferredUILanguages)
 }
 
 // GetThreadPreferredUILanguages 获取当前线程的线程首选 UI 语言。
+
+// ff:
+// flags:
 func GetThreadPreferredUILanguages(flags uint32) ([]string, error) {
 	return getUILanguages(flags, getThreadPreferredUILanguages)
 }
 
 // GetUserPreferredUILanguages 获取用户首选的UI语言信息
+
+// ff:
+// flags:
 func GetUserPreferredUILanguages(flags uint32) ([]string, error) {
 	return getUILanguages(flags, getUserPreferredUILanguages)
 }
 
 // 获取系统首选的UI语言
+
+// ff:
+// flags:
 func GetSystemPreferredUILanguages(flags uint32) ([]string, error) {
 	return getUILanguages(flags, getSystemPreferredUILanguages)
 }
@@ -1618,21 +2080,32 @@ func getUILanguages(flags uint32, f func(flags uint32, numLanguages *uint32, buf
 	}
 }
 
+
+// ff:
+// position:
+// console:
 func SetConsoleCursorPosition(console Handle, position Coord) error {
 	return setConsoleCursorPosition(console, *((*uint32)(unsafe.Pointer(&position))))
 }
 
+
+// ff:
+// startupInfo:
 func GetStartupInfo(startupInfo *StartupInfo) error {
 	getStartupInfo(startupInfo)
 	return nil
 }
 
+
+// ff:
 func (s NTStatus) Errno() syscall.Errno {
 	return rtlNtStatusToDosErrorNoTeb(s)
 }
 
 func langID(pri, sub uint16) uint32 { return uint32(sub)<<10 | uint32(pri) }
 
+
+// ff:
 func (s NTStatus) Error() string {
 	b := make([]uint16, 300)
 	n, err := FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM|FORMAT_MESSAGE_FROM_HMODULE|FORMAT_MESSAGE_ARGUMENT_ARRAY, modntdll.Handle(), uint32(s), langID(LANG_ENGLISH, SUBLANG_ENGLISH_US), b, nil)
@@ -1646,6 +2119,9 @@ func (s NTStatus) Error() string {
 }
 
 // NewNTUnicodeString 用于返回一个新创建的 NTUnicodeString 结构，该结构适用于直接操作 NTUnicodeString 类型的原生 NT API。需要注意的是，大多数 Windows API 并不使用 NTUnicodeString 类型；对于更为常见的 *uint16 字符串类型，应使用 UTF16PtrFromString 函数。
+
+// ff:
+// s:
 func NewNTUnicodeString(s string) (*NTUnicodeString, error) {
 	var u NTUnicodeString
 	s16, err := UTF16PtrFromString(s)
@@ -1657,16 +2133,23 @@ func NewNTUnicodeString(s string) (*NTUnicodeString, error) {
 }
 
 // Slice 返回一个uint16切片，该切片别名引用NTUnicodeString中的数据。
+
+// ff:
 func (s *NTUnicodeString) Slice() []uint16 {
 	slice := unsafe.Slice(s.Buffer, s.MaximumLength)
 	return slice[:s.Length]
 }
 
+
+// ff:
 func (s *NTUnicodeString) String() string {
 	return UTF16ToString(s.Slice())
 }
 
 // NewNTString 函数用于创建一个新的 NTString 结构，以便与使用 NTString 类型的原生 NT API 一起工作。请注意，大多数 Windows API 并不使用 NTString，对于更为常见的 *uint16 字符串类型，应使用 UTF16PtrFromString 函数。
+
+// ff:
+// s:
 func NewNTString(s string) (*NTString, error) {
 	var nts NTString
 	s8, err := BytePtrFromString(s)
@@ -1678,16 +2161,26 @@ func NewNTString(s string) (*NTString, error) {
 }
 
 // Slice 返回一个字节切片，该切片对NTString中的数据进行别名引用。
+
+// ff:
 func (s *NTString) Slice() []byte {
 	slice := unsafe.Slice(s.Buffer, s.MaximumLength)
 	return slice[:s.Length]
 }
 
+
+// ff:
 func (s *NTString) String() string {
 	return ByteSliceToString(s.Slice())
 }
 
 // FindResource 解析给定名称和资源类型的资源。
+
+// ff:
+// Handle:
+// resType:
+// name:
+// module:
 func FindResource(module Handle, name, resType ResourceIDOrString) (Handle, error) {
 	var namePtr, resTypePtr uintptr
 	var name16, resType16 *uint16
@@ -1719,6 +2212,12 @@ func FindResource(module Handle, name, resType ResourceIDOrString) (Handle, erro
 	return resInfo, err
 }
 
+
+// ff:
+// err:
+// data:
+// resInfo:
+// module:
 func LoadResourceData(module, resInfo Handle) (data []byte, err error) {
 	size, err := SizeofResource(module, resInfo)
 	if err != nil {
@@ -1741,46 +2240,62 @@ type PSAPI_WORKING_SET_EX_BLOCK uint64
 
 // Valid 返回此页面的有效性。
 // 若该位为1，则后续成员有效；否则应忽略它们。
+
+// ff:
 func (b PSAPI_WORKING_SET_EX_BLOCK) Valid() bool {
 	return (b & 1) == 1
 }
 
 // ShareCount 表示共享此页面的进程数量。该成员的最大值为 7。
+
+// ff:
 func (b PSAPI_WORKING_SET_EX_BLOCK) ShareCount() uint64 {
 	return b.intField(1, 3)
 }
 
 // Win32Protection 表示页面的内存保护属性。有关值列表，请参阅
 // https://docs.microsoft.com/zh-cn/windows/win32/memory/memory-protection-constants
+
+// ff:
 func (b PSAPI_WORKING_SET_EX_BLOCK) Win32Protection() uint64 {
 	return b.intField(4, 11)
 }
 
 // Shared 返回此页面的共享状态。
 // 若该位为1，则表示该页面可被共享。
+
+// ff:
 func (b PSAPI_WORKING_SET_EX_BLOCK) Shared() bool {
 	return (b & (1 << 15)) == 1
 }
 
 // Node 代表 NUMA（非均匀内存访问）节点。该成员的最大值为 63。
+
+// ff:
 func (b PSAPI_WORKING_SET_EX_BLOCK) Node() uint64 {
 	return b.intField(16, 6)
 }
 
 // Locked 返回此页面的锁定状态。
 // 若该位为1，则表示虚拟页面被锁定在物理内存中。
+
+// ff:
 func (b PSAPI_WORKING_SET_EX_BLOCK) Locked() bool {
 	return (b & (1 << 22)) == 1
 }
 
 // LargePage 返回该页面的大页状态。
 // 若此位为1，则表示该页面为大页。
+
+// ff:
 func (b PSAPI_WORKING_SET_EX_BLOCK) LargePage() bool {
 	return (b & (1 << 23)) == 1
 }
 
 // Bad 返回此页面的错误状态。
 // 若该位为1，则表示该页面已被报告为错误状态。
+
+// ff:
 func (b PSAPI_WORKING_SET_EX_BLOCK) Bad() bool {
 	return (b & (1 << 31)) == 1
 }
@@ -1805,12 +2320,23 @@ type PSAPI_WORKING_SET_EX_INFORMATION struct {
 }
 
 // 创建Windows伪控制台
+
+// ff:
+// pconsole:
+// flags:
+// out:
+// in:
+// size:
 func CreatePseudoConsole(size Coord, in Handle, out Handle, flags uint32, pconsole *Handle) error {
 // 我们需要这个包装器来手动将 Coord 转换为 uint32。自动生成的包装器仅接受可以转换为 uintptr 的参数，而 Coord 无法做到这一点。
 	return createPseudoConsole(*((*uint32)(unsafe.Pointer(&size))), in, out, flags, pconsole)
 }
 
 // ResizePseudoConsole 将伪控制台的内部缓冲区调整为`size`中指定的宽度和高度。
+
+// ff:
+// size:
+// pconsole:
 func ResizePseudoConsole(pconsole Handle, size Coord) error {
 // 我们需要这个包装器来手动将 Coord 转换为 uint32。自动生成的包装器仅接受可以转换为 uintptr 的参数，而 Coord 无法做到这一点。
 	return resizePseudoConsole(pconsole, *((*uint32)(unsafe.Pointer(&size))))

@@ -17,6 +17,10 @@ import "strconv"
 // 如果 s 语法正确，但任一组成部分超出给定大小浮点数最大值的 1/2 ULP 范围，
 // ParseComplex 返回 err.Err = ErrRange，并将相应部分的 c 设为 ±Inf。
 // md5:2d5101902291657e
+
+// ff:
+// bitSize:
+// s:
 func ParseComplex(s string, bitSize int) (complex128, error) { //md5:11a5d5e6c797768d
 	return strconv.ParseComplex(s, bitSize)
 }

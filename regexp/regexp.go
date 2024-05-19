@@ -1,4 +1,4 @@
-package regexp
+package regexp//bm:正则类
 
 import (
 	"io"
@@ -8,7 +8,7 @@ import (
 // Regexp是编译后的正则表达式的表示。
 // Regexp是安全的，可以由多个goroutine并发使用，除了配置方法，如[Regexp.Longest]。
 // md5:395c4b654f50016e
-type Regexp struct { //hm:正则  cz:type Regexp
+type Regexp struct { //hm:正则 cz:type Regexp     
 	F regexp.Regexp
 } //md5:7eb1a097f4ab35df
 
@@ -210,7 +210,7 @@ func MatchString(pattern string, s string) (matched bool, err error) { //md5:bf0
 // ff:是否匹配字节集
 // err:错误
 // matched:匹配成功
-// s:文本
+// b:
 // pattern:表达式
 func Match(pattern string, b []byte) (matched bool, err error) { //md5:a10eb5cfb2626d89
 	return regexp.Match(pattern, b)
@@ -360,7 +360,7 @@ func (re *Regexp) FindSubmatch(b []byte) [][]byte { //md5:a061db106859700f
 // 若要在输出中插入一个实际的 `$`，请在模板中使用 `$$`。
 // md5:95b0e8b3e555f01d
 
-// ff:扩展字节集
+// ff:模板替换字节集
 // match:
 // src:
 // template:模板
@@ -372,7 +372,7 @@ func (re *Regexp) Expand(dst []byte, template []byte, src []byte, match []int) [
 // ExpandString类似于[Regexp.Expand]，但是模板和源是字符串。它会追加到并返回一个字节切片，以便于调用代码控制内存分配。
 // md5:8f82294f3864dc06
 
-// ff:扩展文本
+// ff:模板替换文本
 // match:
 // src:
 // template:模板
@@ -494,7 +494,7 @@ func (re *Regexp) FindAllSubmatchIndex(b []byte, n int) [][]int { //md5:80d3879e
 
 // ff:查找所有文本子匹配
 // n:最大返回数
-// b:原文本
+// s:
 func (re *Regexp) FindAllStringSubmatch(s string, n int) [][]string { //md5:157e59ed8a431048
 	return re.F.FindAllStringSubmatch(s, n)
 }
@@ -505,7 +505,7 @@ func (re *Regexp) FindAllStringSubmatch(s string, n int) [][]string { //md5:157e
 
 // ff:查找所有文本子匹配索引
 // n:最大返回数
-// b:原文本
+// s:
 func (re *Regexp) FindAllStringSubmatchIndex(s string, n int) [][]int { //md5:906dc4d31409fb06
 	return re.F.FindAllStringSubmatchIndex(s, n)
 }
@@ -533,3 +533,12 @@ func (re *Regexp) FindAllStringSubmatchIndex(s string, n int) [][]int { //md5:90
 func (re *Regexp) Split(s string, n int) []string { //md5:638c9452844fd6a2
 	return re.F.Split(s, n)
 }
+
+
+// zj:追加开始, 一个文件只能追加一个代码段,通常是String()或者接口不方便翻译,需要新增一个相同功能的中文方法.
+
+func (re *Regexp) X取表达式文本() string { //md5:45608727399296bc
+	return re.F.String()
+}
+
+// zj:追加结束

@@ -9,6 +9,9 @@ import "strings"
 // 对 Clone 的过度使用可能会使程序占用更多内存。
 // Clone 通常应仅在极少数情况下使用，并且仅当性能分析表明需要时才使用。
 // 对于长度为零的字符串，将返回空字符串 ""，且不会进行内存分配。
+
+// ff:
+// s:
 func Clone(s string) string { //md5:8c05310f5095d610d6ac0200dcd5ba45
 	return strings.Clone(s)
 }

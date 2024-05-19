@@ -2,9 +2,9 @@
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
-//---build---//go:build windows
+//go:build windows
 
-package registry_test
+package registry_test//bm:注册表类_test
 
 import (
 	"bytes"

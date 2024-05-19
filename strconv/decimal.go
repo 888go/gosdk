@@ -19,6 +19,8 @@ type decimal struct {
 	trunc bool      // discarded nonzero digits beyond d[:nd]
 }
 
+
+// ff:
 func (a *decimal) String() string {
 	n := 10 + a.nd
 	if a.dp > 0 {
@@ -78,6 +80,9 @@ func trim(a *decimal) {
 }
 
 // Assign v to a.
+
+// ff:
+// v:
 func (a *decimal) Assign(v uint64) {
 	var buf [24]byte
 
@@ -312,6 +317,9 @@ func leftShift(a *decimal, k uint) {
 }
 
 // Binary shift left (k > 0) or right (k < 0).
+
+// ff:
+// k:
 func (a *decimal) Shift(k int) {
 	switch {
 	case a.nd == 0:
@@ -351,6 +359,9 @@ func shouldRoundUp(a *decimal, nd int) bool {
 // If nd is zero, it means we're rounding
 // just to the left of the digits, as in
 // 0.09 -> 0.1.
+
+// ff:
+// nd:
 func (a *decimal) Round(nd int) {
 	if nd < 0 || nd >= a.nd {
 		return
@@ -363,6 +374,9 @@ func (a *decimal) Round(nd int) {
 }
 
 // Round a down to nd digits (or fewer).
+
+// ff:
+// nd:
 func (a *decimal) RoundDown(nd int) {
 	if nd < 0 || nd >= a.nd {
 		return
@@ -372,6 +386,9 @@ func (a *decimal) RoundDown(nd int) {
 }
 
 // Round a up to nd digits (or fewer).
+
+// ff:
+// nd:
 func (a *decimal) RoundUp(nd int) {
 	if nd < 0 || nd >= a.nd {
 		return
@@ -396,6 +413,8 @@ func (a *decimal) RoundUp(nd int) {
 
 // Extract integer part, rounded appropriately.
 // No guarantees about overflow.
+
+// ff:
 func (a *decimal) RoundedInteger() uint64 {
 	if a.dp > 20 {
 		return 0xFFFFFFFFFFFFFFFF

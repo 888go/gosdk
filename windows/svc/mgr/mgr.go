@@ -2,7 +2,7 @@
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
-//---build---//go:build windows
+//go:build windows
 
 // Package mgr 用于管理 Windows 服务程序。
 // 可以使用它来安装和卸载服务，以及启动、停止和暂停服务。该包可以查询/更改当前服务状态和配置参数。
@@ -23,12 +23,17 @@ type Mgr struct {
 }
 
 // Connect 建立与服务控制管理器的连接
+
+// ff:
 func Connect() (*Mgr, error) {
 	return ConnectRemote("")
 }
 
 // ConnectRemote 与名为 host 的计算机上的
 // 服务控制管理器建立连接。
+
+// ff:
+// host:
 func ConnectRemote(host string) (*Mgr, error) {
 	var s *uint16
 	if host != "" {
@@ -42,6 +47,8 @@ func ConnectRemote(host string) (*Mgr, error) {
 }
 
 // Disconnect 关闭与服务控制管理器 m 的连接
+
+// ff:
 func (m *Mgr) Disconnect() error {
 	return windows.CloseServiceHandle(m.Handle)
 }
@@ -53,6 +60,8 @@ type LockStatus struct {
 }
 
 // LockStatus 返回服务控制管理器是否被系统锁定，以及锁定时长和锁定者。SCM（服务控制管理器）被锁定表明大多数服务操作将阻塞，直至系统解锁SCM。
+
+// ff:
 func (m *Mgr) LockStatus() (*LockStatus, error) {
 	bytesNeeded := uint32(unsafe.Sizeof(windows.QUERY_SERVICE_LOCK_STATUS{}) + 1024)
 	for {
@@ -104,6 +113,12 @@ func toStringBlock(ss []string) *uint16 {
 // 使用配置c来指定服务参数。
 // 任何args参数将在服务启动时作为命令行参数传递；
 // 这些参数与通过Service.Start或通过服务“属性”对话框中的“启动参数”字段传递的参数不同。
+
+// ff:
+// args:
+// c:
+// exepath:
+// name:
 func (m *Mgr) CreateService(name, exepath string, c Config, args ...string) (*Service, error) {
 	if c.StartType == 0 {
 		c.StartType = StartManual
@@ -150,6 +165,9 @@ func (m *Mgr) CreateService(name, exepath string, c Config, args ...string) (*Se
 }
 
 // OpenService 获取对服务名name的访问权限，以便对其进行查询和控制。
+
+// ff:
+// name:
 func (m *Mgr) OpenService(name string) (*Service, error) {
 	h, err := windows.OpenService(m.Handle, syscall.StringToUTF16Ptr(name), windows.SERVICE_ALL_ACCESS)
 	if err != nil {
@@ -161,6 +179,8 @@ func (m *Mgr) OpenService(name string) (*Service, error) {
 // ListServices 在指定的服务控制管理器数据库 m 中枚举服务。
 // 如果调用者对某个服务不具备 SERVICE_QUERY_STATUS 访问权限，
 // 则该服务将被静默地从返回的服务列表中省略。
+
+// ff:
 func (m *Mgr) ListServices() ([]string, error) {
 	var err error
 	var bytesNeeded, servicesReturned uint32

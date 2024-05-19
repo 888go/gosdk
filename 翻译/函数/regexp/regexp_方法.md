@@ -1,18 +1,37 @@
+# 备注开始
 # **_方法.md 文件备注:
 # ff= 方法,重命名方法名称
-# 
+# 如:
+# //ff:取文本
+
 # **_package.md 文件备注:
-# bm= 包名,更换新的包名称, 如: package gin //bm:gin类
-#
+# bm= 包名,更换新的包名称 
+# 如: 
+# package gin //bm:gin类
+
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
-# cz= 查找,配合前面/后面使用,如 //qm:翻译名称 cz:One(result interface{}) error
+# cz= 查找,配合前面/后面使用,
+# 如:
+# type Regexp struct {//qm:正则 cz:Regexp struct
+#
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
-# cf= 重复,用于重命名多次,如: 一个文档内有2个"One(result interface{}) error"需要重命名.
-#     但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
-# zz= 正则表达式,用于结构名称替换或者复杂替换
-#     如待替换: type authPair struct { //zz:^type *authPair
+# type Regexp struct {//th:type Regexp222 struct
+#
+# cf= 重复,用于重命名多次,
+# 如: 
+# 一个文档内有2个"One(result interface{}) error"需要重命名.
+# 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
+
+# **_追加.md 文件备注:
+# 在代码内追加代码,如:
+# //zj:
+# func (re *Regexp) X取文本() string { 
+#    re.F.String()
+# }
+# //zj:
+# 备注结束
 
 [func Compile(expr string) (*Regexp, error) {]
 ff=创建
@@ -142,11 +161,11 @@ ff=查找字节集子匹配
 b=原字节集
 
 [func (re *Regexp) Expand(dst #左中括号##右中括号#byte, template #左中括号##右中括号#byte, src #左中括号##右中括号#byte, match #左中括号##右中括号#int) #左中括号##右中括号#byte {]
-ff=扩展字节集
+ff=模板替换字节集
 template=模板
 
 [func (re *Regexp) ExpandString(dst #左中括号##右中括号#byte, template string, src string, match #左中括号##右中括号#int) #左中括号##右中括号#byte {]
-ff=扩展文本
+ff=模板替换文本
 template=模板
 
 [func (re *Regexp) FindSubmatchIndex(b #左中括号##右中括号#byte) #左中括号##右中括号#int {]
@@ -207,3 +226,6 @@ n=最大返回数
 ff=分割文本
 n=最大返回数
 s=原文本
+
+[func (re *Regexp) Copy() *Regexp {]
+ff=取副本

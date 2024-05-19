@@ -1,4 +1,4 @@
-package time
+package time //bm:时间类
 
 import "time"
 

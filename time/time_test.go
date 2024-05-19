@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package time_test
+package time_test //bm:时间类_test
 
 import (
 	"bytes"

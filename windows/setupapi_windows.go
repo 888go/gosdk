@@ -174,10 +174,15 @@ func (*DevInfoListDetailData) unsafeSizeOf() uint32 {
 	return uint32(unsafe.Sizeof(DevInfoListDetailData{}))
 }
 
+
+// ff:
 func (data *DevInfoListDetailData) RemoteMachineName() string {
 	return UTF16ToString(data.remoteMachineName[:])
 }
 
+
+// ff:
+// remoteMachineName:
 func (data *DevInfoListDetailData) SetRemoteMachineName(remoteMachineName string) error {
 	str, err := UTF16FromString(remoteMachineName)
 	if err != nil {
@@ -246,10 +251,15 @@ type DevInstallParams struct {
 	driverPath               [MAX_PATH]uint16
 }
 
+
+// ff:
 func (params *DevInstallParams) DriverPath() string {
 	return UTF16ToString(params.driverPath[:])
 }
 
+
+// ff:
+// driverPath:
 func (params *DevInstallParams) SetDriverPath(driverPath string) error {
 	str, err := UTF16FromString(driverPath)
 	if err != nil {
@@ -368,6 +378,9 @@ type ClassInstallHeader struct {
 	InstallFunction DI_FUNCTION
 }
 
+
+// ff:
+// installFunction:
 func MakeClassInstallHeader(installFunction DI_FUNCTION) *ClassInstallHeader {
 	hdr := &ClassInstallHeader{InstallFunction: installFunction}
 	hdr.size = uint32(unsafe.Sizeof(*hdr))
@@ -429,10 +442,15 @@ type DrvInfoData struct {
 	DriverVersion uint64
 }
 
+
+// ff:
 func (data *DrvInfoData) Description() string {
 	return UTF16ToString(data.description[:])
 }
 
+
+// ff:
+// description:
 func (data *DrvInfoData) SetDescription(description string) error {
 	str, err := UTF16FromString(description)
 	if err != nil {
@@ -442,10 +460,15 @@ func (data *DrvInfoData) SetDescription(description string) error {
 	return nil
 }
 
+
+// ff:
 func (data *DrvInfoData) MfgName() string {
 	return UTF16ToString(data.mfgName[:])
 }
 
+
+// ff:
+// mfgName:
 func (data *DrvInfoData) SetMfgName(mfgName string) error {
 	str, err := UTF16FromString(mfgName)
 	if err != nil {
@@ -455,10 +478,15 @@ func (data *DrvInfoData) SetMfgName(mfgName string) error {
 	return nil
 }
 
+
+// ff:
 func (data *DrvInfoData) ProviderName() string {
 	return UTF16ToString(data.providerName[:])
 }
 
+
+// ff:
+// providerName:
 func (data *DrvInfoData) SetProviderName(providerName string) error {
 	str, err := UTF16FromString(providerName)
 	if err != nil {
@@ -469,6 +497,10 @@ func (data *DrvInfoData) SetProviderName(providerName string) error {
 }
 
 // IsNewer 方法返回真，当 DrvInfoData 的日期和版本比提供的参数更新时。
+
+// ff:
+// driverVersion:
+// driverDate:
 func (data *DrvInfoData) IsNewer(driverDate Filetime, driverVersion uint64) bool {
 	if data.DriverDate.HighDateTime > driverDate.HighDateTime {
 		return true
@@ -515,18 +547,26 @@ func (*DrvInfoDetailData) unsafeSizeOf() uint32 {
 	return uint32(unsafe.Sizeof(DrvInfoDetailData{}))
 }
 
+
+// ff:
 func (data *DrvInfoDetailData) SectionName() string {
 	return UTF16ToString(data.sectionName[:])
 }
 
+
+// ff:
 func (data *DrvInfoDetailData) InfFileName() string {
 	return UTF16ToString(data.infFileName[:])
 }
 
+
+// ff:
 func (data *DrvInfoDetailData) DrvDescription() string {
 	return UTF16ToString(data.drvDescription[:])
 }
 
+
+// ff:
 func (data *DrvInfoDetailData) HardwareID() string {
 	if data.compatIDsOffset > 1 {
 		bufW := data.getBuf()
@@ -536,6 +576,8 @@ func (data *DrvInfoDetailData) HardwareID() string {
 	return ""
 }
 
+
+// ff:
 func (data *DrvInfoDetailData) CompatIDs() []string {
 	a := make([]string, 0)
 
@@ -565,6 +607,9 @@ func (data *DrvInfoDetailData) getBuf() []uint16 {
 }
 
 // IsCompatible 方法用于检测给定的硬件ID是否与驱动程序匹配，或者是否出现在兼容ID列表中。
+
+// ff:
+// hwid:
 func (data *DrvInfoDetailData) IsCompatible(hwid string) bool {
 	hwidLC := strings.ToLower(hwid)
 	if strings.ToLower(data.HardwareID()) == hwidLC {
@@ -735,6 +780,8 @@ type DEVPROPKEY struct {
 // CONFIGRET 是 cfgmgr32 API 返回的值或错误代码
 type CONFIGRET uint32
 
+
+// ff:
 func (ret CONFIGRET) Error() string {
 	if win32Error, ok := ret.Unwrap().(Errno); ok {
 		return fmt.Sprintf("%s (CfgMgr error: 0x%08x)", win32Error.Error(), uint32(ret))
@@ -742,10 +789,15 @@ func (ret CONFIGRET) Error() string {
 	return fmt.Sprintf("CfgMgr error: 0x%08x", uint32(ret))
 }
 
+
+// ff:
+// defaultError:
 func (ret CONFIGRET) Win32Error(defaultError Errno) Errno {
 	return cm_MapCrToWin32Err(ret, defaultError)
 }
 
+
+// ff:
 func (ret CONFIGRET) Unwrap() error {
 	const noMatch = Errno(^uintptr(0))
 	win32Error := ret.Win32Error(noMatch)
@@ -874,6 +926,13 @@ const (
 //sys	setupDiCreateDeviceInfoListEx(classGUID *GUID, hwndParent uintptr, machineName *uint16, reserved uintptr) (handle DevInfo, err error) [failretval==DevInfo(InvalidHandle)] = setupapi.SetupDiCreateDeviceInfoListExW
 
 // SetupDiCreateDeviceInfoListEx 函数在远程或本地计算机上创建一个空的设备信息集，并可选择性地将此集与设备安装类关联。
+
+// ff:
+// err:
+// deviceInfoSet:
+// machineName:
+// hwndParent:
+// classGUID:
 func SetupDiCreateDeviceInfoListEx(classGUID *GUID, hwndParent uintptr, machineName string) (deviceInfoSet DevInfo, err error) {
 	var machineNameUTF16 *uint16
 	if machineName != "" {
@@ -888,6 +947,11 @@ func SetupDiCreateDeviceInfoListEx(classGUID *GUID, hwndParent uintptr, machineN
 //sys	setupDiGetDeviceInfoListDetail(deviceInfoSet DevInfo, deviceInfoSetDetailData *DevInfoListDetailData) (err error) = setupapi.SetupDiGetDeviceInfoListDetailW
 
 // SetupDiGetDeviceInfoListDetail 函数用于获取与设备信息集关联的信息，包括类 GUID、远程计算机句柄以及远程计算机名。
+
+// ff:
+// err:
+// deviceInfoSetDetailData:
+// deviceInfoSet:
 func SetupDiGetDeviceInfoListDetail(deviceInfoSet DevInfo) (deviceInfoSetDetailData *DevInfoListDetailData, err error) {
 	data := &DevInfoListDetailData{}
 	data.size = data.unsafeSizeOf()
@@ -896,6 +960,8 @@ func SetupDiGetDeviceInfoListDetail(deviceInfoSet DevInfo) (deviceInfoSetDetailD
 }
 
 // DeviceInfoListDetail 方法用于获取与设备信息集关联的信息，包括类 GUID、远程计算机句柄以及远程计算机名。
+
+// ff:
 func (deviceInfoSet DevInfo) DeviceInfoListDetail() (*DevInfoListDetailData, error) {
 	return SetupDiGetDeviceInfoListDetail(deviceInfoSet)
 }
@@ -903,6 +969,16 @@ func (deviceInfoSet DevInfo) DeviceInfoListDetail() (*DevInfoListDetailData, err
 //sys	setupDiCreateDeviceInfo(deviceInfoSet DevInfo, DeviceName *uint16, classGUID *GUID, DeviceDescription *uint16, hwndParent uintptr, CreationFlags DICD, deviceInfoData *DevInfoData) (err error) = setupapi.SetupDiCreateDeviceInfoW
 
 // SetupDiCreateDeviceInfo 函数用于创建一个新的设备信息元素，并将其作为新成员添加到指定的设备信息集中。
+
+// ff:
+// err:
+// deviceInfoData:
+// creationFlags:
+// hwndParent:
+// deviceDescription:
+// classGUID:
+// deviceName:
+// deviceInfoSet:
 func SetupDiCreateDeviceInfo(deviceInfoSet DevInfo, deviceName string, classGUID *GUID, deviceDescription string, hwndParent uintptr, creationFlags DICD) (deviceInfoData *DevInfoData, err error) {
 	deviceNameUTF16, err := UTF16PtrFromString(deviceName)
 	if err != nil {
@@ -924,6 +1000,13 @@ func SetupDiCreateDeviceInfo(deviceInfoSet DevInfo, deviceName string, classGUID
 }
 
 // CreateDeviceInfo 方法创建一个新的设备信息元素，并将其作为新成员添加到指定的设备信息集中。
+
+// ff:
+// creationFlags:
+// hwndParent:
+// deviceDescription:
+// classGUID:
+// deviceName:
 func (deviceInfoSet DevInfo) CreateDeviceInfo(deviceName string, classGUID *GUID, deviceDescription string, hwndParent uintptr, creationFlags DICD) (*DevInfoData, error) {
 	return SetupDiCreateDeviceInfo(deviceInfoSet, deviceName, classGUID, deviceDescription, hwndParent, creationFlags)
 }
@@ -931,6 +1014,10 @@ func (deviceInfoSet DevInfo) CreateDeviceInfo(deviceName string, classGUID *GUID
 //sys	setupDiEnumDeviceInfo(deviceInfoSet DevInfo, memberIndex uint32, deviceInfoData *DevInfoData) (err error) = setupapi.SetupDiEnumDeviceInfo
 
 // SetupDiEnumDeviceInfo 函数返回一个 DevInfoData 结构，该结构用于指定设备信息集中某个设备信息元素。
+
+// ff:
+// memberIndex:
+// deviceInfoSet:
 func SetupDiEnumDeviceInfo(deviceInfoSet DevInfo, memberIndex int) (*DevInfoData, error) {
 	data := &DevInfoData{}
 	data.size = uint32(unsafe.Sizeof(*data))
@@ -939,6 +1026,9 @@ func SetupDiEnumDeviceInfo(deviceInfoSet DevInfo, memberIndex int) (*DevInfoData
 }
 
 // EnumDeviceInfo 方法返回一个 DevInfoData 结构，该结构用于指定设备信息集中某个设备信息元素。
+
+// ff:
+// memberIndex:
 func (deviceInfoSet DevInfo) EnumDeviceInfo(memberIndex int) (*DevInfoData, error) {
 	return SetupDiEnumDeviceInfo(deviceInfoSet, memberIndex)
 }
@@ -947,6 +1037,8 @@ func (deviceInfoSet DevInfo) EnumDeviceInfo(memberIndex int) (*DevInfoData, erro
 //sys	SetupDiDestroyDeviceInfoList(deviceInfoSet DevInfo) (err error) = setupapi.SetupDiDestroyDeviceInfoList
 
 // Close 方法用于删除一个设备信息集并释放所有相关内存。
+
+// ff:
 func (deviceInfoSet DevInfo) Close() error {
 	return SetupDiDestroyDeviceInfoList(deviceInfoSet)
 }
@@ -954,6 +1046,10 @@ func (deviceInfoSet DevInfo) Close() error {
 //sys	SetupDiBuildDriverInfoList(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverType SPDIT) (err error) = setupapi.SetupDiBuildDriverInfoList
 
 // BuildDriverInfoList 方法用于为特定设备或设备信息集中与全局类驱动程序列表关联的驱动程序构建一个列表。
+
+// ff:
+// driverType:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) BuildDriverInfoList(deviceInfoData *DevInfoData, driverType SPDIT) error {
 	return SetupDiBuildDriverInfoList(deviceInfoSet, deviceInfoData, driverType)
 }
@@ -961,6 +1057,8 @@ func (deviceInfoSet DevInfo) BuildDriverInfoList(deviceInfoData *DevInfoData, dr
 //sys	SetupDiCancelDriverInfoSearch(deviceInfoSet DevInfo) (err error) = setupapi.SetupDiCancelDriverInfoSearch
 
 // CancelDriverInfoSearch 方法取消在另一个线程中正在进行的驾驶员信息列表搜索。
+
+// ff:
 func (deviceInfoSet DevInfo) CancelDriverInfoSearch() error {
 	return SetupDiCancelDriverInfoSearch(deviceInfoSet)
 }
@@ -968,6 +1066,12 @@ func (deviceInfoSet DevInfo) CancelDriverInfoSearch() error {
 //sys	setupDiEnumDriverInfo(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverType SPDIT, memberIndex uint32, driverInfoData *DrvInfoData) (err error) = setupapi.SetupDiEnumDriverInfoW
 
 // SetupDiEnumDriverInfo 函数用于枚举驱动列表中的成员。
+
+// ff:
+// memberIndex:
+// driverType:
+// deviceInfoData:
+// deviceInfoSet:
 func SetupDiEnumDriverInfo(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverType SPDIT, memberIndex int) (*DrvInfoData, error) {
 	data := &DrvInfoData{}
 	data.size = uint32(unsafe.Sizeof(*data))
@@ -976,6 +1080,11 @@ func SetupDiEnumDriverInfo(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, d
 }
 
 // EnumDriverInfo 方法枚举驱动列表中的成员。
+
+// ff:
+// memberIndex:
+// driverType:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) EnumDriverInfo(deviceInfoData *DevInfoData, driverType SPDIT, memberIndex int) (*DrvInfoData, error) {
 	return SetupDiEnumDriverInfo(deviceInfoSet, deviceInfoData, driverType, memberIndex)
 }
@@ -983,6 +1092,10 @@ func (deviceInfoSet DevInfo) EnumDriverInfo(deviceInfoData *DevInfoData, driverT
 //sys	setupDiGetSelectedDriver(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverInfoData *DrvInfoData) (err error) = setupapi.SetupDiGetSelectedDriverW
 
 // SetupDiGetSelectedDriver 函数用于为设备信息集或特定设备信息元素获取所选驱动程序。
+
+// ff:
+// deviceInfoData:
+// deviceInfoSet:
 func SetupDiGetSelectedDriver(deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (*DrvInfoData, error) {
 	data := &DrvInfoData{}
 	data.size = uint32(unsafe.Sizeof(*data))
@@ -991,6 +1104,9 @@ func SetupDiGetSelectedDriver(deviceInfoSet DevInfo, deviceInfoData *DevInfoData
 }
 
 // SelectedDriver 方法用于检索设备信息集或特定设备信息元素所选中的驱动程序。
+
+// ff:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) SelectedDriver(deviceInfoData *DevInfoData) (*DrvInfoData, error) {
 	return SetupDiGetSelectedDriver(deviceInfoSet, deviceInfoData)
 }
@@ -998,6 +1114,10 @@ func (deviceInfoSet DevInfo) SelectedDriver(deviceInfoData *DevInfoData) (*DrvIn
 //sys	SetupDiSetSelectedDriver(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverInfoData *DrvInfoData) (err error) = setupapi.SetupDiSetSelectedDriverW
 
 // SetSelectedDriver 方法用于设置或重置设备信息元素的已选驱动程序，或者为设备信息集合设置已选类驱动程序。
+
+// ff:
+// driverInfoData:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) SetSelectedDriver(deviceInfoData *DevInfoData, driverInfoData *DrvInfoData) error {
 	return SetupDiSetSelectedDriver(deviceInfoSet, deviceInfoData, driverInfoData)
 }
@@ -1005,6 +1125,11 @@ func (deviceInfoSet DevInfo) SetSelectedDriver(deviceInfoData *DevInfoData, driv
 //sys	setupDiGetDriverInfoDetail(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverInfoData *DrvInfoData, driverInfoDetailData *DrvInfoDetailData, driverInfoDetailDataSize uint32, requiredSize *uint32) (err error) = setupapi.SetupDiGetDriverInfoDetailW
 
 // SetupDiGetDriverInfoDetail 函数用于为设备信息集中或设备信息集中的特定设备信息元素获取驱动程序信息详细内容。
+
+// ff:
+// driverInfoData:
+// deviceInfoData:
+// deviceInfoSet:
 func SetupDiGetDriverInfoDetail(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverInfoData *DrvInfoData) (*DrvInfoDetailData, error) {
 	reqSize := uint32(2048)
 	for {
@@ -1024,6 +1149,10 @@ func SetupDiGetDriverInfoDetail(deviceInfoSet DevInfo, deviceInfoData *DevInfoDa
 }
 
 // DriverInfoDetail 方法用于获取设备信息集中某个设备信息元素的驱动程序详细信息，或直接为整个设备信息集获取此类信息。
+
+// ff:
+// driverInfoData:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) DriverInfoDetail(deviceInfoData *DevInfoData, driverInfoData *DrvInfoData) (*DrvInfoDetailData, error) {
 	return SetupDiGetDriverInfoDetail(deviceInfoSet, deviceInfoData, driverInfoData)
 }
@@ -1031,6 +1160,10 @@ func (deviceInfoSet DevInfo) DriverInfoDetail(deviceInfoData *DevInfoData, drive
 //sys	SetupDiDestroyDriverInfoList(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverType SPDIT) (err error) = setupapi.SetupDiDestroyDriverInfoList
 
 // DestroyDriverInfoList 方法用于删除一个驱动列表。
+
+// ff:
+// driverType:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) DestroyDriverInfoList(deviceInfoData *DevInfoData, driverType SPDIT) error {
 	return SetupDiDestroyDriverInfoList(deviceInfoSet, deviceInfoData, driverType)
 }
@@ -1038,6 +1171,16 @@ func (deviceInfoSet DevInfo) DestroyDriverInfoList(deviceInfoData *DevInfoData, 
 //sys	setupDiGetClassDevsEx(classGUID *GUID, Enumerator *uint16, hwndParent uintptr, Flags DIGCF, deviceInfoSet DevInfo, machineName *uint16, reserved uintptr) (handle DevInfo, err error) [failretval==DevInfo(InvalidHandle)] = setupapi.SetupDiGetClassDevsExW
 
 // SetupDiGetClassDevsEx 函数返回一个设备信息集的句柄，该集合包含了为本地或远程计算机请求的设备信息元素。
+
+// ff:
+// err:
+// handle:
+// machineName:
+// deviceInfoSet:
+// flags:
+// hwndParent:
+// enumerator:
+// classGUID:
 func SetupDiGetClassDevsEx(classGUID *GUID, enumerator string, hwndParent uintptr, flags DIGCF, deviceInfoSet DevInfo, machineName string) (handle DevInfo, err error) {
 	var enumeratorUTF16 *uint16
 	if enumerator != "" {
@@ -1060,6 +1203,10 @@ func SetupDiGetClassDevsEx(classGUID *GUID, enumerator string, hwndParent uintpt
 //sys	SetupDiCallClassInstaller(installFunction DI_FUNCTION, deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (err error) = setupapi.SetupDiCallClassInstaller
 
 // CallClassInstaller 成员调用相应类安装程序以及所有已注册的共同安装程序，同时传递指定的安装请求（DIF代码）。
+
+// ff:
+// deviceInfoData:
+// installFunction:
 func (deviceInfoSet DevInfo) CallClassInstaller(installFunction DI_FUNCTION, deviceInfoData *DevInfoData) error {
 	return SetupDiCallClassInstaller(installFunction, deviceInfoSet, deviceInfoData)
 }
@@ -1068,6 +1215,14 @@ func (deviceInfoSet DevInfo) CallClassInstaller(installFunction DI_FUNCTION, dev
 //sys	SetupDiOpenDevRegKey(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, Scope DICS_FLAG, HwProfile uint32, KeyType DIREG, samDesired uint32) (key Handle, err error) [failretval==InvalidHandle] = setupapi.SetupDiOpenDevRegKey
 
 // OpenDevRegKey 方法用于打开一个注册表键，以便访问设备特定的配置信息。
+
+// ff:
+// Handle:
+// samDesired:
+// KeyType:
+// HwProfile:
+// Scope:
+// DeviceInfoData:
 func (deviceInfoSet DevInfo) OpenDevRegKey(DeviceInfoData *DevInfoData, Scope DICS_FLAG, HwProfile uint32, KeyType DIREG, samDesired uint32) (Handle, error) {
 	return SetupDiOpenDevRegKey(deviceInfoSet, DeviceInfoData, Scope, HwProfile, KeyType, samDesired)
 }
@@ -1075,6 +1230,13 @@ func (deviceInfoSet DevInfo) OpenDevRegKey(DeviceInfoData *DevInfoData, Scope DI
 //sys	setupDiGetDeviceProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, propertyKey *DEVPROPKEY, propertyType *DEVPROPTYPE, propertyBuffer *byte, propertyBufferSize uint32, requiredSize *uint32, flags uint32) (err error) = setupapi.SetupDiGetDevicePropertyW
 
 // SetupDiGetDeviceProperty 函数用于检索指定的设备实例属性。
+
+// ff:
+// err:
+// value:
+// propertyKey:
+// deviceInfoData:
+// deviceInfoSet:
 func SetupDiGetDeviceProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, propertyKey *DEVPROPKEY) (value interface{}, err error) {
 	reqSize := uint32(256)
 	for {
@@ -1100,6 +1262,13 @@ func SetupDiGetDeviceProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData
 //sys	setupDiGetDeviceRegistryProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, property SPDRP, propertyRegDataType *uint32, propertyBuffer *byte, propertyBufferSize uint32, requiredSize *uint32) (err error) = setupapi.SetupDiGetDeviceRegistryPropertyW
 
 // SetupDiGetDeviceRegistryProperty 函数用于检索指定即插即用设备的属性。
+
+// ff:
+// err:
+// value:
+// property:
+// deviceInfoData:
+// deviceInfoSet:
 func SetupDiGetDeviceRegistryProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, property SPDRP) (value interface{}, err error) {
 	reqSize := uint32(256)
 	for {
@@ -1197,6 +1366,10 @@ func wcslen(str []uint16) int {
 }
 
 // DeviceRegistryProperty 方法用于检索指定的即插即用设备属性。
+
+// ff:
+// property:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) DeviceRegistryProperty(deviceInfoData *DevInfoData, property SPDRP) (interface{}, error) {
 	return SetupDiGetDeviceRegistryProperty(deviceInfoSet, deviceInfoData, property)
 }
@@ -1204,16 +1377,32 @@ func (deviceInfoSet DevInfo) DeviceRegistryProperty(deviceInfoData *DevInfoData,
 //sys	setupDiSetDeviceRegistryProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, property SPDRP, propertyBuffer *byte, propertyBufferSize uint32) (err error) = setupapi.SetupDiSetDeviceRegistryPropertyW
 
 // SetupDiSetDeviceRegistryProperty 函数为设备设置即插即用设备属性。
+
+// ff:
+// propertyBuffers:
+// property:
+// deviceInfoData:
+// deviceInfoSet:
 func SetupDiSetDeviceRegistryProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, property SPDRP, propertyBuffers []byte) error {
 	return setupDiSetDeviceRegistryProperty(deviceInfoSet, deviceInfoData, property, &propertyBuffers[0], uint32(len(propertyBuffers)))
 }
 
 // SetDeviceRegistryProperty 函数用于为设备设置即插即用设备属性。
+
+// ff:
+// propertyBuffers:
+// property:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) SetDeviceRegistryProperty(deviceInfoData *DevInfoData, property SPDRP, propertyBuffers []byte) error {
 	return SetupDiSetDeviceRegistryProperty(deviceInfoSet, deviceInfoData, property, propertyBuffers)
 }
 
 // SetDeviceRegistryPropertyString 方法为设备设置即插即用设备属性字符串。
+
+// ff:
+// str:
+// property:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) SetDeviceRegistryPropertyString(deviceInfoData *DevInfoData, property SPDRP, str string) error {
 	str16, err := UTF16FromString(str)
 	if err != nil {
@@ -1227,6 +1416,10 @@ func (deviceInfoSet DevInfo) SetDeviceRegistryPropertyString(deviceInfoData *Dev
 //sys	setupDiGetDeviceInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, deviceInstallParams *DevInstallParams) (err error) = setupapi.SetupDiGetDeviceInstallParamsW
 
 // SetupDiGetDeviceInstallParams 函数用于为一个设备信息集或特定的设备信息元素检索设备安装参数。
+
+// ff:
+// deviceInfoData:
+// deviceInfoSet:
 func SetupDiGetDeviceInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (*DevInstallParams, error) {
 	params := &DevInstallParams{}
 	params.size = uint32(unsafe.Sizeof(*params))
@@ -1235,6 +1428,9 @@ func SetupDiGetDeviceInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInf
 }
 
 // DeviceInstallParams 方法用于获取设备信息集或特定设备信息元素的设备安装参数。
+
+// ff:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) DeviceInstallParams(deviceInfoData *DevInfoData) (*DevInstallParams, error) {
 	return SetupDiGetDeviceInstallParams(deviceInfoSet, deviceInfoData)
 }
@@ -1242,6 +1438,10 @@ func (deviceInfoSet DevInfo) DeviceInstallParams(deviceInfoData *DevInfoData) (*
 //sys	setupDiGetDeviceInstanceId(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, instanceId *uint16, instanceIdSize uint32, instanceIdRequiredSize *uint32) (err error) = setupapi.SetupDiGetDeviceInstanceIdW
 
 // SetupDiGetDeviceInstanceId 函数用于获取设备的实例ID。
+
+// ff:
+// deviceInfoData:
+// deviceInfoSet:
 func SetupDiGetDeviceInstanceId(deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (string, error) {
 	reqSize := uint32(1024)
 	for {
@@ -1258,6 +1458,9 @@ func SetupDiGetDeviceInstanceId(deviceInfoSet DevInfo, deviceInfoData *DevInfoDa
 }
 
 // DeviceInstanceID 方法用于获取设备的实例ID。
+
+// ff:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) DeviceInstanceID(deviceInfoData *DevInfoData) (string, error) {
 	return SetupDiGetDeviceInstanceId(deviceInfoSet, deviceInfoData)
 }
@@ -1266,6 +1469,12 @@ func (deviceInfoSet DevInfo) DeviceInstanceID(deviceInfoData *DevInfoData) (stri
 //sys	SetupDiGetClassInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, classInstallParams *ClassInstallHeader, classInstallParamsSize uint32, requiredSize *uint32) (err error) = setupapi.SetupDiGetClassInstallParamsW
 
 // ClassInstallParams 方法用于为一个设备信息集或特定的设备信息元素检索类安装参数。
+
+// ff:
+// requiredSize:
+// classInstallParamsSize:
+// classInstallParams:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) ClassInstallParams(deviceInfoData *DevInfoData, classInstallParams *ClassInstallHeader, classInstallParamsSize uint32, requiredSize *uint32) error {
 	return SetupDiGetClassInstallParams(deviceInfoSet, deviceInfoData, classInstallParams, classInstallParamsSize, requiredSize)
 }
@@ -1273,6 +1482,10 @@ func (deviceInfoSet DevInfo) ClassInstallParams(deviceInfoData *DevInfoData, cla
 //sys	SetupDiSetDeviceInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, deviceInstallParams *DevInstallParams) (err error) = setupapi.SetupDiSetDeviceInstallParamsW
 
 // SetDeviceInstallParams 成员为一个设备信息集或特定的设备信息元素设置设备安装参数。
+
+// ff:
+// deviceInstallParams:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) SetDeviceInstallParams(deviceInfoData *DevInfoData, deviceInstallParams *DevInstallParams) error {
 	return SetupDiSetDeviceInstallParams(deviceInfoSet, deviceInfoData, deviceInstallParams)
 }
@@ -1281,6 +1494,11 @@ func (deviceInfoSet DevInfo) SetDeviceInstallParams(deviceInfoData *DevInfoData,
 //sys	SetupDiSetClassInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, classInstallParams *ClassInstallHeader, classInstallParamsSize uint32) (err error) = setupapi.SetupDiSetClassInstallParamsW
 
 // SetClassInstallParams 方法用于为一个设备信息集或特定的设备信息元素设置或清除类安装参数。
+
+// ff:
+// classInstallParamsSize:
+// classInstallParams:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) SetClassInstallParams(deviceInfoData *DevInfoData, classInstallParams *ClassInstallHeader, classInstallParamsSize uint32) error {
 	return SetupDiSetClassInstallParams(deviceInfoSet, deviceInfoData, classInstallParams, classInstallParamsSize)
 }
@@ -1288,6 +1506,12 @@ func (deviceInfoSet DevInfo) SetClassInstallParams(deviceInfoData *DevInfoData, 
 //sys	setupDiClassNameFromGuidEx(classGUID *GUID, className *uint16, classNameSize uint32, requiredSize *uint32, machineName *uint16, reserved uintptr) (err error) = setupapi.SetupDiClassNameFromGuidExW
 
 // SetupDiClassNameFromGuidEx 函数用于获取与类GUID关联的类名。该类可以安装在本地计算机或远程计算机上。
+
+// ff:
+// err:
+// className:
+// machineName:
+// classGUID:
 func SetupDiClassNameFromGuidEx(classGUID *GUID, machineName string) (className string, err error) {
 	var classNameUTF16 [MAX_CLASS_NAME_LEN]uint16
 
@@ -1311,6 +1535,10 @@ func SetupDiClassNameFromGuidEx(classGUID *GUID, machineName string) (className 
 //sys	setupDiClassGuidsFromNameEx(className *uint16, classGuidList *GUID, classGuidListSize uint32, requiredSize *uint32, machineName *uint16, reserved uintptr) (err error) = setupapi.SetupDiClassGuidsFromNameExW
 
 // SetupDiClassGuidsFromNameEx 函数用于获取与指定类名关联的 GUID。返回的列表包含本地或远程计算机上当前已安装的此类别。
+
+// ff:
+// machineName:
+// className:
 func SetupDiClassGuidsFromNameEx(className string, machineName string) ([]GUID, error) {
 	classNameUTF16, err := UTF16PtrFromString(className)
 	if err != nil {
@@ -1342,6 +1570,9 @@ func SetupDiClassGuidsFromNameEx(className string, machineName string) ([]GUID, 
 //sys	setupDiGetSelectedDevice(deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (err error) = setupapi.SetupDiGetSelectedDevice
 
 // SetupDiGetSelectedDevice 函数用于从设备信息集中检索选定的设备信息元素。
+
+// ff:
+// deviceInfoSet:
 func SetupDiGetSelectedDevice(deviceInfoSet DevInfo) (*DevInfoData, error) {
 	data := &DevInfoData{}
 	data.size = uint32(unsafe.Sizeof(*data))
@@ -1350,6 +1581,8 @@ func SetupDiGetSelectedDevice(deviceInfoSet DevInfo) (*DevInfoData, error) {
 }
 
 // SelectedDevice 方法从设备信息集中检索选定的设备信息项。
+
+// ff:
 func (deviceInfoSet DevInfo) SelectedDevice() (*DevInfoData, error) {
 	return SetupDiGetSelectedDevice(deviceInfoSet)
 }
@@ -1358,6 +1591,9 @@ func (deviceInfoSet DevInfo) SelectedDevice() (*DevInfoData, error) {
 //sys	SetupDiSetSelectedDevice(deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (err error) = setupapi.SetupDiSetSelectedDevice
 
 // SetSelectedDevice 方法用于将一个设备信息元素设置为设备信息集的选定成员。此函数通常由安装向导使用。
+
+// ff:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) SetSelectedDevice(deviceInfoData *DevInfoData) error {
 	return SetupDiSetSelectedDevice(deviceInfoSet, deviceInfoData)
 }
@@ -1365,6 +1601,10 @@ func (deviceInfoSet DevInfo) SetSelectedDevice(deviceInfoData *DevInfoData) erro
 //sys	setupUninstallOEMInf(infFileName *uint16, flags SUOI, reserved uintptr) (err error) = setupapi.SetupUninstallOEMInfW
 
 // SetupUninstallOEMInf 卸载指定的驱动程序
+
+// ff:
+// flags:
+// infFileName:
 func SetupUninstallOEMInf(infFileName string, flags SUOI) error {
 	infFileName16, err := UTF16PtrFromString(infFileName)
 	if err != nil {
@@ -1378,6 +1618,11 @@ func SetupUninstallOEMInf(infFileName string, flags SUOI) error {
 //sys cm_Get_Device_Interface_List_Size(len *uint32, interfaceClass *GUID, deviceID *uint16, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_Device_Interface_List_SizeW
 //sys cm_Get_Device_Interface_List(interfaceClass *GUID, deviceID *uint16, buffer *uint16, bufferLen uint32, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_Device_Interface_ListW
 
+
+// ff:
+// flags:
+// interfaceClass:
+// deviceID:
 func CM_Get_Device_Interface_List(deviceID string, interfaceClass *GUID, flags uint32) ([]string, error) {
 	deviceID16, err := UTF16PtrFromString(deviceID)
 	if err != nil {
@@ -1412,6 +1657,12 @@ func CM_Get_Device_Interface_List(deviceID string, interfaceClass *GUID, flags u
 
 //sys cm_Get_DevNode_Status(status *uint32, problemNumber *uint32, devInst DEVINST, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_DevNode_Status
 
+
+// ff:
+// flags:
+// devInst:
+// problemNumber:
+// status:
 func CM_Get_DevNode_Status(status *uint32, problemNumber *uint32, devInst DEVINST, flags uint32) error {
 	ret := cm_Get_DevNode_Status(status, problemNumber, devInst, flags)
 	if ret == CR_SUCCESS {

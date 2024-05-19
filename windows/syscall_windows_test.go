@@ -2,7 +2,7 @@
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
-package windows_test
+package windows_test //bm:win类_test
 
 import (
 	"bufio"
@@ -219,7 +219,7 @@ func TestKnownFolderPath(t *testing.T) {
 func TestRtlGetVersion(t *testing.T) {
 	version := windows.RtlGetVersion()
 	major, minor, build := windows.RtlGetNtVersionNumbers()
-// Go并未被明确添加至应用程序兼容性数据库中，因此这两个函数应返回相同的结果。
+	// Go并未被明确添加至应用程序兼容性数据库中，因此这两个函数应返回相同的结果。
 	if version.MajorVersion != major || version.MinorVersion != minor || version.BuildNumber != build {
 		t.Fatalf("%d.%d.%d != %d.%d.%d", version.MajorVersion, version.MinorVersion, version.BuildNumber, major, minor, build)
 	}
@@ -611,17 +611,17 @@ func FuzzComposeCommandLine(f *testing.F) {
 		} else {
 			t.Logf("DecomposeCommandLine: %v", err)
 			if !strings.Contains(s, "\x00") {
-// CommandLineToArgv的文档假定第一个参数为有效的文件路径，并未描述针对畸形参数的具体行为。经实证，它似乎能容忍我们传递给它的任何内容，但如果我们发现其在某些情况下确实返回错误，可能需要放宽此检查。
+				// CommandLineToArgv的文档假定第一个参数为有效的文件路径，并未描述针对畸形参数的具体行为。经实证，它似乎能容忍我们传递给它的任何内容，但如果我们发现其在某些情况下确实返回错误，可能需要放宽此检查。
 				t.Fatal("(error unexpected)")
 			}
 
-// 由于DecomposeCommandLine无法处理此字符串，
-// 将其视为ComposeCommandLine的原始参数进行解释。
+			// 由于DecomposeCommandLine无法处理此字符串，
+			// 将其视为ComposeCommandLine的原始参数进行解释。
 			args = strings.Split(s, "\x00")
 			argsFromSplit = true
 			for i, arg := range args {
 				if !utf8.ValidString(arg) {
-// 我们需要将参数以UTF-16编码形式传递给CommandLineToArgvW，因此需跳过无效的输入：它们可能有一个或多个字符被替换为替换字符。
+					// 我们需要将参数以UTF-16编码形式传递给CommandLineToArgvW，因此需跳过无效的输入：它们可能有一个或多个字符被替换为替换字符。
 					t.Skipf("skipping: input %d is not valid UTF-8", i)
 				}
 			}
@@ -630,8 +630,8 @@ func FuzzComposeCommandLine(f *testing.F) {
 			}
 		}
 
-// 即使我们构造的命令行与读取到的不同，也是可以接受的。
-// 我们只需确保所构造的命令行能够回环处理，并得到与原始命令相同的结果即可。
+		// 即使我们构造的命令行与读取到的不同，也是可以接受的。
+		// 我们只需确保所构造的命令行能够回环处理，并得到与原始命令相同的结果即可。
 		commandLine := windows.ComposeCommandLine(args)
 		t.Logf("ComposeCommandLine(_) = %#q", commandLine)
 
@@ -652,22 +652,22 @@ func FuzzComposeCommandLine(f *testing.F) {
 			want := args[i]
 			if got[i] != want {
 				if i == 0 && argsFromSplit {
-// 可能存在 args[0] 无法被精确编码的情况，因为
-// CommandLineToArgvW 对该参数的解码方式与其它参数不同：
-// 由于第一个参数被视为程序名本身，我们只能选择是否加引号。
-//
-// 如果 args[0] 包含空格或控制字符，我们必须对其加引号，
-// 以防止它被拆分成多个参数。如果 args[0] 已经以引号开头，
-// 我们无法表明该引号是作为字面参数的一部分。
-// 在这两种情况下，如果字符串中已经包含引号字符，
-// 我们必须避免将其误解释为引号参数字符串的结束。
-//
-// 不幸的是，ComposeCommandLine 函数并不返回错误，
-// 因此我们无法将已存在的引号字符报告为错误。
-// 作为替代，我们将参数中的问题引号字符移除，并对剩余部分加引号。
-// 对于类似 C:\"Program Files"\Go\bin\go.exe 的路径，
-// 这或许正是调用者所期望的，而对于其他字符串，
-// 相比于破坏后续参数，这样做危害较小。
+					// 可能存在 args[0] 无法被精确编码的情况，因为
+					// CommandLineToArgvW 对该参数的解码方式与其它参数不同：
+					// 由于第一个参数被视为程序名本身，我们只能选择是否加引号。
+					//
+					// 如果 args[0] 包含空格或控制字符，我们必须对其加引号，
+					// 以防止它被拆分成多个参数。如果 args[0] 已经以引号开头，
+					// 我们无法表明该引号是作为字面参数的一部分。
+					// 在这两种情况下，如果字符串中已经包含引号字符，
+					// 我们必须避免将其误解释为引号参数字符串的结束。
+					//
+					// 不幸的是，ComposeCommandLine 函数并不返回错误，
+					// 因此我们无法将已存在的引号字符报告为错误。
+					// 作为替代，我们将参数中的问题引号字符移除，并对剩余部分加引号。
+					// 对于类似 C:\"Program Files"\Go\bin\go.exe 的路径，
+					// 这或许正是调用者所期望的，而对于其他字符串，
+					// 相比于破坏后续参数，这样做危害较小。
 					if got[i] == strings.ReplaceAll(want, `"`, ``) {
 						continue
 					}
@@ -763,9 +763,9 @@ func TestEnumProcesses(t *testing.T) {
 	if outSize != 8 {
 		t.Errorf("unexpected bytes returned: %d", outSize)
 	}
-// 最可能的情况是，此处应为 [0, 4]。
-// 其中，0 表示系统空闲伪进程。4 代表初始系统进程 ID。
-// 本测试期望至少有一个 PID 不为 0。
+	// 最可能的情况是，此处应为 [0, 4]。
+	// 其中，0 表示系统空闲伪进程。4 代表初始系统进程 ID。
+	// 本测试期望至少有一个 PID 不为 0。
 	if pids[0] == 0 && pids[1] == 0 {
 		t.Errorf("all PIDs are 0")
 	}

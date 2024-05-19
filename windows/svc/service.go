@@ -2,7 +2,7 @@
 // 本源代码的使用受 BSD 风格许可证约束，
 // 该许可证可在 LICENSE 文件中找到。
 
-//---build---//go:build windows
+//go:build windows
 
 // Package svc 提供了构建 Windows 服务所需的一切。
 package svc
@@ -273,6 +273,10 @@ loop:
 }
 
 // Run 通过调用相应的处理函数来执行服务名。
+
+// ff:
+// handler:
+// name:
 func Run(name string, handler Handler) error {
 	initCallbacks.Do(func() {
 		ctlHandlerCallback = windows.NewCallback(ctlHandler)
@@ -290,12 +294,17 @@ func Run(name string, handler Handler) error {
 
 // StatusHandle 返回服务状态句柄。在 Handler.Execute 内部调用此函数是安全的，
 // 因为此时可以确保其已被设置。
+
+// ff:
 func StatusHandle() windows.Handle {
 	return theService.h
 }
 
 // DynamicStartReason 返回服务启动的原因。从 Handler.Execute 内部调用此函数是安全的，
 // 因为此时可以确保其已被设置。
+
+// ff:
+// StartReason:
 func DynamicStartReason() (StartReason, error) {
 	var allocReason *uint32
 	err := windows.QueryServiceDynamicInformation(theService.h, windows.SERVICE_DYNAMIC_INFORMATION_LEVEL_START_REASON, unsafe.Pointer(&allocReason))

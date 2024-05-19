@@ -24,12 +24,25 @@ import "strconv"
 // zeros are removed).
 // The special precision -1 uses the smallest number of digits
 // necessary such that ParseFloat will return f exactly.
+
+// ff:
+// bitSize:
+// prec:
+// fmt:
+// f:
 func FormatFloat(f float64, fmt byte, prec, bitSize int) string { //md5:627500a705d2a46e
 	return strconv.FormatFloat(f, fmt, prec, bitSize)
 }
 
 // AppendFloat 将浮点数 f 的格式化字符串（由 FormatFloat 生成）追加到 dst 中，并返回扩展的缓冲区。
 // md5:5f65576d0cc9f940
+
+// ff:
+// bitSize:
+// prec:
+// fmt:
+// f:
+// dst:
 func AppendFloat(dst []byte, f float64, fmt byte, prec, bitSize int) []byte { //md5:6c1e86744a16fe25
 	return strconv.AppendFloat(dst, f, fmt, prec, bitSize)
 }

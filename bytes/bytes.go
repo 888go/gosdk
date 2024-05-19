@@ -1,4 +1,4 @@
-package bytes
+package bytes//bm:字节集类
 
 import (
 	"bytes"

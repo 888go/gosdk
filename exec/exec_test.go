@@ -5,7 +5,7 @@
 // Use an external test to avoid os/exec -> net/http -> crypto/x509 -> os/exec
 // circular dependency on non-cgo darwin.
 
-package exec_test
+package exec_test//bm:调用类_test
 
 import (
 	"bufio"
