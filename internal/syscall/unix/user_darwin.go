@@ -13,6 +13,12 @@ import (
 //go:cgo_import_dynamic libc_getgrouplist getgrouplist "/usr/lib/libSystem.B.dylib"
 func libc_getgrouplist_trampoline()
 
+
+// ff:
+// n:
+// gids:
+// gid:
+// name:
 func Getgrouplist(name *byte, gid uint32, gids *uint32, n *int32) error {
 	_, _, errno := syscall_syscall6(abi.FuncPCABI0(libc_getgrouplist_trampoline),
 		uintptr(unsafe.Pointer(name)), uintptr(gid), uintptr(unsafe.Pointer(gids)),
@@ -51,6 +57,13 @@ type Group struct {
 //go:cgo_import_dynamic libc_getpwnam_r getpwnam_r  "/usr/lib/libSystem.B.dylib"
 func libc_getpwnam_r_trampoline()
 
+
+// ff:
+// result:
+// size:
+// buf:
+// pwd:
+// name:
 func Getpwnam(name *byte, pwd *Passwd, buf *byte, size uintptr, result **Passwd) syscall.Errno {
 	// Note: Returns an errno as its actual result, not in global errno.
 	errno, _, _ := syscall_syscall6(abi.FuncPCABI0(libc_getpwnam_r_trampoline),
@@ -66,6 +79,13 @@ func Getpwnam(name *byte, pwd *Passwd, buf *byte, size uintptr, result **Passwd)
 //go:cgo_import_dynamic libc_getpwuid_r getpwuid_r  "/usr/lib/libSystem.B.dylib"
 func libc_getpwuid_r_trampoline()
 
+
+// ff:
+// result:
+// size:
+// buf:
+// pwd:
+// uid:
 func Getpwuid(uid uint32, pwd *Passwd, buf *byte, size uintptr, result **Passwd) syscall.Errno {
 	// Note: Returns an errno as its actual result, not in global errno.
 	errno, _, _ := syscall_syscall6(abi.FuncPCABI0(libc_getpwuid_r_trampoline),
@@ -81,6 +101,13 @@ func Getpwuid(uid uint32, pwd *Passwd, buf *byte, size uintptr, result **Passwd)
 //go:cgo_import_dynamic libc_getgrnam_r getgrnam_r  "/usr/lib/libSystem.B.dylib"
 func libc_getgrnam_r_trampoline()
 
+
+// ff:
+// result:
+// size:
+// buf:
+// grp:
+// name:
 func Getgrnam(name *byte, grp *Group, buf *byte, size uintptr, result **Group) syscall.Errno {
 	// Note: Returns an errno as its actual result, not in global errno.
 	errno, _, _ := syscall_syscall6(abi.FuncPCABI0(libc_getgrnam_r_trampoline),
@@ -96,6 +123,13 @@ func Getgrnam(name *byte, grp *Group, buf *byte, size uintptr, result **Group) s
 //go:cgo_import_dynamic libc_getgrgid_r getgrgid_r  "/usr/lib/libSystem.B.dylib"
 func libc_getgrgid_r_trampoline()
 
+
+// ff:
+// result:
+// size:
+// buf:
+// grp:
+// gid:
 func Getgrgid(gid uint32, grp *Group, buf *byte, size uintptr, result **Group) syscall.Errno {
 	// Note: Returns an errno as its actual result, not in global errno.
 	errno, _, _ := syscall_syscall6(abi.FuncPCABI0(libc_getgrgid_r_trampoline),
@@ -111,6 +145,9 @@ func Getgrgid(gid uint32, grp *Group, buf *byte, size uintptr, result **Group) s
 //go:cgo_import_dynamic libc_sysconf sysconf "/usr/lib/libSystem.B.dylib"
 func libc_sysconf_trampoline()
 
+
+// ff:
+// key:
 func Sysconf(key int32) int64 {
 	val, _, errno := syscall_syscall6X(abi.FuncPCABI0(libc_sysconf_trampoline),
 		uintptr(key), 0, 0, 0, 0, 0)

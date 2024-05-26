@@ -89,7 +89,7 @@
     <tree path="/time" title="时间类"/>
     <tree path="/bytes" title="字节集类"/>
     <tree path="/regexp" title="正则类"/>
-    <tree path="/fmt" title="调试类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+    <tree path="/fmt" title="打印类" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
           backgroundColor=""/>
     <tree path="/regexp/all_test.go" title="单元测试"/>
     <tree path="/regexp/example_test.go" title="单元测试"/>
@@ -151,4 +151,9 @@
     <tree path="/fmt/state_test.go" title="单元测试"/>
     <tree path="/fmt/stringer_example_test.go" title="单元测试"/>
     <tree path="/fmt/stringer_test.go" title="单元测试"/>
+    <tree path="/fmt/errors.go" title="错误"/>
+    <tree path="/fmt/format.go" title="内部"/>
+    <tree path="/fmt/print.go" title="主要方法"/>
+    <tree path="/fmt/scan.go" title="到变量指针" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+          backgroundColor=""/>
 </trees>

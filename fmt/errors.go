@@ -9,9 +9,9 @@ import "fmt"
 // 使用 %w 动词提供一个不实现错误接口的操作数是无效的。除此外，%w 动词与 %v 是同义的。
 // md5:32b0316eed56798a
 
-// ff:
-// a:
-// format:
+// ff:错误格式化
+// format:格式化模板
+// a:参数
 func Errorf(format string, a ...any) error { //md5:fbc8d826a3d24402
 	return fmt.Errorf(format, a...)
 }

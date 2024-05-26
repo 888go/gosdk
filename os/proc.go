@@ -55,5 +55,6 @@ func Exit(code int) { //md5:0901ce78771fb26a6481d82aa618730c
 
 
 // Args hold the command-line arguments, starting with the program name.
+// 翻译提示:var  命令行参数  []string  //md5:5bbf5c199ba9b642
 var Args []string //md5:5bbf5c199ba9b642
 

@@ -35,12 +35,20 @@ var Local *Location = &Location{*time.Local} //md5:57aa689da8ee76b4
 
 // String 返回与 LoadLocation 或 FixedZone 的 name 参数对应的时区信息的描述性名称。
 // md5:120873679bee5884
+// 翻译提示:func  (l  *位置)  字符串()  字符串  {}
+
+// ff:
 func (l *Location) String() string { //md5:c44612032555be76
 	return l.F.String()
 }
 
 // FixedZone返回一个Location，它始终使用给定的时区名称和偏移量（UTC的东秒数）。
 // md5:2175485bbe6a45d6
+// 翻译提示:func  固定时区(name  字符串,  偏移量  int)  *时区信息  {}
+
+// ff:
+// name:
+// offset:
 func FixedZone(name string, offset int) *Location { //md5:839d95c9de0383bc
 	l := time.FixedZone(name, offset)
 	if l == nil {
@@ -64,6 +72,10 @@ func FixedZone(name string, offset int) *Location { //md5:839d95c9de0383bc
 //   - 如果导入了 time/tzdata 包，则使用该包
 //
 // md5:aec8c6a750b5813b
+// 翻译提示:func  加载时区(name  string)  (*时区信息,  error)  {}
+
+// ff:
+// name:
 func LoadLocation(name string) (*Location, error) { //md5:506ad5b64122238f
 	l, err := time.LoadLocation(name)
 	if err != nil {

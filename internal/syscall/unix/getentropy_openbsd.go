@@ -9,6 +9,10 @@ package unix
 import _ "unsafe" // for linkname
 
 // GetEntropy calls the OpenBSD getentropy system call.
+// 翻译提示:func 获取熵(p []byte) error {}
+
+// ff:
+// p:
 func GetEntropy(p []byte) error {
 	return getentropy(p)
 }

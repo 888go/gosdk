@@ -13,6 +13,10 @@ func syscall6(trap, nargs, a1, a2, a3, a4, a5, a6 uintptr) (r1, r2 uintptr, err 
 //go:cgo_import_dynamic libc_openat openat "libc.so"
 //go:cgo_import_dynamic libc_unlinkat unlinkat "libc.so"
 
+// 翻译提示:const (
+//	删除目录       = 0x1
+//	不跟随符号链接 = 0x1000
+//)
 const (
 	AT_REMOVEDIR        = 0x1
 	AT_SYMLINK_NOFOLLOW = 0x1000

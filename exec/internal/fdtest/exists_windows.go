@@ -7,9 +7,6 @@
 package fdtest
 
 // Exists is not implemented on windows and panics.
-
-// ff:
-// fd:
 func Exists(fd uintptr) bool {
 	panic("unimplemented")
 }

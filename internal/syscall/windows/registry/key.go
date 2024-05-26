@@ -66,6 +66,8 @@ const (
 )
 
 // Close closes open key k.
+
+// ff:
 func (k Key) Close() error {
 	return syscall.RegCloseKey(syscall.Handle(k))
 }
@@ -75,6 +77,12 @@ func (k Key) Close() error {
 // and returns the new key and an error.
 // The access parameter specifies desired access rights to the
 // key to be opened.
+
+// ff:
+// Key:
+// access:
+// path:
+// k:
 func OpenKey(k Key, path string, access uint32) (Key, error) {
 	p, err := syscall.UTF16PtrFromString(path)
 	if err != nil {
@@ -89,6 +97,8 @@ func OpenKey(k Key, path string, access uint32) (Key, error) {
 }
 
 // ReadSubKeyNames returns the names of subkeys of key k.
+
+// ff:
 func (k Key) ReadSubKeyNames() ([]string, error) {
 	// RegEnumKeyEx must be called repeatedly and to completion.
 	// During this time, this goroutine cannot migrate away from
@@ -129,6 +139,14 @@ loopItems:
 // whether the key already existed.
 // The access parameter specifies the access rights for the key
 // to be created.
+
+// ff:
+// err:
+// openedExisting:
+// newk:
+// access:
+// path:
+// k:
 func CreateKey(k Key, path string, access uint32) (newk Key, openedExisting bool, err error) {
 	var h syscall.Handle
 	var d uint32
@@ -141,6 +159,10 @@ func CreateKey(k Key, path string, access uint32) (newk Key, openedExisting bool
 }
 
 // DeleteKey deletes the subkey path of key k and its values.
+
+// ff:
+// path:
+// k:
 func DeleteKey(k Key, path string) error {
 	return regDeleteKey(syscall.Handle(k), syscall.StringToUTF16Ptr(path))
 }
@@ -156,6 +178,8 @@ type KeyInfo struct {
 }
 
 // Stat retrieves information about the open key k.
+
+// ff:
 func (k Key) Stat() (*KeyInfo, error) {
 	var ki KeyInfo
 	err := syscall.RegQueryInfoKey(syscall.Handle(k), nil, nil, nil,

@@ -30,8 +30,8 @@ func Open(source string) (*Log, error) {
 // OpenRemote与Open功能相同，但作用于另一台计算机主机上。
 
 // ff:
-// source:
 // host:
+// source:
 func OpenRemote(host, source string) (*Log, error) {
 	if source == "" {
 		return nil, errors.New("Specify event log source")
@@ -62,8 +62,8 @@ func (l *Log) report(etype uint16, eid uint32, msg string) error {
 // Info 函数向事件日志 l 的末尾写入一个信息事件，该事件包含事件 ID（eid）及消息（msg）。当使用 EventCreate.exe 工具时，eid 的值必须在 1 到 1000 之间。
 
 // ff:
-// msg:
 // eid:
+// msg:
 func (l *Log) Info(eid uint32, msg string) error {
 	return l.report(windows.EVENTLOG_INFORMATION_TYPE, eid, msg)
 }
@@ -72,8 +72,8 @@ func (l *Log) Info(eid uint32, msg string) error {
 // 使用EventCreate.exe时，eid必须在1到1000之间。
 
 // ff:
-// msg:
 // eid:
+// msg:
 func (l *Log) Warning(eid uint32, msg string) error {
 	return l.report(windows.EVENTLOG_WARNING_TYPE, eid, msg)
 }
@@ -82,8 +82,8 @@ func (l *Log) Warning(eid uint32, msg string) error {
 // 当使用 EventCreate.exe 时，eid 的值必须介于 1 和 1000 之间。
 
 // ff:
-// msg:
 // eid:
+// msg:
 func (l *Log) Error(eid uint32, msg string) error {
 	return l.report(windows.EVENTLOG_ERROR_TYPE, eid, msg)
 }

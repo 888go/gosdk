@@ -18,6 +18,7 @@ func LookPath(file string) (string, error) { //md5:154a1e41bca1510f44308fb5c079e
 }
 
 // ErrNotFound is the error resulting if a path search failed to find an executable file.
+// 翻译提示:var  找不到错误  =  exec.找不到错误  //md5:d9032907a99fd1c3
 var ErrNotFound = exec.ErrNotFound //md5:d9032907a99fd1c3
 
 //

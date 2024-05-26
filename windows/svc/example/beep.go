@@ -13,6 +13,9 @@ import (
 // BUG(brainman)：MessageBeep Windows API 在 Windows 7 上存在故障，
 // 导致此示例在以服务形式运行于 Windows 7 时无法发出蜂鸣声。
 
+// 翻译提示:var  (
+// 	响铃函数  =  syscall.MustLoadDLL("user32.dll").MustFindProc("MessageBeep")
+// )
 var (
 	beepFunc = syscall.MustLoadDLL("user32.dll").MustFindProc("MessageBeep")
 )

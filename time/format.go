@@ -89,12 +89,18 @@ const (
 //
 // 返回的字符串主要用于调试；若需要稳定的序列化表示，请使用 t.MarshalText、t.MarshalBinary 或者 t.Format 并提供明确的格式字符串。
 // md5:534437fd6587d3d7
+// 翻译提示:func  (t  时间)  字符串()  字符串  {}
+
+// ff:
 func (t Time) String() string { //md5:244060d240d2fba5
 	return t.F.String()
 }
 
 // GoString 实现了 fmt.GoStringer 接口，用于将 t 格式化为可在 Go 源代码中打印的形式。
 // md5:7a33ba38e316bbcb
+// 翻译提示:func  (t  时间)  Go字符串()  字符串  {}
+
+// ff:
 func (t Time) GoString() string { //md5:bbef06c0bba983b6
 	return t.F.GoString()
 }
@@ -104,17 +110,29 @@ func (t Time) GoString() string { //md5:bbef06c0bba983b6
 //
 // Time.Format 的可执行示例详细演示了布局字符串的工作原理，是一个很好的参考。
 // md5:0e6869ec07aa8837
+// 翻译提示:func  (t  时间)  格式化(layout  字符串)  字符串  {}
+
+// ff:
+// layout:
 func (t Time) Format(layout string) string { //md5:cd21a0becf8aba8a
 	return t.F.Format(layout)
 }
 
 // AppendFormat 类似于 Format，但它将文本表示追加到 b 中，并返回扩展的缓冲区。
 // md5:070a0e7c5343b175
+// 翻译提示:func  (t  时间)  添加格式化(b  []字节,  格式字符串)  []字节  {}
+
+// ff:
+// b:
+// layout:
 func (t Time) AppendFormat(b []byte, layout string) []byte { //md5:f1300a966a1e3949
 	return t.F.AppendFormat(b, layout)
 }
 
 // Error 返回一个 ParseError 的字符串表示。. md5:c5730859166f42e5
+// 翻译提示:func  (e  *解析错误)  错误()  字符串  {}
+
+// ff:
 func (e *ParseError) Error() string { //md5:c2cf7f1bf647d37a
 	return e.F.Error()
 }
@@ -147,6 +165,12 @@ func (e *ParseError) Error() string { //md5:c2cf7f1bf647d37a
 // 这种选择意味着这样的时间可以被解析并使用相同的布局无损地重新格式化，但在表示中使用的确切瞬间会根据实际时区偏移有所不同。
 // 为了避免此类问题，建议优先使用包含数值时区偏移的时区布局，或使用ParseInLocation。
 // md5:af59c84e115e04f1
+// 翻译提示:func  解析布局(layout  字符串,  value  字符串)  (时间,  错误)  {}
+
+// ff:
+// layout:
+// value:
+// Time:
 func Parse(layout, value string) (Time, error) { //md5:04f0e938ce9833d8
 	t, err := time.Parse(layout, value)
 	return Time{t}, err
@@ -156,6 +180,13 @@ func Parse(layout, value string) (Time, error) { //md5:04f0e938ce9833d8
 // 首先，在没有时区信息的情况下，Parse 将时间解释为 UTC；而 ParseInLocation 则将时间解释为给定的时区。
 // 其次，当给定时区偏移量或缩写时，Parse 会尝试将其与 Local 时区匹配；而 ParseInLocation 使用给定的时区。
 // md5:23556e86126104cc
+// 翻译提示:func  解析在时区(layout,  值  string,  时区  *地理位置)  (时间  Time,  错误  error)  {}
+
+// ff:
+// layout:
+// value:
+// loc:
+// Time:
 func ParseInLocation(layout, value string, loc *Location) (Time, error) { //md5:72c26b70b1a8980b
 	t, err := time.ParseInLocation(layout, value, &loc.F)
 	return Time{t}, err
@@ -166,6 +197,11 @@ func ParseInLocation(layout, value string, loc *Location) (Time, error) { //md5:
 // decimal numbers, each with optional fraction and a unit suffix,
 // such as "300ms", "-1.5h" or "2h45m".
 // Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
+// 翻译提示:func  解析持续时间(s  字符串)  (持续时间,  错误)  {}
+
+// ff:
+// s:
+// Duration:
 func ParseDuration(s string) (Duration, error) { //md5:2817ced6ba396e3a
 	d, err := time.ParseDuration(s)
 	return Duration(d), err

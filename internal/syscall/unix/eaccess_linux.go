@@ -6,6 +6,11 @@ package unix
 
 import "syscall"
 
+// 翻译提示:func 访问权限检查(path string, 模式 uint32) error {}
+
+// ff:
+// mode:
+// path:
 func Eaccess(path string, mode uint32) error {
 	return syscall.Faccessat(AT_FDCWD, path, mode, AT_EACCESS)
 }

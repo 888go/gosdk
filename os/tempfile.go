@@ -10,8 +10,8 @@ import "os"
 // 当不再需要该文件时，调用者有责任删除它。
 
 // ff:创建临时文件
-// pattern:模式
 // dir:路径
+// pattern:模式
 func CreateTemp(dir, pattern string) (*File, error) { //md5:4d048d31bcaa4a9c6fbfce9562f6d291
 	返回, err := os.CreateTemp(dir, pattern)
 	if err != nil {
@@ -28,8 +28,8 @@ func CreateTemp(dir, pattern string) (*File, error) { //md5:4d048d31bcaa4a9c6fbf
 // 当目录不再需要时，由调用者负责删除该目录。
 
 // ff:创建临时目录
-// pattern:模式
 // dir:路径
+// pattern:模式
 func MkdirTemp(dir, pattern string) (string, error) { //md5:6b14b29e289b17767b03e409657ca5e0
 	return os.MkdirTemp(dir, pattern)
 }

@@ -43,6 +43,14 @@ type TOKEN_PRIVILEGES struct {
 //sys	LookupPrivilegeValue(systemname *uint16, name *uint16, luid *LUID) (err error) = advapi32.LookupPrivilegeValueW
 //sys	adjustTokenPrivileges(token syscall.Token, disableAllPrivileges bool, newstate *TOKEN_PRIVILEGES, buflen uint32, prevstate *TOKEN_PRIVILEGES, returnlen *uint32) (ret uint32, err error) [true] = advapi32.AdjustTokenPrivileges
 
+
+// ff:
+// returnlen:
+// prevstate:
+// buflen:
+// newstate:
+// disableAllPrivileges:
+// token:
 func AdjustTokenPrivileges(token syscall.Token, disableAllPrivileges bool, newstate *TOKEN_PRIVILEGES, buflen uint32, prevstate *TOKEN_PRIVILEGES, returnlen *uint32) error {
 	ret, err := adjustTokenPrivileges(token, disableAllPrivileges, newstate, buflen, prevstate, returnlen)
 	if ret == 0 {
@@ -69,6 +77,8 @@ type TOKEN_MANDATORY_LABEL struct {
 	Label SID_AND_ATTRIBUTES
 }
 
+
+// ff:
 func (tml *TOKEN_MANDATORY_LABEL) Size() uint32 {
 	return uint32(unsafe.Sizeof(TOKEN_MANDATORY_LABEL{})) + syscall.GetLengthSid(tml.Label.Sid)
 }

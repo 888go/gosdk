@@ -40,6 +40,13 @@ type Addrinfo struct {
 //go:cgo_import_dynamic libc_getaddrinfo getaddrinfo "/usr/lib/libSystem.B.dylib"
 func libc_getaddrinfo_trampoline()
 
+// 翻译提示:func 获取地址信息(hostName, 服务名 *byte, 提示 *Addrinfo, 结果 **Addrinfo) (错误码 int, 错误 error) {}
+
+// ff:
+// res:
+// hints:
+// servname:
+// hostname:
 func Getaddrinfo(hostname, servname *byte, hints *Addrinfo, res **Addrinfo) (int, error) {
 	gerrno, _, errno := syscall_syscall6(abi.FuncPCABI0(libc_getaddrinfo_trampoline),
 		uintptr(unsafe.Pointer(hostname)),
@@ -58,6 +65,10 @@ func Getaddrinfo(hostname, servname *byte, hints *Addrinfo, res **Addrinfo) (int
 //go:cgo_import_dynamic libc_freeaddrinfo freeaddrinfo "/usr/lib/libSystem.B.dylib"
 func libc_freeaddrinfo_trampoline()
 
+// 翻译提示:func 释放Addrinfo(ai *地址信息) {}
+
+// ff:
+// ai:
 func Freeaddrinfo(ai *Addrinfo) {
 	syscall_syscall6(abi.FuncPCABI0(libc_freeaddrinfo_trampoline),
 		uintptr(unsafe.Pointer(ai)),
@@ -67,6 +78,16 @@ func Freeaddrinfo(ai *Addrinfo) {
 //go:cgo_import_dynamic libc_getnameinfo getnameinfo "/usr/lib/libSystem.B.dylib"
 func libc_getnameinfo_trampoline()
 
+// 翻译提示:func 获取名称信息(sockaddr *syscall.RawSockaddr, sockaddrLength int, 主机名 *byte, 主机名长度 int, 服务名 *byte, 服务名长度 int, 标志 int) (int, error) {}
+
+// ff:
+// flags:
+// servlen:
+// serv:
+// hostlen:
+// host:
+// salen:
+// sa:
 func Getnameinfo(sa *syscall.RawSockaddr, salen int, host *byte, hostlen int, serv *byte, servlen int, flags int) (int, error) {
 	gerrno, _, errno := syscall_syscall9(abi.FuncPCABI0(libc_getnameinfo_trampoline),
 		uintptr(unsafe.Pointer(sa)),
@@ -88,6 +109,10 @@ func Getnameinfo(sa *syscall.RawSockaddr, salen int, host *byte, hostlen int, se
 //go:cgo_import_dynamic libc_gai_strerror gai_strerror "/usr/lib/libSystem.B.dylib"
 func libc_gai_strerror_trampoline()
 
+// 翻译提示:func 错误码转字符串(ecode int) string {}
+
+// ff:
+// ecode:
 func GaiStrerror(ecode int) string {
 	r1, _, _ := syscall_syscall(abi.FuncPCABI0(libc_gai_strerror_trampoline),
 		uintptr(ecode),
@@ -98,6 +123,16 @@ func GaiStrerror(ecode int) string {
 // Implemented in the runtime package.
 func gostring(*byte) string
 
+// 翻译提示:函数：GoString
+//参数：p *byte（指向字节的指针）
+//返回值：string（字符串）
+//
+//中文重构后：
+//
+//func 字符串转Go格式(p *字节) 字符串 {}
+
+// ff:
+// p:
 func GoString(p *byte) string {
 	return gostring(p)
 }
@@ -124,6 +159,10 @@ type ResState struct {
 //go:cgo_import_dynamic libresolv_res_9_ninit res_9_ninit "/usr/lib/libresolv.9.dylib"
 func libresolv_res_9_ninit_trampoline()
 
+// 翻译提示:func 初始化ResState(state *解析状态) error {}
+
+// ff:
+// state:
 func ResNinit(state *ResState) error {
 	_, _, errno := syscall_syscall(abi.FuncPCABI0(libresolv_res_9_ninit_trampoline),
 		uintptr(unsafe.Pointer(state)),
@@ -137,6 +176,10 @@ func ResNinit(state *ResState) error {
 //go:cgo_import_dynamic libresolv_res_9_nclose res_9_nclose "/usr/lib/libresolv.9.dylib"
 func libresolv_res_9_nclose_trampoline()
 
+// 翻译提示:func 关闭资源(state *资源状态) {}
+
+// ff:
+// state:
 func ResNclose(state *ResState) {
 	syscall_syscall(abi.FuncPCABI0(libresolv_res_9_nclose_trampoline),
 		uintptr(unsafe.Pointer(state)),
@@ -146,6 +189,14 @@ func ResNclose(state *ResState) {
 //go:cgo_import_dynamic libresolv_res_9_nsearch res_9_nsearch "/usr/lib/libresolv.9.dylib"
 func libresolv_res_9_nsearch_trampoline()
 
+
+// ff:
+// anslen:
+// ans:
+// typ:
+// class:
+// dname:
+// state:
 func ResNsearch(state *ResState, dname *byte, class, typ int, ans *byte, anslen int) (int, error) {
 	r1, _, errno := syscall_syscall6(abi.FuncPCABI0(libresolv_res_9_nsearch_trampoline),
 		uintptr(unsafe.Pointer(state)),

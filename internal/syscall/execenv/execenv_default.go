@@ -14,6 +14,10 @@ import "syscall"
 //
 // Defaults to syscall.Environ() on all platforms
 // other than Windows.
+// 翻译提示:func 默认环境变量设置(sys *系统进程属性) ([]字符串, 错误) {}
+
+// ff:
+// sys:
 func Default(sys *syscall.SysProcAttr) ([]string, error) {
 	return syscall.Environ(), nil
 }

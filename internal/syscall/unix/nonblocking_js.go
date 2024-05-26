@@ -6,10 +6,18 @@
 
 package unix
 
+
+// ff:
+// err:
+// nonblocking:
+// fd:
 func IsNonblock(fd int) (nonblocking bool, err error) {
 	return false, nil
 }
 
+
+// ff:
+// flag:
 func HasNonblockFlag(flag int) bool {
 	return false
 }

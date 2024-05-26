@@ -1,4 +1,4 @@
-package os//bm:系统类
+package os //bm:系统类
 
 import (
 	"io/fs"
@@ -32,10 +32,10 @@ func (f *File) Readdir(n int) ([]FileInfo, error) { //md5:2c75130d854b4c1fda9fe4
 // 成功（读取到目录末尾），它将返回切片和一个nil错误。如果在到达目录末尾之前遇到错误，
 // Readdirnames将返回直至该点读取到的所有名称以及一个非nil错误。
 
-// ff:
-// err:错误
-// names:文件名s
+// ff:读取目录文件名
 // n:返回数量
+// names:文件名s
+// err:错误
 func (f *File) Readdirnames(n int) (names []string, err error) { //md5:9be2f3595d8c19b3213f3c7e9125f5d9
 	return f.F.Readdirnames(n)
 }

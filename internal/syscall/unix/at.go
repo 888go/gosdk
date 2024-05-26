@@ -11,6 +11,12 @@ import (
 	"unsafe"
 )
 
+// 翻译提示:func 删除链接(dirfd 文件描述符, path 路径字符串, flags 标志整数) error {}
+
+// ff:
+// flags:
+// path:
+// dirfd:
 func Unlinkat(dirfd int, path string, flags int) error {
 	p, err := syscall.BytePtrFromString(path)
 	if err != nil {
@@ -25,6 +31,13 @@ func Unlinkat(dirfd int, path string, flags int) error {
 	return nil
 }
 
+// 翻译提示:func 在目录打开文件(dirfd int, 路径 string, 打开标志 int, 权限 uint32) (文件描述符 int, 错误 error) {}
+
+// ff:
+// perm:
+// flags:
+// path:
+// dirfd:
 func Openat(dirfd int, path string, flags int, perm uint32) (int, error) {
 	p, err := syscall.BytePtrFromString(path)
 	if err != nil {

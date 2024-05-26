@@ -6,6 +6,11 @@
 
 package unix
 
+// 翻译提示:const (
+//	读权限 = 0x4
+//	写权限 = 0x2
+//	执行权限 = 0x1
+//)
 const (
 	R_OK = 0x4
 	W_OK = 0x2

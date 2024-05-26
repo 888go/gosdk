@@ -216,6 +216,25 @@ const (
 	APPLICATION_ERROR = 1 << 29
 )
 
+// 翻译提示:const  (
+//         //  进程创建标志
+//         创建脱离作业                            =  0x01000000
+//         创建默认错误模式                        =  0x04000000
+//         创建新控制台                              =  0x00000010
+//         创建新进程组                              =  0x00000200
+//         不创建窗口                                  =  0x08000000
+//         创建受保护进程                          =  0x00040000
+//         保留代码授权级别                      =  0x02000000
+//         创建单独的WOW64虚拟设备管理器  =  0x00000800
+//         创建共享的WOW64虚拟设备管理器  =  0x00001000
+//         暂停创建进程                              =  0x00000004
+//         创建Unicode环境                        =  0x00000400
+//         只调试本进程                              =  0x00000002
+//         调试进程                                        =  0x00000001
+//         分离进程                                      =  0x00000008
+//         扩展STARTUPINFO结构存在          =  0x00080000
+//         继承父进程亲和力                        =  0x00010000
+// )
 const (
 	// 进程创建标志
 	CREATE_BREAKAWAY_FROM_JOB        = 0x01000000
@@ -280,6 +299,14 @@ const (
 	FILE_NOTIFY_CHANGE_SECURITY    = 0x100
 )
 
+// 翻译提示:const  (
+// 	//  不要重新排序
+// 	文件操作添加  =  iota  +  1
+// 	文件操作删除
+// 	文件操作修改
+// 	文件操作重命名旧名称
+// 	文件操作重命名新名称
+// )
 const (
 	// do not reorder
 	FILE_ACTION_ADDED = iota + 1
@@ -669,6 +696,13 @@ const (
 	CRYPTPROTECT_PROMPT_REQUIRE_STRONG = 16
 )
 
+// 翻译提示:const  (
+// 	//  错误模式标志
+// 	SEM失败关键错误        =  0x0001
+// 	SEM无对齐故障异常  =  0x0004
+// 	SEM无GP故障错误框    =  0x0002
+// 	SEM无打开文件错误框  =  0x8000
+// )
 const (
 	// flags for SetErrorMode
 	SEM_FAILCRITICALERRORS     = 0x0001
@@ -677,6 +711,17 @@ const (
 	SEM_NOOPENFILEERRORBOX     = 0x8000
 )
 
+// 翻译提示:const  (
+// 	//  优先级类别。
+// 	高于正常优先级类      =  0x00008000
+// 	低于正常优先级类      =  0x00004000
+// 	高优先级类                      =  0x00000080
+// 	空闲优先级类                      =  0x00000040
+// 	正常优先级类                  =  0x00000020
+// 	进程背景模式开始          =  0x00100000
+// 	进程背景模式结束      =  0x00200000
+// 	实时优先级类              =  0x00000100
+// )
 const (
 	// Priority class.
 	ABOVE_NORMAL_PRIORITY_CLASS   = 0x00008000
@@ -690,6 +735,45 @@ const (
 )
 
 /* wintrust.h constants for WinVerifyTrustEx */
+// 翻译提示:const  (
+// 	显示所有UI      =  1
+// 	不显示UI          =  2
+// 	不显示错误UI  =  3
+// 	不显示成功UI  =  4
+// 
+// 	撤销类型无            =  0
+// 	撤销整个链          =  1
+// 
+// 	选择文件                =  1
+// 	选择目录                =  2
+// 	选择二进制数据    =  3
+// 	选择签名者            =  4
+// 	选择证书                =  5
+// 
+// 	忽略状态操作                  =  0x00000000
+// 	验证状态操作                  =  0x00000001
+// 	关闭状态操作                  =  0x00000002
+// 	自动缓存状态操作          =  0x00000003
+// 	自动缓存刷新状态操作  =  0x00000004
+// 
+// 	使用IE4信任标志                                  =  0x1
+// 	禁用IE4链标志                                        =  0x2
+// 	禁用策略使用标志                                =  0x4
+// 	不检查吊销状态                                  =  0x10
+// 	检查终端证书吊销状态                    =  0x20
+// 	检查整个链的吊销状态                    =  0x40
+// 	排除根证书的吊销状态检查            =  0x80
+// 	安全区域标志                                        =  0x100
+// 	仅哈希标志                                            =  0x200
+// 	使用默认OS版本检查                            =  0x400
+// 	生命周期签名标志                                =  0x800
+// 	仅缓存URL检索                                    =  0x1000
+// 	禁用MD2和MD4算法                                =  0x2000
+// 	MOTW标志                                                  =  0x4000
+// 
+// 	执行UI上下文  =  0
+// 	安装UI上下文  =  1
+// )
 const (
 	WTD_UI_ALL    = 1
 	WTD_UI_NONE   = 2
@@ -755,16 +839,18 @@ type Timeval struct {
 	Usec int32
 }
 
+// 翻译提示:func  (tv  *时间戳)  纳秒()  int64  {}
 
 // ff:
 func (tv *Timeval) Nanoseconds() int64 {
 	return (int64(tv.Sec)*1e6 + int64(tv.Usec)) * 1e3
 }
 
+// 翻译提示:func  秒纳秒转换为时间结构体(nsec  int64)  (时间结构体  tv  Timeval)  {}
 
 // ff:
-// tv:
 // nsec:
+// tv:
 func NsecToTimeval(nsec int64) (tv Timeval) {
 	tv.Sec = int32(nsec / 1e9)
 	tv.Usec = int32(nsec % 1e9 / 1e3)
@@ -804,10 +890,11 @@ func (ft *Filetime) Nanoseconds() int64 {
 	return nsec
 }
 
+// 翻译提示:func  秒至文件时间(nsec  int64)  (文件时间  Filetime)  {}
 
 // ff:
-// ft:
 // nsec:
+// ft:
 func NsecToFiletime(nsec int64) (ft Filetime) {
 	// 转换为100纳秒
 	nsec /= 100
@@ -883,6 +970,10 @@ type ByHandleFileInformation struct {
 	FileIndexLow       uint32
 }
 
+// 翻译提示:const  (
+// 	标准文件信息  =  0
+// 	最大文件信息级别  =  1
+// )
 const (
 	GetFileExInfoStandard = 0
 	GetFileExMaxInfoLevel = 1
@@ -898,6 +989,23 @@ type Win32FileAttributeData struct {
 }
 
 // ShowWindow constants
+// 翻译提示:const  (
+// 	//  winuser.h
+// 	窗口隐藏                        =  0
+// 	正常显示                      =  1
+// 	显示正常                      =  1
+// 	最小化显示                  =  2
+// 	最大化显示                  =  3
+// 	最大化的                    =  3
+// 	无激活显示                =  4
+// 	显示                            =  5
+// 	最小化                        =  6
+// 	最小化无激活            =  7
+// 	显示未激活                =  8
+// 	恢复原状                    =  9
+// 	默认显示                      =  10
+// 	强制最小化                =  11
+// )
 const (
 	// winuser.h
 	SW_HIDE            = 0
@@ -1020,6 +1128,119 @@ type Timezoneinformation struct {
 
 // Socket related.
 
+// 翻译提示:const  (
+// 	网络类型未指定  AF_UNSPEC  =  0
+// 	Unix域协议  AF_UNIX  =  1
+// 	IPv4  AF_INET  =  2
+// 	NetBIOS  AF_NETBIOS  =  17
+// 	红外数据协会  AF_IRDA  =  26
+// 	蓝牙  AF_BTH  =  32
+// 
+// 	流式套接字  SOCK_STREAM  =  1
+// 	数据报套接字  SOCK_DGRAM  =  2
+// 	原始套接字  SOCK_RAW  =  3
+// 	记录模式套接字  SOCK_RDM  =  4
+// 	有序数据包套接字  SOCK_SEQPACKET  =  5
+// 
+// 	IP协议  IPPROTO_IP  =  0
+// 	ICMP协议  IPPROTO_ICMP  =  1
+// 	IGMP协议  IPPROTO_IGMP  =  2
+// 	RFCOMM蓝牙协议  BTHPROTO_RFCOMM  =  3
+// 	TCP协议  IPPROTO_TCP  =  6
+// 	UDP协议  IPPROTO_UDP  =  17
+// 	IPv6协议  IPPROTO_IPV6  =  41
+// 	ICMPv6协议  IPPROTO_ICMPV6  =  58
+// 	资源管理器协议  IPPROTO_RM  =  113
+// 
+// 	套接字层  SOL_SOCKET  =  0xffff
+// 	重用地址选项  SO_REUSEADDR  =  4
+// 	保持活动选项  SO_KEEPALIVE  =  8
+// 	不路由选项  SO_DONTROUTE  =  16
+// 	广播选项  SO_BROADCAST  =  32
+// 	linger选项  SO_LINGER  =  128
+// 	接收缓冲区大小选项  SO_RCVBUF  =  0x1002
+// 	接收超时选项  SO_RCVTIMEO  =  0x1006
+// 	发送缓冲区大小选项  SO_SNDBUF  =  0x1001
+// 	更新接受上下文选项  SO_UPDATE_ACCEPT_CONTEXT  =  0x700b
+// 	更新连接上下文选项  SO_UPDATE_CONNECT_CONTEXT  =  0x7010
+// 
+// 	输出操作  IOC_OUT  =  0x40000000
+// 	输入操作  IOC_IN  =  0x80000000
+// 	供应商特定操作  IOC_VENDOR  =  0x18000000
+// 	输入输出操作  IOC_INOUT  =  IOC_IN  |  IOC_OUT
+// 	Windows  Sockets  2  操作  IOC_WS2  =  0x08000000
+// 	获取扩展功能指针  SIO_GET_EXTENSION_FUNCTION_POINTER  =  IOC_INOUT  |  IOC_WS2  |  6
+// 	设置保持活动值  SIO_KEEPALIVE_VALS  =  IOC_IN  |  IOC_VENDOR  |  4
+// 	UDP连接重置  SIO_UDP_CONNRESET  =  IOC_IN  |  IOC_VENDOR  |  12
+// 
+// 	//  参考:  http://support.microsoft.com/default.aspx?scid=kb;en-us;257460
+// 
+// 	IP头包含选项  IP_HDRINCL  =  0x2
+// 	IP服务类型  IP_TOS  =  0x3
+// 	IP生存时间  IP_TTL  =  0x4
+// 	多播接口  IP_MULTICAST_IF  =  0x9
+// 	多播时间戳  IP_MULTICAST_TTL  =  0xa
+// 	多播回环  IP_MULTICAST_LOOP  =  0xb
+// 	加入多播组  IP_ADD_MEMBERSHIP  =  0xc
+// 	离开多播组  IP_DROP_MEMBERSHIP  =  0xd
+// 	IP包信息  IP_PKTINFO  =  0x13
+// 
+// 	IPv6仅限v6连接  IPV6_V6ONLY  =  0x1b
+// 	IPv6单播跳数  IPV6_UNICAST_HOPS  =  0x4
+// 	IPv6多播接口  IPV6_MULTICAST_IF  =  0x9
+// 	IPv6多播跳数  IPV6_MULTICAST_HOPS  =  0xa
+// 	IPv6多播回环  IPV6_MULTICAST_LOOP  =  0xb
+// 	加入IPv6组  IPV6_JOIN_GROUP  =  0xc
+// 	离开IPv6组  IPV6_LEAVE_GROUP  =  0xd
+// 	IPv6包信息  IPV6_PKTINFO  =  0x13
+// 
+// 	紧急数据  MSG_OOB  =  0x1
+// 	预览数据  MSG_PEEK  =  0x2
+// 	不路由  MSG_DONTROUTE  =  0x4
+// 	等待所有  MSG_WAITALL  =  0x8
+// 
+// 	消息截断  MSG_TRUNC  =  0x0100
+// 	消息截断控制部分  MSG_CTRUNC  =  0x0200
+// 	广播  MSG_BCAST  =  0x0400
+// 	多播  MSG_MCAST  =  0x0800
+// 
+// 	最大连接  SOMAXCONN  =  0x7fffffff
+// 
+// 	TCP不分段选项  TCP_NODELAY  =  1
+// 	TCP优先级1122  TCP_EXPEDITED_1122  =  2
+// 	TCP保持活动选项  TCP_KEEPALIVE  =  3
+// 	TCP最大分段  TCP_MAXSEG  =  4
+// 	TCP最大路由超时  TCP_MAXRT  =  5
+// 	TCP标准紧急  TCP_STDURG  =  6
+// 	TCP不紧急  TCP_NOURG  =  7
+// 	TCP在标记处  TCP_ATMARK  =  8
+// 	TCP无SYN重试  TCP_NOSYNRETRIES  =  9
+// 	TCP时间戳  TCP_TIMESTAMPS  =  10
+// 	TCP卸载偏好  TCP_OFFLOAD_PREFERENCE  =  11
+// 	TCP拥塞算法  TCP_CONGESTION_ALGORITHM  =  12
+// 	延迟FIN确认  TCP_DELAY_FIN_ACK  =  13
+// 	TCP最大RTMS  TCP_MAXRTMS  =  14
+// 	TCP快速打开  TCP_FASTOPEN  =  15
+// 	TCP保持计数  TCP_KEEPCNT  =  16
+// 	TCP保持空闲（与TCP_KEEPALIVE相同）  TCP_KEEPIDLE  =  TCP_KEEPALIVE
+// 	TCP保持间隔  TCP_KEEPINTVL  =  17
+// 	TCP失败连接时的ICMP错误  TCP_FAIL_CONNECT_ON_ICMP_ERROR  =  18
+// 	TCP  ICMP错误信息  TCP_ICMP_ERROR_INFO  =  19
+// 
+// 	UDP不校验和  UDP_NOCHECKSUM  =  1
+// 	UDP发送消息大小  UDP_SEND_MSG_SIZE  =  2
+// 	UDP接收最大合并大小  UDP_RECV_MAX_COALESCED_SIZE  =  3
+// 	UDP校验和覆盖  UDP_CHECKSUM_COVERAGE  =  20
+// 
+// 	UDP合并信息  UDP_COALESCED_INFO  =  3
+// 
+// 	关闭读  SHUT_RD  =  0
+// 	关闭写  SHUT_WR  =  1
+// 	关闭读写  SHUT_RDWR  =  2
+// 
+// 	Windows  Sockets描述符长度  WSADESCRIPTION_LEN  =  256
+// 	Windows  Sockets系统状态长度  WSASYS_STATUS_LEN  =  128
+// )
 const (
 	AF_UNSPEC  = 0
 	AF_UNIX    = 1
@@ -1150,6 +1371,16 @@ type WSAMsg struct {
 }
 
 // Flags for WSASocket
+// 翻译提示:const  (
+// 	重叠标志                          =  0x01
+// 	多点传送C根节点标志      =  0x02
+// 	多点传送C叶节点标志      =  0x04
+// 	多点传送D根节点标志      =  0x08
+// 	多点传送D叶节点标志      =  0x10
+// 	访问系统安全标志              =  0x40
+// 	无句柄继承标志                  =  0x80
+// 	注册I/O标志                      =  0x100
+// )
 const (
 	WSA_FLAG_OVERLAPPED             = 0x01
 	WSA_FLAG_MULTIPOINT_C_ROOT      = 0x02
@@ -1180,6 +1411,13 @@ const (
 	S_IXUSR  = 0x40
 )
 
+// 翻译提示:const  (
+// 	文件类型字符        =  0x0002
+// 	文件类型磁盘        =  0x0001
+// 	文件类型管道        =  0x0003
+// 	文件类型远程        =  0x8000
+// 	文件类型未知        =  0x0000
+// )
 const (
 	FILE_TYPE_CHAR    = 0x0002
 	FILE_TYPE_DISK    = 0x0001
@@ -1202,6 +1440,70 @@ type Protoent struct {
 	Proto   uint16
 }
 
+// 翻译提示:const  (
+// 	DNS_TYPE_A              =  0x0001
+// 	DNS_TYPE_NS            =  0x0002
+// 	DNS_TYPE_MD            =  0x0003
+// 	DNS_TYPE_MF            =  0x0004
+// 	DNS_TYPE_CNAME      =  0x0005
+// 	DNS_TYPE_SOA          =  0x0006
+// 	DNS_TYPE_MB            =  0x0007
+// 	DNS_TYPE_MG            =  0x0008
+// 	DNS_TYPE_MR            =  0x0009
+// 	  DNS_TYPE_NULL        =  0x000a
+// 	  DNS_TYPE_WKS          =  0x000b
+// 	  DNS_TYPE_PTR          =  0x000c
+// 	  DNS_TYPE_HINFO      =  0x000d
+// 	  DNS_TYPE_MINFO      =  0x000e
+// 	  DNS_TYPE_MX            =  0x000f
+// 	  DNS_TYPE_TEXT        =  0x0010
+// 	  DNS_TYPE_RP            =  0x0011
+// 	  DNS_TYPE_AFSDB      =  0x0012
+// 	  DNS_TYPE_X25          =  0x0013
+// 	  DNS_TYPE_ISDN        =  0x0014
+// 	  DNS_TYPE_RT            =  0x0015
+// 	  DNS_TYPE_NSAP        =  0x0016
+// 	  DNS_TYPE_NSAPPTR  =  0x0017
+// 	  DNS_TYPE_SIG          =  0x0018
+// 	  DNS_TYPE_KEY          =  0x0019
+// 	  DNS_TYPE_PX            =  0x001a
+// 	  DNS_TYPE_GPOS        =  0x001b
+// 	  DNS_TYPE_AAAA        =  0x001c
+// 	  DNS_TYPE_LOC          =  0x001d
+// 	  DNS_TYPE_NXT          =  0x001e
+// 	  DNS_TYPE_EID          =  0x001f
+// 	  DNS_TYPE_NIMLOC    =  0x0020
+// 	  DNS_TYPE_SRV          =  0x0021
+// 	  DNS_TYPE_ATMA        =  0x0022
+// 	  DNS_TYPE_NAPTR      =  0x0023
+// 	  DNS_TYPE_KX            =  0x0024
+// 	  DNS_TYPE_CERT        =  0x0025
+// 	  DNS_TYPE_A6            =  0x0026
+// 	  DNS_TYPE_DNAME      =  0x0027
+// 	  DNS_TYPE_SINK        =  0x0028
+// 	  DNS_TYPE_OPT          =  0x0029
+// 	  DNS_TYPE_DS            =  0x002B
+// 	  DNS_TYPE_RRSIG      =  0x002E
+// 	  DNS_TYPE_NSEC        =  0x002F
+// 	  DNS_TYPE_DNSKEY    =  0x0030
+// 	  DNS_TYPE_DHCID      =  0x0031
+// 	  DNS_TYPE_UINFO      =  0x0064
+// 	  DNS_TYPE_UID          =  0x0065
+// 	  DNS_TYPE_GID          =  0x0066
+// 	  DNS_TYPE_UNSPEC    =  0x0067
+// 	  DNS_TYPE_ADDRS      =  0x00f8
+// 	  DNS_TYPE_TKEY        =  0x00f9
+// 	  DNS_TYPE_TSIG        =  0x00fa
+// 	  DNS_TYPE_IXFR        =  0x00fb
+// 	  DNS_TYPE_AXFR        =  0x00fc
+// 	  DNS_TYPE_MAILB      =  0x00fd
+// 	  DNS_TYPE_MAILA      =  0x00fe
+// 	  DNS_TYPE_ALL          =  0x00ff
+// 	  DNS_TYPE_ANY          =  0x00ff
+// 	  DNS_TYPE_WINS        =  0xff01
+// 	  DNS_TYPE_WINSR      =  0xff02
+// 	  DNS_TYPE_NBSTAT    =  0xff01
+// )
 const (
 	DNS_TYPE_A       = 0x0001
 	DNS_TYPE_NS      = 0x0002
@@ -1267,6 +1569,16 @@ const (
 	DNS_TYPE_NBSTAT  = 0xff01
 )
 
+// 翻译提示:const  (
+// 	//  DNSRecord中的问题段标志
+// 	DNS问题段  =  0x0000
+// 	//  DNSRecord中的答案段标志
+// 	DNS答案段  =  0x0001
+// 	//  DNSRecord中的权威段标志
+// 	DNS权威段  =  0x0002
+// 	//  DNSRecord中的附加段标志
+// 	DNS附加段  =  0x0003
+// )
 const (
 	// DNSRecord.Dw内的标志
 	DnsSectionQuestion   = 0x0000
@@ -1354,6 +1666,14 @@ type DNSRecord struct {
 	Data     [40]byte
 }
 
+// 翻译提示:const  (
+// 	断开连接                          =  1
+// 	重用套接字                      =  2
+// 	写入后台                            =  4
+// 	使用默认工作线程            =  0
+// 	使用系统线程                    =  16
+// 	使用内核APC                      =  32
+// )
 const (
 	TF_DISCONNECT         = 1
 	TF_REUSE_SOCKET       = 2
@@ -1370,6 +1690,13 @@ type TransmitFileBuffers struct {
 	TailLength uint32
 }
 
+// 翻译提示:const  (
+// 	网络接口开启  =  1
+// 	网络接口广播  =  2
+// 	网络接口环回  =  4
+// 	网络接口点对点  =  8
+// 	网络接口多播  =  16
+// )
 const (
 	IFF_UP           = 1
 	IFF_BROADCAST    = 2
@@ -1378,6 +1705,7 @@ const (
 	IFF_MULTICAST    = 16
 )
 
+// 翻译提示:const  获取接口列表  =  0x4004747F
 const SIO_GET_INTERFACE_LIST = 0x4004747F
 
 // TODO(mattn): SockaddrGen 是 sockaddr、sockaddr_in 和 sockaddr_in6_old 的联合体。
@@ -1405,8 +1733,11 @@ type IpAddrString struct {
 	Context   uint32
 }
 
+// 翻译提示:const  最大适配器名称长度  =  256
 const MAX_ADAPTER_NAME_LENGTH = 256
+// 翻译提示:const  最大适配器描述长度  =  128
 const MAX_ADAPTER_DESCRIPTION_LENGTH = 128
+// 翻译提示:const  最大适配器地址长度  =  8
 const MAX_ADAPTER_ADDRESS_LENGTH = 8
 
 type IpAdapterInfo struct {
@@ -1430,8 +1761,11 @@ type IpAdapterInfo struct {
 	LeaseExpires        int64
 }
 
+// 翻译提示:const  最大物理地址长度  =  8
 const MAXLEN_PHYSADDR = 8
+// 翻译提示:const  最大接口名称长度  =  256
 const MAX_INTERFACE_NAME_LEN = 256
+// 翻译提示:const  最大接口描述符长度  =  256
 const MAXLEN_IFDESCR = 256
 
 type MibIfRow struct {
@@ -1691,6 +2025,29 @@ type WinTrustSignatureSettings struct {
 	CryptoPolicy     *CertStrongSignPara
 }
 
+// 翻译提示:const  (
+// 	//  请勿重新排序
+// 	注册表键类根              =  0x80000000  +  iota
+// 	当前用户注册表键
+// 	本地机器注册表键
+// 	用户注册表键
+// 	性能数据注册表键
+// 	当前配置注册表键
+// 	动态数据注册表键
+// 
+// 	查询值权限                =  1
+// 	设置值权限                    =  2
+// 	创建子键权限            =  4
+// 	枚举子键权限            =  8
+// 	通知变更权限              =  16
+// 	创建链接权限              =  32
+// 	写入权限                            =  0x20006
+// 	执行权限                            =  0x20019
+// 	读取权限                            =  0x20019
+// 	Wow64_64键                      =  0x0100
+// 	Wow64_32键                      =  0x0200
+// 	全部访问权限                  =  0xf003f
+// )
 const (
 	// do not reorder
 	HKEY_CLASSES_ROOT = 0x80000000 + iota
@@ -1715,6 +2072,23 @@ const (
 	KEY_ALL_ACCESS         = 0xf003f
 )
 
+// 翻译提示:const  (
+// 	//  不要重新排序
+// 	REG_TYPE_NONE  =  iota
+// 	REG_TYPE_SZ
+// 	REG_TYPE_EXPAND_SZ
+// 	REG_TYPE_BINARY
+// 	REG_TYPE_DWORD_LITTLE_ENDIAN
+// 	REG_TYPE_DWORD_BIG_ENDIAN
+// 	REG_TYPE_LINK
+// 	REG_TYPE_MULTI_SZ
+// 	REG_TYPE_RESOURCE_LIST
+// 	REG_TYPE_FULL_RESOURCE_DESCRIPTOR
+// 	REG_TYPE_RESOURCE_REQUIREMENTS_LIST
+// 	REG_TYPE_QWORD_LITTLE_ENDIAN
+// 	REG_TYPE_DWORD  =  REG_TYPE_DWORD_LITTLE_ENDIAN
+// 	REG_TYPE_QWORD  =  REG_TYPE_QWORD_LITTLE_ENDIAN
+// )
 const (
 	// do not reorder
 	REG_NONE = iota
@@ -1733,6 +2107,27 @@ const (
 	REG_QWORD = REG_QWORD_LITTLE_ENDIAN
 )
 
+// 翻译提示:const  (
+// 	事件修改状态  =  0x0002
+// 	事件所有权限      =  标准权限要求  |  同步  |  0x3
+// 
+// 	互斥体查询状态  =  0x0001
+// 	互斥体所有权限    =  标准权限要求  |  同步  |  互斥体查询状态
+// 
+// 	信号量修改状态  =  0x0002
+// 	信号量所有权限      =  标准权限要求  |  同步  |  0x3
+// 
+// 	定时器查询状态    =  0x0001
+// 	定时器修改状态  =  0x0002
+// 	定时器所有权限      =  标准权限要求  |  同步  |  定时器查询状态  |  定时器修改状态
+// 
+// 	互斥锁修改状态  =  互斥体查询状态
+// 	互斥锁所有权限      =  互斥体所有权限
+// 
+// 	创建事件手动重置    =  0x1
+// 	创建事件初始设置      =  0x2
+// 	创建互斥锁初始拥有者  =  0x1
+// )
 const (
 	EVENT_MODIFY_STATE = 0x0002
 	EVENT_ALL_ACCESS   = STANDARD_RIGHTS_REQUIRED | SYNCHRONIZE | 0x3
@@ -1766,6 +2161,11 @@ type AddrinfoW struct {
 	Next      *AddrinfoW
 }
 
+// 翻译提示:const  (
+// 	被动模式  =  1
+// 	获取规范名称  =  2
+// 	数值主机名  =  4
+// )
 const (
 	AI_PASSIVE     = 1
 	AI_CANONNAME   = 2
@@ -1779,6 +2179,33 @@ type GUID struct {
 	Data4 [8]byte
 }
 
+// 翻译提示:var  WSAID_CONNECTEX  =  连接扩展GUID
+// 
+// //  其他全局变量重构（假设它们是网络连接相关的）
+// var  WSADATA  =  网络数据结构
+// var  MAX_PROTOCOL_CHAIN  =  最大协议链长度
+// var  WSASYS_STATUS  =  系统状态码
+// var  FD_SETSIZE  =  文件描述符集合大小
+// var  INET_ADDRSTRLEN  =  IP地址字符串长度
+// var  INET6_ADDRSTRLEN  =  IPv6地址字符串长度
+// var  HOST_NAME_MAX  =  主机名最大长度
+// 
+// //  函数重构
+// func  WSAStartup(请求代码  *WSAData)  (错误码  int)  {
+//         //  ...
+// }
+// 
+// func  WSACleanup()  (错误码  int)  {
+//         //  ...
+// }
+// 
+// func  WSAGetLastError()  (错误码  int)  {
+//         //  ...
+// }
+// 
+// func  connectEx(套接字  *SOCKET,  地址  *sockaddr,  地址长度  int32,  数据  []byte,  数据发送完成  *uint32,  额外信息  *OVERLAPPED)  (成功  bool,  错误码  int)  {
+//         //  ...
+// }
 var WSAID_CONNECTEX = GUID{
 	0x25a207b9,
 	0xddf3,
@@ -1786,6 +2213,39 @@ var WSAID_CONNECTEX = GUID{
 	[8]byte{0x8e, 0xe9, 0x76, 0xe5, 0x8c, 0x74, 0x06, 0x3e},
 }
 
+// 翻译提示:var  WSAMsg发送接口ID  =  GUID
+// 
+// func  WSAStartup(请求码:  uint16,  信息:  *WSAData)  (错误码:  int)  {
+//         //...
+// }
+// 
+// func  WSACleanup()  (错误码:  int)  {
+//         //...
+// }
+// 
+// func  inet_ntoa(地址:  IN_ADDR)  (字符串表示的IP:  string)  {
+//         //...
+// }
+// 
+// func  gethostbyname(主机名:  string)  (*hostent,  错误码:  int)  {
+//         //...
+// }
+// 
+// func  socket(域名:  int,  类型:  int,  协议:  int)  (套接字描述符:  SOCKET,  错误码:  int)  {
+//         //...
+// }
+// 
+// func  connect(套接字描述符:  SOCKET,  服务器地址:  *sockaddr,  地址长度:  int)  (错误码:  int)  {
+//         //...
+// }
+// 
+// func  sendto(套接字描述符:  SOCKET,  数据:  []byte,  发送长度:  int,  标志:  int,  目标地址:  *sockaddr,  目标地址长度:  int)  (已发送字节数:  int,  错误码:  int)  {
+//         //...
+// }
+// 
+// func  recvfrom(套接字描述符:  SOCKET,  缓冲区:  []byte,  预分配长度:  int,  标志:  int,  来源地址:  *sockaddr,  来源地址长度:  *int)  (接收字节数:  int,  错误码:  int)  {
+//         //...
+// }
 var WSAID_WSASENDMSG = GUID{
 	0xa441e712,
 	0x754f,
@@ -1793,6 +2253,27 @@ var WSAID_WSASENDMSG = GUID{
 	[8]byte{0x84, 0xa7, 0x0d, 0xee, 0x44, 0xcf, 0x60, 0x6d},
 }
 
+// 翻译提示:var  WSAMsg接收GUID  =  GUID
+// 
+// func  WSAIoctl(套接字  Socket,  控制码  uint32,  输入Buffer  *byte,  输入缓冲区大小  uint32,  输出Buffer  **byte,  输出缓冲区大小  *uint32,  剩余BytesRead  *uint32,  overlapped  *Overlapped,  completionRoutine  CompletionRoutine)  (err  error)  {
+// 
+// }
+// 
+// func  WSARecvFrom(套接字  Socket,  buffers  *WSABUF,  bufferCount  uint32,  接收Bytes  *uint32,  flags  *uint32,  远程Address  *SOCKADDR,  addressLength  *int32,  overlapped  *Overlapped,  completionRoutine  CompletionRoutine)  (err  error)  {
+// 
+// }
+// 
+// func  WSASendTo(套接字  Socket,  buffers  *WSABUF,  bufferCount  uint32,  发送Bytes  *uint32,  flags  uint32,  远程Address  *SOCKADDR,  addressLength  int32,  overlapped  *Overlapped,  completionRoutine  CompletionRoutine)  (err  error)  {
+// 
+// }
+// 
+// func  WSAGetOverlappedResult(套接字  Socket,  overlapped  *Overlapped,  transferred  *uint32,  wait  bool,  flags  *uint32)  (成功  bool,  err  error)  {
+// 
+// }
+// 
+// func  WSARecvMsg(套接字  Socket,  msg  *WSAMSG,  overlapped  *Overlapped,  completionRoutine  CompletionRoutine)  (接收Bytes  uint32,  err  error)  {
+// 
+// }
 var WSAID_WSARECVMSG = GUID{
 	0xf689d7c8,
 	0x6f1f,
@@ -1800,11 +2281,47 @@ var WSAID_WSARECVMSG = GUID{
 	[8]byte{0x8a, 0x53, 0xe5, 0x4f, 0xe3, 0x51, 0xc3, 0x22},
 }
 
+// 翻译提示:const  (
+// 	文件跳过完成端口成功  =  1
+// 	文件跳过设置事件处理  =  2
+// )
 const (
 	FILE_SKIP_COMPLETION_PORT_ON_SUCCESS = 1
 	FILE_SKIP_SET_EVENT_ON_HANDLE        = 2
 )
 
+// 翻译提示:const  (
+// 	WSAPROTOCOL_LEN        =  255
+// 	MAX_PROTOCOL_CHAIN  =  7
+// 	BASE_PROTOCOL            =  1
+// 	LAYERED_PROTOCOL      =  0
+// 
+// 	XP1可靠的无连接                        =  0x00000001
+// 	XP1保证投递                                =  0x00000002
+// 	XP1保证顺序                                =  0x00000004
+// 	XP1面向消息                                =  0x00000008
+// 	XP1伪流                                        =  0x00000010
+// 	XP1优雅关闭                            =  0x00000020
+// 	XP1优先数据                              =  0x00000040
+// 	XP1连接数据                              =  0x00000080
+// 	XP1断开数据                              =  0x00000100
+// 	XP1支持广播                                =  0x00000200
+// 	XP1支持多点连接                      =  0x00000400
+// 	XP1多点控制平面                      =  0x00000800
+// 	XP1多点数据平面                      =  0x00001000
+// 	XP1支持QoS                                  =  0x00002000
+// 	XP1单向发送                                =  0x00008000
+// 	XP1单向接收                                =  0x00010000
+// 	XP1接口句柄                                =  0x00020000
+// 	XP1部分消息                                =  0x00040000
+// 	XP1_SAN支持SDP                        =  0x00080000
+// 
+// 	PFL多个协议条目                      =  0x00000001
+// 	PFL推荐的协议条目                  =  0x00000002
+// 	PFL隐藏                                        =  0x00000004
+// 	PFL匹配协议零                          =  0x00000008
+// 	PFL_NETWORKDIRECT提供者          =  0x00000010
+// )
 const (
 	WSAPROTOCOL_LEN    = 255
 	MAX_PROTOCOL_CHAIN = 7
@@ -1898,6 +2415,58 @@ type reparseDataBuffer struct {
 	reparseBuffer byte
 }
 
+// 翻译提示:const  (
+// 	创建或获取对象ID                                  =  0x0900C0
+// 	删除对象ID                                            =  0x0900A0
+// 	删除重新解析点                                    =  0x0900AC
+// 	复制扩展到文件                                      =  0x098344
+// 	复制扩展到文件_EX                                =  0x0983E8
+// 	获取文件系统统计信息                          =  0x090060
+// 	文件级修剪                                            =  0x098208
+// 	通过SID查找文件                                  =  0x09008F
+// 	获取压缩信息                                          =  0x09003C
+// 	获取完整性信息                                      =  0x09027C
+// 	获取NTFS卷数据                                      =  0x090064
+// 	获取REFS卷数据                                      =  0x0902D8
+// 	获取对象ID                                              =  0x09009C
+// 	获取重新解析点信息                              =  0x0900A8
+// 	获取检索指针计数                                  =  0x09042B
+// 	获取检索指针和引用计数                    =  0x0903D3
+// 	验证路径名有效性                                  =  0x09002C
+// 	LMR设置链接跟踪信息                          =  0x1400EC
+// 	标记句柄                                                  =  0x0900FC
+// 	卸载读取                                              =  0x094264
+// 	卸载写入                                              =  0x098268
+// 	管道窥视                                              =  0x11400C
+// 	管道传输                                                =  0x11C017
+// 	管道等待                                              =  0x110018
+// 	查询已分配范围                                    =  0x0940CF
+// 	查询FATBPB                                            =  0x090058
+// 	查询文件区域                                        =  0x090284
+// 	查询磁盘卷信息                                    =  0x09013C
+// 	查询节省空间信息                                =  0x090138
+// 	查询USN日志数据                                    =  0x0900EB
+// 	召回文件                                                =  0x090117
+// 	REFS流快照管理                                    =  0x090440
+// 	设置压缩信息                                          =  0x09C040
+// 	设置缺陷管理                                      =  0x098134
+// 	设置加密                                              =  0x0900D7
+// 	设置完整性信息                                  =  0x09C280
+// 	设置完整性信息_EX                            =  0x090380
+// 	设置对象ID                                              =  0x090098
+// 	设置对象ID_扩展                                  =  0x0900BC
+// 	设置重新解析点信息                              =  0x0900A4
+// 	设置稀疏文件                                        =  0x0900C4
+// 	设置零数据                                            =  0x0980C8
+// 	设置零数据在释放时                            =  0x090194
+// 	SIS复制文件                                            =  0x090100
+// 	写入USN关闭记录                                  =  0x0900EF
+// 
+// 	最大重解析数据缓冲区大小              =  16  *  1024
+// 	IO重解析标签挂载点                          =  0xA0000003
+// 	IO重解析标签符号链接                      =  0xA000000C
+// 	符号链接标志目录                              =  0x1
+// )
 const (
 	FSCTL_CREATE_OR_GET_OBJECT_ID             = 0x0900C0
 	FSCTL_DELETE_OBJECT_ID                    = 0x0900A0
@@ -1952,6 +2521,17 @@ const (
 	SYMBOLIC_LINK_FLAG_DIRECTORY     = 0x1
 )
 
+// 翻译提示:const  (
+// 	计算机名NetBIOS                                      =  0
+// 	计算机名DNS主机名                              =  1
+// 	计算机名DNS域名                                  =  2
+// 	计算机名DNS完全限定名                  =  3
+// 	物理计算机名NetBIOS                      =  4
+// 	物理计算机名DNS主机名              =  5
+// 	物理计算机名DNS域名                  =  6
+// 	物理计算机名DNS完全限定名  =  7
+// 	计算机名最大值                                              =  8
+// )
 const (
 	ComputerNameNetBIOS                   = 0
 	ComputerNameDnsHostname               = 1
@@ -1965,6 +2545,39 @@ const (
 )
 
 // For MessageBox()
+// 翻译提示:const  (
+// 	确认按钮              =  0x00000000
+// 	确认取消按钮      =  0x00000001
+// 	终止重试忽略      =  0x00000002
+// 	是否取消按钮      =  0x00000003
+// 	是或否按钮          =  0x00000004
+// 	重试取消按钮      =  0x00000005
+// 	取消尝试继续      =  0x00000006
+// 	错误图标              =  0x00000010
+// 	问题图标              =  0x00000020
+// 	警告图标              =  0x00000030
+// 	信息图标              =  0x00000040
+// 	用户定义图标      =  0x00000080
+// 	警告标志              =  MB_ICONEXCLAMATION
+// 	错误标志              =  MB_ICONHAND
+// 	信息提示标志      =  MB_ICONASTERISK
+// 	停止标志              =  MB_ICONHAND
+// 	默认按钮1              =  0x00000000
+// 	默认按钮2              =  0x00000100
+// 	默认按钮3              =  0x00000200
+// 	默认按钮4              =  0x00000300
+// 	应用程序模式      =  0x00000000
+// 	系统模式              =  0x00001000
+// 	任务模式              =  0x00002000
+// 	帮助模式              =  0x00004000
+// 	无焦点                    =  0x00008000
+// 	设置前景窗口      =  0x00010000
+// 	仅限桌面                =  0x00020000
+// 	最前显示              =  0x00040000
+// 	右对齐                    =  0x00080000
+// 	从右到左阅读      =  0x00100000
+// 	服务通知              =  0x00200000
+// )
 const (
 	MB_OK                   = 0x00000000
 	MB_OKCANCEL             = 0x00000001
@@ -1999,6 +2612,14 @@ const (
 	MB_SERVICE_NOTIFICATION = 0x00200000
 )
 
+// 翻译提示:const  (
+// 	替换已存在文件              =  0x1
+// 	允许复制                              =  0x2
+// 	延迟到重启移动                =  0x4
+// 	写入时通过                          =  0x8
+// 	创建硬链接                        =  0x10
+// 	如果不可追踪则失败          =  0x20
+// )
 const (
 	MOVEFILE_REPLACE_EXISTING      = 0x1
 	MOVEFILE_COPY_ALLOWED          = 0x2
@@ -2008,8 +2629,20 @@ const (
 	MOVEFILE_FAIL_IF_NOT_TRACKABLE = 0x20
 )
 
+// 翻译提示:const  包含前缀标志  =  0x00000010
 const GAA_FLAG_INCLUDE_PREFIX = 0x00000010
 
+// 翻译提示:const  (
+// 	接口类型其他                            =  1
+// 	接口类型以太网CSMA/CD        =  6
+// 	接口类型ISO88025令牌环      =  9
+// 	接口类型PPP                                =  23
+// 	接口类型软件回环                      =  24
+// 	接口类型ATM                                =  37
+// 	接口类型IEEE80211                    =  71
+// 	接口类型隧道                              =  131
+// 	接口类型IEEE1394                      =  144
+// )
 const (
 	IF_TYPE_OTHER              = 1
 	IF_TYPE_ETHERNET_CSMACD    = 6
@@ -2141,6 +2774,15 @@ type IpAdapterDNSSuffix struct {
 	String [MAX_DNS_SUFFIX_STRING_LENGTH]uint16
 }
 
+// 翻译提示:const  (
+// 	接口运行状态上线  =  1
+// 	接口运行状态下线  =  2
+// 	接口运行状态测试中  =  3
+// 	接口运行状态未知  =  4
+// 	接口运行状态休眠  =  5
+// 	接口未安装  =  6
+// 	下层接口失效  =  7
+// )
 const (
 	IfOperStatusUp             = 1
 	IfOperStatusDown           = 2
@@ -2154,6 +2796,24 @@ const (
 // 以下为与控制台相关的常量，用于`SetConsoleMode`函数的`mode`参数。具体信息请参阅
 // https://docs.microsoft.com/en-us/windows/console/setconsolemode 。
 
+// 翻译提示:const  (
+// 	启用处理输入                =  0x1
+// 	启用行输入                          =  0x2
+// 	启用回显输入                          =  0x4
+// 	启用窗口输入                      =  0x8
+// 	启用鼠标输入                        =  0x10
+// 	启用插入模式                        =  0x20
+// 	启用快速编辑模式                =  0x40
+// 	启用扩展标志                  =  0x80
+// 	启用自动位置                    =  0x100
+// 	启用虚拟终端输入              =  0x200
+// 
+// 	启用处理输出                        =  0x1
+// 	启用行尾换行输出                    =  0x2
+// 	启用虚拟终端处理                  =  0x4
+// 	禁用自动换行                            =  0x8
+// 	启用LVB网格全局                    =  0x10
+// )
 const (
 	ENABLE_PROCESSED_INPUT        = 0x1
 	ENABLE_LINE_INPUT             = 0x2
@@ -2174,6 +2834,9 @@ const (
 )
 
 // 用于作为参数传递给CreatePseudoConsole函数的标志位所涉及的伪控制台相关常量。参见：https://learn.microsoft.com/en-us/windows/console/createpseudoconsole
+// 翻译提示:const  (
+// 	伪console继承光标  =  0x1
+// )
 const (
 	PSEUDOCONSOLE_INHERIT_CURSOR = 0x1
 )
@@ -2201,6 +2864,14 @@ type ConsoleScreenBufferInfo struct {
 	MaximumWindowSize Coord
 }
 
+// 翻译提示:const  UNIX_PATH_MAX  =  108  //  定义在afunix.h中
+// 
+// //  以下是常量类型的重构，假设我们创建一个名为"WinConst"的包
+// 
+// package  WinConst
+// 
+// //  文件路径最大长度
+// const  文件路径最大长度  =  108
 const UNIX_PATH_MAX = 108 // defined in afunix.h
 
 const (
@@ -2240,6 +2911,17 @@ type JOBOBJECT_EXTENDED_LIMIT_INFORMATION struct {
 	PeakJobMemoryUsed     uintptr
 }
 
+// 翻译提示:const  (
+// 	//  用户界面限制类别
+// 	JOB_OBJECT_USER_LIMIT_DESKTOP                    =  0x00000040
+// 	JOB_OBJECT_USER_LIMIT_DISPLAY_SETTINGS  =  0x00000010
+// 	JOB_OBJECT_USER_LIMIT_EXIT_WINDOWS            =  0x00000080
+// 	JOB_OBJECT_USER_LIMIT_GLOBAL_ATOMS            =  0x00000020
+// 	JOB_OBJECT_USER_LIMIT_HANDLES                    =  0x00000001
+// 	JOB_OBJECT_USER_LIMIT_READ_CLIPBOARD        =  0x00000002
+// 	JOB_OBJECT_USER_LIMIT_SYSTEM_PARAMETERS  =  0x00000008
+// 	JOB_OBJECT_USER_LIMIT_WRITE_CLIPBOARD      =  0x00000004
+// )
 const (
 	// UIRestrictionsClass
 	JOB_OBJECT_UILIMIT_DESKTOP          = 0x00000040
@@ -2277,6 +2959,24 @@ const (
 	JobObjectSecurityLimitInformation           = 5
 )
 
+// 翻译提示:const  (
+// 	默认标志                                                    =  0x00000000
+// 	强制应用程序数据重定向              =  0x00080000
+// 	返回过滤重定向目标标志                  =  0x00040000
+// 	强制包重定向                                        =  0x00020000
+// 	禁止包重定向                                        =  0x00010000
+// 	强制应用容器重定向                        =  0x00020000
+// 	禁止应用容器重定向                        =  0x00010000
+// 	创建标志                                                  =  0x00008000
+// 	不验证标志                                              =  0x00004000
+// 	不展开标志                                              =  0x00002000
+// 	禁止别名                                                  =  0x00001000
+// 	初始化标志                                              =  0x00000800
+// 	默认路径标志                                          =  0x00000400
+// 	非父相对路径标志                                  =  0x00000200
+// 	简单ID列表标志                                    =  0x00000100
+// 	仅别名标志                                            =  0x80000000
+// )
 const (
 	KF_FLAG_DEFAULT                          = 0x00000000
 	KF_FLAG_FORCE_APP_DATA_REDIRECTION       = 0x00080000
@@ -2310,6 +3010,70 @@ type OsVersionInfoEx struct {
 	_                 byte
 }
 
+// 翻译提示:const  (
+// 	关闭登录                      =  0x00000000
+// 	关闭系统                      =  0x00000001
+// 	重新启动                      =  0x00000002
+// 	强制关闭                      =  0x00000004
+// 	电源关闭                      =  0x00000008
+// 	强制挂起进程              =  0x00000010
+// 	快速解决                      =  0x00000020
+// 	重启应用程序              =  0x00000040
+// 	混合关闭                      =  0x00400000
+// 	引导选项                      =  0x01000000
+// 
+// 	关机原因标志需要评论                    =  0x01000000
+// 	关机原因标志需要问题ID                    =  0x02000000
+// 	关机原因标志干净用户界面                =  0x04000000
+// 	关机原因标志脏用户界面                    =  0x08000000
+// 	关机原因标志用户定义                        =  0x40000000
+// 	关机原因标志计划中                            =  0x80000000
+// 	关机原因主要其他                                =  0x00000000
+// 	关机原因主要无                                    =  0x00000000
+// 	关机原因主要硬件                                =  0x00010000
+// 	关机原因主要操作系统                        =  0x00020000
+// 	关机原因主要软件                                =  0x00030000
+// 	关机原因主要应用程序                        =  0x00040000
+// 	关机原因主要系统                                =  0x00050000
+// 	关机原因主要电源                                =  0x00060000
+// 	关机原因主要遗留API                            =  0x00070000
+// 	关机原因次要其他                                =  0x00000000
+// 	关机原因次要无                                    =  0x000000ff
+// 	关机原因次要维护                                =  0x00000001
+// 	关机原因次要安装                                =  0x00000002
+// 	关机原因次要升级                                =  0x00000003
+// 	关机原因次要重构                                =  0x00000004
+// 	关机原因次要挂起                                =  0x00000005
+// 	关机原因次要不稳定                            =  0x00000006
+// 	关机原因次要磁盘                                =  0x00000007
+// 	关机原因次要处理器                            =  0x00000008
+// 	关机原因次要网络卡                            =  0x00000009
+// 	关机原因次要电源供应                        =  0x0000000a
+// 	关机原因次要电源线拔出                    =  0x0000000b
+// 	关机原因次要环境                                =  0x0000000c
+// 	关机原因次要硬件驱动                        =  0x0000000d
+// 	关机原因次要其他驱动                        =  0x0000000e
+// 	关机原因次要蓝屏                                =  0x0000000F
+// 	关机原因次要服务包                            =  0x00000010
+// 	关机原因次要热修复                            =  0x00000011
+// 	关机原因次要安全修复                        =  0x00000012
+// 	关机原因次要安全                                =  0x00000013
+// 	关机原因次要网络连接性                    =  0x00000014
+// 	关机原因次要WMI                                    =  0x00000015
+// 	关机原因次要服务包卸载                    =  0x00000016
+// 	关机原因次要热修复卸载                    =  0x00000017
+// 	关机原因次要安全修复卸载                =  0x00000018
+// 	关机原因次要MMC                                    =  0x00000019
+// 	关机原因次要系统还原                        =  0x0000001a
+// 	关机原因次要终端服务器                    =  0x00000020
+// 	关机原因次要域控制器提升                  =  0x00000021
+// 	关机原因次要域控制器降级                  =  0x00000022
+// 	关机原因未知                                            =  关机原因次要无
+// 	关机原因遗留API方式                          =  关机原因主要遗留API  |  关机原因标志计划中
+// 	关机原因有效位掩码                            =  0xc0ffffff
+// 
+// 	不重试关闭  =  0x1
+// )
 const (
 	EWX_LOGOFF          = 0x00000000
 	EWX_SHUTDOWN        = 0x00000001
@@ -2416,6 +3180,33 @@ const (
 )
 
 // FILE_INFO_BY_HANDLE_CLASS 常量，用于 SetFileInformationByHandle/GetFileInformationByHandleEx 函数
+// 翻译提示:const  (
+// 	文件基本信息                                    =  0
+// 	文件标准信息                              =  1
+// 	文件名信息                                      =  2
+// 	文件重命名信息                                  =  3
+// 	文件处理信息                        =  4
+// 	文件分配信息                          =  5
+// 	文件结束信息                            =  6
+// 	文件流信息                                  =  7
+// 	文件压缩信息                        =  8
+// 	文件属性标签信息                      =  9
+// 	文件ID与目录信息                =  10
+// 	文件ID与目录重启信息  =  11
+// 	文件I/O优先级提示信息          =  12
+// 	文件远程协议信息                  =  13
+// 	完整目录信息                    =  14
+// 	完整目录重启信息      =  15
+// 	文件存储信息                                =  16
+// 	文件对齐信息                            =  17
+// 	文件ID信息                                          =  18
+// 	扩展文件ID目录信息                =  19
+// 	扩展文件ID目录重启信息  =  20
+// 	文件处理信息扩展版                    =  21
+// 	文件重命名信息扩展版              =  22
+// 	文件大小写敏感信息                    =  23
+// 	文件规范化名称信息                  =  24
+// )
 const (
 	FileBasicInfo                  = 0
 	FileStandardInfo               = 1
@@ -2445,6 +3236,23 @@ const (
 )
 
 // LoadLibrary标志，用于确定从何处搜索DLL
+// 翻译提示:const  (
+//         不解析DLL引用                                      =  0x1
+//         作为数据文件加载                                  =  0x2
+//         使用修改的搜索路径加载                      =  0x8
+//         忽略代码授权级别                                =  0x10
+//         作为图像资源加载                                  =  0x20
+//         独占式作为数据文件加载                      =  0x40
+//         要求已签名的目标加载                        =  0x80
+//         在DLL加载目录中搜索                            =  0x100
+//         在应用程序目录中搜索                        =  0x200
+//         在用户目录中搜索                                  =  0x400
+//         在系统32目录中搜索                              =  0x800
+//         使用默认目录加载                                =  0x1000
+//         安全当前目录加载                                =  0x00002000
+//         在系统32目录中搜索无转发器              =  0x00004000
+//         加载操作系统完整性连续性                  =  0x00008000
+// )
 const (
 	DONT_RESOLVE_DLL_REFERENCES               = 0x1
 	LOAD_LIBRARY_AS_DATAFILE                  = 0x2
@@ -2912,6 +3720,182 @@ type SYSTEM_PROCESS_INFORMATION struct {
 }
 
 // SystemInformationClasses 用于 NtQuerySystemInformation 和 NtSetSystemInformation
+// 翻译提示:const  (
+// 	系统基本信息  =  iota
+// 	处理器信息
+// 	系统性能信息
+// 	时间信息
+// 	路径信息
+// 	进程信息
+// 	调用计数信息
+// 	设备信息
+// 	处理器性能信息
+// 	标志信息
+// 	调用时间信息
+// 	模块信息
+// 	锁信息
+// 	堆栈跟踪信息
+// 	分页池信息
+// 	非分页池信息
+// 	句柄信息
+// 	对象信息
+// 	页面文件信息
+// 	虚拟设备驱动程序模拟信息
+// 	虚拟设备驱动程序块信息
+// 	文件缓存信息
+// 	池标记信息
+// 	中断信息
+// 	延迟服务行为信息
+// 	完整内存信息
+// 	加载GDI驱动程序信息
+// 	卸载GDI驱动程序信息
+// 	时间调整信息
+// 	摘要内存信息
+// 	镜像内存信息
+// 	性能追踪信息
+// 	systemObsolete0
+// 	异常信息
+// 	崩溃转储状态信息
+// 	内核调试器信息
+// 	上下文切换信息
+// 	注册表配额信息
+// 	扩展服务表信息
+// 	优先级分离
+// 	验证者添加驱动程序信息
+// 	验证者移除驱动程序信息
+// 	处理器空闲信息
+// 	遗留驱动程序信息
+// 	当前时区信息
+// 	旁路信息
+// 	时间滑动通知
+// 	会话创建
+// 	会话断开
+// 	会话信息
+// 	范围开始信息
+// 	验证者信息
+// 	验证者扩展
+// 	会话进程信息
+// 	在系统空间中加载GDI驱动程序
+// 	NUMA处理器映射
+// 	预取器信息
+// 	扩展进程信息
+// 	推荐共享数据对齐
+// 	ComPlus包信息
+// 	NUMA可用内存
+// 	处理器电源信息
+// 	仿真基本信息
+// 	仿真处理器信息
+// 	扩展句柄信息
+// 	丢失延迟写入信息
+// 	大池信息
+// 	会话池标记信息
+// 	会话映射视图信息
+// 	热补丁信息
+// 	对象安全模式
+// 	看门狗定时器处理程序
+// 	看门狗定时器信息
+// 	逻辑处理器信息
+// 	  WoW64  共享信息  (已弃用)
+// 	注册固件表信息处理程序
+// 	固件表信息
+// 	系统模块信息扩展
+// 	验证者故障信息
+// 	超级获取信息
+// 	内存列表信息
+// 	文件缓存信息扩展
+// 	线程优先级客户端ID信息
+// 	处理器空闲周期时间信息
+// 	验证者取消信息
+// 	处理器电源信息扩展
+// 	引用跟踪信息
+// 	特殊池信息
+// 	进程ID信息
+// 	错误端口信息
+// 	启动环境信息
+// 	虚拟化信息
+// 	验证者信息扩展
+// 	时区信息
+// 	映像文件执行选项信息
+// 	覆盖率信息
+// 	预取补丁信息
+// 	验证者故障信息
+// 	系统分区信息
+// 	系统磁盘信息
+// 	处理器性能分布信息
+// 	NUMA亲和力节点信息
+// 	动态时区信息
+// 	代码完整性信息
+// 	处理器微码更新信息
+// 	处理器品牌字符串
+// 	虚拟地址信息
+// 	逻辑处理器和组信息
+// 	处理器周期时间信息
+// 	存储信息
+// 	注册表追加字符串
+// 	AIT取样值
+// 	Vhd启动信息
+// 	处理器配额信息
+// 	本机基本信息
+// 	systemSpare1
+// 	低优先级I/O信息
+// 	TPM引导熵信息
+// 	验证者计数器信息
+// 	分页池信息扩展
+// 	系统PTEs信息扩展
+// 	节点距离信息
+// 	ACPI审计信息
+// 	基本性能信息
+// 	查询性能计数器信息
+// 	会话大池信息
+// 	启动图形信息
+// 	扫描物理内存信息
+// 	坏页信息
+// 	处理器性能控制区域信息
+// 	合并物理内存信息
+// 	熵中断计时回调
+// 	控制台信息
+// 	平台二进制信息
+// 	节流通知信息
+// 	虚拟化处理器计数信息
+// 	设备数据信息
+// 	设备数据枚举信息
+// 	内存拓扑信息
+// 	内存通道信息
+// 	启动logo信息
+// 	处理器性能信息扩展
+// 	systemSpare0
+// 	安全启动策略信息
+// 	页面文件信息扩展
+// 	安全启动信息
+// 	熵中断计时原始信息
+// 	便携式工作区EFI启动器信息
+// 	完整进程信息
+// 	内核调试器信息扩展
+// 	启动元数据信息
+// 	软重启信息
+// 	ELAM证书信息
+// 	离线转储配置信息
+// 	处理器特性信息
+// 	注册表和解信息
+// 	EDID信息
+// 	制造信息
+// 	能源估计配置信息
+// 	虚拟化详细信息
+// 	处理器周期统计信息
+// 	VM生成计数信息
+// 	可信平台模块信息
+// 	内核调试器标志
+// 	代码完整性策略信息
+// 	隔离用户模式信息
+// 	单个模块信息
+// 	允许的CPU集信息
+// 	DMA保护信息
+// 	中断CPU集信息
+// 	安全启动策略完整信息
+// 	代码完整性策略完整信息
+// 	亲和力中断处理器信息
+// 	根_SILO_信息
+// )
 const (
 	SystemBasicInformation = iota
 	SystemProcessorInformation
@@ -3258,6 +4242,37 @@ type BIND_OPTS3 struct {
 	Hwnd              HWND
 }
 
+// 翻译提示:const  (
+// 	服务器进程内上下文                      =  0x1
+// 	处理器进程内上下文                      =  0x2
+// 	本地服务器上下文                          =  0x4
+// 	16位服务器进程内上下文                =  0x8
+// 	远程服务器上下文                          =  0x10
+// 	16位处理器进程内上下文              =  0x20
+// 	预留1                                                =  0x40
+// 	预留2                                                =  0x80
+// 	预留3                                                =  0x100
+// 	预留4                                                =  0x200
+// 	禁止代码下载                                =  0x400
+// 	预留5                                                =  0x800
+// 	禁止自定义封送处理                      =  0x1000
+// 	启用代码下载                                =  0x2000
+// 	禁止失败日志记录                          =  0x4000
+// 	禁用访问控制列表(Access  Control  List,  ACL)  =  0x8000
+// 	启用访问控制列表(Access  Control  List,  ACL)  =  0x10000
+// 	从默认上下文激活                        =  0x20000
+// 	激活32位服务器上下文                  =  0x40000
+// 	激活64位服务器上下文                  =  0x80000
+// 	启用伪装                                        =  0x100000
+// 	应用容器上下文                              =  0x400000
+// 	以用户身份激活(AAA)                    =  0x800000
+// 	进程内服务器动态链接库(PS_DLL)  =  0x80000000
+// 
+// 	多线程初始化                          =  0x0
+// 	公寓式线程初始化                  =  0x2
+// 	禁用OLE1DDE初始化                =  0x4
+// 	速度优先于内存初始化          =  0x8
+// )
 const (
 	CLSCTX_INPROC_SERVER          = 0x1
 	CLSCTX_INPROC_HANDLER         = 0x2
@@ -3299,6 +4314,7 @@ type ModuleInfo struct {
 	EntryPoint  uintptr
 }
 
+// 翻译提示:const  所有处理器组  =  0xFFFF
 const ALL_PROCESSOR_GROUPS = 0xFFFF
 
 type Rect struct {
@@ -3320,6 +4336,31 @@ type GUIThreadInfo struct {
 	CaretRect   Rect
 }
 
+// 翻译提示:const  (
+// 	NC渲染启用                                        =  1
+// 	NC渲染策略                                          =  2
+// 	强制禁用过渡效果                            =  3
+// 	允许非客户区绘制                            =  4
+// 	标题按钮边界                                    =  5
+// 	非客户端区域右对齐布局                  =  6
+// 	强制图标化表示                              =  7
+// 	Flip3D策略                                        =  8
+// 	扩展框架边界                                    =  9
+// 	有图标位图                                        =  10
+// 	禁止偷窥                                            =  11
+// 	排除在偷窥之外                                =  12
+// 	隐形（隐藏）                                    =  13
+// 	已隐形状态                                      =  14
+// 	冻结代表状态                                  =  15
+// 	被动更新模式                                  =  16
+// 	使用主机背景刷                                =  17
+// 	使用沉浸式深色模式                      =  20
+// 	窗口角部偏好                                  =  33
+// 	边框颜色                                            =  34
+// 	标题颜色                                            =  35
+// 	文本颜色                                            =  36
+// 	可见框架边框厚度                          =  37
+// )
 const (
 	DWMWA_NCRENDERING_ENABLED            = 1
 	DWMWA_NCRENDERING_POLICY             = 2

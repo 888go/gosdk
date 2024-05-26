@@ -11,6 +11,11 @@ import (
 	_ "unsafe" // for go:linkname
 )
 
+
+// ff:
+// err:
+// nonblocking:
+// fd:
 func IsNonblock(fd int) (nonblocking bool, err error) {
 	flag, e1 := fcntl(fd, syscall.F_GETFL, 0)
 	if e1 != nil {
@@ -19,6 +24,9 @@ func IsNonblock(fd int) (nonblocking bool, err error) {
 	return flag&syscall.O_NONBLOCK != 0, nil
 }
 
+
+// ff:
+// flag:
 func HasNonblockFlag(flag int) bool {
 	return flag&syscall.O_NONBLOCK != 0
 }

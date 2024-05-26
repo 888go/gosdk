@@ -26,10 +26,12 @@ type DLLError struct {
 	Msg     string
 }
 
+// 翻译提示:func  (e  *DLL错误)  错误信息()  字符串  {}
 
 // ff:取错误文本
 func (e *DLLError) Error() string { return e.Msg }
 
+// 翻译提示:func  (e  *DLL错误)  获取底层错误()  错误  {}
 
 // ff:取错误
 func (e *DLLError) Unwrap() error { return e.Err }
@@ -45,9 +47,9 @@ type DLL struct {
 // 警告：在没有使用绝对路径的情况下使用 LoadDLL，可能导致 DLL 预加载攻击。为了安全地加载系统 DLL，请使用 System 参数设为 true 的 LazyDLL，或直接使用 LoadLibraryEx。
 
 // ff:DLL加载
-// err:错误
-// dll:
 // name:dll名称
+// dll:
+// err:错误
 func LoadDLL(name string) (dll *DLL, err error) {
 	namep, err := UTF16PtrFromString(name)
 	if err != nil {
@@ -83,9 +85,9 @@ func MustLoadDLL(name string) *DLL {
 // FindProc在DLL d中搜索名为name的程序，并在找到时返回*Proc。如果搜索失败，它将返回一个错误。
 
 // ff:查找命令
-// err:错误
-// proc:
 // name:命令名
+// proc:
+// err:错误
 func (d *DLL) FindProc(name string) (proc *Proc, err error) {
 	namep, err := BytePtrFromString(name)
 	if err != nil {
@@ -122,9 +124,9 @@ func (d *DLL) MustFindProc(name string) *Proc {
 // FindProcByOrdinal 在 DLL d 中按序号搜索过程，并在找到时返回 *Proc。如果搜索失败，则返回错误。
 
 // ff:查找命令并按序数
-// err:错误
-// proc:
 // ordinal:序数
+// proc:
+// err:错误
 func (d *DLL) FindProcByOrdinal(ordinal uintptr) (proc *Proc, err error) {
 	a, e := GetProcAddressByOrdinal(d.Handle, ordinal)
 	name := "#" + itoa(int(ordinal))
@@ -185,10 +187,10 @@ func (p *Proc) Addr() uintptr {
 // 返回的错误始终为非 nil，由 GetLastError 的结果构建而成。调用者必须首先根据被调用函数的具体语义检查主返回值以判断是否发生错误，然后才能参考该错误。该错误将确保包含 windows.Errno。
 
 // ff:调用
-// lastErr:最后一个错误
-// r2:
-// r1:
 // a:命令参数s
+// r1:
+// r2:
+// lastErr:最后一个错误
 func (p *Proc) Call(a ...uintptr) (r1, r2 uintptr, lastErr error) {
 	switch len(a) {
 	case 0:
@@ -363,6 +365,7 @@ func (p *LazyProc) mustFind() {
 // Addr 返回由 p 表示的程序的地址。
 // 返回值可以传递给 Syscall 以运行该程序。
 // It will panic if the procedure cannot be found.
+// 翻译提示:func  (p  *懒加载Proc)  地址()  uintptr  {}
 
 // ff:取命令地址
 func (p *LazyProc) Addr() uintptr {
@@ -377,10 +380,10 @@ func (p *LazyProc) Addr() uintptr {
 // 返回的错误始终是非空的，由 GetLastError 的结果构建而成。调用者必须先根据被调用函数的具体语义检查主返回值来判断是否发生错误，之后再查看错误。该错误将确保包含 windows.Errno。
 
 // ff:调用
-// lastErr:最后一个错误
-// r2:
-// r1:
 // a:命令参数s
+// r1:
+// r2:
+// lastErr:最后一个错误
 func (p *LazyProc) Call(a ...uintptr) (r1, r2 uintptr, lastErr error) {
 	p.mustFind()
 	return p.proc.Call(a...)
@@ -447,6 +450,7 @@ func loadLibraryEx(name string, system bool) (*DLL, error) {
 
 type errString string
 
+// 翻译提示:func  (s  错误字符串)  错误信息()  字符串  {}
 
 // ff:取错误文本
 // s:

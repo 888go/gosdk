@@ -115,6 +115,7 @@ func (p *Param) tmpVar() string {
 }
 
 // BoolTmpVarCode 返回用于布尔临时变量的源代码
+// 翻译提示:func  (p  *参数)  布尔临时变量代码()  字符串  {}
 
 // ff:
 func (p *Param) BoolTmpVarCode() string {
@@ -137,6 +138,7 @@ func (p *Param) BoolPointerTmpVarCode() string {
 }
 
 // SliceTmpVarCode 返回切片临时变量的源代码
+// 翻译提示:func  (p  *参数)  切片临时变量代码()  字符串  {}
 
 // ff:
 func (p *Param) SliceTmpVarCode() string {
@@ -171,6 +173,7 @@ func (p *Param) StringTmpVarCode() string {
 }
 
 // TmpVarCode 返回临时变量的源代码
+// 翻译提示:func  (p  *参数)  临时变量代码()  string  {}
 
 // ff:
 func (p *Param) TmpVarCode() string {
@@ -199,6 +202,7 @@ func (p *Param) TmpVarReadbackCode() string {
 }
 
 // TmpVarHelperCode 返回助手临时变量的源代码
+// 翻译提示:func  (p  *参数)  临时变量助手代码()  字符串  {}
 
 // ff:
 func (p *Param) TmpVarHelperCode() string {
@@ -234,6 +238,7 @@ func (p *Param) SyscallArgList() []string {
 }
 
 // IsError 判断参数p是否用于返回错误
+// 翻译提示:func  (p  *参数)  是否有错误()  bool  {}
 
 // ff:
 func (p *Param) IsError() bool {
@@ -273,6 +278,7 @@ type Rets struct {
 }
 
 // ErrorVarName 返回错误变量名给r
+// 翻译提示:func  (r  *Rets)  错误变量名称()  string  {}
 
 // ff:
 func (r *Rets) ErrorVarName() string {
@@ -300,6 +306,7 @@ func (r *Rets) ToParams() []*Param {
 }
 
 // List 返回 syscall 返回参数的源代码
+// 翻译提示:func  (r  *Rets)  列表()  string  {}
 
 // ff:
 func (r *Rets) List() string {
@@ -349,6 +356,10 @@ func (r *Rets) useLongHandleErrorCode(retvar string) string {
 }
 
 // SetErrorCode 返回设置返回参数的源代码
+// 翻译提示://  设置错误代码
+// func  (r  *Rets)  设置错误代码()  string  {
+//         //  方法体
+// }
 
 // ff:
 func (r *Rets) SetErrorCode() string {
@@ -561,6 +572,8 @@ func (f *Fn) DLLFuncName() string {
 }
 
 // ParamList 返回函数 f 参数的源代码
+// 翻译提示://  方法名：参数列表
+// func  (f  *Fn)  参数列表()  string  {}
 
 // ff:
 func (f *Fn) ParamList() string {
@@ -568,6 +581,8 @@ func (f *Fn) ParamList() string {
 }
 
 // HelperParamList 返回用于辅助函数f的参数源代码
+// 翻译提示://  帮助者参数列表
+// func  (f  *Fn)  帮助者参数列表()  string  {}
 
 // ff:
 func (f *Fn) HelperParamList() string {
@@ -575,6 +590,7 @@ func (f *Fn) HelperParamList() string {
 }
 
 // ParamPrintList 返回与系统调用输入参数对应的跟踪打印部分的源代码
+// 翻译提示:func  (f  *Fn)  参数打印列表()  string  {}
 
 // ff:
 func (f *Fn) ParamPrintList() string {
@@ -631,6 +647,10 @@ func (f *Fn) Syscall() string {
 }
 
 // SyscallParamList 为函数 f 返回用于 SyscallX 的参数源代码
+// 翻译提示:type  Fn  struct{}
+// 
+// //  系统调用参数列表
+// func  (f  *Fn)  系统调用参数列表()  string  {}
 
 // ff:
 func (f *Fn) SyscallParamList() string {
@@ -645,6 +665,8 @@ func (f *Fn) SyscallParamList() string {
 }
 
 // HelperCallParamList 返回调用函数f辅助工具的源代码
+// 翻译提示://  助手方法调用参数列表
+// func  (f  *Fn)  帮助方法调用参数列表()  string  {}
 
 // ff:
 func (f *Fn) HelperCallParamList() string {
@@ -660,6 +682,7 @@ func (f *Fn) HelperCallParamList() string {
 }
 
 // MaybeAbsent 返回用于处理可能不可用的函数的源代码
+// 翻译提示:func  (p  *函数指针)  可能缺失()  字符串  {}
 
 // ff:
 func (p *Fn) MaybeAbsent() string {
@@ -743,6 +766,7 @@ type Source struct {
 	ExternalImports []string
 }
 
+// 翻译提示:func  (src  *源代码)  引入(pkg  string)  {}
 
 // ff:
 // pkg:
@@ -751,6 +775,7 @@ func (src *Source) Import(pkg string) {
 	sort.Strings(src.StdLibImports)
 }
 
+// 翻译提示:func  (src  *源代码)  引入外部包(pkg  string)  {}
 
 // ff:
 // pkg:

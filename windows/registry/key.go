@@ -19,7 +19,7 @@
 //		log.Fatal(err)
 //	}
 //	fmt.Printf("Windows 系统根目录为 %q\n", s)
-package registry
+package registry//bm:win注册表类
 
 import (
 	"io"
@@ -100,12 +100,13 @@ func (k Key) Close() error {
 // win64系统上运行32位软件,会被自动定位到32位的注册表, 设置access(访问权限)参数可以指定访问.具体参考精易"注册表操作Ex"类
 // 如,访问64位注册表 WOW64_64KEY | ALL_ACCESS
 // 如,访问32位注册表 WOW64_32KEY | ALL_ACCESS
+// 翻译提示:func  打开键(k  键,  路径  string,  访问权限  uint32)  (键,  error)  {}
 
 // ff:打开表项
-// Key:
-// access:访问权限
-// path:路径
 // k:
+// path:路径
+// access:访问权限
+// Key:
 func OpenKey(k Key, path string, access uint32) (Key, error) {
 	p, err := syscall.UTF16PtrFromString(path)
 	if err != nil {
@@ -122,9 +123,9 @@ func OpenKey(k Key, path string, access uint32) (Key, error) {
 // OpenRemoteKey 用于在另一台计算机（pcname）上打开一个预定义的注册表键。待打开的键由参数 k 指定，但其值只能是 LOCAL_MACHINE、PERFORMANCE_DATA 或 USERS 之一。若 pcname 为空字符串（""），则 OpenRemoteKey 返回本地计算机的键。
 
 // ff:打开远程表项
-// Key:
-// k:
 // pcname:计算机名
+// k:
+// Key:
 func OpenRemoteKey(pcname string, k Key) (Key, error) {
 	var err error
 	var p *uint16
@@ -199,14 +200,15 @@ loopItems:
 // win64系统上运行32位软件,会被自动定位到32位的注册表, 设置access(访问权限)参数可以指定访问.具体参考精易"注册表操作Ex"类
 // 如,访问64位注册表 WOW64_64KEY | ALL_ACCESS
 // 如,访问32位注册表 WOW64_32KEY | ALL_ACCESS
+// 翻译提示:func  创建键(key  Key,  路径  string,  访问权限  uint32)  (新键  Key,  已打开的现有键  bool,  错误  error)  {}
 
 // ff:创建表项
-// err:错误
-// openedExisting:是否已存在
-// newk:
-// access:访问权限
-// path:路径
 // k:
+// path:路径
+// access:访问权限
+// newk:
+// openedExisting:是否已存在
+// err:错误
 func CreateKey(k Key, path string, access uint32) (newk Key, openedExisting bool, err error) {
 	var h syscall.Handle
 	var d uint32
@@ -221,8 +223,8 @@ func CreateKey(k Key, path string, access uint32) (newk Key, openedExisting bool
 // DeleteKey 删除键k的子键路径及其值。
 
 // ff:删除表项
-// path:路径
 // k:
+// path:路径
 func DeleteKey(k Key, path string) error {
 	return regDeleteKey(syscall.Handle(k), syscall.StringToUTF16Ptr(path))
 }

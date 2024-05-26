@@ -115,10 +115,10 @@ func toStringBlock(ss []string) *uint16 {
 // 这些参数与通过Service.Start或通过服务“属性”对话框中的“启动参数”字段传递的参数不同。
 
 // ff:
-// args:
-// c:
-// exepath:
 // name:
+// exepath:
+// c:
+// args:
 func (m *Mgr) CreateService(name, exepath string, c Config, args ...string) (*Service, error) {
 	if c.StartType == 0 {
 		c.StartType = StartManual

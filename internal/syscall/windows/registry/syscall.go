@@ -17,6 +17,8 @@ const (
 	_ERROR_NO_MORE_ITEMS syscall.Errno = 259
 )
 
+
+// ff:
 func LoadRegLoadMUIString() error {
 	return procRegLoadMUIStringW.Find()
 }

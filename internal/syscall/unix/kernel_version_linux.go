@@ -13,6 +13,11 @@ import (
 // or parsed.
 //
 // Currently only implemented for Linux.
+// 翻译提示:func 操作系统版本() (主要版本, 次要版本 int) {}
+
+// ff:
+// minor:
+// major:
 func KernelVersion() (major, minor int) {
 	var uname syscall.Utsname
 	if err := syscall.Uname(&uname); err != nil {

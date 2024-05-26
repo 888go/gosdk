@@ -9,8 +9,8 @@ import (
 // 若 substr 为空字符串，Count 返回 1 加上 s 中的 Unicode 编码点数量。
 
 // ff:取统计数
-// substr:检索文本
 // s:原文本
+// substr:检索文本
 func Count(s, substr string) int { //md5:8dc4508cfbea56c6d406f8a4f9770e09
 	return strings.Count(s, substr)
 }
@@ -18,8 +18,8 @@ func Count(s, substr string) int { //md5:8dc4508cfbea56c6d406f8a4f9770e09
 // Contains 判断 substr 是否包含于 s 中
 
 // ff:是否包含
-// substr:检索文本
 // s:原文本
+// substr:检索文本
 func Contains(s, substr string) bool { //md5:e5367376f35a456e5c106746b475b47c
 	return strings.Contains(s, substr)
 }
@@ -27,8 +27,8 @@ func Contains(s, substr string) bool { //md5:e5367376f35a456e5c106746b475b47c
 // ContainsAny 判断字符串 s 中是否包含 chars 中的任意一个Unicode字符。
 
 // ff:是否包含任意字符
-// chars:检索字符s
 // s:原文本
+// chars:检索字符s
 func ContainsAny(s, chars string) bool { //md5:3c6df9a7716addd6267b4d1f1e7d021c
 	return strings.ContainsAny(s, chars)
 }
@@ -36,8 +36,8 @@ func ContainsAny(s, chars string) bool { //md5:3c6df9a7716addd6267b4d1f1e7d021c
 // ContainsRune报告Unicode码点r是否在s中。
 
 // ff:是否包含Unicode字符
-// r:检索字符
 // s:原文本
+// r:检索字符
 func ContainsRune(s string, r rune) bool { //md5:4238898d042dfb1776a3a6e6466358b2
 	return strings.ContainsRune(s, r)
 }
@@ -45,8 +45,8 @@ func ContainsRune(s string, r rune) bool { //md5:4238898d042dfb1776a3a6e6466358b
 // LastIndex 返回子串 substr 在字符串 s 中最后一次出现的索引，若 substr 不在 s 中，则返回 -1。
 
 // ff:取文本最后索引
-// substr:检索文本
 // s:原文本
+// substr:检索文本
 func LastIndex(s, substr string) int { //md5:f71c5a442b965bb5bfaeed7e5c7c9576
 	return strings.LastIndex(s, substr)
 }
@@ -54,8 +54,8 @@ func LastIndex(s, substr string) int { //md5:f71c5a442b965bb5bfaeed7e5c7c9576
 // IndexByte 返回 s 中首次出现字符 c 的索引，若 c 不在 s 中，则返回 -1。
 
 // ff:取字节索引
-// c:检索字节
 // s:原文本
+// c:检索字节
 func IndexByte(s string, c byte) int { //md5:cc27e81169256c2d002e7ba6cc205863
 	return strings.IndexByte(s, c)
 }
@@ -64,8 +64,8 @@ func IndexByte(s string, c byte) int { //md5:cc27e81169256c2d002e7ba6cc205863
 // 若r为utf8.RuneError，它将返回s中任意无效UTF-8字节序列的首次出现位置。
 
 // ff:取Unicode字符索引
-// r:检索字符
 // s:原文本
+// r:检索字符
 func IndexRune(s string, r rune) int { //md5:ee5f1aa9ff80778af6ab99d3210cca6c
 	return strings.IndexRune(s, r)
 }
@@ -73,8 +73,8 @@ func IndexRune(s string, r rune) int { //md5:ee5f1aa9ff80778af6ab99d3210cca6c
 // IndexAny 返回 s 中首次出现的任意 Unicode 码点在 chars 中的索引，若 s 中不存在 chars 中的任何 Unicode 码点，则返回 -1。
 
 // ff:取任意字符索引
-// chars:检索字符s
 // s:原文本
+// chars:检索字符s
 func IndexAny(s, chars string) int { //md5:9082d9461cfcdcfe489a822547f285e9
 	return strings.IndexAny(s, chars)
 }
@@ -82,8 +82,8 @@ func IndexAny(s, chars string) int { //md5:9082d9461cfcdcfe489a822547f285e9
 // LastIndexAny返回s中任意Unicode码点字符在chars中的最后一个实例的索引，若s中不存在chars中的任何Unicode码点，则返回-1。
 
 // ff:取任意字符最后索引
-// chars:检索字符
 // s:原文本
+// chars:检索字符
 func LastIndexAny(s, chars string) int { //md5:b7c6c3d4157d4ce87b044ac9be7aed6f
 	return strings.LastIndexAny(s, chars)
 }
@@ -91,8 +91,8 @@ func LastIndexAny(s, chars string) int { //md5:b7c6c3d4157d4ce87b044ac9be7aed6f
 // LastIndexByte 返回 s 中 c 最后一次出现的索引，若 c 不在 s 中，则返回 -1。
 
 // ff:取字节最后索引
-// c:字节
 // s:原文本
+// c:字节
 func LastIndexByte(s string, c byte) int { //md5:3dc6c63525e2007ee6cccdee606cb585
 	return strings.LastIndexByte(s, c)
 }
@@ -110,9 +110,9 @@ func LastIndexByte(s string, c byte) int { //md5:3dc6c63525e2007ee6cccdee606cb58
 // 若要按第一个分隔符实例进行分割，请参见Cut。
 
 // ff:分割并按数量
-// n:返回数量
-// sep:分隔符
 // s:原文本
+// sep:分隔符
+// n:返回数量
 func SplitN(s, sep string, n int) []string { //md5:2ef42e1e1c8b9efaf8efedea2b1b2b58
 	return strings.SplitN(s, sep, n)
 }
@@ -128,9 +128,9 @@ func SplitN(s, sep string, n int) []string { //md5:2ef42e1e1c8b9efaf8efedea2b1b2
 // 对于s和sep的边缘情况（如空字符串），处理方式与SplitAfter函数文档中所述一致。
 
 // ff:分割并按数量2
-// n:返回数量
-// sep:分隔符
 // s:原文本
+// sep:分隔符
+// n:返回数量
 func SplitAfterN(s, sep string, n int) []string { //md5:5c4f7c8941408be7caa300dfd6629980
 	return strings.SplitAfterN(s, sep, n)
 }
@@ -146,8 +146,8 @@ func SplitAfterN(s, sep string, n int) []string { //md5:5c4f7c8941408be7caa300df
 // 若要按照第一个分隔符实例进行分割，请参见 Cut 函数。
 
 // ff:分割
-// sep:分隔符
 // s:原文本
+// sep:分隔符
 func Split(s, sep string) []string { //md5:9e39ccbb6ab10559dc6dfa7be187dc75
 	return strings.Split(s, sep)
 }
@@ -161,8 +161,8 @@ func Split(s, sep string) []string { //md5:9e39ccbb6ab10559dc6dfa7be187dc75
 // 它等同于使用计数为 -1 的 [SplitAfterN]。
 
 // ff:分割2
-// sep:分隔符
 // s:原文本
+// sep:分隔符
 func SplitAfter(s, sep string) []string { //md5:7feaa482c8e32826bdbe24bf223ee6e7
 	return strings.SplitAfter(s, sep)
 }
@@ -180,8 +180,8 @@ func Fields(s string) []string { //md5:1f8999413d2d4e0022170f15e0baae55
 // FieldsFunc 不保证调用 f(c) 的顺序，且假定对于给定的 c，f 总是返回相同的值。
 
 // ff:分割FUNC
-// f:回调函数
 // s:原文本
+// f:回调函数
 func FieldsFunc(s string, f func(rune) bool) []string { //md5:fb9dfb813e048fcf1d47059175b1f561
 	return strings.FieldsFunc(s, f)
 }
@@ -189,8 +189,8 @@ func FieldsFunc(s string, f func(rune) bool) []string { //md5:fb9dfb813e048fcf1d
 // Join 函数将第一个参数中的元素连接起来，生成一个单一的字符串。分隔符字符串 sep 会被放置在结果字符串中各元素之间。
 
 // ff:连接
-// sep:连接符
 // elems:切片
+// sep:连接符
 func Join(elems []string, sep string) string { //md5:00ef0cc76f825778bdb1f1c6ab82a33d
 	return strings.Join(elems, sep)
 }
@@ -198,8 +198,8 @@ func Join(elems []string, sep string) string { //md5:00ef0cc76f825778bdb1f1c6ab8
 // HasPrefix 判断字符串 s 是否以 prefix 作为前缀。
 
 // ff:是否为前缀
-// prefix:前缀
 // s:原文本
+// prefix:前缀
 func HasPrefix(s, prefix string) bool { //md5:e1f46e88f0e4ea58e45b8de9709c6e08
 	return strings.HasPrefix(s, prefix)
 }
@@ -207,8 +207,8 @@ func HasPrefix(s, prefix string) bool { //md5:e1f46e88f0e4ea58e45b8de9709c6e08
 // HasSuffix 判断字符串 s 是否以 suffix 结尾。
 
 // ff:是否为后缀
-// suffix:后缀
 // s:原文本
+// suffix:后缀
 func HasSuffix(s, suffix string) bool { //md5:1ddeca0a9e56022d90d75810b20fb6da
 	return strings.HasSuffix(s, suffix)
 }
@@ -217,8 +217,8 @@ func HasSuffix(s, suffix string) bool { //md5:1ddeca0a9e56022d90d75810b20fb6da
 // 若映射函数返回负值，则该字符将从字符串中删除，不作替换。
 
 // ff:遍历修改FUNC
-// s:原文本
 // mapping:回调函数
+// s:原文本
 func Map(mapping func(rune) rune, s string) string { //md5:63ed0c242381265245671e75ecccb37f
 	return strings.Map(mapping, s)
 }
@@ -228,8 +228,8 @@ func Map(mapping func(rune) rune, s string) string { //md5:63ed0c242381265245671
 // 如果 count 为负数，或者 (len(s) * count) 的结果溢出时，将会引发恐慌。
 
 // ff:生成重复文本
-// count:重复次数
 // s:原文本
+// count:重复次数
 func Repeat(s string, count int) string { //md5:d49e11180de57b1bad15b47471444a40
 	return strings.Repeat(s, count)
 }
@@ -261,8 +261,8 @@ func ToTitle(s string) string { //md5:7cb166b3ddebfd1125f25ad2a7a6bc0f
 // ToUpperSpecial返回字符串s的副本，其中所有Unicode字母均根据c指定的大小写映射规则转换为大写。
 
 // ff:到大写并按规则
-// s:原文本
 // c:大小写规则
+// s:原文本
 func ToUpperSpecial(c unicode.SpecialCase, s string) string { //md5:b4e286fb9418724e1543c7af9b9e3af9
 	return strings.ToUpperSpecial(c, s)
 }
@@ -270,8 +270,8 @@ func ToUpperSpecial(c unicode.SpecialCase, s string) string { //md5:b4e286fb9418
 // ToLowerSpecial返回一个字符串s的副本，其中所有Unicode字母都根据c指定的大小写映射规则转换为小写。
 
 // ff:到小写并按规则
-// s:原文本
 // c:大小写规则
+// s:原文本
 func ToLowerSpecial(c unicode.SpecialCase, s string) string { //md5:dc9a6ec7663a80cdd586a2e9772618ac
 	return strings.ToLowerSpecial(c, s)
 }
@@ -280,8 +280,8 @@ func ToLowerSpecial(c unicode.SpecialCase, s string) string { //md5:dc9a6ec7663a
 // Unicode 标题大小写形式，并优先考虑特殊大小写规则。
 
 // ff:到大写2并按规则
-// s:原文本
 // c:大小写规则
+// s:原文本
 func ToTitleSpecial(c unicode.SpecialCase, s string) string { //md5:6eebd87af27dac15039ad70bc35e7318
 	return strings.ToTitleSpecial(c, s)
 }
@@ -289,8 +289,8 @@ func ToTitleSpecial(c unicode.SpecialCase, s string) string { //md5:6eebd87af27d
 // ToValidUTF8 返回字符串 s 的副本，其中每个无效的 UTF-8 字节序列均被替换为替换字符串（可能为空）。
 
 // ff:替换无效UTF8字节
-// replacement:替换符
 // s:原文本
+// replacement:替换符
 func ToValidUTF8(s, replacement string) string { //md5:422f67249cb248a3bd9c0ab9b1d097e1
 	return strings.ToValidUTF8(s, replacement)
 }
@@ -308,8 +308,8 @@ func Title(s string) string { //md5:adaf62896a837fe0a4b94cef489e74c6
 // TrimLeftFunc返回字符串s的一个切片，其中所有满足f(c)的起始Unicode码点c已被移除。
 
 // ff:删起始字符FUNC
-// f:回调函数
 // s:原文本
+// f:回调函数
 func TrimLeftFunc(s string, f func(rune) bool) string { //md5:516609201171fccebe5fce4ada48d1ad
 	return strings.TrimLeftFunc(s, f)
 }
@@ -317,8 +317,8 @@ func TrimLeftFunc(s string, f func(rune) bool) string { //md5:516609201171fccebe
 // TrimRightFunc返回字符串s的一个切片，其中所有满足f(c)的尾部Unicode码点均被移除。
 
 // ff:删尾部字符FUNC
-// f:回调函数
 // s:原文本
+// f:回调函数
 func TrimRightFunc(s string, f func(rune) bool) string { //md5:280f57b7a6e49458e7ab99785d88cfc4
 	return strings.TrimRightFunc(s, f)
 }
@@ -326,8 +326,8 @@ func TrimRightFunc(s string, f func(rune) bool) string { //md5:280f57b7a6e49458e
 // TrimFunc返回字符串s的一个切片，其中所有满足f(c)的首尾Unicode字符码被移除。
 
 // ff:删首尾字符FUNC
-// f:回调函数
 // s:原文本
+// f:回调函数
 func TrimFunc(s string, f func(rune) bool) string { //md5:f83f48e3eb47b62b7e1ecdc80aa8229b
 	return strings.TrimFunc(s, f)
 }
@@ -335,8 +335,8 @@ func TrimFunc(s string, f func(rune) bool) string { //md5:f83f48e3eb47b62b7e1ecd
 // IndexFunc返回s中第一个满足f(c)的Unicode码点的索引，如果不存在满足条件的码点，则返回-1。
 
 // ff:查找字符索引FUNC
-// f:回调函数
 // s:原文本
+// f:回调函数
 func IndexFunc(s string, f func(rune) bool) int { //md5:22c6b63d2713ff3020a8ced746a3bcdb
 	return strings.IndexFunc(s, f)
 }
@@ -344,8 +344,8 @@ func IndexFunc(s string, f func(rune) bool) int { //md5:22c6b63d2713ff3020a8ced7
 // LastIndexFunc返回s中最后一个满足f(c)的Unicode码点的索引，若无满足条件的码点，则返回-1。
 
 // ff:查找最后字符索引FUNC
-// f:回调函数
 // s:原文本
+// f:回调函数
 func LastIndexFunc(s string, f func(rune) bool) int { //md5:c29da2b69561585e838689d903e72dac
 	return strings.LastIndexFunc(s, f)
 }
@@ -353,8 +353,8 @@ func LastIndexFunc(s string, f func(rune) bool) int { //md5:c29da2b69561585e8386
 // Trim返回字符串s的一个切片，其中包含的所有在cutset中的前导和尾部Unicode字符码点已被移除。
 
 // ff:
-// cutset:
 // s:
+// cutset:
 func Trim(s, cutset string) string { //md5:d4e63cddca34d67410bbe36516a460d4
 	return strings.Trim(s, cutset)
 }
@@ -365,8 +365,8 @@ func Trim(s, cutset string) string { //md5:d4e63cddca34d67410bbe36516a460d4
 // 要移除前缀，请使用[TrimPrefix]代替。
 
 // ff:
-// cutset:
 // s:
+// cutset:
 func TrimLeft(s, cutset string) string { //md5:900b2617ce88019f221e18c5d48d88af
 	return strings.TrimLeft(s, cutset)
 }
@@ -376,8 +376,8 @@ func TrimLeft(s, cutset string) string { //md5:900b2617ce88019f221e18c5d48d88af
 // 要移除后缀，应使用[TrimSuffix]代替。
 
 // ff:删尾部字符
-// cutset:
 // s:原文本
+// cutset:
 func TrimRight(s, cutset string) string { //md5:5264a3ff78fb7d36909186e6a8dbef64
 	return strings.TrimRight(s, cutset)
 }
@@ -394,8 +394,8 @@ func TrimSpace(s string) string { //md5:3d7d6d251ac5a73c7e895d7eab45c28c
 // 若s以prefix开头，则返回去掉prefix后的s；否则返回s保持原样不变。
 
 // ff:删前缀
-// prefix:前缀
 // s:原文本
+// prefix:前缀
 func TrimPrefix(s, prefix string) string { //md5:7b252f4ef2548b2526b142c154ee698c
 	return strings.TrimPrefix(s, prefix)
 }
@@ -404,8 +404,8 @@ func TrimPrefix(s, prefix string) string { //md5:7b252f4ef2548b2526b142c154ee698
 // 若 s 末尾不包含该后缀，则返回 s 保持原样不变。
 
 // ff:删后缀
-// suffix:后缀
 // s:原文本
+// suffix:后缀
 func TrimSuffix(s, suffix string) string { //md5:48e4d1998c003b0feefefd543d4a55dd
 	return strings.TrimSuffix(s, suffix)
 }
@@ -415,10 +415,10 @@ func TrimSuffix(s, suffix string) string { //md5:48e4d1998c003b0feefefd543d4a55d
 // 若n < 0，则替换次数无限制。
 
 // ff:
-// n:
-// new:
-// old:
 // s:
+// old:
+// new:
+// n:
 func Replace(s, old, new string, n int) string { //md5:f43175906f03445467e9423a396f9774
 	return strings.Replace(s, old, new, n)
 }
@@ -427,9 +427,9 @@ func Replace(s, old, new string, n int) string { //md5:f43175906f03445467e9423a3
 // 如果old为空，它将在字符串起始处以及每个UTF-8序列之后匹配，对于一个包含k个符文的字符串，最多产生k+1次替换。
 
 // ff:
-// new:
-// old:
 // s:
+// old:
+// new:
 func ReplaceAll(s, old, new string) string { //md5:9174341d7ee38be79885b5c0fd72091e
 	return strings.ReplaceAll(s, old, new)
 }
@@ -437,8 +437,8 @@ func ReplaceAll(s, old, new string) string { //md5:9174341d7ee38be79885b5c0fd720
 // EqualFold报告当s和t以UTF-8字符串形式解释时，它们在简单Unicode大小写折叠规则下是否相等。这是一种更通用的大小写不敏感比较方式。
 
 // ff:
-// t:
 // s:
+// t:
 func EqualFold(s, t string) bool { //md5:c0895dc9a6f5e3ac2092811656c1c6aa
 	return strings.EqualFold(s, t)
 }
@@ -446,8 +446,8 @@ func EqualFold(s, t string) bool { //md5:c0895dc9a6f5e3ac2092811656c1c6aa
 // Index 返回字符串 s 中首次出现子串 substr 的索引，若 substr 不在 s 中，则返回 -1。
 
 // ff:
-// substr:
 // s:
+// substr:
 func Index(s, substr string) int { //md5:7c8755646e2ccdea7c6a5360d8d1e685
 	return strings.Index(s, substr)
 }
@@ -458,11 +458,11 @@ func Index(s, substr string) int { //md5:7c8755646e2ccdea7c6a5360d8d1e685
 // 若 sep 未在 s 中出现，则 Cut 返回 s，空字符串，false。
 
 // ff:
-// found:
-// after:
-// before:
-// sep:
 // s:
+// sep:
+// before:
+// after:
+// found:
 func Cut(s, sep string) (before, after string, found bool) { //md5:101ffdd375b539b69a47d8fc1f0cb22d
 	return strings.Cut(s, sep)
 }
@@ -472,10 +472,10 @@ func Cut(s, sep string) (before, after string, found bool) { //md5:101ffdd375b53
 // 若 prefix 为空字符串，CutPrefix 返回 s, true。
 
 // ff:
-// found:
-// after:
-// prefix:
 // s:
+// prefix:
+// after:
+// found:
 func CutPrefix(s, prefix string) (after string, found bool) { //md5:9ac4eac0ec5c4a09c1e7ce3f8cfefe95
 	return strings.CutPrefix(s, prefix)
 }
@@ -485,10 +485,10 @@ func CutPrefix(s, prefix string) (after string, found bool) { //md5:9ac4eac0ec5c
 // 若 suffix 为空字符串，CutSuffix 返回 s, true。
 
 // ff:
-// found:
-// before:
-// suffix:
 // s:
+// suffix:
+// before:
+// found:
 func CutSuffix(s, suffix string) (before string, found bool) { //md5:e0b07650a60a8f446976a06d09da4193
 	return strings.CutSuffix(s, suffix)
 }

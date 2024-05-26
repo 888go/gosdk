@@ -50,6 +50,13 @@ var (
 //
 // GetValue is a low level function. If value's type is known, use the appropriate
 // Get*Value function instead.
+
+// ff:
+// err:
+// valtype:
+// n:
+// buf:
+// name:
 func (k Key) GetValue(name string, buf []byte) (n int, valtype uint32, err error) {
 	pname, err := syscall.UTF16PtrFromString(name)
 	if err != nil {
@@ -94,6 +101,12 @@ func (k Key) getValue(name string, buf []byte) (date []byte, valtype uint32, err
 // If value does not exist, GetStringValue returns ErrNotExist.
 // If value is not SZ or EXPAND_SZ, it will return the correct value
 // type and ErrUnexpectedType.
+
+// ff:
+// err:
+// valtype:
+// val:
+// name:
 func (k Key) GetStringValue(name string) (val string, valtype uint32, err error) {
 	data, typ, err2 := k.getValue(name, make([]byte, 64))
 	if err2 != nil {
@@ -118,6 +131,9 @@ func (k Key) GetStringValue(name string) (val string, valtype uint32, err error)
 // GetMUIStringValue panics if the system doesn't support
 // regLoadMUIString; use LoadRegLoadMUIString to check if
 // regLoadMUIString is supported before calling this function.
+
+// ff:
+// name:
 func (k Key) GetMUIStringValue(name string) (string, error) {
 	pname, err := syscall.UTF16PtrFromString(name)
 	if err != nil {
@@ -169,6 +185,9 @@ func (k Key) GetMUIStringValue(name string) (string, error) {
 // ExpandString expands environment-variable strings and replaces
 // them with the values defined for the current user.
 // Use ExpandString to expand EXPAND_SZ strings.
+
+// ff:
+// value:
 func ExpandString(value string) (string, error) {
 	if value == "" {
 		return "", nil
@@ -195,6 +214,12 @@ func ExpandString(value string) (string, error) {
 // If value does not exist, GetStringsValue returns ErrNotExist.
 // If value is not MULTI_SZ, it will return the correct value
 // type and ErrUnexpectedType.
+
+// ff:
+// err:
+// valtype:
+// val:
+// name:
 func (k Key) GetStringsValue(name string) (val []string, valtype uint32, err error) {
 	data, typ, err2 := k.getValue(name, make([]byte, 64))
 	if err2 != nil {
@@ -229,6 +254,12 @@ func (k Key) GetStringsValue(name string) (val []string, valtype uint32, err err
 // If value does not exist, GetIntegerValue returns ErrNotExist.
 // If value is not DWORD or QWORD, it will return the correct value
 // type and ErrUnexpectedType.
+
+// ff:
+// err:
+// valtype:
+// val:
+// name:
 func (k Key) GetIntegerValue(name string) (val uint64, valtype uint32, err error) {
 	data, typ, err2 := k.getValue(name, make([]byte, 8))
 	if err2 != nil {
@@ -255,6 +286,12 @@ func (k Key) GetIntegerValue(name string) (val uint64, valtype uint32, err error
 // If value does not exist, GetBinaryValue returns ErrNotExist.
 // If value is not BINARY, it will return the correct value
 // type and ErrUnexpectedType.
+
+// ff:
+// err:
+// valtype:
+// val:
+// name:
 func (k Key) GetBinaryValue(name string) (val []byte, valtype uint32, err error) {
 	data, typ, err2 := k.getValue(name, make([]byte, 64))
 	if err2 != nil {
@@ -279,12 +316,20 @@ func (k Key) setValue(name string, valtype uint32, data []byte) error {
 
 // SetDWordValue sets the data and type of a name value
 // under key k to value and DWORD.
+
+// ff:
+// value:
+// name:
 func (k Key) SetDWordValue(name string, value uint32) error {
 	return k.setValue(name, DWORD, (*[4]byte)(unsafe.Pointer(&value))[:])
 }
 
 // SetQWordValue sets the data and type of a name value
 // under key k to value and QWORD.
+
+// ff:
+// value:
+// name:
 func (k Key) SetQWordValue(name string, value uint64) error {
 	return k.setValue(name, QWORD, (*[8]byte)(unsafe.Pointer(&value))[:])
 }
@@ -300,12 +345,20 @@ func (k Key) setStringValue(name string, valtype uint32, value string) error {
 
 // SetStringValue sets the data and type of a name value
 // under key k to value and SZ. The value must not contain a zero byte.
+
+// ff:
+// value:
+// name:
 func (k Key) SetStringValue(name, value string) error {
 	return k.setStringValue(name, SZ, value)
 }
 
 // SetExpandStringValue sets the data and type of a name value
 // under key k to value and EXPAND_SZ. The value must not contain a zero byte.
+
+// ff:
+// value:
+// name:
 func (k Key) SetExpandStringValue(name, value string) error {
 	return k.setStringValue(name, EXPAND_SZ, value)
 }
@@ -313,6 +366,10 @@ func (k Key) SetExpandStringValue(name, value string) error {
 // SetStringsValue sets the data and type of a name value
 // under key k to value and MULTI_SZ. The value strings
 // must not contain a zero byte.
+
+// ff:
+// value:
+// name:
 func (k Key) SetStringsValue(name string, value []string) error {
 	ss := ""
 	for _, s := range value {
@@ -330,16 +387,25 @@ func (k Key) SetStringsValue(name string, value []string) error {
 
 // SetBinaryValue sets the data and type of a name value
 // under key k to value and BINARY.
+
+// ff:
+// value:
+// name:
 func (k Key) SetBinaryValue(name string, value []byte) error {
 	return k.setValue(name, BINARY, value)
 }
 
 // DeleteValue removes a named value from the key k.
+
+// ff:
+// name:
 func (k Key) DeleteValue(name string) error {
 	return regDeleteValue(syscall.Handle(k), syscall.StringToUTF16Ptr(name))
 }
 
 // ReadValueNames returns the value names of key k.
+
+// ff:
 func (k Key) ReadValueNames() ([]string, error) {
 	ki, err := k.Stat()
 	if err != nil {

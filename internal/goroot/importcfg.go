@@ -15,6 +15,9 @@ import (
 // Importcfg returns an importcfg file to be passed to the
 // Go compiler that contains the cached paths for the .a files for the
 // standard library.
+// 翻译提示:func 导入配置() (字符串, 错误) {}
+
+// ff:
 func Importcfg() (string, error) {
 	var icfg bytes.Buffer
 
@@ -30,6 +33,11 @@ func Importcfg() (string, error) {
 	return s, nil
 }
 
+// 翻译提示:var (
+//	标准库包文件映射 map[string]string
+//	标准库包文件错误 error
+//	一次性初始化 sync.Once
+//)
 var (
 	stdlibPkgfileMap map[string]string
 	stdlibPkgfileErr error
@@ -39,6 +47,9 @@ var (
 // PkgfileMap returns a map of package paths to the location on disk
 // of the .a file for the package.
 // The caller must not modify the map.
+// 翻译提示:func 包文件映射() (map[string]string, error) {}
+
+// ff:
 func PkgfileMap() (map[string]string, error) {
 	once.Do(func() {
 		m := make(map[string]string)

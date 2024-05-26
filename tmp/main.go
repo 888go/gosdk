@@ -2,59 +2,25 @@ package main
 
 import (
 	"fmt"
+	"os"
 )
 
-//go:comdef
-type IMyInterface interface {
-	DoSomething(arg int) int
-}
-
-type MyInterface struct {
-	ole.IDispatch
-}
-
-func (m *MyInterface) DoSomething(arg int) int {
-	fmt.Printf("DoSomething called with arg: %d\n", arg)
-	return arg * 2
-}
-
 func main() {
-	obj, err := ole.NewComObject("MyInterface")
+	dirPath := "E:\\SVN\\GO\\code\\WanCheng\\FanYiGo" // 替换为你要读取的目录路径
+	file, err := os.Open(dirPath)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("Error opening directory:", err)
+		return
+	}
+	defer file.Close()
+
+	names, err := file.Readdirnames(-1) // -1 表示读取所有文件
+	if err != nil {
+		fmt.Println("Error reading directory:", err)
 		return
 	}
 
-	result, err := obj.CallMethod("DoSomething", 10)
-	if err != nil {
-		fmt.Println(err)
-		return
+	for _, name := range names {
+		fmt.Println(name)
 	}
-
-	fmt.Printf("Result: %d\n", result.Val)
 }
-
-
-// zj:追加开始, 一个文件只能追加一个代码段,通常是String()或者接口不方便翻译,需要新增一个相同功能的中文方法.
-
-// String 方法返回缓冲区未读部分内容作为字符串。
-// 如果 [Buffer] 是一个空指针，它将返回 "<nil>"。
-//
-// 要更高效地构建字符串，请参见 strings.Builder 类型。
-func (b *Buffer) X取未读文本() string { //md5:2a07d671bd398c91
-	return b.F.String()
-}
-
-// Read 从缓冲区中读取接下来的 len(p) 个字节，或者直到缓冲区被读空。返回值 n 是读取的字节数。如果缓冲区没有数据可读，err 将是 io.EOF（除非 len(p) 为零）；否则 err 为 nil。
-func (b *Buffer) X读取字节集(字节集变量 []byte) (读取长度 int, 错误 error) { //md5:d77b54302f43331e
-	return b.F.Read(字节集变量)
-}
-
-// Write 将 p 的内容追加到缓冲区，如果需要会扩大缓冲区。返回值 n 是 p 的长度；err 总是为 nil。如果缓冲区变得过大，Write 会引发一个 [ErrTooLarge] 的 panic。
-func (b *Buffer) X写入字节集(写入字节集 []byte) (写入长度 int, 错误 error) { //md5:6f1eceb67804b19f
-	return b.F.Write(写入字节集)
-}
-
-1111
-
-// zj:追加结束

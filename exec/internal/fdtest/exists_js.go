@@ -11,9 +11,6 @@ import (
 )
 
 // Exists returns true if fd is a valid file descriptor.
-
-// ff:
-// fd:
 func Exists(fd uintptr) bool {
 	var s syscall.Stat_t
 	err := syscall.Fstat(int(fd), &s)

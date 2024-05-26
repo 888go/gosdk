@@ -9,6 +9,11 @@ package platform
 // Race detector only supports 48-bit VMA on arm64. But it will always
 // return true for arm64, because we don't have VMA size information during
 // the compile time.
+// 翻译提示:func 支持竞态检测(goos, goarch string) bool {}
+
+// ff:
+// goarch:
+// goos:
 func RaceDetectorSupported(goos, goarch string) bool {
 	switch goos {
 	case "linux":
@@ -25,6 +30,11 @@ func RaceDetectorSupported(goos, goarch string) bool {
 // MSanSupported reports whether goos/goarch supports the memory
 // sanitizer option.
 // There is a copy of this function in misc/cgo/testsanitizers/cc_test.go.
+// 翻译提示:func 内存Sanitizer支持(goos, goarch 字符串) 布尔值 {}
+
+// ff:
+// goarch:
+// goos:
 func MSanSupported(goos, goarch string) bool {
 	switch goos {
 	case "linux":
@@ -39,6 +49,11 @@ func MSanSupported(goos, goarch string) bool {
 // ASanSupported reports whether goos/goarch supports the address
 // sanitizer option.
 // There is a copy of this function in misc/cgo/testsanitizers/cc_test.go.
+// 翻译提示:func 内存Sanitizer支持操作系统(goos, goarch string) bool {}
+
+// ff:
+// goarch:
+// goos:
 func ASanSupported(goos, goarch string) bool {
 	switch goos {
 	case "linux":
@@ -50,6 +65,11 @@ func ASanSupported(goos, goarch string) bool {
 
 // FuzzSupported reports whether goos/goarch supports fuzzing
 // ('go test -fuzz=.').
+// 翻译提示:func 支持模糊测试(goos, goarch string) bool {}
+
+// ff:
+// goarch:
+// goos:
 func FuzzSupported(goos, goarch string) bool {
 	switch goos {
 	case "darwin", "freebsd", "linux", "windows":
@@ -61,6 +81,11 @@ func FuzzSupported(goos, goarch string) bool {
 
 // FuzzInstrumented reports whether fuzzing on goos/goarch uses coverage
 // instrumentation. (FuzzInstrumented implies FuzzSupported.)
+// 翻译提示:func 模拟测试平台(goos, goarch string) bool {}
+
+// ff:
+// goarch:
+// goos:
 func FuzzInstrumented(goos, goarch string) bool {
 	switch goarch {
 	case "amd64", "arm64":
@@ -72,6 +97,11 @@ func FuzzInstrumented(goos, goarch string) bool {
 }
 
 // MustLinkExternal reports whether goos/goarch requires external linking.
+// 翻译提示:func 必须链接外部库(goos, goarch string) bool {}
+
+// ff:
+// goarch:
+// goos:
 func MustLinkExternal(goos, goarch string) bool {
 	return MustLinkExternalGo121(goos, goarch, false)
 }
@@ -79,6 +109,12 @@ func MustLinkExternal(goos, goarch string) bool {
 // MustLinkExternalGo121 reports whether goos/goarch requires external linking,
 // with or without cgo dependencies. [This version back-ported from
 // Go 1.21 as part of a test].
+// 翻译提示:func 必须链接外部Go121操作系统, 架构, 是否包含Cgo bool {}
+
+// ff:
+// withCgo:
+// goarch:
+// goos:
 func MustLinkExternalGo121(goos, goarch string, withCgo bool) bool {
 	if withCgo {
 		switch goarch {
@@ -125,6 +161,21 @@ func MustLinkExternalGo121(goos, goarch string, withCgo bool) bool {
 
 // BuildModeSupported reports whether goos/goarch supports the given build mode
 // using the given compiler.
+// 翻译提示:func 支持构建模式(compiler, buildmode, goos, goarch string) bool {} 
+//
+//这里将方法名`BuildModeSupported`翻译为`支持构建模式`，参数名分别翻译为：
+//- `compiler` -> `编译器`
+//- `buildmode` -> `构建模式`
+//- `goos` -> `操作系统`
+//- `goarch` -> `架构`
+//
+//返回值保持不变，仍为`bool`类型，表示是否支持的布尔值。
+
+// ff:
+// goarch:
+// goos:
+// buildmode:
+// compiler:
 func BuildModeSupported(compiler, buildmode, goos, goarch string) bool {
 	if compiler == "gccgo" {
 		return true
@@ -193,6 +244,11 @@ func BuildModeSupported(compiler, buildmode, goos, goarch string) bool {
 	}
 }
 
+// 翻译提示:func 内部链接PIESupported(操作系统, 架构 string) bool {}
+
+// ff:
+// goarch:
+// goos:
 func InternalLinkPIESupported(goos, goarch string) bool {
 	switch goos + "/" + goarch {
 	case "darwin/amd64", "darwin/arm64",

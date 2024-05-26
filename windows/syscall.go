@@ -83,28 +83,32 @@ func BytePtrToString(p *byte) string {
 // 参见 mksyscall.pl。
 var _zero uintptr
 
+// 翻译提示:func  (ts  *时间戳)  Unix()  (秒  int64,  纳秒  int64)  {}
 
 // ff:
-// nsec:
 // sec:
+// nsec:
 func (ts *Timespec) Unix() (sec int64, nsec int64) {
 	return int64(ts.Sec), int64(ts.Nsec)
 }
 
+// 翻译提示:func  (tv  *时间戳)  Unix()  (秒  int64,  纳秒  int64)  {}
 
 // ff:
-// nsec:
 // sec:
+// nsec:
 func (tv *Timeval) Unix() (sec int64, nsec int64) {
 	return int64(tv.Sec), int64(tv.Usec) * 1000
 }
 
+// 翻译提示:func  (ts  *时间戳)  纳秒()  int64  {}
 
 // ff:
 func (ts *Timespec) Nano() int64 {
 	return int64(ts.Sec)*1e9 + int64(ts.Nsec)
 }
 
+// 翻译提示:func  (tv  *时间戳)  获取纳秒()  int64  {}
 
 // ff:
 func (tv *Timeval) Nano() int64 {

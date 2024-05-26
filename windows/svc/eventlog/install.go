@@ -13,6 +13,12 @@ import (
 	"github.com/888go/gosdk/windows/registry"
 )
 
+// 翻译提示:const  (
+// 	//  日志级别。
+// 	信息  =  windows.EVENTLOG_INFORMATION_TYPE
+// 	警告  =  windows.EVENTLOG_WARNING_TYPE
+// 	错误  =  windows.EVENTLOG_ERROR_TYPE
+// )
 const (
 	// Log levels.
 	Info    = windows.EVENTLOG_INFORMATION_TYPE
@@ -30,10 +36,10 @@ const addKeyName = `SYSTEM\CurrentControlSet\Services\EventLog\Application`
 // log.Info 的按位组合指定新事件源支持的事件。
 
 // ff:
-// eventsSupported:
-// useExpandKey:
-// msgFile:
 // src:
+// msgFile:
+// useExpandKey:
+// eventsSupported:
 func Install(src, msgFile string, useExpandKey bool, eventsSupported uint32) error {
 	appkey, err := registry.OpenKey(registry.LOCAL_MACHINE, addKeyName, registry.CREATE_SUB_KEY)
 	if err != nil {
@@ -73,8 +79,8 @@ func Install(src, msgFile string, useExpandKey bool, eventsSupported uint32) err
 // %SystemRoot%\System32\EventCreate.exe 作为事件消息文件。
 
 // ff:
-// eventsSupported:
 // src:
+// eventsSupported:
 func InstallAsEventCreate(src string, eventsSupported uint32) error {
 	return Install(src, "%SystemRoot%\\System32\\EventCreate.exe", true, eventsSupported)
 }

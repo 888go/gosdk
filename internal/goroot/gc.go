@@ -16,6 +16,12 @@ import (
 
 // IsStandardPackage reports whether path is a standard package,
 // given goroot and compiler.
+// 翻译提示:func 是标准包(goroot, 编译器, 路径 string) bool {}
+
+// ff:
+// path:
+// compiler:
+// goroot:
 func IsStandardPackage(goroot, compiler, path string) bool {
 	switch compiler {
 	case "gc":

@@ -10,6 +10,7 @@ import (
 
 // DevNull is the name of the operating system's “null device.”
 // On Unix-like systems, it is "/dev/null"; on Windows, "NUL".
+// 翻译提示:const  设备空值  =  os.DevNull  //md5:fd826574d8e31ba8
 const DevNull = os.DevNull //md5:fd826574d8e31ba8
 
 // Stdin, Stdout 和 Stderr 是指向标准输入、标准输出和标准错误文件描述符的已打开的 File 对象。
@@ -56,12 +57,14 @@ func (f *File) Name() string { //md5:797d96c447cb1cd703eea2eba5e775ca
 	return f.F.Name()
 }
 
+// 翻译提示:func  (e  *链接错误)  错误()  字符串  {}
 
 // ff:取错误文本
 func (e *LinkError) Error() string { //md5:d31cca2335c1e2d94b14bb50d57d1422
 	return e.F.Error()
 }
 
+// 翻译提示:func  (e  *链接错误)  获取包裹错误()  错误  {}
 
 // ff:取错误对象
 func (e *LinkError) Unwrap() error { //md5:cd73098610689f7781bd0c37ecae1a6b
@@ -71,9 +74,9 @@ func (e *LinkError) Unwrap() error { //md5:cd73098610689f7781bd0c37ecae1a6b
 // Read从File读取最多len(b)字节，并将它们存储在b中。它返回已读取的字节数和遇到的任何错误。在文件结束时，Read返回0和io.EOF。
 
 // ff:读取
-// err:错误
-// n:读取长度
 // b:缓冲区变量
+// n:读取长度
+// err:错误
 func (f *File) Read(b []byte) (n int, err error) { //md5:ad71ac702ff91fdcd93706e2f46dd3a2
 	return f.F.Read(b)
 }
@@ -83,10 +86,10 @@ func (f *File) Read(b []byte) (n int, err error) { //md5:ad71ac702ff91fdcd93706e
 // 在文件末尾，该错误为io.EOF。
 
 // ff:读取并按偏移量
-// err:错误
-// n:读取长度
-// off:偏移量
 // b:缓冲区变量
+// off:偏移量
+// n:读取长度
+// err:错误
 func (f *File) ReadAt(b []byte, off int64) (n int, err error) { //md5:d30542dbb7bb2327308ded03baf9a4e6
 	return f.F.ReadAt(b, off)
 }
@@ -94,9 +97,9 @@ func (f *File) ReadAt(b []byte, off int64) (n int, err error) { //md5:d30542dbb7
 // ReadFrom 实现了 io.ReaderFrom 接口。
 
 // ff:写数据并从io读取器
-// err:错误
-// n:写入长度
 // r:
+// n:写入长度
+// err:错误
 func (f *File) ReadFrom(r io.Reader) (n int64, err error) { //md5:e15d3a79d68be3fcd1fd179d8b774a60
 	return f.F.ReadFrom(r)
 }
@@ -109,9 +112,9 @@ func (f *File) ReadFrom(r io.Reader) (n int64, err error) { //md5:e15d3a79d68be3
 // Write 从b中写入len(b)字节到File。它返回写入的字节数和任何错误。当n不等于len(b)时，Write返回非nil错误。
 
 // ff:写字节集
-// err:错误
-// n:写入长度
 // b:字节集
+// n:写入长度
+// err:错误
 func (f *File) Write(b []byte) (n int, err error) { //md5:f10e7f2db4e8de222a935f06c34b614c
 	return f.F.Write(b)
 }
@@ -123,10 +126,10 @@ func (f *File) Write(b []byte) (n int, err error) { //md5:f10e7f2db4e8de222a935f
 // 若文件以 O_APPEND 标志打开，WriteAt 将返回一个错误。
 
 // ff:写字节集并按偏移量
-// err:错误
-// n:写入长度
-// off:偏移量
 // b:字节集
+// off:偏移量
+// n:写入长度
+// err:错误
 func (f *File) WriteAt(b []byte, off int64) (n int, err error) { //md5:80c9238c8125967bb904a4febd529e43
 	return f.F.WriteAt(b, off)
 }
@@ -139,10 +142,10 @@ func (f *File) WriteAt(b []byte, off int64) (n int, err error) { //md5:80c9238c8
 // Seek 设置文件的下一个 Read 或 Write 操作的偏移量，根据 whence 的值进行解释：0 表示相对于文件的起始位置，1 表示相对于当前偏移量，2 表示相对于文件末尾。它返回新的偏移量和任何错误。对于使用 O_APPEND 模式打开的文件，Seek 的行为未做规定。
 
 // ff:设置偏移量
-// err:错误
-// ret:
-// whence:常量_位置_
 // offset:偏移量
+// whence:常量_位置_
+// ret:
+// err:错误
 func (f *File) Seek(offset int64, whence int) (ret int64, err error) { //md5:139f47ea5ff396841d16378f9b4f5757
 	return f.F.Seek(offset, whence)
 }
@@ -150,9 +153,9 @@ func (f *File) Seek(offset int64, whence int) (ret int64, err error) { //md5:139
 // WriteString 类似于 Write，但其写入的是字符串 s 的内容，而非字节片。
 
 // ff:写文本
-// err:错误
-// n:写入长度
 // s:文本
+// n:写入长度
+// err:错误
 func (f *File) WriteString(s string) (n int, err error) { //md5:98c1882151f4a7bf3e126fc8aa052a98
 	return f.F.WriteString(s)
 }
@@ -161,8 +164,8 @@ func (f *File) WriteString(s string) (n int, err error) { //md5:98c1882151f4a7bf
 // 如果发生错误，该错误将为 *PathError 类型。
 
 // ff:目录创建
-// perm:权限
 // name:路径
+// perm:权限
 func Mkdir(name string, perm FileMode) error { //md5:c2f7f3e5c608f078329bca6aad4968a7
 	return os.Mkdir(name, perm)
 }
@@ -206,9 +209,9 @@ func Create(name string) (*File, error) { //md5:0901909cad4273888ab622dc826bfd50
 // 如果出现错误，该错误将为 *PathError 类型。
 
 // ff:打开文件
-// perm:权限
-// flag:常量_文件标志
 // name:路径
+// flag:常量_文件标志
+// perm:权限
 func OpenFile(name string, flag int, perm FileMode) (*File, error) { //md5:c46ec9700a28b8c79cd66cc5758fd324
 	返回, err := os.OpenFile(name, flag, perm)
 	if err != nil {
@@ -220,8 +223,8 @@ func OpenFile(name string, flag int, perm FileMode) (*File, error) { //md5:c46ec
 // Rename 将 oldpath 重命名（移动）到 newpath。如果 newpath 已经存在且不是目录，Rename 将替换它。当 oldpath 和 newpath 在不同的目录时，可能存在特定于操作系统的限制。即使在同一个目录内，在非 Unix 平台上，Rename 也不是一个原子操作。如果出现错误，错误类型将为 *LinkError。
 
 // ff:重命名
-// newpath:新路径
 // oldpath:旧路径
+// newpath:新路径
 func Rename(oldpath, newpath string) error { //md5:68de958c41b824e8588a1376c5bd725a
 	return os.Rename(oldpath, newpath)
 }
@@ -232,6 +235,7 @@ func Rename(oldpath, newpath string) error { //md5:68de958c41b824e8588a1376c5bd7
 // 如果链接目标是相对路径，Readlink 会返回未解析为绝对路径的相对路径。
 //
 // 翻译备注:主要用于读取Unix-like系统（如Linux、macOS）中的符号链接（symbolic link），而不是Windows平台上的快捷方式
+// 翻译提示:func  阅读链接(name  字符串)  (字符串,  错误)  {}
 
 // ff:取符号链接地址
 // name:路径
@@ -306,8 +310,8 @@ func UserHomeDir() (string, error) { //md5:283aa4068141ca3262d0061495f7c9ba
 // 在 Plan 9 系统中，使用 mode 的权限位、ModeAppend、ModeExclusive 和 ModeTemporary。
 
 // ff:修改权限
-// mode:权限
 // name:文件路径
+// mode:权限
 func Chmod(name string, mode FileMode) error { //md5:e6e4ce38e325608199ffcfdfb9718973
 	return os.Chmod(name, mode)
 }
@@ -400,9 +404,9 @@ func ReadFile(name string) ([]byte, error) { //md5:068b3628ea225053c9f0c0c18fb04
 // WriteFile 将数据写入指定的文件，如果必要则创建它。如果文件不存在，WriteFile 会使用权限 perm（在 umask 之后）创建它；否则，在写入之前会截断文件，但不改变权限。由于 WriteFile 需要多个系统调用来完成，操作过程中出现失败可能会使文件处于部分写入状态。
 
 // ff:写文件
-// perm:权限
-// data:字节集
 // name:路径
+// data:字节集
+// perm:权限
 func WriteFile(name string, data []byte, perm FileMode) error { //md5:fd0677a73de1810629354b92eb29db6d
 	return os.WriteFile(name, data, perm)
 }
@@ -419,8 +423,8 @@ func (f *File) Fd() uintptr { //md5:9d077621526e325ee13f9351694db734
 // NewFile 函数以给定的文件描述符和名称返回一个新的 File。若 fd 不是有效的文件描述符，则返回值将为 nil。
 
 // ff:创建文件对象
-// name:路径
 // fd:文件描述符
+// name:路径
 func NewFile(fd uintptr, name string) *File { //md5:4240320d589243e180f39489a70ff3d0
 	返回 := os.NewFile(fd, name)
 	if 返回 == nil {
@@ -468,8 +472,8 @@ func (f *File) Sync() error { //md5:71a4dd5841a579655b1e39b6db926e96
 // 如果发生错误，该错误将为 *PathError 类型。
 
 // ff:修改文件大小
-// size:长度
 // name:文件路径
+// size:长度
 func Truncate(name string, size int64) error { //md5:f3181406c058e4a0f1b5114b051d247d
 	return os.Truncate(name, size)
 }
@@ -490,9 +494,9 @@ func Remove(name string) error { //md5:a57bcc3207ee49e385bed3a7f20c070d
 // 如果出现错误，错误类型将是 *PathError。
 
 // ff:修改文件时间
-// mtime:修改时间
-// atime:访问时间
 // name:文件路径
+// atime:访问时间
+// mtime:修改时间
 func Chtimes(name string, atime time.Time, mtime time.Time) error { //md5:0c33b414b3debf6e949ed0b68e9f55b1
 	return os.Chtimes(name, atime, mtime)
 }
@@ -501,9 +505,9 @@ func Chtimes(name string, atime time.Time, mtime time.Time) error { //md5:0c33b4
 // 它同时返回这两个文件以及可能存在的错误。
 
 // ff:创建管道
-// err:错误
-// w:写入端
 // r:读取端
+// w:写入端
+// err:错误
 func Pipe() (r *File, w *File, err error) { //md5:62203dc59d8a2aaf2d9c0f2693b287c0
 	f1, w1, 错误 := os.Pipe()
 	if 错误 != nil {
@@ -523,8 +527,8 @@ func Pipe() (r *File, w *File, err error) { //md5:62203dc59d8a2aaf2d9c0f2693b287
 // 如果出现错误，它将是一个*LinkError类型。
 
 // ff:创建硬链接
-// newname:新路径
 // oldname:旧路径
+// newname:新路径
 func Link(oldname, newname string) error { //md5:73080a75f9eec32cccd19d6cc084cf0f
 	return os.Link(oldname, newname)
 }
@@ -534,8 +538,8 @@ func Link(oldname, newname string) error { //md5:73080a75f9eec32cccd19d6cc084cf0
 // 如果出现错误，错误类型为*LinkError。
 
 // ff:创建符号链接
-// newname:新路径
 // oldname:旧路径
+// newname:新路径
 func Symlink(oldname, newname string) error { //md5:e9f4790d388077176068fdc473bfd82a
 	return os.Symlink(oldname, newname)
 }
@@ -545,9 +549,9 @@ func Symlink(oldname, newname string) error { //md5:e9f4790d388077176068fdc473bf
 // 在 Windows 或 Plan 9 上，Chown 总是返回 syscall.EWINDOWS 或 EPLAN9 错误，这些错误会被*PathError包装。
 
 // ff:修改文件所有者
-// gid:组id
-// uid:用户id
 // name:文件路径
+// uid:用户id
+// gid:组id
 func Chown(name string, uid, gid int) error { //md5:bd2789bd099c5520f599a4f0f4171d2d
 	return os.Chown(name, uid, gid)
 }
@@ -557,9 +561,9 @@ func Chown(name string, uid, gid int) error { //md5:bd2789bd099c5520f599a4f0f417
 // 若出现错误，其类型将为 *PathError。
 
 // ff:修改文件所有者2
-// gid:组id
-// uid:用户id
 // name:文件路径
+// uid:用户id
+// gid:组id
 func Lchown(name string, uid, gid int) error { //md5:7471c2ee870f4e17889c237d2ad82b6a
 	return os.Lchown(name, uid, gid)
 }
@@ -568,8 +572,8 @@ func Lchown(name string, uid, gid int) error { //md5:7471c2ee870f4e17889c237d2ad
 // 如果出现错误，该错误将为 *PathError 类型。
 
 // ff:修改文件所有者
-// gid:组id
 // uid:用户id
+// gid:组id
 func (f *File) Chown(uid, gid int) error { //md5:56c6f8a8d1cd555a1d9fc4f26a6802d2
 	return f.F.Chown(uid, gid)
 }

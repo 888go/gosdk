@@ -174,12 +174,14 @@ func (*DevInfoListDetailData) unsafeSizeOf() uint32 {
 	return uint32(unsafe.Sizeof(DevInfoListDetailData{}))
 }
 
+// 翻译提示:func  (data  *设备信息列表详细数据)  远程机器名称()  字符串  {}
 
 // ff:
 func (data *DevInfoListDetailData) RemoteMachineName() string {
 	return UTF16ToString(data.remoteMachineName[:])
 }
 
+// 翻译提示:func  (data  *设备信息列表详细数据)  设置远程机器名(remoteMachineName  字符串)  错误  {}
 
 // ff:
 // remoteMachineName:
@@ -195,6 +197,47 @@ func (data *DevInfoListDetailData) SetRemoteMachineName(remoteMachineName string
 // DI_FUNCTION 是设备安装器的功能函数类型
 type DI_FUNCTION uint32
 
+// 翻译提示:const  (
+// 	选择设备  DI_FUNCTION  =  0x00000001
+// 	安装设备  DI_FUNCTION  =  0x00000002
+// 	分配资源  DI_FUNCTION  =  0x00000003
+// 	属性设置  DI_FUNCTION  =  0x00000004
+// 	移除设备  DI_FUNCTION  =  0x00000005
+// 	首次设置  DI_FUNCTION  =  0x00000006
+// 	发现设备  DI_FUNCTION  =  0x00000007
+// 	选择类驱动  DI_FUNCTION  =  0x00000008
+// 	验证类驱动  DI_FUNCTION  =  0x00000009
+// 	安装类驱动  DI_FUNCTION  =  0x0000000A
+// 	计算磁盘空间  DI_FUNCTION  =  0x0000000B
+// 	销毁私有数据  DI_FUNCTION  =  0x0000000C
+// 	验证驱动  DI_FUNCTION  =  0x0000000D
+// 	检测设备  DI_FUNCTION  =  0x0000000F
+// 	安装向导  DI_FUNCTION  =  0x00000010
+// 	销毁向导数据  DI_FUNCTION  =  0x00000011
+// 	属性更改  DI_FUNCTION  =  0x00000012
+// 	启用类  DI_FUNCTION  =  0x00000013
+// 	检测验证  DI_FUNCTION  =  0x00000014
+// 	安装设备文件  DI_FUNCTION  =  0x00000015
+// 	取消移除  DI_FUNCTION  =  0x00000016
+// 	选择最佳兼容驱动  DI_FUNCTION  =  0x00000017
+// 	允许安装  DI_FUNCTION  =  0x00000018
+// 	注册设备  DI_FUNCTION  =  0x00000019
+// 	新设备向导预选  DI_FUNCTION  =  0x0000001A
+// 	新设备向导选择  DI_FUNCTION  =  0x0000001B
+// 	新设备向导预分析  DI_FUNCTION  =  0x0000001C
+// 	新设备向导后分析  DI_FUNCTION  =  0x0000001D
+// 	新设备向导完成安装  DI_FUNCTION  =  0x0000001E
+// 	安装接口  DI_FUNCTION  =  0x00000020
+// 	检测取消  DI_FUNCTION  =  0x00000021
+// 	注册共同安装程序  DI_FUNCTION  =  0x00000022
+// 	添加高级属性页  DI_FUNCTION  =  0x00000023
+// 	添加基本属性页  DI_FUNCTION  =  0x00000024
+// 	故障排除器  DI_FUNCTION  =  0x00000026
+// 	电源唤醒消息  DI_FUNCTION  =  0x00000027
+// 	添加远程高级属性页  DI_FUNCTION  =  0x00000028
+// 	更新驱动程序UI  DI_FUNCTION  =  0x00000029
+// 	完成安装操作  DI_FUNCTION  =  0x0000002A
+// )
 const (
 	DIF_SELECTDEVICE                   DI_FUNCTION = 0x00000001
 	DIF_INSTALLDEVICE                  DI_FUNCTION = 0x00000002
@@ -251,12 +294,14 @@ type DevInstallParams struct {
 	driverPath               [MAX_PATH]uint16
 }
 
+// 翻译提示:func  (params  *设备安装参数)  驱动程序路径()  string  {}
 
 // ff:
 func (params *DevInstallParams) DriverPath() string {
 	return UTF16ToString(params.driverPath[:])
 }
 
+// 翻译提示:func  (params  *设备安装参数)  设置驱动程序路径(driverPath  字符串)  错误  {}
 
 // ff:
 // driverPath:
@@ -378,6 +423,7 @@ type ClassInstallHeader struct {
 	InstallFunction DI_FUNCTION
 }
 
+// 翻译提示:func  创建类安装头安装函数(DI_FUNCTION  安装功能)  *类安装头  {}
 
 // ff:
 // installFunction:
@@ -442,12 +488,14 @@ type DrvInfoData struct {
 	DriverVersion uint64
 }
 
+// 翻译提示:func  (data  *DrvInfoData)  描述()  string  {}
 
 // ff:
 func (data *DrvInfoData) Description() string {
 	return UTF16ToString(data.description[:])
 }
 
+// 翻译提示:func  (data  *DrvInfoData)  设置描述(description  string)  error  {}
 
 // ff:
 // description:
@@ -460,12 +508,14 @@ func (data *DrvInfoData) SetDescription(description string) error {
 	return nil
 }
 
+// 翻译提示:func  (data  *DrvInfoData)  制造商名称()  string  {}
 
 // ff:
 func (data *DrvInfoData) MfgName() string {
 	return UTF16ToString(data.mfgName[:])
 }
 
+// 翻译提示:func  (数据  *DrvInfoData)  设置制造商名称(mfgName  字符串)  error  {}
 
 // ff:
 // mfgName:
@@ -478,12 +528,14 @@ func (data *DrvInfoData) SetMfgName(mfgName string) error {
 	return nil
 }
 
+// 翻译提示:func  (data  *DrvInfoData)  驱动程序提供者名称()  string  {}
 
 // ff:
 func (data *DrvInfoData) ProviderName() string {
 	return UTF16ToString(data.providerName[:])
 }
 
+// 翻译提示:func  (data  *DrvInfoData)  设置提供者名称(providerName  string)  error  {}
 
 // ff:
 // providerName:
@@ -499,8 +551,8 @@ func (data *DrvInfoData) SetProviderName(providerName string) error {
 // IsNewer 方法返回真，当 DrvInfoData 的日期和版本比提供的参数更新时。
 
 // ff:
-// driverVersion:
 // driverDate:
+// driverVersion:
 func (data *DrvInfoData) IsNewer(driverDate Filetime, driverVersion uint64) bool {
 	if data.DriverDate.HighDateTime > driverDate.HighDateTime {
 		return true
@@ -547,24 +599,28 @@ func (*DrvInfoDetailData) unsafeSizeOf() uint32 {
 	return uint32(unsafe.Sizeof(DrvInfoDetailData{}))
 }
 
+// 翻译提示:func  (data  *DrvInfoDetailData)  部分名称()  string  {}
 
 // ff:
 func (data *DrvInfoDetailData) SectionName() string {
 	return UTF16ToString(data.sectionName[:])
 }
 
+// 翻译提示:func  (data  *DrvInfoDetailData)  驱动程序信息文件名()  string  {}
 
 // ff:
 func (data *DrvInfoDetailData) InfFileName() string {
 	return UTF16ToString(data.infFileName[:])
 }
 
+// 翻译提示:func  (data  *DrvInfoDetailData)  驱动描述()  string  {}
 
 // ff:
 func (data *DrvInfoDetailData) DrvDescription() string {
 	return UTF16ToString(data.drvDescription[:])
 }
 
+// 翻译提示:func  (data  *DrvInfoDetailData)  硬件ID()  string  {}
 
 // ff:
 func (data *DrvInfoDetailData) HardwareID() string {
@@ -576,6 +632,7 @@ func (data *DrvInfoDetailData) HardwareID() string {
 	return ""
 }
 
+// 翻译提示:func  (data  *DrvInfoDetailData)  兼容ID()  []string  {}
 
 // ff:
 func (data *DrvInfoDetailData) CompatIDs() []string {
@@ -628,6 +685,10 @@ func (data *DrvInfoDetailData) IsCompatible(hwid string) bool {
 // DICD 标志用于控制 SetupDiCreateDeviceInfo 函数
 type DICD uint32
 
+// 翻译提示:const  (
+// 	生成ID                        DICD  =  0x00000001
+// 	继承类驱动器            DICD  =  0x00000002
+// )
 const (
 	DICD_GENERATE_ID       DICD = 0x00000001
 	DICD_INHERIT_CLASSDRVS DICD = 0x00000002
@@ -636,6 +697,9 @@ const (
 // SUOI 标志控制 SetupUninstallOEMInf
 type SUOI uint32
 
+// 翻译提示:const  (
+// 	强制删除SUOI  =  0x0001
+// )
 const (
 	SUOI_FORCEDELETE SUOI = 0x0001
 )
@@ -644,6 +708,11 @@ const (
 // （作为驱动程序信息列表API中“DriverType”参数传入）
 type SPDIT uint32
 
+// 翻译提示:const  (
+// 	无驱动器更新  SPDIT  =  0x00000000
+// 	类驱动器更新  SPDIT  =  0x00000001
+// 	兼容驱动器更新  SPDIT  =  0x00000002
+// )
 const (
 	SPDIT_NODRIVER     SPDIT = 0x00000000
 	SPDIT_CLASSDRIVER  SPDIT = 0x00000001
@@ -723,6 +792,45 @@ const (
 // DEVPROPTYPE 表示统一设备属性模型中设备属性值的数据类型标识符。
 type DEVPROPTYPE uint32
 
+// 翻译提示:const  (
+// 	DEVPROP_TYPEMOD_ARRAY                        DEVPROPTYPE  =  0x00001000
+// 	DEVPROP_TYPEMOD_LIST                          DEVPROPTYPE  =  0x00002000
+// 
+// 	DEVPROP_TYPE_EMPTY                              DEVPROPTYPE  =  0x00000000
+// 	DEVPROP_TYPE_NULL                                DEVPROPTYPE  =  0x00000001
+// 	DEVPROP_TYPE_SIGNED_BYTE                  DEVPROPTYPE  =  0x00000002
+// 	DEVPROP_TYPE_UNSIGNED_BYTE              DEVPROPTYPE  =  0x00000003
+// 	DEVPROP_TYPE_SHORT                              DEVPROPTYPE  =  0x00000004
+// 	DEVPROP_TYPE_UNSIGNED_SHORT            DEVPROPTYPE  =  0x00000005
+// 	DEVPROP_TYPE_INT                                  DEVPROPTYPE  =  0x00000006
+// 	DEVPROP_TYPE_UNSIGNED_INT                DEVPROPTYPE  =  0x00000007
+// 	DEVPROP_TYPE_LONG                                DEVPROPTYPE  =  0x00000008
+// 	DEVPROP_TYPE_UNSIGNED_LONG              DEVPROPTYPE  =  0x00000009
+// 	DEVPROP_TYPE_FLOATING_POINT              DEVPROPTYPE  =  0x0000000A
+// 	DEVPROP_TYPE_DOUBLE_FLOAT                DEVPROPTYPE  =  0x0000000B
+// 	DEVPROP_TYPE_DECIMAL_NUMBER              DEVPROPTYPE  =  0x0000000C
+// 	DEVPROP_TYPE_UNIQUE_IDENTIFIER        DEVPROPTYPE  =  0x0000000D
+// 	DEVPROP_TYPE_CURRENCY_VALUE              DEVPROPTYPE  =  0x0000000E
+// 	DEVPROP_TYPE_DATE_TIME                      DEVPROPTYPE  =  0x0000000F
+// 	DEVPROP_TYPE_FILETIME_STAMP              DEVPROPTYPE  =  0x00000010
+// 	DEVPROP_TYPE_BOOLEAN_VALUE                DEVPROPTYPE  =  0x00000011
+// 	DEVPROP_TYPE_TEXT_STRING                    DEVPROPTYPE  =  0x00000012
+// 	DEVPROP_TYPE_STRING_LIST                    DEVPROPTYPE  =  DEVPROP_TYPE_TEXT_STRING  |  DEVPROP_TYPEMOD_LIST
+// 	DEVPROP_TYPE_SECURITY_DESCRIPTOR    DEVPROPTYPE  =  0x00000013
+// 	DEVPROP_TYPE_SECURITY_DESC_STRING  DEVPROPTYPE  =  0x00000014
+// 	DEVPROP_TYPE_PROPERTY_KEY                  DEVPROPTYPE  =  0x00000015
+// 	DEVPROP_TYPE_PROPERTY_TYPE                DEVPROPTYPE  =  0x00000016
+// 	DEVPROP_TYPE_BINARY_DATA                    DEVPROPTYPE  =  DEVPROP_TYPE_UNSIGNED_BYTE  |  DEVPROP_TYPEMOD_ARRAY
+// 	DEVPROP_TYPE_ERROR_CODE                      DEVPROPTYPE  =  0x00000017
+// 	DEVPROP_TYPE_NTSTATUS_VALUE              DEVPROPTYPE  =  0x00000018
+// 	DEVPROP_TYPE_STRING_INDIRECT_REF    DEVPROPTYPE  =  0x00000019
+// 
+// 	MAX_DEVPROP_TYPE                                DEVPROPTYPE  =  0x00000019
+// 	MAX_DEVPROP_TYPEMOD                          DEVPROPTYPE  =  0x00002000
+// 
+// 	DEVPROP_MASK_TYPE                                DEVPROPTYPE  =  0x00000FFF
+// 	DEVPROP_MASK_TYPEMOD                          DEVPROPTYPE  =  0x0000F000
+// )
 const (
 	DEVPROP_TYPEMOD_ARRAY DEVPROPTYPE = 0x00001000
 	DEVPROP_TYPEMOD_LIST  DEVPROPTYPE = 0x00002000
@@ -769,6 +877,10 @@ type DEVPROPGUID GUID
 // DEVPROPID 用于在属性类别中唯一标识该属性。
 type DEVPROPID uint32
 
+// 翻译提示:const  (
+//         //  开始可用的设备属性ID
+//         DEVPKEY_FIRST_USABLE  DEVPKEY  =  2
+// )
 const DEVPROPID_FIRST_USABLE DEVPROPID = 2
 
 // DEVPROPKEY 代表统一设备属性模型中设备属性的设备属性键。
@@ -780,6 +892,7 @@ type DEVPROPKEY struct {
 // CONFIGRET 是 cfgmgr32 API 返回的值或错误代码
 type CONFIGRET uint32
 
+// 翻译提示:func  (ret  配置结果)  错误信息()  string  {}
 
 // ff:
 func (ret CONFIGRET) Error() string {
@@ -789,6 +902,7 @@ func (ret CONFIGRET) Error() string {
 	return fmt.Sprintf("CfgMgr error: 0x%08x", uint32(ret))
 }
 
+// 翻译提示:func  (ret  配置结果)  Windows32错误(默认错误  错误码)  错误码  {}
 
 // ff:
 // defaultError:
@@ -796,6 +910,7 @@ func (ret CONFIGRET) Win32Error(defaultError Errno) Errno {
 	return cm_MapCrToWin32Err(ret, defaultError)
 }
 
+// 翻译提示:func  (ret  配置结果)  转换错误()  错误  {}
 
 // ff:
 func (ret CONFIGRET) Unwrap() error {
@@ -807,6 +922,73 @@ func (ret CONFIGRET) Unwrap() error {
 	return win32Error
 }
 
+// 翻译提示:const  (
+// 	成功配置返回值                  CONFIGRET  =  0x00000000
+// 	默认配置返回值                  CONFIGRET  =  0x00000001
+// 	内存不足错误                      CONFIGRET  =  0x00000002
+// 	无效指针错误                      CONFIGRET  =  0x00000003
+// 	无效标志错误                      CONFIGRET  =  0x00000004
+// 	无效设备节点错误              CONFIGRET  =  0x00000005
+// 	无效设备实例错误                    =  CR_INVALID_DEVNODE
+// 	无效资源描述符错误          CONFIGRET  =  0x00000006
+// 	无效日志配置错误              CONFIGRET  =  0x00000007
+// 	无效仲裁器错误                  CONFIGRET  =  0x00000008
+// 	无效节点列表错误              CONFIGRET  =  0x00000009
+// 	设备节点有请求                  CONFIGRET  =  0x0000000A
+// 	设备实例有请求                        =  CR_DEVNODE_HAS_REQS
+// 	无效资源ID错误                  CONFIGRET  =  0x0000000B
+// 	DLVXD找不到错误                CONFIGRET  =  0x0000000C
+// 	无此设备节点错误              CONFIGRET  =  0x0000000D
+// 	无此设备实例错误                    =  CR_NO_SUCH_DEVNODE
+// 	无更多日志配置错误            CONFIGRET  =  0x0000000E
+// 	无更多资源描述符错误        CONFIGRET  =  0x0000000F
+// 	已存在此设备节点              CONFIGRET  =  0x00000010
+// 	已存在此设备实例                        =  CR_ALREADY_SUCH_DEVNODE
+// 	无效范围列表错误              CONFIGRET  =  0x00000011
+// 	无效范围错误                      CONFIGRET  =  0x00000012
+// 	失败错误                                  CONFIGRET  =  0x00000013
+// 	无此类逻辑设备                    CONFIGRET  =  0x00000014
+// 	创建被阻止                            CONFIGRET  =  0x00000015
+// 	非系统虚拟机错误              CONFIGRET  =  0x00000016
+// 	移除被否决                              CONFIGRET  =  0x00000017
+// 	APM被否决                                CONFIGRET  =  0x00000018
+// 	无效加载类型错误              CONFIGRET  =  0x00000019
+// 	缓冲区太小                              CONFIGRET  =  0x0000001A
+// 	无仲裁器错误                        CONFIGRET  =  0x0000001B
+// 	无注册表句柄错误              CONFIGRET  =  0x0000001C
+// 	注册表错误                              CONFIGRET  =  0x0000001D
+// 	无效设备ID错误                    CONFIGRET  =  0x0000001E
+// 	无效数据错误                      CONFIGRET  =  0x0000001F
+// 	无效API错误                          CONFIGRET  =  0x00000020
+// 	设备加载器未准备好              CONFIGRET  =  0x00000021
+// 	需要重新启动                          CONFIGRET  =  0x00000022
+// 	无更多硬件配置                    CONFIGRET  =  0x00000023
+// 	设备不存在                              CONFIGRET  =  0x00000024
+// 	无此值错误                              CONFIGRET  =  0x00000025
+// 	类型错误                                  CONFIGRET  =  0x00000026
+// 	无效优先级错误                    CONFIGRET  =  0x00000027
+// 	无法禁用                                  CONFIGRET  =  0x00000028
+// 	释放资源                                  CONFIGRET  =  0x00000029
+// 	查询被否决                              CONFIGRET  =  0x0000002A
+// 	无法共享IRQ                            CONFIGRET  =  0x0000002B
+// 	无依赖项                                  CONFIGRET  =  0x0000002C
+// 	资源相同                                  CONFIGRET  =  0x0000002D
+// 	无此注册表键错误              CONFIGRET  =  0x0000002E
+// 	无效机器名错误                    CONFIGRET  =  0x0000002F
+// 	远程通信故障                          CONFIGRET  =  0x00000030
+// 	机器不可用                              CONFIGRET  =  0x00000031
+// 	无CM服务错误                        CONFIGRET  =  0x00000032
+// 	访问被拒绝                              CONFIGRET  =  0x00000033
+// 	调用未实现错误                    CONFIGRET  =  0x00000034
+// 	无效属性错误                        CONFIGRET  =  0x00000035
+// 	设备接口活动                          CONFIGRET  =  0x00000036
+// 	无此设备接口错误              CONFIGRET  =  0x00000037
+// 	无效引用字符串错误            CONFIGRET  =  0x00000038
+// 	无效冲突列表错误              CONFIGRET  =  0x00000039
+// 	无效索引错误                        CONFIGRET  =  0x0000003A
+// 	无效结构大小错误                CONFIGRET  =  0x0000003B
+// 	配置返回值总数                    CONFIGRET  =  0x0000003C
+// )
 const (
 	CR_SUCCESS                  CONFIGRET = 0x00000000
 	CR_DEFAULT                  CONFIGRET = 0x00000001
@@ -875,6 +1057,10 @@ const (
 	NUM_CR_RESULTS              CONFIGRET = 0x0000003C
 )
 
+// 翻译提示:const  (
+// 	获取活跃设备接口列表                =  0  //  只包含当前活动的设备接口
+// 	获取所有已注册设备接口列表      =  1  //  包含所有已注册的设备接口，无论是否活动
+// )
 const (
 	CM_GET_DEVICE_INTERFACE_LIST_PRESENT     = 0 // 仅当前“活跃”的设备接口
 	CM_GET_DEVICE_INTERFACE_LIST_ALL_DEVICES = 1 // 所有已注册的设备接口，无论是否活跃
@@ -928,11 +1114,11 @@ const (
 // SetupDiCreateDeviceInfoListEx 函数在远程或本地计算机上创建一个空的设备信息集，并可选择性地将此集与设备安装类关联。
 
 // ff:
-// err:
-// deviceInfoSet:
-// machineName:
-// hwndParent:
 // classGUID:
+// hwndParent:
+// machineName:
+// deviceInfoSet:
+// err:
 func SetupDiCreateDeviceInfoListEx(classGUID *GUID, hwndParent uintptr, machineName string) (deviceInfoSet DevInfo, err error) {
 	var machineNameUTF16 *uint16
 	if machineName != "" {
@@ -949,9 +1135,9 @@ func SetupDiCreateDeviceInfoListEx(classGUID *GUID, hwndParent uintptr, machineN
 // SetupDiGetDeviceInfoListDetail 函数用于获取与设备信息集关联的信息，包括类 GUID、远程计算机句柄以及远程计算机名。
 
 // ff:
-// err:
-// deviceInfoSetDetailData:
 // deviceInfoSet:
+// deviceInfoSetDetailData:
+// err:
 func SetupDiGetDeviceInfoListDetail(deviceInfoSet DevInfo) (deviceInfoSetDetailData *DevInfoListDetailData, err error) {
 	data := &DevInfoListDetailData{}
 	data.size = data.unsafeSizeOf()
@@ -971,14 +1157,14 @@ func (deviceInfoSet DevInfo) DeviceInfoListDetail() (*DevInfoListDetailData, err
 // SetupDiCreateDeviceInfo 函数用于创建一个新的设备信息元素，并将其作为新成员添加到指定的设备信息集中。
 
 // ff:
-// err:
-// deviceInfoData:
-// creationFlags:
-// hwndParent:
-// deviceDescription:
-// classGUID:
-// deviceName:
 // deviceInfoSet:
+// deviceName:
+// classGUID:
+// deviceDescription:
+// hwndParent:
+// creationFlags:
+// deviceInfoData:
+// err:
 func SetupDiCreateDeviceInfo(deviceInfoSet DevInfo, deviceName string, classGUID *GUID, deviceDescription string, hwndParent uintptr, creationFlags DICD) (deviceInfoData *DevInfoData, err error) {
 	deviceNameUTF16, err := UTF16PtrFromString(deviceName)
 	if err != nil {
@@ -1002,11 +1188,11 @@ func SetupDiCreateDeviceInfo(deviceInfoSet DevInfo, deviceName string, classGUID
 // CreateDeviceInfo 方法创建一个新的设备信息元素，并将其作为新成员添加到指定的设备信息集中。
 
 // ff:
-// creationFlags:
-// hwndParent:
-// deviceDescription:
-// classGUID:
 // deviceName:
+// classGUID:
+// deviceDescription:
+// hwndParent:
+// creationFlags:
 func (deviceInfoSet DevInfo) CreateDeviceInfo(deviceName string, classGUID *GUID, deviceDescription string, hwndParent uintptr, creationFlags DICD) (*DevInfoData, error) {
 	return SetupDiCreateDeviceInfo(deviceInfoSet, deviceName, classGUID, deviceDescription, hwndParent, creationFlags)
 }
@@ -1016,8 +1202,8 @@ func (deviceInfoSet DevInfo) CreateDeviceInfo(deviceName string, classGUID *GUID
 // SetupDiEnumDeviceInfo 函数返回一个 DevInfoData 结构，该结构用于指定设备信息集中某个设备信息元素。
 
 // ff:
-// memberIndex:
 // deviceInfoSet:
+// memberIndex:
 func SetupDiEnumDeviceInfo(deviceInfoSet DevInfo, memberIndex int) (*DevInfoData, error) {
 	data := &DevInfoData{}
 	data.size = uint32(unsafe.Sizeof(*data))
@@ -1048,8 +1234,8 @@ func (deviceInfoSet DevInfo) Close() error {
 // BuildDriverInfoList 方法用于为特定设备或设备信息集中与全局类驱动程序列表关联的驱动程序构建一个列表。
 
 // ff:
-// driverType:
 // deviceInfoData:
+// driverType:
 func (deviceInfoSet DevInfo) BuildDriverInfoList(deviceInfoData *DevInfoData, driverType SPDIT) error {
 	return SetupDiBuildDriverInfoList(deviceInfoSet, deviceInfoData, driverType)
 }
@@ -1068,10 +1254,10 @@ func (deviceInfoSet DevInfo) CancelDriverInfoSearch() error {
 // SetupDiEnumDriverInfo 函数用于枚举驱动列表中的成员。
 
 // ff:
-// memberIndex:
-// driverType:
-// deviceInfoData:
 // deviceInfoSet:
+// deviceInfoData:
+// driverType:
+// memberIndex:
 func SetupDiEnumDriverInfo(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverType SPDIT, memberIndex int) (*DrvInfoData, error) {
 	data := &DrvInfoData{}
 	data.size = uint32(unsafe.Sizeof(*data))
@@ -1082,9 +1268,9 @@ func SetupDiEnumDriverInfo(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, d
 // EnumDriverInfo 方法枚举驱动列表中的成员。
 
 // ff:
-// memberIndex:
-// driverType:
 // deviceInfoData:
+// driverType:
+// memberIndex:
 func (deviceInfoSet DevInfo) EnumDriverInfo(deviceInfoData *DevInfoData, driverType SPDIT, memberIndex int) (*DrvInfoData, error) {
 	return SetupDiEnumDriverInfo(deviceInfoSet, deviceInfoData, driverType, memberIndex)
 }
@@ -1094,8 +1280,8 @@ func (deviceInfoSet DevInfo) EnumDriverInfo(deviceInfoData *DevInfoData, driverT
 // SetupDiGetSelectedDriver 函数用于为设备信息集或特定设备信息元素获取所选驱动程序。
 
 // ff:
-// deviceInfoData:
 // deviceInfoSet:
+// deviceInfoData:
 func SetupDiGetSelectedDriver(deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (*DrvInfoData, error) {
 	data := &DrvInfoData{}
 	data.size = uint32(unsafe.Sizeof(*data))
@@ -1116,8 +1302,8 @@ func (deviceInfoSet DevInfo) SelectedDriver(deviceInfoData *DevInfoData) (*DrvIn
 // SetSelectedDriver 方法用于设置或重置设备信息元素的已选驱动程序，或者为设备信息集合设置已选类驱动程序。
 
 // ff:
-// driverInfoData:
 // deviceInfoData:
+// driverInfoData:
 func (deviceInfoSet DevInfo) SetSelectedDriver(deviceInfoData *DevInfoData, driverInfoData *DrvInfoData) error {
 	return SetupDiSetSelectedDriver(deviceInfoSet, deviceInfoData, driverInfoData)
 }
@@ -1127,9 +1313,9 @@ func (deviceInfoSet DevInfo) SetSelectedDriver(deviceInfoData *DevInfoData, driv
 // SetupDiGetDriverInfoDetail 函数用于为设备信息集中或设备信息集中的特定设备信息元素获取驱动程序信息详细内容。
 
 // ff:
-// driverInfoData:
-// deviceInfoData:
 // deviceInfoSet:
+// deviceInfoData:
+// driverInfoData:
 func SetupDiGetDriverInfoDetail(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, driverInfoData *DrvInfoData) (*DrvInfoDetailData, error) {
 	reqSize := uint32(2048)
 	for {
@@ -1151,8 +1337,8 @@ func SetupDiGetDriverInfoDetail(deviceInfoSet DevInfo, deviceInfoData *DevInfoDa
 // DriverInfoDetail 方法用于获取设备信息集中某个设备信息元素的驱动程序详细信息，或直接为整个设备信息集获取此类信息。
 
 // ff:
-// driverInfoData:
 // deviceInfoData:
+// driverInfoData:
 func (deviceInfoSet DevInfo) DriverInfoDetail(deviceInfoData *DevInfoData, driverInfoData *DrvInfoData) (*DrvInfoDetailData, error) {
 	return SetupDiGetDriverInfoDetail(deviceInfoSet, deviceInfoData, driverInfoData)
 }
@@ -1162,8 +1348,8 @@ func (deviceInfoSet DevInfo) DriverInfoDetail(deviceInfoData *DevInfoData, drive
 // DestroyDriverInfoList 方法用于删除一个驱动列表。
 
 // ff:
-// driverType:
 // deviceInfoData:
+// driverType:
 func (deviceInfoSet DevInfo) DestroyDriverInfoList(deviceInfoData *DevInfoData, driverType SPDIT) error {
 	return SetupDiDestroyDriverInfoList(deviceInfoSet, deviceInfoData, driverType)
 }
@@ -1173,14 +1359,14 @@ func (deviceInfoSet DevInfo) DestroyDriverInfoList(deviceInfoData *DevInfoData, 
 // SetupDiGetClassDevsEx 函数返回一个设备信息集的句柄，该集合包含了为本地或远程计算机请求的设备信息元素。
 
 // ff:
-// err:
-// handle:
-// machineName:
-// deviceInfoSet:
-// flags:
-// hwndParent:
-// enumerator:
 // classGUID:
+// enumerator:
+// hwndParent:
+// flags:
+// deviceInfoSet:
+// machineName:
+// handle:
+// err:
 func SetupDiGetClassDevsEx(classGUID *GUID, enumerator string, hwndParent uintptr, flags DIGCF, deviceInfoSet DevInfo, machineName string) (handle DevInfo, err error) {
 	var enumeratorUTF16 *uint16
 	if enumerator != "" {
@@ -1205,8 +1391,8 @@ func SetupDiGetClassDevsEx(classGUID *GUID, enumerator string, hwndParent uintpt
 // CallClassInstaller 成员调用相应类安装程序以及所有已注册的共同安装程序，同时传递指定的安装请求（DIF代码）。
 
 // ff:
-// deviceInfoData:
 // installFunction:
+// deviceInfoData:
 func (deviceInfoSet DevInfo) CallClassInstaller(installFunction DI_FUNCTION, deviceInfoData *DevInfoData) error {
 	return SetupDiCallClassInstaller(installFunction, deviceInfoSet, deviceInfoData)
 }
@@ -1217,12 +1403,12 @@ func (deviceInfoSet DevInfo) CallClassInstaller(installFunction DI_FUNCTION, dev
 // OpenDevRegKey 方法用于打开一个注册表键，以便访问设备特定的配置信息。
 
 // ff:
-// Handle:
-// samDesired:
-// KeyType:
-// HwProfile:
-// Scope:
 // DeviceInfoData:
+// Scope:
+// HwProfile:
+// KeyType:
+// samDesired:
+// Handle:
 func (deviceInfoSet DevInfo) OpenDevRegKey(DeviceInfoData *DevInfoData, Scope DICS_FLAG, HwProfile uint32, KeyType DIREG, samDesired uint32) (Handle, error) {
 	return SetupDiOpenDevRegKey(deviceInfoSet, DeviceInfoData, Scope, HwProfile, KeyType, samDesired)
 }
@@ -1232,11 +1418,11 @@ func (deviceInfoSet DevInfo) OpenDevRegKey(DeviceInfoData *DevInfoData, Scope DI
 // SetupDiGetDeviceProperty 函数用于检索指定的设备实例属性。
 
 // ff:
-// err:
-// value:
-// propertyKey:
-// deviceInfoData:
 // deviceInfoSet:
+// deviceInfoData:
+// propertyKey:
+// value:
+// err:
 func SetupDiGetDeviceProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, propertyKey *DEVPROPKEY) (value interface{}, err error) {
 	reqSize := uint32(256)
 	for {
@@ -1264,11 +1450,11 @@ func SetupDiGetDeviceProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData
 // SetupDiGetDeviceRegistryProperty 函数用于检索指定即插即用设备的属性。
 
 // ff:
-// err:
-// value:
-// property:
-// deviceInfoData:
 // deviceInfoSet:
+// deviceInfoData:
+// property:
+// value:
+// err:
 func SetupDiGetDeviceRegistryProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, property SPDRP) (value interface{}, err error) {
 	reqSize := uint32(256)
 	for {
@@ -1368,8 +1554,8 @@ func wcslen(str []uint16) int {
 // DeviceRegistryProperty 方法用于检索指定的即插即用设备属性。
 
 // ff:
-// property:
 // deviceInfoData:
+// property:
 func (deviceInfoSet DevInfo) DeviceRegistryProperty(deviceInfoData *DevInfoData, property SPDRP) (interface{}, error) {
 	return SetupDiGetDeviceRegistryProperty(deviceInfoSet, deviceInfoData, property)
 }
@@ -1379,10 +1565,10 @@ func (deviceInfoSet DevInfo) DeviceRegistryProperty(deviceInfoData *DevInfoData,
 // SetupDiSetDeviceRegistryProperty 函数为设备设置即插即用设备属性。
 
 // ff:
-// propertyBuffers:
-// property:
-// deviceInfoData:
 // deviceInfoSet:
+// deviceInfoData:
+// property:
+// propertyBuffers:
 func SetupDiSetDeviceRegistryProperty(deviceInfoSet DevInfo, deviceInfoData *DevInfoData, property SPDRP, propertyBuffers []byte) error {
 	return setupDiSetDeviceRegistryProperty(deviceInfoSet, deviceInfoData, property, &propertyBuffers[0], uint32(len(propertyBuffers)))
 }
@@ -1390,9 +1576,9 @@ func SetupDiSetDeviceRegistryProperty(deviceInfoSet DevInfo, deviceInfoData *Dev
 // SetDeviceRegistryProperty 函数用于为设备设置即插即用设备属性。
 
 // ff:
-// propertyBuffers:
-// property:
 // deviceInfoData:
+// property:
+// propertyBuffers:
 func (deviceInfoSet DevInfo) SetDeviceRegistryProperty(deviceInfoData *DevInfoData, property SPDRP, propertyBuffers []byte) error {
 	return SetupDiSetDeviceRegistryProperty(deviceInfoSet, deviceInfoData, property, propertyBuffers)
 }
@@ -1400,9 +1586,9 @@ func (deviceInfoSet DevInfo) SetDeviceRegistryProperty(deviceInfoData *DevInfoDa
 // SetDeviceRegistryPropertyString 方法为设备设置即插即用设备属性字符串。
 
 // ff:
-// str:
-// property:
 // deviceInfoData:
+// property:
+// str:
 func (deviceInfoSet DevInfo) SetDeviceRegistryPropertyString(deviceInfoData *DevInfoData, property SPDRP, str string) error {
 	str16, err := UTF16FromString(str)
 	if err != nil {
@@ -1418,8 +1604,8 @@ func (deviceInfoSet DevInfo) SetDeviceRegistryPropertyString(deviceInfoData *Dev
 // SetupDiGetDeviceInstallParams 函数用于为一个设备信息集或特定的设备信息元素检索设备安装参数。
 
 // ff:
-// deviceInfoData:
 // deviceInfoSet:
+// deviceInfoData:
 func SetupDiGetDeviceInstallParams(deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (*DevInstallParams, error) {
 	params := &DevInstallParams{}
 	params.size = uint32(unsafe.Sizeof(*params))
@@ -1440,8 +1626,8 @@ func (deviceInfoSet DevInfo) DeviceInstallParams(deviceInfoData *DevInfoData) (*
 // SetupDiGetDeviceInstanceId 函数用于获取设备的实例ID。
 
 // ff:
-// deviceInfoData:
 // deviceInfoSet:
+// deviceInfoData:
 func SetupDiGetDeviceInstanceId(deviceInfoSet DevInfo, deviceInfoData *DevInfoData) (string, error) {
 	reqSize := uint32(1024)
 	for {
@@ -1471,10 +1657,10 @@ func (deviceInfoSet DevInfo) DeviceInstanceID(deviceInfoData *DevInfoData) (stri
 // ClassInstallParams 方法用于为一个设备信息集或特定的设备信息元素检索类安装参数。
 
 // ff:
-// requiredSize:
-// classInstallParamsSize:
-// classInstallParams:
 // deviceInfoData:
+// classInstallParams:
+// classInstallParamsSize:
+// requiredSize:
 func (deviceInfoSet DevInfo) ClassInstallParams(deviceInfoData *DevInfoData, classInstallParams *ClassInstallHeader, classInstallParamsSize uint32, requiredSize *uint32) error {
 	return SetupDiGetClassInstallParams(deviceInfoSet, deviceInfoData, classInstallParams, classInstallParamsSize, requiredSize)
 }
@@ -1484,8 +1670,8 @@ func (deviceInfoSet DevInfo) ClassInstallParams(deviceInfoData *DevInfoData, cla
 // SetDeviceInstallParams 成员为一个设备信息集或特定的设备信息元素设置设备安装参数。
 
 // ff:
-// deviceInstallParams:
 // deviceInfoData:
+// deviceInstallParams:
 func (deviceInfoSet DevInfo) SetDeviceInstallParams(deviceInfoData *DevInfoData, deviceInstallParams *DevInstallParams) error {
 	return SetupDiSetDeviceInstallParams(deviceInfoSet, deviceInfoData, deviceInstallParams)
 }
@@ -1496,9 +1682,9 @@ func (deviceInfoSet DevInfo) SetDeviceInstallParams(deviceInfoData *DevInfoData,
 // SetClassInstallParams 方法用于为一个设备信息集或特定的设备信息元素设置或清除类安装参数。
 
 // ff:
-// classInstallParamsSize:
-// classInstallParams:
 // deviceInfoData:
+// classInstallParams:
+// classInstallParamsSize:
 func (deviceInfoSet DevInfo) SetClassInstallParams(deviceInfoData *DevInfoData, classInstallParams *ClassInstallHeader, classInstallParamsSize uint32) error {
 	return SetupDiSetClassInstallParams(deviceInfoSet, deviceInfoData, classInstallParams, classInstallParamsSize)
 }
@@ -1508,10 +1694,10 @@ func (deviceInfoSet DevInfo) SetClassInstallParams(deviceInfoData *DevInfoData, 
 // SetupDiClassNameFromGuidEx 函数用于获取与类GUID关联的类名。该类可以安装在本地计算机或远程计算机上。
 
 // ff:
-// err:
-// className:
-// machineName:
 // classGUID:
+// machineName:
+// className:
+// err:
 func SetupDiClassNameFromGuidEx(classGUID *GUID, machineName string) (className string, err error) {
 	var classNameUTF16 [MAX_CLASS_NAME_LEN]uint16
 
@@ -1537,8 +1723,8 @@ func SetupDiClassNameFromGuidEx(classGUID *GUID, machineName string) (className 
 // SetupDiClassGuidsFromNameEx 函数用于获取与指定类名关联的 GUID。返回的列表包含本地或远程计算机上当前已安装的此类别。
 
 // ff:
-// machineName:
 // className:
+// machineName:
 func SetupDiClassGuidsFromNameEx(className string, machineName string) ([]GUID, error) {
 	classNameUTF16, err := UTF16PtrFromString(className)
 	if err != nil {
@@ -1603,8 +1789,8 @@ func (deviceInfoSet DevInfo) SetSelectedDevice(deviceInfoData *DevInfoData) erro
 // SetupUninstallOEMInf 卸载指定的驱动程序
 
 // ff:
-// flags:
 // infFileName:
+// flags:
 func SetupUninstallOEMInf(infFileName string, flags SUOI) error {
 	infFileName16, err := UTF16PtrFromString(infFileName)
 	if err != nil {
@@ -1618,11 +1804,12 @@ func SetupUninstallOEMInf(infFileName string, flags SUOI) error {
 //sys cm_Get_Device_Interface_List_Size(len *uint32, interfaceClass *GUID, deviceID *uint16, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_Device_Interface_List_SizeW
 //sys cm_Get_Device_Interface_List(interfaceClass *GUID, deviceID *uint16, buffer *uint16, bufferLen uint32, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_Device_Interface_ListW
 
+// 翻译提示:func  获取设备接口列表(deviceID  字符串,  接口类别  *GUID,  标志  uint32)  ([]字符串,  错误)  {}
 
 // ff:
-// flags:
-// interfaceClass:
 // deviceID:
+// interfaceClass:
+// flags:
 func CM_Get_Device_Interface_List(deviceID string, interfaceClass *GUID, flags uint32) ([]string, error) {
 	deviceID16, err := UTF16PtrFromString(deviceID)
 	if err != nil {
@@ -1657,12 +1844,13 @@ func CM_Get_Device_Interface_List(deviceID string, interfaceClass *GUID, flags u
 
 //sys cm_Get_DevNode_Status(status *uint32, problemNumber *uint32, devInst DEVINST, flags uint32) (ret CONFIGRET) = CfgMgr32.CM_Get_DevNode_Status
 
+// 翻译提示:func  获取设备节点状态(status  *uint32,  problemNumber  *uint32,  设备实例  DEVINST,  标志  uint32)  error  {}
 
 // ff:
-// flags:
-// devInst:
-// problemNumber:
 // status:
+// problemNumber:
+// devInst:
+// flags:
 func CM_Get_DevNode_Status(status *uint32, problemNumber *uint32, devInst DEVINST, flags uint32) error {
 	ret := cm_Get_DevNode_Status(status, problemNumber, devInst, flags)
 	if ret == CR_SUCCESS {

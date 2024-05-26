@@ -59,6 +59,8 @@ type SymbolicLinkReparseBuffer struct {
 }
 
 // Path returns path stored in rb.
+
+// ff:
 func (rb *SymbolicLinkReparseBuffer) Path() string {
 	n1 := rb.SubstituteNameOffset / 2
 	n2 := (rb.SubstituteNameOffset + rb.SubstituteNameLength) / 2
@@ -83,6 +85,8 @@ type MountPointReparseBuffer struct {
 }
 
 // Path returns path stored in rb.
+
+// ff:
 func (rb *MountPointReparseBuffer) Path() string {
 	n1 := rb.SubstituteNameOffset / 2
 	n2 := (rb.SubstituteNameOffset + rb.SubstituteNameLength) / 2

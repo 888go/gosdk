@@ -28,12 +28,14 @@ type SyscallError struct { //md5:629fa3dd95978e22325ca4574ef483c6
 	F os.SyscallError
 }
 
+// 翻译提示:func  (e  *系统调用错误)  错误信息()  字符串  {}
 
 // ff:取错误文本
 func (e *SyscallError) Error() string { //md5:12b20881dc68d5f1c98411209aca4a3a
 	return e.F.Error()
 }
 
+// 翻译提示:func  (e  *系统调用错误)  引用错误()  错误  {}
 
 // ff:取错误对象
 func (e *SyscallError) Unwrap() error { //md5:383c868a76a65b16135dc3d1b98bdd75
@@ -50,8 +52,8 @@ func (e *SyscallError) Timeout() bool { //md5:d66cf10e3391c84ee831473ad6a2e5cb
 // NewSyscallError 作为错误返回一个新的SyscallError，给定系统调用名称和错误详情。作为一个便利，如果err为nil，NewSyscallError将返回nil。
 
 // ff:创建调用错误
-// err:错误
 // syscall:错误名称
+// err:错误
 func NewSyscallError(syscall string, err error) error { //md5:55203c659aec8ace18a96610a164b56b
 	return os.NewSyscallError(syscall, err)
 }

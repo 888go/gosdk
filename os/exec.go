@@ -7,6 +7,7 @@ import (
 )
 
 // ErrProcessDone 表示一个进程已经完成。. md5:1900bc3b9ff279fd
+// 翻译提示:var  进程已完成Error  =  errors.New("操作系统:  进程已经结束")  //md5:60b2fab43e74b36c
 var ErrProcessDone = errors.New("os: process already finished") //md5:60b2fab43e74b36c
 
 //var (
@@ -73,9 +74,9 @@ func FindProcess(pid int) (*Process, error) { //md5:551f3e9284260b7c7de683688f3e
 // 如果出现错误，错误类型将是 *PathError。
 
 // ff:启动进程
-// attr:属性
-// argv:参数
 // name:执行路径或名称
+// argv:参数
+// attr:属性
 func StartProcess(name string, argv []string, attr *ProcAttr) (*Process, error) { //md5:2da46d468b16dd888e099b0858527a73
 	p, err := os.StartProcess(name, argv, &attr.F)
 	if err != nil {
@@ -156,6 +157,7 @@ func (p *ProcessState) Success() bool { //md5:e030f8dde5d9f14556a74e1f09908e85
 // Sys returns system-dependent exit information about
 // the process. Convert it to the appropriate underlying
 // type, such as syscall.WaitStatus on Unix, to access its contents.
+// 翻译提示:func  (p  *进程状态)  系统信息()  任意类型  {}
 
 // ff:取退出信息
 func (p *ProcessState) Sys() any { //md5:29c81811e323269d0e7953fc4fe5598b
@@ -163,6 +165,7 @@ func (p *ProcessState) Sys() any { //md5:29c81811e323269d0e7953fc4fe5598b
 }
 
 // SysUsage 返回关于退出进程的系统依赖的资源使用信息。将其转换为适当的底层类型，如 Unix 中的 *syscall.Rusage，以访问其内容。（在 Unix 上，*syscall.Rusage 与 getrusage(2) 手册页中定义的 struct rusage 相匹配。）
+// 翻译提示:func  (p  *进程状态)  系统资源使用情况()  任何类型  {}
 
 // ff:取资源使用信息
 func (p *ProcessState) SysUsage() any { //md5:34d570db1d021dcc42e0d59d9b97763d
@@ -181,6 +184,7 @@ func (p *ProcessState) Pid() int { //md5:80d92fb5bb66295f960b60befb831a2d
 	return p.F.Pid()
 }
 
+// 翻译提示:func  (p  *进程状态)  字符串化()  字符串  {}
 
 // ff:
 func (p *ProcessState) String() string { //md5:fda18bc2a5938fb5acecd410279c9ca3

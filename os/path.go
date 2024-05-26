@@ -2,6 +2,10 @@ package os
 
 import "os"
 
+// 翻译提示:const  (
+// 	路径分隔符          =  os.PathSeparator          //  根据操作系统特定的路径分隔符
+// 	路径列表分隔符  =  os.PathListSeparator  //  根据操作系统特定的路径列表分隔符
+// )
 const (
 	PathSeparator     = os.PathSeparator     // 操作系统特定的路径分隔符
 	PathListSeparator = os.PathListSeparator // 操作系统特定的路径列表分隔符
@@ -22,8 +26,8 @@ const (
 // 如果 path 已经是一个目录，MkdirAll 将不执行任何操作并返回 nil。
 
 // ff:创建所有目录
-// perm:权限
 // path:路径
+// perm:权限
 func MkdirAll(path string, perm FileMode) error { //md5:db52ef7497ef022cd3e461eb06d35cef
 	return os.MkdirAll(path, perm)
 }

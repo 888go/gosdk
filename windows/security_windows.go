@@ -9,6 +9,18 @@ import (
 	"unsafe"
 )
 
+// 翻译提示:const  (
+// 	名称未知                    =  0
+// 	完全限定DN名称          =  1
+// 	SAM兼容名称              =  2
+// 	显示名称                      =  3
+// 	唯一标识名称                =  6
+// 	规范名称                      =  7
+// 	用户主体名称              =  8
+// 	规范名称扩展                =  9
+// 	服务主体名称              =  10
+// 	DNS域名名称                =  12
+// )
 const (
 	NameUnknown          = 0
 	NameFullyQualifiedDN = 1
@@ -30,10 +42,10 @@ const (
 // TranslateAccountName 将目录服务对象名称从一种格式转换为另一种格式。
 
 // ff:
-// initSize:
-// to:
-// from:
 // username:
+// from:
+// to:
+// initSize:
 func TranslateAccountName(username string, from, to uint32, initSize int) (string, error) {
 	u, e := UTF16PtrFromString(username)
 	if e != nil {
@@ -55,6 +67,30 @@ func TranslateAccountName(username string, from, to uint32, initSize int) (strin
 	}
 }
 
+// 翻译提示:const  (
+// 	//  不要重新排序
+// 	网络配置未知状态  =  iota
+// 	未加入网络
+// 	工作组名称
+// 	域名名称
+// )
+// 
+// func  (status  NetworkConfigurationStatus)  String()  string  {
+// 	switch  status  {
+// 	case  NetSetupUnknownStatus:
+// 		return  "未知状态"
+// 	case  NetSetupUnjoined:
+// 		return  "未加入"
+// 	case  NetSetupWorkgroupName:
+// 		return  "工作组名称"
+// 	case  NetSetupDomainName:
+// 		return  "域名名称"
+// 	default:
+// 		return  "未知状态("  +  strconv.Itoa(int(status))  +  ")"
+// 	}
+// }
+// 
+// type  NetworkConfigurationStatus  int
 const (
 	// do not reorder
 	NetSetupUnknownStatus = iota
@@ -74,6 +110,19 @@ type UserInfo10 struct {
 //sys	NetGetJoinInformation(server *uint16, name **uint16, bufType *uint32) (neterr error) = netapi32.NetGetJoinInformation
 //sys	NetApiBufferFree(buf *byte) (neterr error) = netapi32.NetApiBufferFree
 
+// 翻译提示:const  (
+// 	//  不要重新排列
+// 	用户Sid类型  =  1  +  iota
+// 	组Sid类型
+// 	域Sid类型
+// 	别名Sid类型
+// 	知名组Sid类型
+// 	已删除账户Sid类型
+// 	无效Sid类型
+// 	未知Sid类型
+// 	计算机Sid类型
+// 	标签Sid类型
+// )
 const (
 	// do not reorder
 	SidTypeUser = 1 + iota
@@ -102,6 +151,32 @@ var (
 	SECURITY_MANDATORY_LABEL_AUTHORITY = SidIdentifierAuthority{[6]byte{0, 0, 0, 0, 0, 16}}
 )
 
+// 翻译提示:const  (
+// 	安全空标识符                                      =  0
+// 	全局世界标识符                                    =  0
+// 	本地标识符                                            =  0
+// 	创建者所有者标识符                    =  0
+// 	创建者组标识符                    =  1
+// 	拨号标识符                                          =  1
+// 	网络标识符                                            =  2
+// 	批处理标识符                                        =  3
+// 	交互式标识符                                        =  4
+// 	登录标识符集合标识符                        =  5
+// 	服务标识符                                            =  6
+// 	本地系统标识符                                =  18
+// 	内置域标识符                                      =  32
+// 	主体自身标识符                              =  10
+// 	创建者所有者服务器标识符      =  0x2
+// 	创建者组服务器标识符      =  0x3
+// 	登录标识符集合计数                =  0x3
+// 	匿名登录标识符                          =  0x7
+// 	代理标识符                                          =  0x8
+// 	企业控制器标识符                      =  0x9
+// 	服务器登录标识符                      =  企业控制器标识符
+// 	验证用户标识符                          =  0xb
+// 	受限代码标识符                                =  0xc
+// 	NT非唯一标识符                            =  0x15
+// )
 const (
 	SECURITY_NULL_RID                   = 0
 	SECURITY_WORLD_RID                  = 0
@@ -131,6 +206,33 @@ const (
 
 // 预定义的与域相关的本地组RID。 
 // 参见 https://msdn.microsoft.com/en-us/library/windows/desktop/aa379649(v=vs.85).aspx
+// 翻译提示:const  (
+// 	管理员组RID  =  0x220
+// 	用户组RID      =  0x221
+// 	访客组RID      =  0x222
+// 	高级用户组RID  =  0x223
+// 	账户操作员组RID  =  0x224
+// 	系统操作员组RID  =  0x225
+// 	打印操作员组RID  =  0x226
+// 	备份操作员组RID  =  0x227
+// 	复制器组RID  =  0x228
+// 	远程访问服务器组RID  =  0x229
+// 	旧版Windows兼容访问组RID  =  0x22a
+// 	远程桌面用户组RID  =  0x22b
+// 	网络配置操作员组RID  =  0x22c
+// 	森林信任构建者组RID  =  0x22d
+// 	监控用户组RID  =  0x22e
+// 	日志记录用户组RID  =  0x22f
+// 	授权访问组RID  =  0x230
+// 	终端服务许可证服务器组RID  =  0x231
+// 	DCOM用户组RID  =  0x232
+// 	IIS用户组RID  =  0x238
+// 	加密操作员组RID  =  0x239
+// 	可缓存主体组RID  =  0x23b
+// 	不可缓存主体组RID  =  0x23c
+// 	事件日志读者组RID  =  0x23d
+// 	CertSvc_DCOM访问组RID  =  0x23e
+// )
 const (
 	DOMAIN_ALIAS_RID_ADMINS                         = 0x220
 	DOMAIN_ALIAS_RID_USERS                          = 0x221
@@ -200,12 +302,12 @@ func StringToSid(s string) (*SID, error) {
 // 参数System指定了进行搜索的目标计算机。
 
 // ff:
-// err:
-// accType:
-// domain:
-// sid:
-// account:
 // system:
+// account:
+// sid:
+// domain:
+// accType:
+// err:
 func LookupSID(system, account string) (sid *SID, domain string, accType uint32, err error) {
 	if len(account) == 0 {
 		return nil, "", 0, syscall.EINVAL
@@ -241,6 +343,8 @@ func LookupSID(system, account string) (sid *SID, domain string, accType uint32,
 }
 
 // String 将SID转换为适合显示、存储或传输的字符串格式
+// 翻译提示://  SID字符串表示
+// func  (sid  *安全标识符)  String()  字符串  {}
 
 // ff:
 func (sid *SID) String() string {
@@ -288,6 +392,7 @@ func (sid *SID) SubAuthorityCount() uint8 {
 }
 
 // SubAuthority 返回由指定索引（该索引必须小于 sid.SubAuthorityCount()）所确定的 SID 的子权限部分
+// 翻译提示:func  (sid  *安全标识符)  子权威索引(idx  uint32)  uint32  {}
 
 // ff:
 // idx:
@@ -299,6 +404,7 @@ func (sid *SID) SubAuthority(idx uint32) uint32 {
 }
 
 // IsValid 判断SID是否具有有效的修订版本和长度
+// 翻译提示:func  (sid  *安全标识符)  是否有效()  bool  {}
 
 // ff:
 func (sid *SID) IsValid() bool {
@@ -314,6 +420,7 @@ func (sid *SID) Equals(sid2 *SID) bool {
 }
 
 // IsWellKnown 判断SID是否匹配已知的sidType
+// 翻译提示:func  (sid  *SID)  是否为常见SID(sidType  常见SID类型)  bool  {}
 
 // ff:
 // sidType:
@@ -325,11 +432,11 @@ func (sid *SID) IsWellKnown(sidType WELL_KNOWN_SID_TYPE) bool {
 // System 指定要在其中搜索的目标计算机。
 
 // ff:
-// err:
-// accType:
-// domain:
-// account:
 // system:
+// account:
+// domain:
+// accType:
+// err:
 func (sid *SID) LookupAccount(system string) (account, domain string, accType uint32, err error) {
 	var sys *uint16
 	if len(system) > 0 {
@@ -493,8 +600,8 @@ func CreateWellKnownSid(sidType WELL_KNOWN_SID_TYPE) (*SID, error) {
 // 为指定由 domainSid 参数标识的域中某个预定义的知名别名创建一个 SID（安全标识符），通常使用形如 Win*Sid 的常量。
 
 // ff:
-// domainSid:
 // sidType:
+// domainSid:
 func CreateWellKnownDomainSid(sidType WELL_KNOWN_SID_TYPE, domainSid *SID) (*SID, error) {
 	n := uint32(50)
 	for {
@@ -513,6 +620,35 @@ func CreateWellKnownDomainSid(sidType WELL_KNOWN_SID_TYPE, domainSid *SID) (*SID
 	}
 }
 
+// 翻译提示:const  (
+// 	//  不要重新排序
+// 	令牌设置为主要  =  1  <<  iota
+// 	令牌复制
+// 	令牌模拟
+// 	令牌查询
+// 	令牌查询来源
+// 	令牌调整权限
+// 	令牌调整组
+// 	令牌调整默认值
+// 	令牌调整会话ID
+// 
+// 	令牌所有访问权限  =  标准权利要求  |
+// 		令牌设置为主要  |
+// 		令牌复制  |
+// 		令牌模拟  |
+// 		令牌查询  |
+// 		令牌查询来源  |
+// 		令牌调整权限  |
+// 		令牌调整组  |
+// 		令牌调整默认值  |
+// 		令牌调整会话ID
+// 	令牌读取  =  标准权利读取  |  令牌查询
+// 	令牌写入  =  标准权利写入  |
+// 		令牌调整权限  |
+// 		令牌调整组  |
+// 		令牌调整默认值
+// 	令牌执行  =  标准权利执行
+// )
 const (
 	// do not reorder
 	TOKEN_ASSIGN_PRIMARY = 1 << iota
@@ -543,6 +679,38 @@ const (
 	TOKEN_EXECUTE = STANDARD_RIGHTS_EXECUTE
 )
 
+// 翻译提示:const  (
+// 	//  不要重新排序
+// 	用户令牌  =  1  +  iota
+// 	组令牌
+// 	权限令牌
+// 	拥有者令牌
+// 	主要组令牌
+// 	默认访问控制列表令牌
+// 	令牌源
+// 	令牌类型
+// 	令牌模拟级别
+// 	令牌统计信息
+// 	受限安全标识符令牌
+// 	会话标识符令牌
+// 	组和权限令牌
+// 	令牌会话引用
+// 	令牌沙箱无效
+// 	令牌审计策略
+// 	令牌来源
+// 	令牌提升类型
+// 	链接令牌
+// 	令牌提升
+// 	令牌有限制
+// 	令牌访问信息
+// 	令牌虚拟化允许
+// 	令牌虚拟化启用
+// 	完整性级别令牌
+// 	UI访问令牌
+// 	强制策略令牌
+// 	登录Sid令牌
+// 	最大令牌信息类别
+// )
 const (
 	// do not reorder
 	TokenUser = 1 + iota
@@ -591,6 +759,13 @@ const (
 )
 
 // Privilege attributes
+// 翻译提示:const  (
+// 	默认启用权限                =  0x00000001
+// 	已启用权限                    =  0x00000002
+// 	已移除权限                    =  0x00000004
+// 	用于访问的权限            =  0x80000000
+// 	有效权限属性              =  默认启用权限  |  已启用权限  |  已移除权限  |  用于访问的权限
+// )
 const (
 	SE_PRIVILEGE_ENABLED_BY_DEFAULT = 0x00000001
 	SE_PRIVILEGE_ENABLED            = 0x00000002
@@ -600,12 +775,22 @@ const (
 )
 
 // Token types
+// 翻译提示:const  (
+// 	主要令牌  =  1
+// 	模拟令牌  =  2
+// )
 const (
 	TokenPrimary       = 1
 	TokenImpersonation = 2
 )
 
 // Impersonation levels
+// 翻译提示:const  (
+// 	匿名安全级别      =  0
+// 	身份验证安全级别  =  1
+// 	模拟安全级别        =  2
+// 	委派安全级别        =  3
+// )
 const (
 	SecurityAnonymous      = 0
 	SecurityIdentification = 1
@@ -664,6 +849,7 @@ type Tokenmandatorylabel struct {
 	Label SIDAndAttributes
 }
 
+// 翻译提示:func  (tml  *安全标识符标签)  大小()  uint32  {}
 
 // ff:
 func (tml *Tokenmandatorylabel) Size() uint32 {
@@ -903,8 +1089,8 @@ func (t Token) IsMember(sid *SID) (bool, error) {
 // IsRestricted 判断访问令牌 t 是否为受限令牌。
 
 // ff:
-// err:
 // isRestricted:
+// err:
 func (t Token) IsRestricted() (isRestricted bool, err error) {
 	isRestricted, err = isTokenRestricted(t)
 	if !isRestricted && err == syscall.EINVAL {
@@ -914,6 +1100,19 @@ func (t Token) IsRestricted() (isRestricted bool, err error) {
 	return
 }
 
+// 翻译提示:const  (
+// 	控制台连接                =  0x1
+// 	控制台断开连接          =  0x2
+// 	远程连接                  =  0x3
+// 	远程断开连接            =  0x4
+// 	会话登录                    =  0x5
+// 	会话注销                    =  0x6
+// 	会话锁定                      =  0x7
+// 	会话解锁                      =  0x8
+// 	会话远程控制              =  0x9
+// 	会话创建                    =  0xa
+// 	会话终止                    =  0xb
+// )
 const (
 	WTS_CONSOLE_CONNECT        = 0x1
 	WTS_CONSOLE_DISCONNECT     = 0x2
@@ -928,6 +1127,18 @@ const (
 	WTS_SESSION_TERMINATE      = 0xb
 )
 
+// 翻译提示:const  (
+// 	活动状态              =  0
+// 	已连接                =  1
+// 	连接查询            =  2
+// 	阴影连接            =  3
+// 	已断开连接          =  4
+// 	空闲状态            =  5
+// 	监听状态            =  6
+// 	重置状态            =  7
+// 	系统关闭            =  8
+// 	初始化状态        =  9
+// )
 const (
 	WTSActive       = 0
 	WTSConnected    = 1
@@ -983,6 +1194,10 @@ type SECURITY_QUALITY_OF_SERVICE struct {
 }
 
 // ContextTrackingMode字段的SECURITY_QUALITY_OF_SERVICE常量
+// 翻译提示:const  (
+// 	安全静态追踪  =  0
+// 	安全动态追踪  =  1
+// )
 const (
 	SECURITY_STATIC_TRACKING  = 0
 	SECURITY_DYNAMIC_TRACKING = 1
@@ -1157,24 +1372,29 @@ type EXPLICIT_ACCESS struct {
 // 此类型为TRUSTEE内的联合体，必须通过使用TrusteeValueFrom*系列函数之一来创建。
 type TrusteeValue uintptr
 
+// 翻译提示:func  从字符串转换TrusteeValue(str  字符串)  TrusteeValue  {}
+// ```
 
 // ff:
 // str:
 func TrusteeValueFromString(str string) TrusteeValue {
 	return TrusteeValue(unsafe.Pointer(StringToUTF16Ptr(str)))
 }
+// 翻译提示:func  从SID获取受托者值(sid  *安全标识符)  受托者值  {}
 
 // ff:
 // sid:
 func TrusteeValueFromSID(sid *SID) TrusteeValue {
 	return TrusteeValue(unsafe.Pointer(sid))
 }
+// 翻译提示:func  从对象和Sid获取Trustee值(objectsAndSid  *对象和Sid)  TrusteeValue  {}
 
 // ff:
 // objectsAndSid:
 func TrusteeValueFromObjectsAndSid(objectsAndSid *OBJECTS_AND_SID) TrusteeValue {
 	return TrusteeValue(unsafe.Pointer(objectsAndSid))
 }
+// 翻译提示:func  从对象和名称获取受托人值(objectsAndName  *对象和名称)  受托人值  {}
 
 // ff:
 // objectsAndName:
@@ -1241,19 +1461,20 @@ type OBJECTS_AND_NAME struct {
 // Control 返回安全描述符控制位。
 
 // ff:
-// err:
-// revision:
 // control:
+// revision:
+// err:
 func (sd *SECURITY_DESCRIPTOR) Control() (control SECURITY_DESCRIPTOR_CONTROL, revision uint32, err error) {
 	err = getSecurityDescriptorControl(sd, &control, &revision)
 	return
 }
 
 // SetControl 设置安全描述符控制位
+// 翻译提示:func  (sd  *安全描述符)  设置控制位(controlBitsOfInterest  安全描述符控制位,  controlBitsToSet  安全描述符控制位)  error  {}
 
 // ff:
-// controlBitsToSet:
 // controlBitsOfInterest:
+// controlBitsToSet:
 func (sd *SECURITY_DESCRIPTOR) SetControl(controlBitsOfInterest SECURITY_DESCRIPTOR_CONTROL, controlBitsToSet SECURITY_DESCRIPTOR_CONTROL) error {
 	return setSecurityDescriptorControl(sd, controlBitsOfInterest, controlBitsToSet)
 }
@@ -1261,8 +1482,8 @@ func (sd *SECURITY_DESCRIPTOR) SetControl(controlBitsOfInterest SECURITY_DESCRIP
 // RMControl 返回安全描述符资源管理器控制位。
 
 // ff:
-// err:
 // control:
+// err:
 func (sd *SECURITY_DESCRIPTOR) RMControl() (control uint8, err error) {
 	err = getSecurityDescriptorRMControl(sd, &control)
 	return
@@ -1279,9 +1500,9 @@ func (sd *SECURITY_DESCRIPTOR) SetRMControl(rmControl uint8) {
 // DACL 返回安全描述符的 DACL 以及它是否为默认值。dacl 的返回值可能为 nil，如果存在但为“空 DACL”，即表示完全无限制访问。如果不存在 DACL，则 err 返回 ERROR_OBJECT_NOT_FOUND。
 
 // ff:
-// err:
-// defaulted:
 // dacl:
+// defaulted:
+// err:
 func (sd *SECURITY_DESCRIPTOR) DACL() (dacl *ACL, defaulted bool, err error) {
 	var present bool
 	err = getSecurityDescriptorDacl(sd, &present, &dacl, &defaulted)
@@ -1292,11 +1513,12 @@ func (sd *SECURITY_DESCRIPTOR) DACL() (dacl *ACL, defaulted bool, err error) {
 }
 
 // SetDACL 设置绝对安全描述符的 DACL
+// 翻译提示:func  (绝对安全描述符  *安全描述符)  设置DACL(访问控制列表  *ACL,  是否存在  bool,  是否默认  bool)  error  {}
 
 // ff:
-// defaulted:
-// present:
 // dacl:
+// present:
+// defaulted:
 func (absoluteSD *SECURITY_DESCRIPTOR) SetDACL(dacl *ACL, present, defaulted bool) error {
 	return setSecurityDescriptorDacl(absoluteSD, present, dacl, defaulted)
 }
@@ -1304,9 +1526,9 @@ func (absoluteSD *SECURITY_DESCRIPTOR) SetDACL(dacl *ACL, present, defaulted boo
 // SACL 返回安全描述符的 SACL（系统访问控制列表）及其是否为默认值。如果存在 SACL，但它是“空 SACL”，即完全无限制，则 sacl 返回值可能为 nil。如果不存在 SACL，则 err 返回 ERROR_OBJECT_NOT_FOUND。
 
 // ff:
-// err:
-// defaulted:
 // sacl:
+// defaulted:
+// err:
 func (sd *SECURITY_DESCRIPTOR) SACL() (sacl *ACL, defaulted bool, err error) {
 	var present bool
 	err = getSecurityDescriptorSacl(sd, &present, &sacl, &defaulted)
@@ -1317,11 +1539,12 @@ func (sd *SECURITY_DESCRIPTOR) SACL() (sacl *ACL, defaulted bool, err error) {
 }
 
 // SetSACL 设置绝对安全描述符的SACL
+// 翻译提示:func  (绝对SD  *安全描述符)  设置系统访问控制列表(安全访问控制列表  *ACL,  是否存在  bool,  是否默认  bool)  error  {}
 
 // ff:
-// defaulted:
-// present:
 // sacl:
+// present:
+// defaulted:
 func (absoluteSD *SECURITY_DESCRIPTOR) SetSACL(sacl *ACL, present, defaulted bool) error {
 	return setSecurityDescriptorSacl(absoluteSD, present, sacl, defaulted)
 }
@@ -1329,9 +1552,9 @@ func (absoluteSD *SECURITY_DESCRIPTOR) SetSACL(sacl *ACL, present, defaulted boo
 // Owner 返回安全描述符的所有者以及该所有者是否为默认值。
 
 // ff:
-// err:
-// defaulted:
 // owner:
+// defaulted:
+// err:
 func (sd *SECURITY_DESCRIPTOR) Owner() (owner *SID, defaulted bool, err error) {
 	err = getSecurityDescriptorOwner(sd, &owner, &defaulted)
 	return
@@ -1340,8 +1563,8 @@ func (sd *SECURITY_DESCRIPTOR) Owner() (owner *SID, defaulted bool, err error) {
 // SetOwner 设置绝对安全描述符的所有者
 
 // ff:
-// defaulted:
 // owner:
+// defaulted:
 func (absoluteSD *SECURITY_DESCRIPTOR) SetOwner(owner *SID, defaulted bool) error {
 	return setSecurityDescriptorOwner(absoluteSD, owner, defaulted)
 }
@@ -1349,9 +1572,9 @@ func (absoluteSD *SECURITY_DESCRIPTOR) SetOwner(owner *SID, defaulted bool) erro
 // Group 返回安全描述符的组信息以及该组信息是否为默认值。
 
 // ff:
-// err:
-// defaulted:
 // group:
+// defaulted:
+// err:
 func (sd *SECURITY_DESCRIPTOR) Group() (group *SID, defaulted bool, err error) {
 	err = getSecurityDescriptorGroup(sd, &group, &defaulted)
 	return
@@ -1360,8 +1583,8 @@ func (sd *SECURITY_DESCRIPTOR) Group() (group *SID, defaulted bool, err error) {
 // SetGroup 设置绝对安全描述符的所有者。
 
 // ff:
-// defaulted:
 // group:
+// defaulted:
 func (absoluteSD *SECURITY_DESCRIPTOR) SetGroup(group *SID, defaulted bool) error {
 	return setSecurityDescriptorGroup(absoluteSD, group, defaulted)
 }
@@ -1374,6 +1597,7 @@ func (sd *SECURITY_DESCRIPTOR) Length() uint32 {
 }
 
 // IsValid 返回该安全描述符是否有效
+// 翻译提示:func  (sd  *安全描述符)  是否有效()  bool  {}
 
 // ff:
 func (sd *SECURITY_DESCRIPTOR) IsValid() bool {
@@ -1396,8 +1620,8 @@ func (sd *SECURITY_DESCRIPTOR) String() string {
 // ToAbsolute 将一个自相对的（self-relative）安全描述符转换为绝对的（absolute）安全描述符。
 
 // ff:
-// err:
 // absoluteSD:
+// err:
 func (selfRelativeSD *SECURITY_DESCRIPTOR) ToAbsolute() (absoluteSD *SECURITY_DESCRIPTOR, err error) {
 	control, _, err := selfRelativeSD.Control()
 	if err != nil {
@@ -1447,8 +1671,8 @@ func (selfRelativeSD *SECURITY_DESCRIPTOR) ToAbsolute() (absoluteSD *SECURITY_DE
 // ToSelfRelative 将一个绝对安全描述符转换为自相对形式。
 
 // ff:
-// err:
 // selfRelativeSD:
+// err:
 func (absoluteSD *SECURITY_DESCRIPTOR) ToSelfRelative() (selfRelativeSD *SECURITY_DESCRIPTOR, err error) {
 	control, _, err := absoluteSD.Control()
 	if err != nil {
@@ -1494,9 +1718,9 @@ func (selfRelativeSD *SECURITY_DESCRIPTOR) copySelfRelativeSecurityDescriptor() 
 // SecurityDescriptorFromString 将描述安全描述符的 SDDL 字符串转换为在 Go 堆上分配的自相对性安全描述符对象。
 
 // ff:
-// err:
-// sd:
 // sddl:
+// sd:
+// err:
 func SecurityDescriptorFromString(sddl string) (sd *SECURITY_DESCRIPTOR, err error) {
 	var winHeapSD *SECURITY_DESCRIPTOR
 	err = convertStringSecurityDescriptorToSecurityDescriptor(sddl, 1, &winHeapSD, nil)
@@ -1510,11 +1734,11 @@ func SecurityDescriptorFromString(sddl string) (sd *SECURITY_DESCRIPTOR, err err
 // GetSecurityInfo 为给定的句柄查询安全信息，并在Go堆上返回自相关的安全描述符结果。
 
 // ff:
-// err:
-// sd:
-// securityInformation:
-// objectType:
 // handle:
+// objectType:
+// securityInformation:
+// sd:
+// err:
 func GetSecurityInfo(handle Handle, objectType SE_OBJECT_TYPE, securityInformation SECURITY_INFORMATION) (sd *SECURITY_DESCRIPTOR, err error) {
 	var winHeapSD *SECURITY_DESCRIPTOR
 	err = getSecurityInfo(handle, objectType, securityInformation, nil, nil, nil, nil, &winHeapSD)
@@ -1528,11 +1752,11 @@ func GetSecurityInfo(handle Handle, objectType SE_OBJECT_TYPE, securityInformati
 // GetNamedSecurityInfo 为指定命名对象查询安全信息，并在Go堆上返回自相对安全描述符结果。
 
 // ff:
-// err:
-// sd:
-// securityInformation:
-// objectType:
 // objectName:
+// objectType:
+// securityInformation:
+// sd:
+// err:
 func GetNamedSecurityInfo(objectName string, objectType SE_OBJECT_TYPE, securityInformation SECURITY_INFORMATION) (sd *SECURITY_DESCRIPTOR, err error) {
 	var winHeapSD *SECURITY_DESCRIPTOR
 	err = getNamedSecurityInfo(objectName, objectType, securityInformation, nil, nil, nil, nil, &winHeapSD)
@@ -1546,13 +1770,13 @@ func GetNamedSecurityInfo(objectName string, objectType SE_OBJECT_TYPE, security
 // BuildSecurityDescriptor 通过使用输入的信任主体、显式访问列表以及待合并的先前安全描述符（这些参数均可为 nil）构建一个新的安全描述符，并将生成的自相关安全描述符结果置于 Go 堆上返回。
 
 // ff:
-// err:
-// sd:
-// mergedSecurityDescriptor:
-// auditEntries:
-// accessEntries:
-// group:
 // owner:
+// group:
+// accessEntries:
+// auditEntries:
+// mergedSecurityDescriptor:
+// sd:
+// err:
 func BuildSecurityDescriptor(owner *TRUSTEE, group *TRUSTEE, accessEntries []EXPLICIT_ACCESS, auditEntries []EXPLICIT_ACCESS, mergedSecurityDescriptor *SECURITY_DESCRIPTOR) (sd *SECURITY_DESCRIPTOR, err error) {
 	var winHeapSD *SECURITY_DESCRIPTOR
 	var winHeapSDSize uint32
@@ -1575,8 +1799,8 @@ func BuildSecurityDescriptor(owner *TRUSTEE, group *TRUSTEE, accessEntries []EXP
 // NewSecurityDescriptor 创建并初始化一个新的绝对安全描述符。
 
 // ff:
-// err:
 // absoluteSD:
+// err:
 func NewSecurityDescriptor() (absoluteSD *SECURITY_DESCRIPTOR, err error) {
 	absoluteSD = &SECURITY_DESCRIPTOR{}
 	err = initializeSecurityDescriptor(absoluteSD, 1)
@@ -1587,10 +1811,10 @@ func NewSecurityDescriptor() (absoluteSD *SECURITY_DESCRIPTOR, err error) {
 // explicitEntries 和 mergedACL 两者都是可选的，可以为nil。
 
 // ff:
-// err:
-// acl:
-// mergedACL:
 // explicitEntries:
+// mergedACL:
+// acl:
+// err:
 func ACLFromEntries(explicitEntries []EXPLICIT_ACCESS, mergedACL *ACL) (acl *ACL, err error) {
 	var firstExplicitEntry *EXPLICIT_ACCESS
 	if len(explicitEntries) > 0 {

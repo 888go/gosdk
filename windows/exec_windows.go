@@ -174,18 +174,20 @@ func DecomposeCommandLine(commandLine string) ([]string, error) {
 // 需要注意的是，尽管 CommandLineToArgv 的返回类型表明其可以容纳 8192 个长度不超过 8192 字符的条目，
 // 实际解析得到的参数数量可能超过 8192，且 CommandLineToArgvW 文档并未提及单个参数字符串长度有任何限制。
 // （参见 https://go.dev/issue/63236。）
+// 翻译提示:func  命令行转参数数组(cmd  *uint16,  argc  *int32)  (参数数组  *[8192]*[8192]uint16,  错误  error)  {}
 
 // ff:
-// err:
-// argv:
-// argc:
 // cmd:
+// argc:
+// argv:
+// err:
 func CommandLineToArgv(cmd *uint16, argc *int32) (argv *[8192]*[8192]uint16, err error) {
 	argp, err := commandLineToArgv(cmd, argc)
 	argv = (*[8192]*[8192]uint16)(unsafe.Pointer(argp))
 	return argv, err
 }
 
+// 翻译提示:func  关闭执行时关闭(fd  文件描述符)  {}
 
 // ff:
 // fd:
@@ -196,9 +198,9 @@ func CloseOnExec(fd Handle) {
 // FullPath 获取指定文件的完整路径
 
 // ff:
-// err:
-// path:
 // name:
+// path:
+// err:
 func FullPath(name string) (path string, err error) {
 	p, err := UTF16PtrFromString(name)
 	if err != nil {
@@ -246,9 +248,9 @@ func NewProcThreadAttributeList(maxAttrCount uint32) (*ProcThreadAttributeListCo
 // Update 通过调用 UpdateProcThreadAttribute 函数来修改 ProcThreadAttributeList。
 
 // ff:
-// size:
-// value:
 // attribute:
+// value:
+// size:
 func (al *ProcThreadAttributeListContainer) Update(attribute uintptr, value unsafe.Pointer, size uintptr) error {
 	al.pointers = append(al.pointers, value)
 	return updateProcThreadAttribute(al.data, 0, attribute, value, size, nil, nil)

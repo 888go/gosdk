@@ -34,8 +34,8 @@ type RecoveryAction struct {
 // 指定 INFINITE 表示服务失败计数器应永不重置。
 
 // ff:
-// resetPeriod:
 // recoveryActions:
+// resetPeriod:
 func (s *Service) SetRecoveryActions(recoveryActions []RecoveryAction, resetPeriod uint32) error {
 	if recoveryActions == nil {
 		return errors.New("recoveryActions cannot be nil")
@@ -82,6 +82,7 @@ func (s *Service) RecoveryActions() ([]RecoveryAction, error) {
 }
 
 // 重置恢复动作：删除复位周期与失败动作数组
+// 翻译提示:func  (s  *服务)  重置恢复操作()  错误  {}
 
 // ff:
 func (s *Service) ResetRecoveryActions() error {

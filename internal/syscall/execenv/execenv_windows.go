@@ -21,6 +21,12 @@ import (
 // the environment variables will be sourced from
 // the defaults for that user token, otherwise they
 // will be sourced from syscall.Environ().
+// 翻译提示:func 默认环境变量设置(sys *系统进程属性) (环境变量列表 []string, 错误 error) {}
+
+// ff:
+// err:
+// env:
+// sys:
 func Default(sys *syscall.SysProcAttr) (env []string, err error) {
 	if sys == nil || sys.Token == 0 {
 		return syscall.Environ(), nil

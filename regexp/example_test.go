@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package regexp_test//bm:正则类_test
+package regexp_test
 
 import (
 	"fmt"

@@ -6,8 +6,8 @@ import "os"
 // 例如，os.ExpandEnv(s) 与 os.Expand(s, os.Getenv) 等效。
 
 // ff:环境变量按模板替换文本FUNC
-// mapping:模板函数
 // s:原文本
+// mapping:模板函数
 func Expand(s string, mapping func(string) string) string { //md5:f019dd053f61718f994fe11643caa0b0
 	return os.Expand(s, mapping)
 }
@@ -41,8 +41,8 @@ func LookupEnv(key string) (string, bool) { //md5:c98bf5dc7868bd794abce426838242
 // Setenv 设置由键命名的环境变量的值。如果发生任何错误，它将返回一个错误。
 
 // ff:环境变量设置
-// value:值
 // key:名称
+// value:值
 func Setenv(key, value string) error { //md5:57ee46ffef752d4453e03bcee8468605
 	return os.Setenv(key, value)
 }

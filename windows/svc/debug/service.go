@@ -19,8 +19,8 @@ import (
 // 该过程在控制台运行，与实际服务不同。使用Ctrl+C向您的服务发送“停止”命令。
 
 // ff:
-// handler:
 // name:
+// handler:
 func Run(name string, handler svc.Handler) error {
 	cmds := make(chan svc.ChangeRequest)
 	changes := make(chan svc.Status)

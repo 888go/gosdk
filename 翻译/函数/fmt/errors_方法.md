@@ -37,20 +37,7 @@
 # //zj:
 # 备注结束
 
-[func (f *File) Readdir(n int) (#左中括号##右中括号#FileInfo, error) {]
-ff=读取目录2
-n=返回数量
-
-[func (f *File) Readdirnames(n int) (names #左中括号##右中括号#string, err error) {]
-names=文件名s
-n=返回数量
-err=错误
-ff=读取目录文件名
-
-[func (f *File) ReadDir(n int) (#左中括号##右中括号#DirEntry, error) {]
-ff=读取目录
-n=返回数量
-
-[func ReadDir(name string) (#左中括号##右中括号#DirEntry, error) {]
-ff=读取目录
-name=目录路径
+[func Errorf(format string, a ...any) error {]
+ff=错误格式化
+a=参数
+format=格式化模板

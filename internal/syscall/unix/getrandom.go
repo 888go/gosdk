@@ -18,6 +18,13 @@ var getrandomUnsupported int32 // atomic
 type GetRandomFlag uintptr
 
 // GetRandom calls the getrandom system call.
+// 翻译提示:func 获取随机字节(p []字节, 标志 GetRandomFlag) (长度 int, 错误 error) {}
+
+// ff:
+// err:
+// n:
+// flags:
+// p:
 func GetRandom(p []byte, flags GetRandomFlag) (n int, err error) {
 	if len(p) == 0 {
 		return 0, nil

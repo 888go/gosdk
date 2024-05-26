@@ -32,10 +32,10 @@ func (r *Replacer) Replace(s string) string { //md5:c2a7d68dc010b9622ed8d85f2cc0
 // WriteString 将s写入w，同时执行所有替换操作。
 
 // ff:
-// err:
-// n:
-// s:
 // w:
+// s:
+// n:
+// err:
 func (r *Replacer) WriteString(w io.Writer, s string) (n int, err error) { //md5:e6848c200491de80abff300f82fb7068
 	return r.F.WriteString(w, s)
 }

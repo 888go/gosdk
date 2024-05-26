@@ -9,6 +9,31 @@ package cfg
 
 // KnownEnv is a list of environment variables that affect the operation
 // of the Go command.
+// 翻译提示:const 知道的环境变量 = `
+//
+//// 下面的常量假设为配置文件类型的枚举
+//const (
+//    JSON配置 = "json"
+//    YAML配置 = "yaml"
+//    TOML配置 = "toml"
+//    PROTOBUF配置 = "protobuf"
+//)
+//
+//// 以下为配置加载位置的常量
+//const (
+//    默认配置路径 = "default_config_path"
+//    用户配置路径 = "user_config_path"
+//    系统配置路径 = "system_config_path"
+//    环境变量配置 = "env_config"
+//    命令行参数配置 = "cmd_args_config"
+//)
+//
+//// 错误码常量
+//const (
+//    加载配置失败 = "load_config_failure"
+//    解析配置错误 = "parse_config_error"
+//    找不到配置文件 = "config_file_not_found"
+//)
 const KnownEnv = `
 	AR
 	CC

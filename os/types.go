@@ -56,8 +56,8 @@ func Getpagesize() int { //md5:d379c113740c775f0f6aaac91ecbd1be
 // 在其他情况下，它会返回false。
 
 // ff:是否同一文件
-// fi2:
 // fi1:
+// fi2:
 func SameFile(fi1, fi2 FileInfo) bool { //md5:b4e76f9d966d9daea55a383bca41dc5f
 	return os.SameFile(fi1, fi2)
 }

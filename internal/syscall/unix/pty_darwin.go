@@ -12,6 +12,9 @@ import (
 //go:cgo_import_dynamic libc_grantpt grantpt "/usr/lib/libSystem.B.dylib"
 func libc_grantpt_trampoline()
 
+
+// ff:
+// fd:
 func Grantpt(fd int) error {
 	_, _, errno := syscall_syscall6(abi.FuncPCABI0(libc_grantpt_trampoline), uintptr(fd), 0, 0, 0, 0, 0)
 	if errno != 0 {
@@ -23,6 +26,9 @@ func Grantpt(fd int) error {
 //go:cgo_import_dynamic libc_unlockpt unlockpt "/usr/lib/libSystem.B.dylib"
 func libc_unlockpt_trampoline()
 
+
+// ff:
+// fd:
 func Unlockpt(fd int) error {
 	_, _, errno := syscall_syscall6(abi.FuncPCABI0(libc_unlockpt_trampoline), uintptr(fd), 0, 0, 0, 0, 0)
 	if errno != 0 {
@@ -34,6 +40,9 @@ func Unlockpt(fd int) error {
 //go:cgo_import_dynamic libc_ptsname_r ptsname_r "/usr/lib/libSystem.B.dylib"
 func libc_ptsname_r_trampoline()
 
+
+// ff:
+// fd:
 func Ptsname(fd int) (string, error) {
 	buf := make([]byte, 256)
 	_, _, errno := syscall_syscall6(abi.FuncPCABI0(libc_ptsname_r_trampoline),
@@ -56,6 +65,11 @@ func Ptsname(fd int) (string, error) {
 //go:cgo_import_dynamic libc_posix_openpt posix_openpt "/usr/lib/libSystem.B.dylib"
 func libc_posix_openpt_trampoline()
 
+
+// ff:
+// err:
+// fd:
+// flag:
 func PosixOpenpt(flag int) (fd int, err error) {
 	ufd, _, errno := syscall_syscall6(abi.FuncPCABI0(libc_posix_openpt_trampoline), uintptr(flag), 0, 0, 0, 0, 0)
 	if errno != 0 {

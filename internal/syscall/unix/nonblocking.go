@@ -12,6 +12,11 @@ import "syscall"
 // usually SYS_FCNTL, but can be overridden to SYS_FCNTL64.
 var FcntlSyscall uintptr = syscall.SYS_FCNTL
 
+
+// ff:
+// err:
+// nonblocking:
+// fd:
 func IsNonblock(fd int) (nonblocking bool, err error) {
 	flag, _, e1 := syscall.Syscall(FcntlSyscall, uintptr(fd), uintptr(syscall.F_GETFL), 0)
 	if e1 != 0 {
@@ -20,6 +25,9 @@ func IsNonblock(fd int) (nonblocking bool, err error) {
 	return flag&syscall.O_NONBLOCK != 0, nil
 }
 
+
+// ff:
+// flag:
 func HasNonblockFlag(flag int) bool {
 	return flag&syscall.O_NONBLOCK != 0
 }

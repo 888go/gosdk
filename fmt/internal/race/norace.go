@@ -12,60 +12,31 @@ import (
 
 const Enabled = false
 
-
-// ff:
-// addr:
 func Acquire(addr unsafe.Pointer) {
 }
 
-
-// ff:
-// addr:
 func Release(addr unsafe.Pointer) {
 }
 
-
-// ff:
-// addr:
 func ReleaseMerge(addr unsafe.Pointer) {
 }
 
-
-// ff:
 func Disable() {
 }
 
-
-// ff:
 func Enable() {
 }
 
-
-// ff:
-// addr:
 func Read(addr unsafe.Pointer) {
 }
 
-
-// ff:
-// addr:
 func Write(addr unsafe.Pointer) {
 }
 
-
-// ff:
-// len:
-// addr:
 func ReadRange(addr unsafe.Pointer, len int) {
 }
 
-
-// ff:
-// len:
-// addr:
 func WriteRange(addr unsafe.Pointer, len int) {
 }
 
-
-// ff:
 func Errors() int { return 0 }

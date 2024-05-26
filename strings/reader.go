@@ -41,20 +41,21 @@ func (r *Reader) Size() int64 { //md5:267dfc9e54f5f5cacb1b8e7004597412
 // Read 实现了 [io.Reader] 接口。
 
 // ff:
-// err:
-// n:
 // b:
+// n:
+// err:
 func (r *Reader) Read(b []byte) (n int, err error) { //md5:817ec22fd5a0598255ff61f03f08774f
 	return r.F.Read(b)
 }
 
 // 实现 io.ReaderAt 接口的 ReadAt 方法
+// 翻译提示:func  (r  *阅读器)  在位置读取(b  []字节,  偏移量  int64)  (读取长度  int,  错误  error)  {}
 
 // ff:
-// err:
-// n:
-// off:
 // b:
+// off:
+// n:
+// err:
 func (r *Reader) ReadAt(b []byte, off int64) (n int, err error) { //md5:398d6e4aca3bd8cf1674a648b664ad07
 	return r.F.ReadAt(b, off)
 }
@@ -74,11 +75,12 @@ func (r *Reader) UnreadByte() error { //md5:ac1435a66b739b0088b37a2a3ced6acc
 }
 
 // 实现了 io.RuneReader 接口的 ReadRune 方法
+// 翻译提示:func  (r  *读取器)  读取字符()  (字符  ch  rune,  大小  size  int,  错误  err  error)  {}
 
 // ff:
-// err:
-// size:
 // ch:
+// size:
+// err:
 func (r *Reader) ReadRune() (ch rune, size int, err error) { //md5:21ad75ec2d3037fd8e43b28f34f786ce
 	return r.F.ReadRune()
 }
@@ -91,20 +93,22 @@ func (r *Reader) UnreadRune() error { //md5:42e1193e492b8c32a40d243685d919df
 }
 
 // 实现了 [io.Seeker] 接口的 Seek 方法
+// 翻译提示:func  (r  *阅读器)  寻找(offset  int64,  方向  int)  (位置  int64,  错误  error)  {}
 
 // ff:
-// whence:
 // offset:
+// whence:
 func (r *Reader) Seek(offset int64, whence int) (int64, error) { //md5:3c5ed8431f7dff12e0782fb5c343b1dc
 	return r.F.Seek(offset, whence)
 }
 
 // 实现了 io.WriterTo 接口的 WriteTo 方法
+// 翻译提示:func  (r  *读取器)  写入到(w  io.写入器)  (字节写入数  int64,  错误  error)  {}
 
 // ff:
-// err:
-// n:
 // w:
+// n:
+// err:
 func (r *Reader) WriteTo(w io.Writer) (n int64, err error) { //md5:6bec38e7a3c36070ba76e2f596818440
 	return r.F.WriteTo(w)
 }

@@ -16,6 +16,7 @@ import (
 // ErrWaitDelay is returned by (*Cmd).Wait if the process exits with a
 // successful status code but its output pipes are not closed before the
 // command's WaitDelay expires.
+// 翻译提示:var  等待超时错误  =  errors.New("执行:  等待延迟已过期，I/O  完成前未响应")  //md5:a9b7691a47b44f05
 var ErrWaitDelay = errors.New("exec: WaitDelay expired before I/O complete") //md5:a9b7691a47b44f05
 
 // ErrDot indicates that a path lookup resolved to an executable
@@ -25,6 +26,7 @@ var ErrWaitDelay = errors.New("exec: WaitDelay expired before I/O complete") //m
 // Note that functions in this package do not return ErrDot directly.
 // Code should use errors.Is(err, ErrDot), not err == ErrDot,
 // to test whether a returned error err is due to this condition.
+// 翻译提示:var  错误  Dot  =  errors.New("无法运行相对于当前目录找到的可执行文件")  //md5:bcceec82a404a66c
 var ErrDot = errors.New("cannot run executable found relative to current directory") //md5:bcceec82a404a66c
 
 //func (e *Error) Error() string { //md5:47e007c6da65537c1ce793159301e0d2
@@ -58,8 +60,8 @@ type Cmd struct { //md5:cdf91edf21fccb61
 // 在这些或其他类似情况下, 您可以自己引用，并在SysProcAttr.CmdLine中提供完整的命令行，将Args留空。
 
 // ff:设置命令
-// arg:命令参数
 // name:进程名
+// arg:命令参数
 func Command(name string, arg ...string) *Cmd { //md5:2912017d0548a6188a67825cb0633059
 	return &Cmd{
 		F: *exec.Command(name, arg...),
@@ -75,9 +77,9 @@ func Command(name string, arg ...string) *Cmd { //md5:2912017d0548a6188a67825cb0
 // 并将其 WaitDelay 保持未设置状态。在启动命令之前，调用者可以通过修改这些字段来改变取消行为。
 
 // ff:设置命令并带上下文
-// arg:命令参数
-// name:进程名
 // ctx:上下文
+// name:进程名
+// arg:命令参数
 func CommandContext(ctx context.Context, name string, arg ...string) *Cmd { //md5:6482c2ac4f2da9383d162ac6194f5a52
 	return &Cmd{
 		F: *exec.CommandContext(ctx, name, arg...),
@@ -89,7 +91,7 @@ func CommandContext(ctx context.Context, name string, arg ...string) *Cmd { //md
 // 特别地，它不适合用作 shell 的输入。
 // String 的输出可能会在不同的 Go 版本之间有所变化。
 
-// ff:取命令
+// ff:
 func (c *Cmd) String() string { //md5:81f6a84e6ffe77c0a4beb3a6ebcb002f
 	return c.F.String()
 }
@@ -123,6 +125,7 @@ type ExitError struct { //md5:efd049c987f07aab
 	F exec.ExitError
 }
 
+// 翻译提示:func  (e  *退出错误)  错误()  字符串  {}
 
 // ff:
 func (e *ExitError) Error() string { //md5:e7d8165bbebf499178bc1e1a3a045796

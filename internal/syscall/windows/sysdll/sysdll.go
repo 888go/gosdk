@@ -24,6 +24,9 @@ var IsSystemDLL = map[string]bool{}
 // Add notes that dll is a system32 DLL which should only be loaded
 // from the Windows SYSTEM32 directory. It returns its argument back,
 // for ease of use in generated code.
+
+// ff:
+// dll:
 func Add(dll string) string {
 	IsSystemDLL[dll] = true
 	return dll

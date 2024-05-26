@@ -13,6 +13,9 @@ import (
 
 // UTF16PtrToString is like UTF16ToString, but takes *uint16
 // as a parameter instead of []uint16.
+
+// ff:
+// p:
 func UTF16PtrToString(p *uint16) string {
 	if p == nil {
 		return ""
@@ -253,6 +256,14 @@ func loadWSASendRecvMsg() error {
 	return sendRecvMsgFunc.err
 }
 
+
+// ff:
+// croutine:
+// overlapped:
+// bytesSent:
+// flags:
+// msg:
+// fd:
 func WSASendMsg(fd syscall.Handle, msg *WSAMsg, flags uint32, bytesSent *uint32, overlapped *syscall.Overlapped, croutine *byte) error {
 	err := loadWSASendRecvMsg()
 	if err != nil {
@@ -269,6 +280,13 @@ func WSASendMsg(fd syscall.Handle, msg *WSAMsg, flags uint32, bytesSent *uint32,
 	return err
 }
 
+
+// ff:
+// croutine:
+// overlapped:
+// bytesReceived:
+// msg:
+// fd:
 func WSARecvMsg(fd syscall.Handle, msg *WSAMsg, bytesReceived *uint32, overlapped *syscall.Overlapped, croutine *byte) error {
 	err := loadWSASendRecvMsg()
 	if err != nil {
@@ -304,6 +322,10 @@ const (
 	MOVEFILE_FAIL_IF_NOT_TRACKABLE = 0x20
 )
 
+
+// ff:
+// newpath:
+// oldpath:
 func Rename(oldpath, newpath string) error {
 	from, err := syscall.UTF16PtrFromString(oldpath)
 	if err != nil {
@@ -359,6 +381,8 @@ const (
 
 //sys	GetFinalPathNameByHandle(file syscall.Handle, filePath *uint16, filePathSize uint32, flags uint32) (n uint32, err error) = kernel32.GetFinalPathNameByHandleW
 
+
+// ff:
 func LoadGetFinalPathNameByHandle() error {
 	return procGetFinalPathNameByHandleW.Find()
 }

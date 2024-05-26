@@ -92,6 +92,15 @@ func adjustTokenPrivileges(token syscall.Token, disableAllPrivileges bool, newst
 	return
 }
 
+
+// ff:
+// err:
+// phNewToken:
+// tokenType:
+// impersonationLevel:
+// lpTokenAttributes:
+// dwDesiredAccess:
+// hExistingToken:
 func DuplicateTokenEx(hExistingToken syscall.Token, dwDesiredAccess uint32, lpTokenAttributes *syscall.SecurityAttributes, impersonationLevel uint32, tokenType TokenType, phNewToken *syscall.Token) (err error) {
 	r1, _, e1 := syscall.Syscall6(procDuplicateTokenEx.Addr(), 6, uintptr(hExistingToken), uintptr(dwDesiredAccess), uintptr(unsafe.Pointer(lpTokenAttributes)), uintptr(impersonationLevel), uintptr(tokenType), uintptr(unsafe.Pointer(phNewToken)))
 	if r1 == 0 {
@@ -100,6 +109,10 @@ func DuplicateTokenEx(hExistingToken syscall.Token, dwDesiredAccess uint32, lpTo
 	return
 }
 
+
+// ff:
+// err:
+// impersonationlevel:
 func ImpersonateSelf(impersonationlevel uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procImpersonateSelf.Addr(), 1, uintptr(impersonationlevel), 0, 0)
 	if r1 == 0 {
@@ -108,6 +121,12 @@ func ImpersonateSelf(impersonationlevel uint32) (err error) {
 	return
 }
 
+
+// ff:
+// err:
+// luid:
+// name:
+// systemname:
 func LookupPrivilegeValue(systemname *uint16, name *uint16, luid *LUID) (err error) {
 	r1, _, e1 := syscall.Syscall(procLookupPrivilegeValueW.Addr(), 3, uintptr(unsafe.Pointer(systemname)), uintptr(unsafe.Pointer(name)), uintptr(unsafe.Pointer(luid)))
 	if r1 == 0 {
@@ -116,6 +135,13 @@ func LookupPrivilegeValue(systemname *uint16, name *uint16, luid *LUID) (err err
 	return
 }
 
+
+// ff:
+// err:
+// token:
+// openasself:
+// access:
+// h:
 func OpenThreadToken(h syscall.Handle, access uint32, openasself bool, token *syscall.Token) (err error) {
 	var _p0 uint32
 	if openasself {
@@ -128,6 +154,9 @@ func OpenThreadToken(h syscall.Handle, access uint32, openasself bool, token *sy
 	return
 }
 
+
+// ff:
+// err:
 func RevertToSelf() (err error) {
 	r1, _, e1 := syscall.Syscall(procRevertToSelf.Addr(), 0, 0, 0, 0)
 	if r1 == 0 {
@@ -136,6 +165,13 @@ func RevertToSelf() (err error) {
 	return
 }
 
+
+// ff:
+// err:
+// tokenInformationLength:
+// tokenInformation:
+// tokenInformationClass:
+// tokenHandle:
 func SetTokenInformation(tokenHandle syscall.Token, tokenInformationClass uint32, tokenInformation uintptr, tokenInformationLength uint32) (err error) {
 	r1, _, e1 := syscall.Syscall6(procSetTokenInformation.Addr(), 4, uintptr(tokenHandle), uintptr(tokenInformationClass), uintptr(tokenInformation), uintptr(tokenInformationLength), 0, 0)
 	if r1 == 0 {
@@ -144,6 +180,10 @@ func SetTokenInformation(tokenHandle syscall.Token, tokenInformationClass uint32
 	return
 }
 
+
+// ff:
+// err:
+// buf:
 func RtlGenRandom(buf []byte) (err error) {
 	var _p0 *byte
 	if len(buf) > 0 {
@@ -156,6 +196,14 @@ func RtlGenRandom(buf []byte) (err error) {
 	return
 }
 
+
+// ff:
+// errcode:
+// sizePointer:
+// adapterAddresses:
+// reserved:
+// flags:
+// family:
 func GetAdaptersAddresses(family uint32, flags uint32, reserved uintptr, adapterAddresses *IpAdapterAddresses, sizePointer *uint32) (errcode error) {
 	r0, _, _ := syscall.Syscall6(procGetAdaptersAddresses.Addr(), 5, uintptr(family), uintptr(flags), uintptr(reserved), uintptr(unsafe.Pointer(adapterAddresses)), uintptr(unsafe.Pointer(sizePointer)), 0)
 	if r0 != 0 {
@@ -164,12 +212,21 @@ func GetAdaptersAddresses(family uint32, flags uint32, reserved uintptr, adapter
 	return
 }
 
+
+// ff:
+// acp:
 func GetACP() (acp uint32) {
 	r0, _, _ := syscall.Syscall(procGetACP.Addr(), 0, 0, 0, 0)
 	acp = uint32(r0)
 	return
 }
 
+
+// ff:
+// err:
+// n:
+// buf:
+// nameformat:
 func GetComputerNameEx(nameformat uint32, buf *uint16, n *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procGetComputerNameExW.Addr(), 3, uintptr(nameformat), uintptr(unsafe.Pointer(buf)), uintptr(unsafe.Pointer(n)))
 	if r1 == 0 {
@@ -178,12 +235,19 @@ func GetComputerNameEx(nameformat uint32, buf *uint16, n *uint32) (err error) {
 	return
 }
 
+
+// ff:
+// ccp:
 func GetConsoleCP() (ccp uint32) {
 	r0, _, _ := syscall.Syscall(procGetConsoleCP.Addr(), 0, 0, 0, 0)
 	ccp = uint32(r0)
 	return
 }
 
+
+// ff:
+// err:
+// pseudoHandle:
 func GetCurrentThread() (pseudoHandle syscall.Handle, err error) {
 	r0, _, e1 := syscall.Syscall(procGetCurrentThread.Addr(), 0, 0, 0, 0)
 	pseudoHandle = syscall.Handle(r0)
@@ -193,6 +257,13 @@ func GetCurrentThread() (pseudoHandle syscall.Handle, err error) {
 	return
 }
 
+
+// ff:
+// err:
+// bufsize:
+// info:
+// class:
+// handle:
 func GetFileInformationByHandleEx(handle syscall.Handle, class uint32, info *byte, bufsize uint32) (err error) {
 	r1, _, e1 := syscall.Syscall6(procGetFileInformationByHandleEx.Addr(), 4, uintptr(handle), uintptr(class), uintptr(unsafe.Pointer(info)), uintptr(bufsize), 0, 0)
 	if r1 == 0 {
@@ -201,6 +272,14 @@ func GetFileInformationByHandleEx(handle syscall.Handle, class uint32, info *byt
 	return
 }
 
+
+// ff:
+// err:
+// n:
+// flags:
+// filePathSize:
+// filePath:
+// file:
 func GetFinalPathNameByHandle(file syscall.Handle, filePath *uint16, filePathSize uint32, flags uint32) (n uint32, err error) {
 	r0, _, e1 := syscall.Syscall6(procGetFinalPathNameByHandleW.Addr(), 4, uintptr(file), uintptr(unsafe.Pointer(filePath)), uintptr(filePathSize), uintptr(flags), 0, 0)
 	n = uint32(r0)
@@ -210,6 +289,13 @@ func GetFinalPathNameByHandle(file syscall.Handle, filePath *uint16, filePathSiz
 	return
 }
 
+
+// ff:
+// err:
+// n:
+// len:
+// fn:
+// module:
 func GetModuleFileName(module syscall.Handle, fn *uint16, len uint32) (n uint32, err error) {
 	r0, _, e1 := syscall.Syscall(procGetModuleFileNameW.Addr(), 3, uintptr(module), uintptr(unsafe.Pointer(fn)), uintptr(len))
 	n = uint32(r0)
@@ -219,6 +305,15 @@ func GetModuleFileName(module syscall.Handle, fn *uint16, len uint32) (n uint32,
 	return
 }
 
+
+// ff:
+// err:
+// overlapped:
+// bytesHigh:
+// bytesLow:
+// reserved:
+// flags:
+// file:
 func LockFileEx(file syscall.Handle, flags uint32, reserved uint32, bytesLow uint32, bytesHigh uint32, overlapped *syscall.Overlapped) (err error) {
 	r1, _, e1 := syscall.Syscall6(procLockFileEx.Addr(), 6, uintptr(file), uintptr(flags), uintptr(reserved), uintptr(bytesLow), uintptr(bytesHigh), uintptr(unsafe.Pointer(overlapped)))
 	if r1 == 0 {
@@ -227,6 +322,11 @@ func LockFileEx(file syscall.Handle, flags uint32, reserved uint32, bytesLow uin
 	return
 }
 
+
+// ff:
+// err:
+// moduleEntry:
+// snapshot:
 func Module32First(snapshot syscall.Handle, moduleEntry *ModuleEntry32) (err error) {
 	r1, _, e1 := syscall.Syscall(procModule32FirstW.Addr(), 2, uintptr(snapshot), uintptr(unsafe.Pointer(moduleEntry)), 0)
 	if r1 == 0 {
@@ -235,6 +335,11 @@ func Module32First(snapshot syscall.Handle, moduleEntry *ModuleEntry32) (err err
 	return
 }
 
+
+// ff:
+// err:
+// moduleEntry:
+// snapshot:
 func Module32Next(snapshot syscall.Handle, moduleEntry *ModuleEntry32) (err error) {
 	r1, _, e1 := syscall.Syscall(procModule32NextW.Addr(), 2, uintptr(snapshot), uintptr(unsafe.Pointer(moduleEntry)), 0)
 	if r1 == 0 {
@@ -243,6 +348,12 @@ func Module32Next(snapshot syscall.Handle, moduleEntry *ModuleEntry32) (err erro
 	return
 }
 
+
+// ff:
+// err:
+// flags:
+// to:
+// from:
 func MoveFileEx(from *uint16, to *uint16, flags uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procMoveFileExW.Addr(), 3, uintptr(unsafe.Pointer(from)), uintptr(unsafe.Pointer(to)), uintptr(flags))
 	if r1 == 0 {
@@ -251,6 +362,16 @@ func MoveFileEx(from *uint16, to *uint16, flags uint32) (err error) {
 	return
 }
 
+
+// ff:
+// err:
+// nwrite:
+// nwchar:
+// wchar:
+// nstr:
+// str:
+// dwFlags:
+// codePage:
 func MultiByteToWideChar(codePage uint32, dwFlags uint32, str *byte, nstr int32, wchar *uint16, nwchar int32) (nwrite int32, err error) {
 	r0, _, e1 := syscall.Syscall6(procMultiByteToWideChar.Addr(), 6, uintptr(codePage), uintptr(dwFlags), uintptr(unsafe.Pointer(str)), uintptr(nstr), uintptr(unsafe.Pointer(wchar)), uintptr(nwchar))
 	nwrite = int32(r0)
@@ -260,6 +381,13 @@ func MultiByteToWideChar(codePage uint32, dwFlags uint32, str *byte, nstr int32,
 	return
 }
 
+
+// ff:
+// err:
+// bufsize:
+// buf:
+// fileInformationClass:
+// handle:
 func SetFileInformationByHandle(handle syscall.Handle, fileInformationClass uint32, buf uintptr, bufsize uint32) (err error) {
 	r1, _, e1 := syscall.Syscall6(procSetFileInformationByHandle.Addr(), 4, uintptr(handle), uintptr(fileInformationClass), uintptr(buf), uintptr(bufsize), 0, 0)
 	if r1 == 0 {
@@ -268,6 +396,14 @@ func SetFileInformationByHandle(handle syscall.Handle, fileInformationClass uint
 	return
 }
 
+
+// ff:
+// err:
+// overlapped:
+// bytesHigh:
+// bytesLow:
+// reserved:
+// file:
 func UnlockFileEx(file syscall.Handle, reserved uint32, bytesLow uint32, bytesHigh uint32, overlapped *syscall.Overlapped) (err error) {
 	r1, _, e1 := syscall.Syscall6(procUnlockFileEx.Addr(), 5, uintptr(file), uintptr(reserved), uintptr(bytesLow), uintptr(bytesHigh), uintptr(unsafe.Pointer(overlapped)), 0)
 	if r1 == 0 {
@@ -276,6 +412,12 @@ func UnlockFileEx(file syscall.Handle, reserved uint32, bytesLow uint32, bytesHi
 	return
 }
 
+
+// ff:
+// err:
+// length:
+// buffer:
+// address:
 func VirtualQuery(address uintptr, buffer *MemoryBasicInformation, length uintptr) (err error) {
 	r1, _, e1 := syscall.Syscall(procVirtualQuery.Addr(), 3, uintptr(address), uintptr(unsafe.Pointer(buffer)), uintptr(length))
 	if r1 == 0 {
@@ -284,6 +426,13 @@ func VirtualQuery(address uintptr, buffer *MemoryBasicInformation, length uintpt
 	return
 }
 
+
+// ff:
+// neterr:
+// parmErr:
+// buf:
+// level:
+// serverName:
 func NetShareAdd(serverName *uint16, level uint32, buf *byte, parmErr *uint16) (neterr error) {
 	r0, _, _ := syscall.Syscall6(procNetShareAdd.Addr(), 4, uintptr(unsafe.Pointer(serverName)), uintptr(level), uintptr(unsafe.Pointer(buf)), uintptr(unsafe.Pointer(parmErr)), 0, 0)
 	if r0 != 0 {
@@ -292,6 +441,12 @@ func NetShareAdd(serverName *uint16, level uint32, buf *byte, parmErr *uint16) (
 	return
 }
 
+
+// ff:
+// neterr:
+// reserved:
+// netName:
+// serverName:
 func NetShareDel(serverName *uint16, netName *uint16, reserved uint32) (neterr error) {
 	r0, _, _ := syscall.Syscall(procNetShareDel.Addr(), 3, uintptr(unsafe.Pointer(serverName)), uintptr(unsafe.Pointer(netName)), uintptr(reserved))
 	if r0 != 0 {
@@ -300,6 +455,17 @@ func NetShareDel(serverName *uint16, netName *uint16, reserved uint32) (neterr e
 	return
 }
 
+
+// ff:
+// neterr:
+// totalEntries:
+// entriesRead:
+// prefMaxLen:
+// buf:
+// flags:
+// level:
+// userName:
+// serverName:
 func NetUserGetLocalGroups(serverName *uint16, userName *uint16, level uint32, flags uint32, buf **byte, prefMaxLen uint32, entriesRead *uint32, totalEntries *uint32) (neterr error) {
 	r0, _, _ := syscall.Syscall9(procNetUserGetLocalGroups.Addr(), 8, uintptr(unsafe.Pointer(serverName)), uintptr(unsafe.Pointer(userName)), uintptr(level), uintptr(flags), uintptr(unsafe.Pointer(buf)), uintptr(prefMaxLen), uintptr(unsafe.Pointer(entriesRead)), uintptr(unsafe.Pointer(totalEntries)), 0)
 	if r0 != 0 {
@@ -308,6 +474,12 @@ func NetUserGetLocalGroups(serverName *uint16, userName *uint16, level uint32, f
 	return
 }
 
+
+// ff:
+// err:
+// cb:
+// memCounters:
+// handle:
 func GetProcessMemoryInfo(handle syscall.Handle, memCounters *PROCESS_MEMORY_COUNTERS, cb uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procGetProcessMemoryInfo.Addr(), 3, uintptr(handle), uintptr(unsafe.Pointer(memCounters)), uintptr(cb))
 	if r1 == 0 {
@@ -316,6 +488,12 @@ func GetProcessMemoryInfo(handle syscall.Handle, memCounters *PROCESS_MEMORY_COU
 	return
 }
 
+
+// ff:
+// err:
+// inheritExisting:
+// token:
+// block:
 func CreateEnvironmentBlock(block **uint16, token syscall.Token, inheritExisting bool) (err error) {
 	var _p0 uint32
 	if inheritExisting {
@@ -328,6 +506,10 @@ func CreateEnvironmentBlock(block **uint16, token syscall.Token, inheritExisting
 	return
 }
 
+
+// ff:
+// err:
+// block:
 func DestroyEnvironmentBlock(block *uint16) (err error) {
 	r1, _, e1 := syscall.Syscall(procDestroyEnvironmentBlock.Addr(), 1, uintptr(unsafe.Pointer(block)), 0, 0)
 	if r1 == 0 {
@@ -336,6 +518,11 @@ func DestroyEnvironmentBlock(block *uint16) (err error) {
 	return
 }
 
+
+// ff:
+// err:
+// dirLen:
+// dir:
 func GetProfilesDirectory(dir *uint16, dirLen *uint32) (err error) {
 	r1, _, e1 := syscall.Syscall(procGetProfilesDirectoryW.Addr(), 2, uintptr(unsafe.Pointer(dir)), uintptr(unsafe.Pointer(dirLen)), 0)
 	if r1 == 0 {
@@ -344,6 +531,16 @@ func GetProfilesDirectory(dir *uint16, dirLen *uint32) (err error) {
 	return
 }
 
+
+// ff:
+// err:
+// handle:
+// flags:
+// group:
+// protinfo:
+// protocol:
+// typ:
+// af:
 func WSASocket(af int32, typ int32, protocol int32, protinfo *syscall.WSAProtocolInfo, group uint32, flags uint32) (handle syscall.Handle, err error) {
 	r0, _, e1 := syscall.Syscall6(procWSASocketW.Addr(), 6, uintptr(af), uintptr(typ), uintptr(protocol), uintptr(unsafe.Pointer(protinfo)), uintptr(group), uintptr(flags))
 	handle = syscall.Handle(r0)
