@@ -1,6 +1,7 @@
 package os
 
 import "os"
+
 //翻译备注, 不兼容win系统, 为了避免不必要麻烦, 屏蔽不用这些方法.
 
 // Args 保存了命令行参数，从程序名称开始。
@@ -46,15 +47,9 @@ import "os"
 // 程序会立即终止；延迟执行的函数不会运行。
 //
 // 为了兼容性，状态码应该在[0, 125]范围内。
-
-// ff:退出
-// code:退出代码
 func Exit(code int) { //md5:0901ce78771fb26a6481d82aa618730c
 	os.Exit(code)
 }
 
-
 // Args hold the command-line arguments, starting with the program name.
-// 翻译提示:var  命令行参数  []string  //md5:5bbf5c199ba9b642
-var Args []string //md5:5bbf5c199ba9b642
-
+//var Args []string //md5:5bbf5c199ba9b642

@@ -4,10 +4,6 @@ import "os"
 
 // Stat返回一个描述指定名称文件的FileInfo。
 // 如果出现错误，该错误将为*PathError类型。
-
-// ff:取文件信息
-// name:路径
-// FileInfo:文件信息
 func Stat(name string) (FileInfo, error) { //md5:0fe76bf45aa469ca3743e871fe7053e9
 	return os.Stat(name)
 }
@@ -16,10 +12,6 @@ func Stat(name string) (FileInfo, error) { //md5:0fe76bf45aa469ca3743e871fe7053e
 // 如果出现错误，错误类型将是 *PathError。
 //
 // 在Windows上，如果文件是一个代理重定向点（如符号链接或挂载的文件夹），返回的FileInfo将描述重定向点，并不会尝试解析它。
-
-// ff:获取符号链接文件信息
-// name:错误
-// FileInfo:文件信息
 func Lstat(name string) (FileInfo, error) { //md5:c74422e3b8e588a7cd1b053e845198d6
 	return os.Lstat(name)
 }

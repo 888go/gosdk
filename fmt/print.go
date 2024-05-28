@@ -1,4 +1,4 @@
-package fmt //bm:打印类
+package fmt//bm:打印类
 
 import (
 	"fmt"

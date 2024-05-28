@@ -6,11 +6,9 @@
 # yx=true,此方法优先翻译
 # 如: //yx=true
 
-
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
 # 如: package gin //bm:gin类
-
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
@@ -27,40 +25,43 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
 
-[ErrInvalid          = os.ErrInvalid]
+[ErrInvalid = os.ErrInvalid]
 qm=常量_错误_无效参数
-cz=ErrInvalid          #等号# os.ErrInvalid
+cz=ErrInvalid #等号# os.ErrInvalid
 
-[ErrPermission       = os.ErrPermission]
+[ErrPermission = os.ErrPermission]
 qm=常量_错误_权限拒绝
-cz=ErrPermission       #等号# os.ErrPermission
+cz=ErrPermission #等号# os.ErrPermission
 
-[ErrExist            = os.ErrExist]
+[ErrExist = os.ErrExist]
 qm=常量_错误_文件已存在
-cz=ErrExist            #等号# os.ErrExist
+cz=ErrExist #等号# os.ErrExist
 
-[ErrNotExist         = os.ErrNotExist]
+[ErrNotExist = os.ErrNotExist]
 qm=常量_错误_文件不存在
-cz=ErrNotExist         #等号# os.ErrNotExist
+cz=ErrNotExist #等号# os.ErrNotExist
 
-[ErrClosed           = os.ErrClosed]
+[ErrClosed = os.ErrClosed]
 qm=常量_错误_文件已关闭
-cz=ErrClosed           #等号# os.ErrClosed
+cz=ErrClosed #等号# os.ErrClosed
 
-[ErrNoDeadline       = os.ErrNoDeadline]
+[ErrNoDeadline = os.ErrNoDeadline]
 qm=常量_错误_文件类型不支持超时截止
-cz=ErrNoDeadline       #等号# os.ErrNoDeadline
+cz=ErrNoDeadline #等号# os.ErrNoDeadline
 
 [ErrDeadlineExceeded = os.ErrDeadlineExceeded]
 qm=常量_错误_IO超时
 cz=ErrDeadlineExceeded #等号# os.ErrDeadlineExceeded
+
+[type SyscallError struct {]
+hm=调用错误结构
+cz=type SyscallError

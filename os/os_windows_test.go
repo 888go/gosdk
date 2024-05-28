@@ -23,6 +23,8 @@ import (
 	"unsafe"
 )
 
+var Args []string
+
 // For TestRawConnReadWrite.
 type syscallDescriptor = syscall.Handle
 
@@ -1131,7 +1133,7 @@ func TestRootDirAsTemp(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	cmd := osexec.Command(os.Args[0], "-test.run=TestRootDirAsTemp")
+	cmd := osexec.Command(Args[0], "-test.run=TestRootDirAsTemp")
 	cmd.Env = os.Environ()
 	cmd.Env = append(cmd.Env, "GO_WANT_HELPER_PROCESS=1")
 	cmd.Env = append(cmd.Env, "TMP="+newtmp)

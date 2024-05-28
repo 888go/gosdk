@@ -34,20 +34,18 @@
 # //zj:
 # 备注结束
 
-[func (f *File) Readdir(n int) (#左中括号##右中括号#FileInfo, error) {]
-ff=读目录2
-n=返回数量
+[var ErrProcessDone = errors.New("os: process already finished")]
+hm=错误_进程已结束
+cz=var ErrProcessDone
 
-[func (f *File) Readdirnames(n int) (names #左中括号##右中括号#string, err error) {]
-names=文件名s
-n=返回数量
-err=错误
-ff=读目录文件名
+[type Process struct {]
+hm=进程结构
+cz=type Process
 
-[func (f *File) ReadDir(n int) (#左中括号##右中括号#DirEntry, error) {]
-ff=读目录
-n=返回数量
+[type ProcAttr struct {]
+hm=进程属性结构
+cz=type ProcAttr
 
-[func ReadDir(name string) (#左中括号##右中括号#DirEntry, error) {]
-ff=读目录
-name=目录路径
+[type ProcessState struct {]
+hm=进程状态
+cz=type ProcessState

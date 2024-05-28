@@ -156,4 +156,8 @@
     <tree path="/fmt/print.go" title="主要方法"/>
     <tree path="/fmt/scan.go" title="到变量指针" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
           backgroundColor=""/>
+    <tree path="/os/executable_dragonfly.go" title="内部"/>
+    <tree path="/os/executable_freebsd.go" title="内部"/>
+    <tree path="/os/stat_solaris.go" title="内部"/>
+    <tree path="/os/proc.go" title="内部"/>
 </trees>
