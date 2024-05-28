@@ -34,5 +34,9 @@
 # //zj:
 # 备注结束
 
-[package regexp]
-bm=正则类
+[func FormatComplex(c complex128, fmt byte, prec, bitSize int) string {]
+ff=复数到文本
+c=复数
+bitSize=位宽
+prec=小数点精度
+fmt=输出格式

@@ -34,5 +34,7 @@
 # //zj:
 # 备注结束
 
-[package regexp]
-bm=正则类
+[func ParseComplex(s string, bitSize int) (complex128, error) {]
+ff=文本到复数
+bitSize=复数精度
+s=文本

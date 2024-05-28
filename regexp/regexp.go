@@ -1,4 +1,4 @@
-package regexp//bm:正则类
+package regexp //bm:正则类
 
 import (
 	"io"
@@ -8,7 +8,7 @@ import (
 // Regexp是编译后的正则表达式的表示。
 // Regexp是安全的，可以由多个goroutine并发使用，除了配置方法，如[Regexp.Longest]。
 // md5:395c4b654f50016e
-type Regexp struct { //hm:正则 cz:type Regexp     
+type Regexp struct { //hm:正则结构 cz:type Regexp
 	F regexp.Regexp
 } //md5:7eb1a097f4ab35df
 
@@ -417,8 +417,8 @@ func (re *Regexp) ExpandString(dst []byte, template string, src string, match []
 // 这些匹配索引对是根据包注释中“Submatch”和“Index”描述来定义的。
 // 如果返回值为nil，则表示没有找到匹配项。
 // md5:23a8d21b554faac0
-// 翻译提示:func  (re  *正则表达式)  查找子匹配索引(b  字节切片)  []int  {}  
-// 
+// 翻译提示:func  (re  *正则表达式)  查找子匹配索引(b  字节切片)  []int  {}
+//
 // 这个方法查找正则表达式在字节切片b中的子匹配索引，并返回一个整数数组，表示子匹配的开始和结束位置。
 
 // ff:查找字节集子匹配索引
@@ -499,8 +499,8 @@ func (re *Regexp) FindAllString(s string, n int) []string { //md5:73c667fc476c60
 // FindAllStringIndex 是 [Regexp.FindStringIndex] 的 "All" 版本；它返回一个切片，包含表达式定义的所有连续匹配项，如包注释中所述的 "All" 描述。
 // 如果没有匹配，则返回值为 nil。
 // md5:8a6c9067907c9fe3
-// 翻译提示:func  (re  *正则表达式)  查找所有字符串索引(s  string,  n  int)  [][]int  {}  
-// 
+// 翻译提示:func  (re  *正则表达式)  查找所有字符串索引(s  string,  n  int)  [][]int  {}
+//
 // 这个方法的意思是：对于给定的正则表达式re和输入字符串s，查找匹配正则表达式的子串在s中的所有开始和结束索引。n表示返回的最大匹配数，返回值是一个二维整数数组，每个子数组包含匹配子串的开始和结束索引。
 
 // ff:查找所有文本索引
@@ -514,8 +514,8 @@ func (re *Regexp) FindAllStringIndex(s string, n int) [][]int { //md5:d089e4011e
 // 匹配规则遵循包注释中'All'描述。
 // 返回值为nil表示没有找到匹配项。
 // md5:4b981f0bc28c5b31
-// 翻译提示:func  (re  *正则表达式)  查找所有子匹配(b  []字节,  n  int)  [][]字节  {}  
-// 
+// 翻译提示:func  (re  *正则表达式)  查找所有子匹配(b  []字节,  n  int)  [][]字节  {}
+//
 // 这个方法的意思是：在给定的字节切片b中，使用正则表达式re查找最多n个子匹配，并返回这些子匹配的字节切片数组。如果n小于0，则返回所有匹配。
 
 // ff:查找所有字节集子匹配
@@ -540,8 +540,8 @@ func (re *Regexp) FindAllSubmatchIndex(b []byte, n int) [][]int { //md5:80d3879e
 // FindAllStringSubmatch 是 [Regexp.FindStringSubmatch] 的 "All" 版本；它返回一个切片，其中包含表达式定义的所有连续匹配，如包注释中的 "All" 描述所示。
 // 返回值为 nil 表示未找到匹配。
 // md5:eea680ee72e47e40
-// 翻译提示:func  (re  *正则表达式)  查找所有字符串子匹配项(s  string,  n  int)  [][]string  {}  
-// 
+// 翻译提示:func  (re  *正则表达式)  查找所有字符串子匹配项(s  string,  n  int)  [][]string  {}
+//
 // 这个方法将返回一个二维字符串切片，其中包含了在给定字符串s中找到的所有匹配正则表达式的子串。n参数表示最多返回的匹配数，如果n小于0，则返回所有匹配。
 
 // ff:查找所有文本子匹配
@@ -587,7 +587,6 @@ func (re *Regexp) FindAllStringSubmatchIndex(s string, n int) [][]int { //md5:90
 func (re *Regexp) Split(s string, n int) []string { //md5:638c9452844fd6a2
 	return re.F.Split(s, n)
 }
-
 
 // zj:追加开始, 一个文件只能追加一个代码段,通常是String()或者接口不方便翻译,需要新增一个相同功能的中文方法.
 

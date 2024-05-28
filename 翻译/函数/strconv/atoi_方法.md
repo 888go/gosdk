@@ -34,5 +34,26 @@
 # //zj:
 # 备注结束
 
-[package regexp]
-bm=正则类
+[func (e *NumError) Error() string {]
+ff=取错误文本
+
+[func (e *NumError) Unwrap() error {]
+ff=取错误对象
+
+[func ParseUint(s string, base int, bitSize int) (uint64, error) {]
+ff=文本到正整数64位
+bitSize=位宽
+base=进制
+s=文本
+
+[func ParseInt(s string, base int, bitSize int) (i int64, err error) {]
+ff=文本到整数64位
+err=错误
+i=返回值
+bitSize=位宽
+base=进制
+s=文本
+
+[func Atoi(s string) (int, error) {]
+ff=文本到整数
+s=文本

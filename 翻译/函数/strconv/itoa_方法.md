@@ -34,5 +34,28 @@
 # //zj:
 # 备注结束
 
-[package regexp]
-bm=正则类
+[func FormatUint(i uint64, base int) string {]
+ff=正整数64位到文本
+base=进制
+i=正整数64位
+
+[func FormatInt(i int64, base int) string {]
+ff=整数64位到文本
+base=进制
+i=整数64位
+
+[func Itoa(i int) string {]
+ff=整数到文本
+i=整数
+
+[func AppendInt(dst #左中括号##右中括号#byte, i int64, base int) #左中括号##右中括号#byte {]
+ff=追加整数64位到字节集
+base=进制
+i=整数64位
+dst=字节集
+
+[func AppendUint(dst #左中括号##右中括号#byte, i uint64, base int) #左中括号##右中括号#byte {]
+ff=追加正整数64位到字节集
+base=进制
+i=正整数64位
+dst=字节集

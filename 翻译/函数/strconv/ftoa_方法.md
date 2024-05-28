@@ -34,5 +34,17 @@
 # //zj:
 # 备注结束
 
-[package regexp]
-bm=正则类
+[func FormatFloat(f float64, fmt byte, prec, bitSize int) string {]
+ff=小数64位到文本
+bitSize=位宽
+prec=小数点精度
+fmt=输出格式
+f=小数64位
+
+[func AppendFloat(dst #左中括号##右中括号#byte, f float64, fmt byte, prec, bitSize int) #左中括号##右中括号#byte {]
+ff=追加小数64位到字节集
+bitSize=位宽
+prec=小数点精度
+fmt=输出格式
+f=小数64位
+dst=字节集

@@ -160,4 +160,19 @@
     <tree path="/os/executable_freebsd.go" title="内部"/>
     <tree path="/os/stat_solaris.go" title="内部"/>
     <tree path="/os/proc.go" title="内部"/>
+    <tree path="/strconv/atob.go" title="文本到布尔值" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/strconv/atoc.go" title="文本到复数" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/strconv/atoi.go" title="文本到整数" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/strconv/atof.go" title="文本到小数"/>
+    <tree path="/strconv/ctoa.go" title="复数到文本"/>
+    <tree path="/strconv/decimal.go" title="内部文件" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/strconv/ftoa.go" title="小数到文本" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/strconv/makeisprint.go" title="内部文件" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/strconv/itoa.go" title="整数到文本"/>
 </trees>

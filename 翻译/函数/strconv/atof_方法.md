@@ -34,5 +34,7 @@
 # //zj:
 # 备注结束
 
-[package regexp]
-bm=正则类
+[func ParseFloat(s string, bitSize int) (float64, error) {]
+ff=文本到小数64位
+bitSize=小数精度
+s=文本

@@ -34,5 +34,10 @@
 # //zj:
 # 备注结束
 
-[package regexp]
-bm=正则类
+[type NumError struct {]
+hm=转换失败结构
+cz=type NumError
+
+[var ErrRange = errors.New("value out of range")]
+hm=常量_错误_超出类型范围
+cz=var ErrRange

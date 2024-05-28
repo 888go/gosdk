@@ -34,5 +34,15 @@
 # //zj:
 # 备注结束
 
-[package regexp]
-bm=正则类
+[func ParseBool(str string) (bool, error) {]
+ff=文本到布尔值
+str=布尔文本
+
+[func FormatBool(b bool) string {]
+ff=布尔值到文本
+b=布尔值
+
+[func AppendBool(dst #左中括号##右中括号#byte, b bool) #左中括号##右中括号#byte {]
+ff=布尔值追加到字节集
+b=布尔值
+dst=字节集
