@@ -34,5 +34,6 @@
 # //zj:
 # 备注结束
 
-[package strings]
-bm=文本类
+[type Replacer struct {]
+hm=替换器结构
+cz=type Replacer

@@ -34,5 +34,6 @@
 # //zj:
 # 备注结束
 
-[package strings]
-bm=文本类
+[type Builder struct {]
+hm=构建结构
+cz=type Builder

@@ -34,5 +34,30 @@
 # //zj:
 # 备注结束
 
-[package strings]
-bm=文本类
+[func (b *Builder) Len() int {]
+ff=长度
+
+[func (b *Builder) Cap() int {]
+ff=取容量
+
+[func (b *Builder) Reset() {]
+ff=重置
+
+[func (b *Builder) Grow(n int) {]
+ff=扩展容量
+n=扩展长度
+
+[func (b *Builder) Write(p #左中括号##右中括号#byte) (int, error) {]
+p=写入字节集
+
+[func (b *Builder) WriteByte(c byte) error {]
+ff=写字节
+c=字节
+
+[func (b *Builder) WriteRune(r rune) (int, error) {]
+ff=写字符
+r=字符
+
+[func (b *Builder) WriteString(s string) (int, error) {]
+ff=写入文本
+s=文本

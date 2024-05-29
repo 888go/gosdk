@@ -34,5 +34,6 @@
 # //zj:
 # 备注结束
 
-[package strings]
-bm=文本类
+[func Clone(s string) string {]
+ff=深拷贝
+s=文本

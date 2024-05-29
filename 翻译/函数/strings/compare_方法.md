@@ -34,5 +34,7 @@
 # //zj:
 # 备注结束
 
-[package strings]
-bm=文本类
+[func Compare(a, b string) int {]
+ff=顺序比较
+b=比较b
+a=比较a

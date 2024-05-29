@@ -5,13 +5,20 @@ import (
 	"strings"
 )
 
-type Replacer struct {
+//	翻译提示:type 替换器 struct {
+//	    内部替换器 strings.Replacer
+//	}
+type Replacer struct { //hm:替换器结构 cz:type Replacer
 	F strings.Replacer
 } //md5:5a2f93739712f67f
 
 // NewReplacer 从一组旧字符串、新字符串对中返回一个新的[Replacer]。替换操作按照它们在目标字符串中出现的顺序进行，且不涉及重叠匹配。旧字符串的比较按参数顺序进行。
 //
 // 如果提供的参数数目为奇数，NewReplacer 将引发 panic。
+// 翻译提示:func 新建替换器(oldNew ...字符串) *替换器 {}
+
+// ff:创建替换器
+// oldnew:旧文本
 func NewReplacer(oldnew ...string) *Replacer { //md5:626ca1fb5d14db50e55f8da7a96f583c
 	return &Replacer{
 		F: *strings.NewReplacer(oldnew...),
@@ -19,11 +26,22 @@ func NewReplacer(oldnew ...string) *Replacer { //md5:626ca1fb5d14db50e55f8da7a96
 }
 
 // Replace返回对s进行所有替换操作后的副本。
+// 翻译提示:func (r *替换器) 替换字符串(s 字符串) 字符串 {}
+
+// ff:替换
+// s:原文本
 func (r *Replacer) Replace(s string) string { //md5:c2a7d68dc010b9622ed8d85f2cc0bf97
 	return r.F.Replace(s)
 }
 
 // WriteString 将s写入w，同时执行所有替换操作。
+// 翻译提示:func (r *替换器) 写入字符串(w io.写入器, s 字符串) (n int, 错误 error) {}
+
+// ff:替换并写入IO写入器
+// w:IO写入器
+// s:原文本
+// n:长度
+// err:错误
 func (r *Replacer) WriteString(w io.Writer, s string) (n int, err error) { //md5:e6848c200491de80abff300f82fb7068
 	return r.F.WriteString(w, s)
 }

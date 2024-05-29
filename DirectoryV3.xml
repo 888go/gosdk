@@ -2,7 +2,8 @@
  <trees>
      <tree path="/strings" title="文本类"/>
      <tree path="/strings/clone.go" title="副本"/>
-     <tree path="/strings/compare.go" title="比较"/>
+     <tree path="/strings/compare.go" title="顺序比较" extension="" presentableText="" tooltipTitle="" icon=""
+           textColor="" backgroundColor=""/>
      <tree path="/strings/strings.go" title="文本方法"/>
      <tree path="place.go" title="替换"/>
      <tree path="/strings/replace.go" title="替换"/>
@@ -175,4 +176,8 @@
     <tree path="/strconv/makeisprint.go" title="内部文件" extension="" presentableText="" tooltipTitle="" icon=""
           textColor="" backgroundColor=""/>
     <tree path="/strconv/itoa.go" title="整数到文本"/>
+    <tree path="/strconv/quote.go" title="转义"/>
+    <tree path="/strings/builder.go" title="构建器"/>
+    <tree path="/strings/reader.go" title="读取器"/>
+    <tree path="/bytes/reader.go" title="读取器"/>
 </trees>

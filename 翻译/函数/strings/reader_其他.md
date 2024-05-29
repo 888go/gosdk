@@ -34,5 +34,6 @@
 # //zj:
 # 备注结束
 
-[package strings]
-bm=文本类
+[type Reader struct {]
+hm=读取器结构
+cz=type Reader

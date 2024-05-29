@@ -34,5 +34,16 @@
 # //zj:
 # 备注结束
 
-[package strings]
-bm=文本类
+[func NewReader(s string) *Reader {]
+ff=创建读取器
+s=文本
+
+[func (r *Reader) Len() int {]
+ff=取长度
+
+[func (r *Reader) Size() int64 {]
+ff=取读取器大小
+
+[func (r *Reader) Reset(s string) {]
+ff=重置为
+s=文本

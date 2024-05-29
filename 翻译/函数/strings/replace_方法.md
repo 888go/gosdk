@@ -34,5 +34,17 @@
 # //zj:
 # 备注结束
 
-[package strings]
-bm=文本类
+[func NewReplacer(oldnew ...string) *Replacer {]
+ff=创建替换器
+oldnew=旧文本
+
+[func (r *Replacer) Replace(s string) string {]
+ff=替换
+s=原文本
+
+[func (r *Replacer) WriteString(w io.Writer, s string) (n int, err error) {]
+ff=替换并写入IO写入器
+err=错误
+n=长度
+s=原文本
+w=IO写入器
