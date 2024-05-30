@@ -6,14 +6,6 @@
 
 package windows
 
-// 翻译提示:const  (
-// 	事件日志成功                =  0
-// 	事件日志错误类型          =  1
-// 	事件日志警告类型          =  2
-// 	事件日志信息类型          =  4
-// 	事件日志审计成功        =  8
-// 	事件日志审计失败        =  16
-// )
 const (
 	EVENTLOG_SUCCESS          = 0
 	EVENTLOG_ERROR_TYPE       = 1

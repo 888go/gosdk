@@ -32,10 +32,6 @@ type RecoveryAction struct {
 
 // SetRecoveryActions 设置当服务失败时，服务控制器执行的操作以及在无故障情况下将服务失败计数器重置为零的时间间隔（以秒为单位）。
 // 指定 INFINITE 表示服务失败计数器应永不重置。
-
-// ff:
-// recoveryActions:
-// resetPeriod:
 func (s *Service) SetRecoveryActions(recoveryActions []RecoveryAction, resetPeriod uint32) error {
 	if recoveryActions == nil {
 		return errors.New("recoveryActions cannot be nil")
@@ -61,8 +57,6 @@ func (s *Service) SetRecoveryActions(recoveryActions []RecoveryAction, resetPeri
 // 如果该服务在 ResetPeriod 秒内未发生故障，计数将重置为 0。
 // 当服务第 N 次失败时，服务控制器执行返回切片中元素 [N-1] 指定的动作。
 // 若 N 大于切片长度，服务控制器将重复执行切片中的最后一个动作。
-
-// ff:
 func (s *Service) RecoveryActions() ([]RecoveryAction, error) {
 	b, err := s.queryServiceConfig2(windows.SERVICE_CONFIG_FAILURE_ACTIONS)
 	if err != nil {
@@ -82,9 +76,6 @@ func (s *Service) RecoveryActions() ([]RecoveryAction, error) {
 }
 
 // 重置恢复动作：删除复位周期与失败动作数组
-// 翻译提示:func  (s  *服务)  重置恢复操作()  错误  {}
-
-// ff:
 func (s *Service) ResetRecoveryActions() error {
 	actions := make([]windows.SC_ACTION, 1)
 	rActions := windows.SERVICE_FAILURE_ACTIONS{
@@ -94,8 +85,6 @@ func (s *Service) ResetRecoveryActions() error {
 }
 
 // ResetPeriod 是在无故障情况下将服务失败计数重置为零的时间间隔，以秒为单位。
-
-// ff:
 func (s *Service) ResetPeriod() (uint32, error) {
 	b, err := s.queryServiceConfig2(windows.SERVICE_CONFIG_FAILURE_ACTIONS)
 	if err != nil {
@@ -107,9 +96,6 @@ func (s *Service) ResetPeriod() (uint32, error) {
 
 // SetRebootMessage 设置服务s的重启消息。
 // 若msg为"", 则删除重启消息，且不广播任何消息。
-
-// ff:
-// msg:
 func (s *Service) SetRebootMessage(msg string) error {
 	rActions := windows.SERVICE_FAILURE_ACTIONS{
 		RebootMsg: syscall.StringToUTF16Ptr(msg),
@@ -118,8 +104,6 @@ func (s *Service) SetRebootMessage(msg string) error {
 }
 
 // RebootMessage 是在响应 ComputerReboot 服务控制器操作重启前，向服务器用户广播的消息。
-
-// ff:
 func (s *Service) RebootMessage() (string, error) {
 	b, err := s.queryServiceConfig2(windows.SERVICE_CONFIG_FAILURE_ACTIONS)
 	if err != nil {
@@ -131,9 +115,6 @@ func (s *Service) RebootMessage() (string, error) {
 
 // SetRecoveryCommand 用于设置在响应 RunCommand 服务控制器操作时执行的进程命令行。
 // 若 cmd 为空字符串（""），则删除该命令，当服务失败时不再运行任何程序。
-
-// ff:
-// cmd:
 func (s *Service) SetRecoveryCommand(cmd string) error {
 	rActions := windows.SERVICE_FAILURE_ACTIONS{
 		Command: syscall.StringToUTF16Ptr(cmd),
@@ -142,8 +123,6 @@ func (s *Service) SetRecoveryCommand(cmd string) error {
 }
 
 // RecoveryCommand 是对服务控制器“RunCommand”操作做出响应时要执行的进程命令行。此进程以与服务相同的身份运行。
-
-// ff:
 func (s *Service) RecoveryCommand() (string, error) {
 	b, err := s.queryServiceConfig2(windows.SERVICE_CONFIG_FAILURE_ACTIONS)
 	if err != nil {
@@ -156,9 +135,6 @@ func (s *Service) RecoveryCommand() (string, error) {
 // SetRecoveryActionsOnNonCrashFailures 设置失败动作标志。如果该标志设置为false，
 // 则仅当服务终止时未报告SERVICE_STOPPED状态，才会执行恢复动作。
 // 如果该标志设置为true，则当服务以非零退出代码停止时，也会执行恢复动作。
-
-// ff:
-// flag:
 func (s *Service) SetRecoveryActionsOnNonCrashFailures(flag bool) error {
 	var setting windows.SERVICE_FAILURE_ACTIONS_FLAG
 	if flag {
@@ -168,8 +144,6 @@ func (s *Service) SetRecoveryActionsOnNonCrashFailures(flag bool) error {
 }
 
 // RecoveryActionsOnNonCrashFailures 返回当前的失败操作标志值。如果该标志设为false，只有当服务终止且未报告SERVICE_STOPPED状态时，才会执行恢复动作。如果该标志设为true，只要服务停止时退出代码不为0，也会执行恢复动作。
-
-// ff:
 func (s *Service) RecoveryActionsOnNonCrashFailures() (bool, error) {
 	b, err := s.queryServiceConfig2(windows.SERVICE_CONFIG_FAILURE_ACTIONS_FLAG)
 	if err != nil {

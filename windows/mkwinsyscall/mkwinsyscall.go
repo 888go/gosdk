@@ -115,9 +115,6 @@ func (p *Param) tmpVar() string {
 }
 
 // BoolTmpVarCode 返回用于布尔临时变量的源代码
-// 翻译提示:func  (p  *参数)  布尔临时变量代码()  字符串  {}
-
-// ff:
 func (p *Param) BoolTmpVarCode() string {
 	const code = `var %[1]s uint32
 	if %[2]s {
@@ -127,8 +124,6 @@ func (p *Param) BoolTmpVarCode() string {
 }
 
 // BoolPointerTmpVarCode 返回用于布尔型临时变量的源代码
-
-// ff:
 func (p *Param) BoolPointerTmpVarCode() string {
 	const code = `var %[1]s uint32
 	if *%[2]s {
@@ -138,9 +133,6 @@ func (p *Param) BoolPointerTmpVarCode() string {
 }
 
 // SliceTmpVarCode 返回切片临时变量的源代码
-// 翻译提示:func  (p  *参数)  切片临时变量代码()  字符串  {}
-
-// ff:
 func (p *Param) SliceTmpVarCode() string {
 	const code = `var %s *%s
 	if len(%s) > 0 {
@@ -151,8 +143,6 @@ func (p *Param) SliceTmpVarCode() string {
 }
 
 // StringTmpVarCode 返回字符串临时变量的源代码
-
-// ff:
 func (p *Param) StringTmpVarCode() string {
 	errvar := p.fn.Rets.ErrorVarName()
 	if errvar == "" {
@@ -173,9 +163,6 @@ func (p *Param) StringTmpVarCode() string {
 }
 
 // TmpVarCode 返回临时变量的源代码
-// 翻译提示:func  (p  *参数)  临时变量代码()  string  {}
-
-// ff:
 func (p *Param) TmpVarCode() string {
 	switch {
 	case p.Type == "bool":
@@ -190,8 +177,6 @@ func (p *Param) TmpVarCode() string {
 }
 
 // TmpVarReadbackCode 返回用于将临时变量回读到原变量的源代码
-
-// ff:
 func (p *Param) TmpVarReadbackCode() string {
 	switch {
 	case p.Type == "*bool":
@@ -202,9 +187,6 @@ func (p *Param) TmpVarReadbackCode() string {
 }
 
 // TmpVarHelperCode 返回助手临时变量的源代码
-// 翻译提示:func  (p  *参数)  临时变量助手代码()  字符串  {}
-
-// ff:
 func (p *Param) TmpVarHelperCode() string {
 	if p.Type != "string" {
 		return ""
@@ -214,8 +196,6 @@ func (p *Param) TmpVarHelperCode() string {
 
 // SyscallArgList 返回表示在系统调用中p参数的源代码片段。
 // 切片被转化为两个系统调用参数：指向第一个元素的指针和长度。
-
-// ff:
 func (p *Param) SyscallArgList() []string {
 	t := p.HelperType()
 	var s string
@@ -238,16 +218,11 @@ func (p *Param) SyscallArgList() []string {
 }
 
 // IsError 判断参数p是否用于返回错误
-// 翻译提示:func  (p  *参数)  是否有错误()  bool  {}
-
-// ff:
 func (p *Param) IsError() bool {
 	return p.Name == "err" && p.Type == "error"
 }
 
 // HelperType 返回在辅助函数中使用的参数 p 的类型
-
-// ff:
 func (p *Param) HelperType() string {
 	if p.Type == "string" {
 		return p.fn.StrconvType()
@@ -278,9 +253,6 @@ type Rets struct {
 }
 
 // ErrorVarName 返回错误变量名给r
-// 翻译提示:func  (r  *Rets)  错误变量名称()  string  {}
-
-// ff:
 func (r *Rets) ErrorVarName() string {
 	if r.ReturnsError {
 		return "err"
@@ -292,8 +264,6 @@ func (r *Rets) ErrorVarName() string {
 }
 
 // ToParams 将 r 转换为 []*Param 类型的切片。
-
-// ff:
 func (r *Rets) ToParams() []*Param {
 	ps := make([]*Param, 0)
 	if len(r.Name) > 0 {
@@ -306,9 +276,6 @@ func (r *Rets) ToParams() []*Param {
 }
 
 // List 返回 syscall 返回参数的源代码
-// 翻译提示:func  (r  *Rets)  列表()  string  {}
-
-// ff:
 func (r *Rets) List() string {
 	s := join(r.ToParams(), func(p *Param) string { return p.Name + " " + p.Type }, ", ")
 	if len(s) > 0 {
@@ -320,15 +287,11 @@ func (r *Rets) List() string {
 }
 
 // PrintList 返回与系统调用返回值相对应的跟踪打印部分的源代码
-
-// ff:
 func (r *Rets) PrintList() string {
 	return join(r.ToParams(), func(p *Param) string { return fmt.Sprintf(`"%s=", %s, `, p.Name, p.Name) }, `", ", `)
 }
 
 // SetReturnValuesCode 返回接受系统调用返回值的源代码
-
-// ff:
 func (r *Rets) SetReturnValuesCode() string {
 	if r.Name == "" && !r.ReturnsError {
 		return ""
@@ -356,12 +319,6 @@ func (r *Rets) useLongHandleErrorCode(retvar string) string {
 }
 
 // SetErrorCode 返回设置返回参数的源代码
-// 翻译提示://  设置错误代码
-// func  (r  *Rets)  设置错误代码()  string  {
-//         //  方法体
-// }
-
-// ff:
 func (r *Rets) SetErrorCode() string {
 	const code = `if r0 != 0 {
 		%s = %sErrno(r0)
@@ -534,8 +491,6 @@ func newFn(s string) (*Fn, error) {
 }
 
 // DLLName 返回函数f对应的DLL名称。
-
-// ff:
 func (f *Fn) DLLName() string {
 	if f.dllname == "" {
 		return "kernel32"
@@ -544,8 +499,6 @@ func (f *Fn) DLLName() string {
 }
 
 // DLLVar 返回一个表示 DLLName 的有效 Go 标识符。
-
-// ff:
 func (f *Fn) DLLVar() string {
 	id := strings.Map(func(r rune) rune {
 		switch r {
@@ -562,8 +515,6 @@ func (f *Fn) DLLVar() string {
 }
 
 // DLLFuncName 返回函数f在DLL中的函数名
-
-// ff:
 func (f *Fn) DLLFuncName() string {
 	if f.dllfuncname == "" {
 		return f.Name
@@ -572,34 +523,21 @@ func (f *Fn) DLLFuncName() string {
 }
 
 // ParamList 返回函数 f 参数的源代码
-// 翻译提示://  方法名：参数列表
-// func  (f  *Fn)  参数列表()  string  {}
-
-// ff:
 func (f *Fn) ParamList() string {
 	return join(f.Params, func(p *Param) string { return p.Name + " " + p.Type }, ", ")
 }
 
 // HelperParamList 返回用于辅助函数f的参数源代码
-// 翻译提示://  帮助者参数列表
-// func  (f  *Fn)  帮助者参数列表()  string  {}
-
-// ff:
 func (f *Fn) HelperParamList() string {
 	return join(f.Params, func(p *Param) string { return p.Name + " " + p.HelperType() }, ", ")
 }
 
 // ParamPrintList 返回与系统调用输入参数对应的跟踪打印部分的源代码
-// 翻译提示:func  (f  *Fn)  参数打印列表()  string  {}
-
-// ff:
 func (f *Fn) ParamPrintList() string {
 	return join(f.Params, func(p *Param) string { return fmt.Sprintf(`"%s=", %s, `, p.Name, p.Name) }, `", ", `)
 }
 
 // ParamCount 返回函数f的系统调用参数数量
-
-// ff:
 func (f *Fn) ParamCount() int {
 	n := 0
 	for _, p := range f.Params {
@@ -610,8 +548,6 @@ func (f *Fn) ParamCount() int {
 
 // SyscallParamCount 用于确定使用哪个版本的 Syscall、Syscall6、Syscall9 等函数。
 // 它返回相应 SyscallX 函数的参数个数。
-
-// ff:
 func (f *Fn) SyscallParamCount() int {
 	n := f.ParamCount()
 	switch {
@@ -633,8 +569,6 @@ func (f *Fn) SyscallParamCount() int {
 }
 
 // Syscall 确定应使用哪个 SyscallX 函数来处理函数 f。
-
-// ff:
 func (f *Fn) Syscall() string {
 	c := f.SyscallParamCount()
 	if c == 3 {
@@ -647,12 +581,6 @@ func (f *Fn) Syscall() string {
 }
 
 // SyscallParamList 为函数 f 返回用于 SyscallX 的参数源代码
-// 翻译提示:type  Fn  struct{}
-// 
-// //  系统调用参数列表
-// func  (f  *Fn)  系统调用参数列表()  string  {}
-
-// ff:
 func (f *Fn) SyscallParamList() string {
 	a := make([]string, 0)
 	for _, p := range f.Params {
@@ -665,10 +593,6 @@ func (f *Fn) SyscallParamList() string {
 }
 
 // HelperCallParamList 返回调用函数f辅助工具的源代码
-// 翻译提示://  助手方法调用参数列表
-// func  (f  *Fn)  帮助方法调用参数列表()  string  {}
-
-// ff:
 func (f *Fn) HelperCallParamList() string {
 	a := make([]string, 0, len(f.Params))
 	for _, p := range f.Params {
@@ -682,9 +606,6 @@ func (f *Fn) HelperCallParamList() string {
 }
 
 // MaybeAbsent 返回用于处理可能不可用的函数的源代码
-// 翻译提示:func  (p  *函数指针)  可能缺失()  字符串  {}
-
-// ff:
 func (p *Fn) MaybeAbsent() string {
 	if !p.Rets.fnMaybeAbsent {
 		return ""
@@ -701,16 +622,12 @@ func (p *Fn) MaybeAbsent() string {
 }
 
 // IsUTF16 为真，当 f 为 W（utf16）函数时。对于所有 A（ascii）函数，其为假。
-
-// ff:
 func (f *Fn) IsUTF16() bool {
 	s := f.DLLFuncName()
 	return s[len(s)-1] == 'W'
 }
 
 // StrconvFunc 为 f 返回 Go 字符串转操作系统字符串函数的名称。
-
-// ff:
 func (f *Fn) StrconvFunc() string {
 	if f.IsUTF16() {
 		return syscalldot() + "UTF16PtrFromString"
@@ -719,8 +636,6 @@ func (f *Fn) StrconvFunc() string {
 }
 
 // StrconvType 返回用于操作系统字符串表示f的Go类型名
-
-// ff:
 func (f *Fn) StrconvType() string {
 	if f.IsUTF16() {
 		return "*uint16"
@@ -730,8 +645,6 @@ func (f *Fn) StrconvType() string {
 
 // HasStringParam为true表示f至少有一个字符串参数。
 // 否则，其为false。
-
-// ff:
 func (f *Fn) HasStringParam() bool {
 	for _, p := range f.Params {
 		if p.Type == "string" {
@@ -742,8 +655,6 @@ func (f *Fn) HasStringParam() bool {
 }
 
 // HelperName 返回函数f的辅助函数名称
-
-// ff:
 func (f *Fn) HelperName() string {
 	if !f.HasStringParam() {
 		return f.Name
@@ -766,28 +677,17 @@ type Source struct {
 	ExternalImports []string
 }
 
-// 翻译提示:func  (src  *源代码)  引入(pkg  string)  {}
-
-// ff:
-// pkg:
 func (src *Source) Import(pkg string) {
 	src.StdLibImports = append(src.StdLibImports, pkg)
 	sort.Strings(src.StdLibImports)
 }
 
-// 翻译提示:func  (src  *源代码)  引入外部包(pkg  string)  {}
-
-// ff:
-// pkg:
 func (src *Source) ExternalImport(pkg string) {
 	src.ExternalImports = append(src.ExternalImports, pkg)
 	sort.Strings(src.ExternalImports)
 }
 
 // ParseFiles解析fs中列出的文件，并从sys注释中提取所有syscall函数。若成功，返回包含源文件和函数集合的*Source。
-
-// ff:
-// fs:
 func ParseFiles(fs []string) (*Source, error) {
 	src := &Source{
 		Funcs: make([]*Fn, 0),
@@ -815,8 +715,6 @@ func ParseFiles(fs []string) (*Source, error) {
 }
 
 // DLLs 返回源集合src对应的dll名称。
-
-// ff:
 func (src *Source) DLLs() []DLL {
 	uniq := make(map[string]bool)
 	r := make([]DLL, 0)
@@ -834,9 +732,6 @@ func (src *Source) DLLs() []DLL {
 }
 
 // ParseFile 向源码集合 src 中添加额外的文件路径。
-
-// ff:
-// path:
 func (src *Source) ParseFile(path string) error {
 	file, err := os.Open(path)
 	if err != nil {
@@ -891,8 +786,6 @@ func (src *Source) ParseFile(path string) error {
 }
 
 // IsStdRepo 判断 src 是否属于标准库。
-
-// ff:
 func (src *Source) IsStdRepo() (bool, error) {
 	if len(src.Files) == 0 {
 		return false, errors.New("no input files provided")
@@ -914,9 +807,6 @@ func (src *Source) IsStdRepo() (bool, error) {
 }
 
 // 从源集合src生成输出源文件
-
-// ff:
-// w:
 func (src *Source) Generate(w io.Writer) error {
 	const (
 		pkgStd         = iota // 标准库中的任何包

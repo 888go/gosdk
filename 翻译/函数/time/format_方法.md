@@ -25,8 +25,8 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-# **_加.md 文件备注:
-# 在代码内加代码,如:
+# **_追加.md 文件备注:
+# 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
@@ -34,15 +34,11 @@
 # //zj:
 # 备注结束
 
-[func ParseBool(str string) (bool, error) {]
-ff=文本到布尔值
-str=布尔文本
+[func (t Time) Format(layout string) string {]
+ff=格式化
+layout=常量_时间格式_
 
-[func FormatBool(b bool) string {]
-ff=布尔值到文本
-b=布尔值
-
-[func AppendBool(dst #左中括号##右中括号#byte, b bool) #左中括号##右中括号#byte {]
-ff=布尔值加到字节集
-b=布尔值
-dst=字节集
+[func (t Time) AppendFormat(b #左中括号##右中括号#byte, layout string) #左中括号##右中括号#byte {]
+ff=格式化并加到字节集
+layout=常量_时间格式_
+b=字节集

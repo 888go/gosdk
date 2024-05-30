@@ -16,10 +16,6 @@ const (
 	errnoERROR_IO_PENDING = 997
 )
 
-// 翻译提示:var  (
-// 	err异步操作正在进行  error  =  syscall.Errno(errno异步操作正在进行)
-// 	err无效参数          error  =  syscall.EINVAL
-// )
 var (
 	errERROR_IO_PENDING error = syscall.Errno(errnoERROR_IO_PENDING)
 	errERROR_EINVAL     error = syscall.EINVAL
@@ -37,19 +33,6 @@ func errnoErr(e syscall.Errno) error {
 	return e
 }
 
-// 翻译提示:var  (
-// 	模块Advapi32  =  windows.NewLazySystemDLL("advapi32.dll")
-// 	模块Kernel32  =  windows.NewLazySystemDLL("kernel32.dll")
-// 
-// 	注册表连接RegistryW函数              =  模块Advapi32.NewProc("RegConnectRegistryW")
-// 	注册表创建KeyExW函数                      =  模块Advapi32.NewProc("RegCreateKeyExW")
-// 	注册表删除KeyW函数                          =  模块Advapi32.NewProc("RegDeleteKeyW")
-// 	注册表删除ValueW函数                      =  模块Advapi32.NewProc("RegDeleteValueW")
-// 	注册表枚举ValueW函数                          =  模块Advapi32.NewProc("RegEnumValueW")
-// 	注册表加载MUIStringW函数                  =  模块Advapi32.NewProc("RegLoadMUIStringW")
-// 	注册表设置ValueExW函数                        =  模块Advapi32.NewProc("RegSetValueExW")
-// 	扩展环境字符串W函数                          =  模块Kernel32.NewProc("ExpandEnvironmentStringsW")
-// )
 var (
 	modadvapi32 = windows.NewLazySystemDLL("advapi32.dll")
 	modkernel32 = windows.NewLazySystemDLL("kernel32.dll")

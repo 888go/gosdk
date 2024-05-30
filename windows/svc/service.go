@@ -18,15 +18,6 @@ import (
 // State 描述服务执行状态（停止、运行等）。
 type State uint32
 
-// 翻译提示:const  (
-// 	已停止                  =  服务状态(windows.SERVICE_STOPPED)
-// 	启动中                  =  服务状态(windows.SERVICE_START_PENDING)
-// 	停止中                  =  服务状态(windows.SERVICE_STOP_PENDING)
-// 	运行中                  =  服务状态(windows.SERVICE_RUNNING)
-// 	继续pending        =  服务状态(windows.SERVICE_CONTINUE_PENDING)
-// 	暂停pending        =  服务状态(windows.SERVICE_PAUSE_PENDING)
-// 	已暂停                  =  服务状态(windows.SERVICE_PAUSED)
-// )
 const (
 	Stopped         = State(windows.SERVICE_STOPPED)
 	StartPending    = State(windows.SERVICE_START_PENDING)
@@ -40,23 +31,6 @@ const (
 // Cmd 表示服务状态变更请求。它由服务管理器发送给服务，并应由服务执行相应的操作。
 type Cmd uint32
 
-// 翻译提示:const  (
-// 	停止                                    =  Cmd(windows.SERVICE_CONTROL_STOP)
-// 	暂停                                  =  Cmd(windows.SERVICE_CONTROL_PAUSE)
-// 	继续                                =  Cmd(windows.SERVICE_CONTROL_CONTINUE)
-// 	询问                                  =  Cmd(windows.SERVICE_CONTROL_INTERROGATE)
-// 	关闭                                  =  Cmd(windows.SERVICE_CONTROL_SHUTDOWN)
-// 	参数变更                      =  Cmd(windows.SERVICE_CONTROL_PARAMCHANGE)
-// 	网络绑定添加                =  Cmd(windows.SERVICE_CONTROL_NETBINDADD)
-// 	网络绑定移除                  =  Cmd(windows.SERVICE_CONTROL_NETBINDREMOVE)
-// 	网络绑定启用                  =  Cmd(windows.SERVICE_CONTROL_NETBINDENABLE)
-// 	网络绑定禁用                =  Cmd(windows.SERVICE_CONTROL_NETBINDDISABLE)
-// 	设备事件                          =  Cmd(windows.SERVICE_CONTROL_DEVICEEVENT)
-// 	硬件配置更改                =  Cmd(windows.SERVICE_CONTROL_HARDWAREPROFILECHANGE)
-// 	电源事件                          =  Cmd(windows.SERVICE_CONTROL_POWEREVENT)
-// 	会话更改                          =  Cmd(windows.SERVICE_CONTROL_SESSIONCHANGE)
-// 	预关闭                              =  Cmd(windows.SERVICE_CONTROL_PRESHUTDOWN)
-// )
 const (
 	Stop                  = Cmd(windows.SERVICE_CONTROL_STOP)
 	Pause                 = Cmd(windows.SERVICE_CONTROL_PAUSE)
@@ -79,17 +53,6 @@ const (
 // 注意，Interrogate 命令总是被接受。
 type Accepted uint32
 
-// 翻译提示:const  (
-// 	接受停止                                    =  接受(windows.SERVICE_ACCEPT_STOP)
-// 	接受关闭                            =  接受(windows.SERVICE_ACCEPT_SHUTDOWN)
-// 	接受暂停和继续            =  接受(windows.SERVICE_ACCEPT_PAUSE_CONTINUE)
-// 	接受参数变更                      =  接受(windows.SERVICE_ACCEPT_PARAMCHANGE)
-// 	接受网络绑定变更                  =  接受(windows.SERVICE_ACCEPT_NETBINDCHANGE)
-// 	接受硬件配置变更  =  接受(windows.SERVICE_ACCEPT_HARDWAREPROFILECHANGE)
-// 	接受电源事件                        =  接受(windows.SERVICE_ACCEPT_POWEREVENT)
-// 	接受会话变更                  =  接受(windows.SERVICE_ACCEPT_SESSIONCHANGE)
-// 	接受预关闭                      =  接受(windows.SERVICE_ACCEPT_PRESHUTDOWN)
-// )
 const (
 	AcceptStop                  = Accepted(windows.SERVICE_ACCEPT_STOP)
 	AcceptShutdown              = Accepted(windows.SERVICE_ACCEPT_SHUTDOWN)
@@ -105,13 +68,6 @@ const (
 // ActivityStatus 允许根据服务的活跃和非活跃状态类别来选择服务。
 type ActivityStatus uint32
 
-// 翻译提示:const  (
-// 	运行中            =  活动状态(windows.SERVICE_ACTIVE)
-// 	未运行        =  活动状态(windows.SERVICE_INACTIVE)
-// 	任何状态  =  活动状态(windows.SERVICE_STATE_ALL)
-// )
-// 
-// type  活动状态  uint32
 const (
 	Active      = ActivityStatus(windows.SERVICE_ACTIVE)
 	Inactive    = ActivityStatus(windows.SERVICE_INACTIVE)
@@ -132,13 +88,6 @@ type Status struct {
 // StartReason 是服务启动的原因。
 type StartReason uint32
 
-// 翻译提示:const  (
-// 	手动启动原因        =  StartReason(windows.SERVICE_START_REASON_DEMAND)
-// 	自动启动原因        =  StartReason(windows.SERVICE_START_REASON_AUTO)
-// 	触发启动原因        =  StartReason(windows.SERVICE_START_REASON_TRIGGER)
-// 	失败重启原因        =  StartReason(windows.SERVICE_START_REASON_RESTART_ON_FAILURE)
-// 	延迟自动启动原因  =  StartReason(windows.SERVICE_START_REASON_DELAYEDAUTO)
-// )
 const (
 	StartReasonDemand           = StartReason(windows.SERVICE_START_REASON_DEMAND)
 	StartReasonAuto             = StartReason(windows.SERVICE_START_REASON_AUTO)
@@ -237,11 +186,6 @@ func (s *service) updateStatus(status *Status, ec *exitCode) error {
 	return windows.SetServiceStatus(s.h, &t)
 }
 
-// 翻译提示:var  (
-// 	初始化回调锁              sync.Once
-// 	控制器处理回调        uintptr
-// 	服务主回调                uintptr
-// )
 var (
 	initCallbacks       sync.Once
 	ctlHandlerCallback  uintptr
@@ -329,10 +273,6 @@ loop:
 }
 
 // Run 通过调用相应的处理函数来执行服务名。
-
-// ff:
-// name:
-// handler:
 func Run(name string, handler Handler) error {
 	initCallbacks.Do(func() {
 		ctlHandlerCallback = windows.NewCallback(ctlHandler)
@@ -350,17 +290,12 @@ func Run(name string, handler Handler) error {
 
 // StatusHandle 返回服务状态句柄。在 Handler.Execute 内部调用此函数是安全的，
 // 因为此时可以确保其已被设置。
-
-// ff:
 func StatusHandle() windows.Handle {
 	return theService.h
 }
 
 // DynamicStartReason 返回服务启动的原因。从 Handler.Execute 内部调用此函数是安全的，
 // 因为此时可以确保其已被设置。
-
-// ff:
-// StartReason:
 func DynamicStartReason() (StartReason, error) {
 	var allocReason *uint32
 	err := windows.QueryServiceDynamicInformation(theService.h, windows.SERVICE_DYNAMIC_INFORMATION_LEVEL_START_REASON, unsafe.Pointer(&allocReason))

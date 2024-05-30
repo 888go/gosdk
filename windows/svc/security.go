@@ -28,8 +28,6 @@ func allocSid(subAuth0 uint32) (*windows.SID, error) {
 // 参考：http://stackoverflow.com/questions/2668851/how-do-i-detect-that-my-application-is-running-as-service-or-in-an-interactive-s
 // 
 // 注：已弃用，请改用 IsWindowsService。
-
-// ff:
 func IsAnInteractiveSession() (bool, error) {
 	interSid, err := allocSid(windows.SECURITY_INTERACTIVE_RID)
 	if err != nil {
@@ -66,8 +64,6 @@ func IsAnInteractiveSession() (bool, error) {
 }
 
 // IsWindowsService 报告当前进程是否作为 Windows 服务执行。
-
-// ff:
 func IsWindowsService() (bool, error) {
 // 下面的技巧看起来有些复杂，但实际上正是.NET框架对同名函数所采用的方法：
 // https://github.com/dotnet/extensions/blob/f4066026ca06984b07e90e61a6390ac38152ba93/src/Hosting/WindowsServices/src/WindowsServiceHelpers.cs#L26-L31

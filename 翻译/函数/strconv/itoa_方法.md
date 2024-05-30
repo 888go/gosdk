@@ -25,8 +25,8 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-# **_追加.md 文件备注:
-# 在代码内追加代码,如:
+# **_加.md 文件备注:
+# 在代码内加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
@@ -49,13 +49,13 @@ ff=整数到文本
 i=整数
 
 [func AppendInt(dst #左中括号##右中括号#byte, i int64, base int) #左中括号##右中括号#byte {]
-ff=追加整数64位到字节集
+ff=加整数64位到字节集
 base=进制
 i=整数64位
 dst=字节集
 
 [func AppendUint(dst #左中括号##右中括号#byte, i uint64, base int) #左中括号##右中括号#byte {]
-ff=追加正整数64位到字节集
+ff=加正整数64位到字节集
 base=进制
 i=正整数64位
 dst=字节集

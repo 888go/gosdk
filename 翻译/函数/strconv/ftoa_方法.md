@@ -25,8 +25,8 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-# **_追加.md 文件备注:
-# 在代码内追加代码,如:
+# **_加.md 文件备注:
+# 在代码内加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
@@ -42,7 +42,7 @@ fmt=输出格式
 f=小数64位
 
 [func AppendFloat(dst #左中括号##右中括号#byte, f float64, fmt byte, prec, bitSize int) #左中括号##右中括号#byte {]
-ff=追加小数64位到字节集
+ff=加小数64位到字节集
 bitSize=位宽
 prec=小数点精度
 fmt=输出格式

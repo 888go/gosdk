@@ -19,12 +19,16 @@ type Timer struct {
 // The underlying Timer is not recovered by the garbage collector
 // until the timer fires. If efficiency is a concern, use NewTimer
 // instead and call Timer.Stop if the timer is no longer needed.
+// ff:
+// d:
 func After(d Duration) <-chan time.Time {
 	return NewTimer(d).F.C
 }
 
 // Sleep pauses the current goroutine for at least the duration d.
 // A negative or zero duration causes Sleep to return immediately.
+// ff:
+// d:
 // 翻译提示:func 睡眠(d 时长) {}
 func Sleep(d Duration) {
 	time.Sleep(time.Duration(d))
@@ -44,6 +48,7 @@ func Sleep(d Duration) {
 // 如果使用 AfterFunc(d, f) 创建定时器，如果 t.Stop 返回 false，那么定时器已经超时，函数 f 已经在一个单独的goroutine中启动；Stop 在返回之前不会等待 f 完成。
 // 如果调用者需要知道 f 是否已完成，必须与 f 显式协调。
 // md5:f5fa62452dbbe4f2
+// ff:
 // 翻译提示:func (t *计时器) 停止() bool {}
 func (t *Timer) Stop() bool { //md5:fc8cbe1af620cb13
 	return t.F.Stop()
@@ -51,6 +56,8 @@ func (t *Timer) Stop() bool { //md5:fc8cbe1af620cb13
 
 // NewTimer 创建一个新的 Timer，该 Timer 在至少经过 duration d 后会通过其通道发送当前时间。
 // md5:2767c6954bd0c243
+// ff:
+// d:
 // 翻译提示:func 新建计时器(d 时长) *计时器 {}
 func NewTimer(d Duration) *Timer { //md5:11e89ccf3aaee20c
 	t := time.NewTimer(time.Duration(d))
@@ -82,6 +89,8 @@ func NewTimer(d Duration) *Timer { //md5:11e89ccf3aaee20c
 // 当 Reset 返回 false 时，它既不等待先前的 f 执行完成就返回，也不保证后续运行 f 的协程不会与前一个并发执行。
 // 如果调用者需要了解前一次 f 的执行是否已完成，必须与 f 显式协调。
 // md5:af314813b00709db
+// ff:
+// d:
 // 翻译提示:func (t *计时器) 重置(间隔 Duration) bool {}
 func (t *Timer) Reset(d Duration) bool { //md5:ab76211fe40d3fa1
 	return t.F.Reset(time.Duration(d))
@@ -90,6 +99,9 @@ func (t *Timer) Reset(d Duration) bool { //md5:ab76211fe40d3fa1
 // AfterFunc 等待duration时间过去后，在一个新的goroutine中调用函数f。它返回一个Timer，可以使用其Stop方法来取消调用。
 // 返回的Timer的C字段不被使用，将为nil。
 // md5:3f56daf6dab5cec5
+// ff:
+// d:
+// f:
 // 翻译提示:func 延迟执行(d 时长, 回调函数 func) *计时器 {}
 func AfterFunc(d Duration, f func()) *Timer { //md5:c6cacd4aadc22dcb
 	t := time.AfterFunc(time.Duration(d), f)

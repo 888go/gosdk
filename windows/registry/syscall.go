@@ -8,14 +8,6 @@ package registry
 
 import "syscall"
 
-// 翻译提示:const  (
-// 	注册表选项非易失性  =  0
-// 
-// 	新建键成功              =  1
-// 	打开已存在键            =  2
-// 
-// 	无更多项错误        =  syscall.Errno(259)
-// )
 const (
 	_REG_OPTION_NON_VOLATILE = 0
 
@@ -25,9 +17,6 @@ const (
 	_ERROR_NO_MORE_ITEMS syscall.Errno = 259
 )
 
-// 翻译提示:func  加载注册表加载MUI字符串()  error  {}
-
-// ff:
 func LoadRegLoadMUIString() error {
 	return procRegLoadMUIStringW.Find()
 }

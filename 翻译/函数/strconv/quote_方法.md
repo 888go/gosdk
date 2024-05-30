@@ -25,8 +25,8 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-# **_追加.md 文件备注:
-# 在代码内追加代码,如:
+# **_加.md 文件备注:
+# 在代码内加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
@@ -36,7 +36,7 @@
 
 [func AppendQuote(dst #左中括号##右中括号#byte, s string) #左中括号##右中括号#byte {]
 dst=字节集
-ff=转义到go字面量并追加到字节集
+ff=转义到go字面量并加到字节集
 s=文本
 
 [func Quote(s string) string {]
@@ -48,7 +48,7 @@ ff=转义非ASCII
 s=文本
 
 [func AppendQuoteToASCII(dst #左中括号##右中括号#byte, s string) #左中括号##右中括号#byte {]
-ff=转义非ASCII并追加到字节集
+ff=转义非ASCII并加到字节集
 s=文本
 dst=字节集
 
@@ -57,7 +57,7 @@ ff=转义到图形字符
 s=文本
 
 [func AppendQuoteToGraphic(dst #左中括号##右中括号#byte, s string) #左中括号##右中括号#byte {]
-ff=转义到图形字符并追加到字节集
+ff=转义到图形字符并加到字节集
 s=文本
 dst=字节集
 
@@ -66,7 +66,7 @@ ff=转义字符到go字面量
 r=字符
 
 [func AppendQuoteRune(dst #左中括号##右中括号#byte, r rune) #左中括号##右中括号#byte {]
-ff=转义字符到go字面量并追加到字节集
+ff=转义字符到go字面量并加到字节集
 r=字符
 dst=字节集
 
@@ -75,7 +75,7 @@ ff=转义非ASCII字符
 r=字符
 
 [func AppendQuoteRuneToASCII(dst #左中括号##右中括号#byte, r rune) #左中括号##右中括号#byte {]
-ff=转义非ASCII字符并追加到字节集
+ff=转义非ASCII字符并加到字节集
 r=字符
 dst=字节集
 
@@ -84,7 +84,7 @@ ff=转义字符到图形字符
 r=字符
 
 [func AppendQuoteRuneToGraphic(dst #左中括号##右中括号#byte, r rune) #左中括号##右中括号#byte {]
-ff=转义字符到图形字符并追加到字节集
+ff=转义字符到图形字符并加到字节集
 r=字符
 dst=字节集
 
