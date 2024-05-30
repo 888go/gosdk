@@ -180,4 +180,11 @@
     <tree path="/strings/builder.go" title="构建器"/>
     <tree path="/strings/reader.go" title="读取器"/>
     <tree path="/bytes/reader.go" title="读取器"/>
+    <tree path="/time/format.go" title="解析文本" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+          backgroundColor=""/>
+    <tree path="/time/sleep.go" title="延时器" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+          backgroundColor=""/>
+    <tree path="/time/tick.go" title="定时器"/>
+    <tree path="/time/time.go" title="主要方法"/>
+    <tree path="/time/zoneinfo.go" title="时区"/>
 </trees>

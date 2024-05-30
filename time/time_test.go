@@ -37,7 +37,7 @@ type parsedTime struct {
 	Year                 int
 	Month                Month
 	Day                  int
-	Hour, Minute, Second int:05 is 15, 4, 5.
+	Hour, Minute, Second int // 15:04:05 is 15, 4, 5.
 	Nanosecond           int // Fractional second.
 	Weekday              Weekday
 	ZoneOffset           int    // seconds east of UTC, e.g. -7*60*60 for -0700
@@ -623,14 +623,14 @@ var dateTests = []struct {
 	z                                      *Location
 	unix                                   int64
 }{
-	{2011, 11, 6, 1, 0, 0, 0, Local, 1320566400},:00 PDT
-	{2011, 11, 6, 1, 59, 59, 0, Local, 1320569999},:59 PDT
-	{2011, 11, 6, 2, 0, 0, 0, Local, 1320573600},:00 PST
+	{2011, 11, 6, 1, 0, 0, 0, Local, 1320566400},   // 1:00:00 PDT
+	{2011, 11, 6, 1, 59, 59, 0, Local, 1320569999}, // 1:59:59 PDT
+	{2011, 11, 6, 2, 0, 0, 0, Local, 1320573600},   // 2:00:00 PST
 
-	{2011, 3, 13, 1, 0, 0, 0, Local, 1300006800},:00 PST
-	{2011, 3, 13, 1, 59, 59, 0, Local, 1300010399},:59 PST
-	{2011, 3, 13, 3, 0, 0, 0, Local, 1300010400},:00 PDT
-	{2011, 3, 13, 2, 30, 0, 0, Local, 1300008600},:00 PDT ≡ 1:30 PST
+	{2011, 3, 13, 1, 0, 0, 0, Local, 1300006800},   // 1:00:00 PST
+	{2011, 3, 13, 1, 59, 59, 0, Local, 1300010399}, // 1:59:59 PST
+	{2011, 3, 13, 3, 0, 0, 0, Local, 1300010400},   // 3:00:00 PDT
+	{2011, 3, 13, 2, 30, 0, 0, Local, 1300008600},  // 2:30:00 PDT ≡ 1:30 PST
 	{2012, 12, 24, 0, 0, 0, 0, Local, 1356336000},  // Leap year
 
 	// Many names for Fri Nov 18 7:56:35 PST 2011

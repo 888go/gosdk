@@ -34,29 +34,17 @@
 # //zj:
 # 备注结束
 
-[func (t Time) Format(layout string) string {]
-ff=格式化
-layout=常量_时间格式_
+[type Location struct {]
+hm=时区结构
+cz=type Location
+qm=
 
-[func (t Time) AppendFormat(b #左中括号##右中括号#byte, layout string) #左中括号##右中括号#byte {]
-ff=格式化并加到字节集
-layout=常量_时间格式_
-b=字节集
+[var UTC *Location = &Location{*time.UTC}]
+qm=
+cz=var UTC
+hm=常量_时区_UTC
 
-[func (e *ParseError) Error() string {]
-ff=取错误文本
-
-[func Parse(layout, value string) (Time, error) {]
-ff=解析文本
-value=文本
-layout=常量_时间格式_
-
-[func ParseInLocation(layout, value string, loc *Location) (Time, error) {]
-ff=解析文本并按时区
-loc=常量_时区_
-value=文本
-layout=常量_时间格式_
-
-[func ParseDuration(s string) (Duration, error) {]
-ff=解析文本时长
-s=文本
+[var Local *Location = &Location{*time.Local}]
+qm=
+cz=var Local
+hm=常量_时区_本地系统
