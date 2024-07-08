@@ -19,9 +19,6 @@ type decimal struct {
 	trunc bool      // discarded nonzero digits beyond d[:nd]
 }
 
-// 翻译提示:func (a *十进制数) 字符串表示() 字符串 {}
-
-// ff:
 func (a *decimal) String() string {
 	n := 10 + a.nd
 	if a.dp > 0 {
@@ -81,10 +78,6 @@ func trim(a *decimal) {
 }
 
 // Assign v to a.
-// 翻译提示:func (a *十进制数) 赋值(v uint64) {}
-
-// ff:
-// v:
 func (a *decimal) Assign(v uint64) {
 	var buf [24]byte
 
@@ -319,10 +312,6 @@ func leftShift(a *decimal, k uint) {
 }
 
 // Binary shift left (k > 0) or right (k < 0).
-// 翻译提示:func (a *十进制数) 左移(k int) {}
-
-// ff:
-// k:
 func (a *decimal) Shift(k int) {
 	switch {
 	case a.nd == 0:
@@ -362,10 +351,6 @@ func shouldRoundUp(a *decimal, nd int) bool {
 // If nd is zero, it means we're rounding
 // just to the left of the digits, as in
 // 0.09 -> 0.1.
-// 翻译提示:func (a *十进制数) 轮取数字位数(nd int) {}
-
-// ff:
-// nd:
 func (a *decimal) Round(nd int) {
 	if nd < 0 || nd >= a.nd {
 		return
@@ -378,10 +363,6 @@ func (a *decimal) Round(nd int) {
 }
 
 // Round a down to nd digits (or fewer).
-// 翻译提示:func (a *十进制数) 向下取整(nd int) {}
-
-// ff:
-// nd:
 func (a *decimal) RoundDown(nd int) {
 	if nd < 0 || nd >= a.nd {
 		return
@@ -391,10 +372,6 @@ func (a *decimal) RoundDown(nd int) {
 }
 
 // Round a up to nd digits (or fewer).
-// 翻译提示:func (a *十进制数) 向上舍入(nd int) {}
-
-// ff:
-// nd:
 func (a *decimal) RoundUp(nd int) {
 	if nd < 0 || nd >= a.nd {
 		return
@@ -419,9 +396,6 @@ func (a *decimal) RoundUp(nd int) {
 
 // Extract integer part, rounded appropriately.
 // No guarantees about overflow.
-// 翻译提示:函数 (a *十进制数) 修约整数() uint64 {}
-
-// ff:
 func (a *decimal) RoundedInteger() uint64 {
 	if a.dp > 20 {
 		return 0xFFFFFFFFFFFFFFFF

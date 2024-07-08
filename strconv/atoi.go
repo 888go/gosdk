@@ -6,45 +6,23 @@ import (
 )
 
 // NumError 记录了一次转换失败的情况。. md5:4bc87fcc15d03a84
-// 翻译提示:type 数字错误 struct {
-//     错误 strconv.NumError
-// }
-type NumError struct { //hm:转换失败结构 cz:type NumError     
+type NumError struct {
 	F strconv.NumError
 } //md5:0cd5b5c6c9f477b9
 
 // IntSize 是int或uint值的位数。. md5:c5f70ea31d120aca
-// 翻译提示:const (
-//     整型大小 = strconv.IntSize // 表示整数类型的位数，例如在64位系统上为64
-// )
 const IntSize = strconv.IntSize //md5:19007de8c1f03835
 
 // ErrRange表示值超出了目标类型的范围。. md5:f2114ade03b9c908
-// 翻译提示:var 范围错误 = errors.New("值超出范围") //md5:879a72936976b39e
-var ErrRange = errors.New("value out of range") //hm:常量_错误_超出类型范围 cz:var ErrRange      //md5:879a72936976b39e
+var ErrRange = errors.New("value out of range") //md5:879a72936976b39e
 
 // ErrSyntax表示值的语法不符合目标类型的要求。. md5:a7b31dd1093b5f09
-// 翻译提示:var 错误语法 = errors.New("语法无效") //md5:5371aebaa9b3d94e
 var ErrSyntax = errors.New("invalid syntax") //md5:5371aebaa9b3d94e
 
-// 翻译提示:type NumError struct {
-//     Func  string // 函数名，出错的方法
-//     Num   string // 错误的数字字符串
-//     Err   error  // 基本错误信息
-// }
-// 
-// // 错误信息转换为字符串
-// func (e *NumError) Error() string {}
-
-// ff:取错误文本
 func (e *NumError) Error() string { //md5:d92759861dd6caa4
 	return e.F.Error()
 }
 
-// 翻译提示:// NumErrorUnwrap 方法返回包裹的错误。
-// func (e *NumError) NumErrorUnwrap() error {}
-
-// ff:取错误对象
 func (e *NumError) Unwrap() error { //md5:35635a0deb05e0a6
 	return e.F.Unwrap()
 }
@@ -53,12 +31,6 @@ func (e *NumError) Unwrap() error { //md5:35635a0deb05e0a6
 //
 // 不允许有符号前缀。
 // md5:46e1e2e7065dee31
-// 翻译提示:func 字符串转无符号整数(s 字符串, 底数 int, 位宽 int) (无符号整数64, 错误 error) {}
-
-// ff:文本到正整数64位
-// s:文本
-// base:进制
-// bitSize:位宽
 func ParseUint(s string, base int, bitSize int) (uint64, error) { //md5:f4c2829256142922
 	return strconv.ParseUint(s, base, bitSize)
 }
@@ -76,23 +48,11 @@ func ParseUint(s string, base int, bitSize int) (uint64, error) { //md5:f4c28292
 //
 // [整数字面量]：https://go.dev/ref/spec#Integer_literals
 // md5:c7272ea65b20e967
-// 翻译提示:func 将字符串转换为整数(s 字符串, 基数 int, 位宽 int) (结果 int64, 错误 error) {}
-
-// ff:文本到整数64位
-// s:文本
-// base:进制
-// bitSize:位宽
-// i:返回值
-// err:错误
 func ParseInt(s string, base int, bitSize int) (i int64, err error) { //md5:8bc39378cce23cd2
 	return strconv.ParseInt(s, base, bitSize)
 }
 
 // Atoi等同于ParseInt(s, 10, 0)，转换为int类型。. md5:53cc58b8acf08aaf
-// 翻译提示:func 字符串转整数(s 字符串) (整数, 错误) {}
-
-// ff:文本到整数
-// s:文本
 func Atoi(s string) (int, error) { //md5:576d8377bb1d7532
 	return strconv.Atoi(s)
 }

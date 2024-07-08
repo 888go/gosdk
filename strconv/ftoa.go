@@ -24,27 +24,12 @@ import "strconv"
 // zeros are removed).
 // The special precision -1 uses the smallest number of digits
 // necessary such that ParseFloat will return f exactly.
-// 翻译提示:func 浮动点数转字符串(f 浮动点数, 格式化字节 fmt byte, 精度 prec int, 比特大小 bitSize int) 字符串 {}
-
-// ff:小数64位到文本
-// f:小数64位
-// fmt:输出格式
-// prec:小数点精度
-// bitSize:位宽
 func FormatFloat(f float64, fmt byte, prec, bitSize int) string { //md5:627500a705d2a46e
 	return strconv.FormatFloat(f, fmt, prec, bitSize)
 }
 
 // AppendFloat 将浮点数 f 的格式化字符串（由 FormatFloat 生成）追加到 dst 中，并返回扩展的缓冲区。
 // md5:5f65576d0cc9f940
-// 翻译提示:func 追加浮点数(dst []字节, f 浮点数, 格式字节, 精度, 位数 int) []字节 {}
-
-// ff:追加小数64位到字节集
-// dst:字节集
-// f:小数64位
-// fmt:输出格式
-// prec:小数点精度
-// bitSize:位宽
 func AppendFloat(dst []byte, f float64, fmt byte, prec, bitSize int) []byte { //md5:6c1e86744a16fe25
 	return strconv.AppendFloat(dst, f, fmt, prec, bitSize)
 }

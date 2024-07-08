@@ -1,4 +1,4 @@
-package fmt//bm:打印类
+package fmt
 
 import (
 	"fmt"
@@ -42,13 +42,6 @@ import (
 
 // Fprintf 根据格式说明符进行格式化，并将结果写入到 w。它返回写入的字节数和遇到的任何写入错误。
 // md5:11dd19b9f67ba7d6
-
-// ff:格式化到IO写入器
-// w:IO写入器
-// format:格式化模板
-// a:参数
-// n:长度
-// err:错误
 func Fprintf(w io.Writer, format string, a ...any) (n int, err error) { //md5:8994acd4ed68277e
 	return fmt.Fprintf(w, format, a...)
 }
@@ -56,44 +49,23 @@ func Fprintf(w io.Writer, format string, a ...any) (n int, err error) { //md5:89
 // Printf 根据格式说明符进行格式化，并将结果写入标准输出。
 // 它返回写入的字节数以及遇到的任何写入错误。
 // md5:54ac01abf5326255
-
-// ff:打印格式化文本
-// format:格式化模板
-// a:参数
-// n:长度
-// err:错误
 func Printf(format string, a ...any) (n int, err error) { //md5:32ce169e70f3a5fa
 	return fmt.Printf(format, a...)
 }
 
 // Sprintf 根据指定的格式规范格式化数据，并返回结果字符串。. md5:d61280ff301bb2b2
-
-// ff:格式化文本
-// format:格式化模板
-// a:参数
 func Sprintf(format string, a ...any) string { //md5:24724198127875e1
 	return fmt.Sprintf(format, a...)
 }
 
 // Appendf 根据格式说明符进行格式化，将结果追加到字节切片中，并返回更新后的切片。
 // md5:393dbb1b605c68f1
-
-// ff:格式化并追加切片
-// b:切片
-// format:格式化模板
-// a:参数
 func Appendf(b []byte, format string, a ...any) []byte { //md5:f220524ac7a1fa6c
 	return fmt.Appendf(b, format, a...)
 }
 
 // Fprint使用其操作数的默认格式进行格式化，并将结果写入到w。当两个操作数都不是字符串时，会在它们之间添加空格。它返回写入的字节数和遇到的任何写入错误。
 // md5:ddee1c503e0a8436
-
-// ff:打印并写IO写入器
-// w:IO写入器
-// a:参数
-// n:长度
-// err:错误
 func Fprint(w io.Writer, a ...any) (n int, err error) { //md5:e5ec71cd9b761315
 	return fmt.Fprint(w, a...)
 }
@@ -102,11 +74,6 @@ func Fprint(w io.Writer, a ...any) (n int, err error) { //md5:e5ec71cd9b761315
 // 当两个操作数都不是字符串时，在它们之间添加空格。
 // 它返回写入的字节数以及遇到的任何写入错误。
 // md5:54b0b31967437408
-
-// ff:打印
-// a:参数
-// n:长度
-// err:错误
 func Print(a ...any) (n int, err error) { //md5:a607cfafb122e0ba
 	return fmt.Print(a...)
 }
@@ -114,31 +81,18 @@ func Print(a ...any) (n int, err error) { //md5:a607cfafb122e0ba
 // Sprint 使用默认格式化方式处理其操作数，并返回结果字符串。
 // 当没有操作数是字符串时，会在它们之间添加空格。
 // md5:bb92a3c2cd3c2853
-
-// ff:拼接文本
-// a:参数
 func Sprint(a ...any) string { //md5:92c8691e66c394b4
 	return fmt.Sprint(a...)
 }
 
 // 使用其操作数的默认格式进行格式化，将结果追加到字节切片中，并返回更新后的切片。
 // md5:1b14355a42fa90e0
-
-// ff:追加切片
-// b:切片
-// a:参数
 func Append(b []byte, a ...any) []byte { //md5:e9cd1020fcbaa6de
 	return fmt.Append(b, a...)
 }
 
 // Fprintln使用其操作数的默认格式进行格式化，并将结果写入到w。在操作数之间始终会添加空格，最后还会添加一个换行符。它返回写入的字节数和遇到的任何写入错误。
 // md5:54533f8543d392a7
-
-// ff:打印ln并写IO写入器
-// w:IO写入器
-// a:参数
-// n:长度
-// err:错误
 func Fprintln(w io.Writer, a ...any) (n int, err error) { //md5:3f3d6b62cc1c26bf
 	return fmt.Fprintln(w, a...)
 }
@@ -147,11 +101,6 @@ func Fprintln(w io.Writer, a ...any) (n int, err error) { //md5:3f3d6b62cc1c26bf
 // 操作数之间始终会添加空格，并附加一个换行符。
 // 它返回写入的字节数以及遇到的任何写入错误。
 // md5:2efc584ded7df262
-
-// ff:打印ln
-// a:参数
-// n:长度
-// err:错误
 func Println(a ...any) (n int, err error) { //md5:eb17a1f50e6abf59
 	return fmt.Println(a...)
 }
@@ -159,19 +108,12 @@ func Println(a ...any) (n int, err error) { //md5:eb17a1f50e6abf59
 // Sprintln 使用其操作数的默认格式进行格式化，并返回结果字符串。
 // 操作数之间总是添加空格，并在末尾追加一个换行符。
 // md5:36c0bd5a115ae1c5
-
-// ff:拼接文本ln
-// a:参数
 func Sprintln(a ...any) string { //md5:eb45268a6a270840
 	return fmt.Sprintln(a...)
 }
 
 // Appendln使用其操作数的默认格式进行格式化，将结果追加到字节切片中，并返回更新后的切片。始终在操作数之间添加空格，并追加一个换行符。
 // md5:ca307513588203d4
-
-// ff:追加切片ln
-// b:切片
-// a:参数
 func Appendln(b []byte, a ...any) []byte { //md5:307da584946d7ba4
 	return fmt.Appendln(b, a...)
 }

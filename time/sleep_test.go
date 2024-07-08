@@ -639,7 +639,8 @@ func TestAdjustTimers(t *testing.T) {
 }
 
 // Benchmark timer latency when the thread that creates the timer is busy with
-// other work and the timers must be serviced by other threads.//golang.org/issue/38860
+// other work and the timers must be serviced by other threads.
+// https://golang.org/issue/38860
 func BenchmarkParallelTimerLatency(b *testing.B) {
 	gmp := runtime.GOMAXPROCS(0)
 	if gmp < 2 || runtime.NumCPU() < gmp {

@@ -6,13 +6,6 @@ import "strconv"
 // 
 // 格式 fmt 和精度 prec 的含义与 FormatFloat 中的相同。它假设原始值是从具有 bitSize 位的复数中获取的，对于 complex64 必须是 64 位，对于 complex128 必须是 128 位，并对结果进行四舍五入。
 // md5:fd8d5d38ed45847e
-// 翻译提示:func 格式化复数(c 复数128, 格式字节 byte, 精度 int, 位数大小 int) string {}
-
-// ff:复数到文本
-// c:复数
-// fmt:输出格式
-// prec:小数点精度
-// bitSize:位宽
 func FormatComplex(c complex128, fmt byte, prec, bitSize int) string { //md5:a78e72e77ed11d14
 	return strconv.FormatComplex(c, fmt, prec, bitSize)
 }

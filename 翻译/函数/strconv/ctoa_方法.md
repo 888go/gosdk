@@ -25,8 +25,8 @@
 # 一个文档内有2个"One(result interface{}) error"需要重命名.
 # 但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
 
-# **_加.md 文件备注:
-# 在代码内加代码,如:
+# **_追加.md 文件备注:
+# 在代码内追加代码,如:
 # //zj:
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
@@ -36,7 +36,7 @@
 
 [func FormatComplex(c complex128, fmt byte, prec, bitSize int) string {]
 ff=复数到文本
-c=复数
 bitSize=位宽
 prec=小数点精度
 fmt=输出格式
+c=复数

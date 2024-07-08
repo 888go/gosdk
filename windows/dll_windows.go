@@ -26,10 +26,8 @@ type DLLError struct {
 	Msg     string
 }
 
-// 翻译提示:func (e *DLL错误) 错误信息() 字符串 {}
 func (e *DLLError) Error() string { return e.Msg }
 
-// 翻译提示:func (e *DLL错误) 获取底层错误() 错误 {}
 func (e *DLLError) Unwrap() error { return e.Err }
 
 // DLL 结构体实现了对单一 DLL 的访问功能。
@@ -41,7 +39,6 @@ type DLL struct {
 // LoadDLL 将 DLL 文件加载到内存中。
 //
 // 警告：在没有使用绝对路径的情况下使用 LoadDLL，可能导致 DLL 预加载攻击。为了安全地加载系统 DLL，请使用 System 参数设为 true 的 LazyDLL，或直接使用 LoadLibraryEx。
-// 翻译提示:func 加载动态链接库(name 字符串) (dll *动态链接库, 错误 error) {}
 func LoadDLL(name string) (dll *DLL, err error) {
 	namep, err := UTF16PtrFromString(name)
 	if err != nil {
@@ -63,7 +60,6 @@ func LoadDLL(name string) (dll *DLL, err error) {
 }
 
 // MustLoadDLL与LoadDLL类似，但若加载操作失败，则会引发恐慌。
-// 翻译提示:func 必须加载动态链接库(name 字符串) *DLL {}
 func MustLoadDLL(name string) *DLL {
 	d, e := LoadDLL(name)
 	if e != nil {
@@ -73,7 +69,6 @@ func MustLoadDLL(name string) *DLL {
 }
 
 // FindProc在DLL d中搜索名为name的程序，并在找到时返回*Proc。如果搜索失败，它将返回一个错误。
-// 翻译提示:func (d *DLL) 查找进程(name string) (proc *Proc, 错误 error) {}
 func (d *DLL) FindProc(name string) (proc *Proc, err error) {
 	namep, err := BytePtrFromString(name)
 	if err != nil {
@@ -96,7 +91,6 @@ func (d *DLL) FindProc(name string) (proc *Proc, err error) {
 }
 
 // MustFindProc 与 FindProc 类似，但在搜索失败时会引发 panic。
-// 翻译提示:func (d *DLL) 必须找到进程(name string) *Proc {}
 func (d *DLL) MustFindProc(name string) *Proc {
 	p, e := d.FindProc(name)
 	if e != nil {
@@ -106,7 +100,6 @@ func (d *DLL) MustFindProc(name string) *Proc {
 }
 
 // FindProcByOrdinal 在 DLL d 中按序号搜索过程，并在找到时返回 *Proc。如果搜索失败，则返回错误。
-// 翻译提示:func (d *DLL) 通过序号查找函数(ordinal uint32) (proc *函数指针, err 错误) {}
 func (d *DLL) FindProcByOrdinal(ordinal uintptr) (proc *Proc, err error) {
 	a, e := GetProcAddressByOrdinal(d.Handle, ordinal)
 	name := "#" + itoa(int(ordinal))
@@ -126,7 +119,6 @@ func (d *DLL) FindProcByOrdinal(ordinal uintptr) (proc *Proc, err error) {
 }
 
 // MustFindProcByOrdinal 与 FindProcByOrdinal 类似，但若搜索失败则触发 panic。
-// 翻译提示:func (d *DLL) 必须通过序号查找函数(ordinal uint32) *Proc {}
 func (d *DLL) MustFindProcByOrdinal(ordinal uintptr) *Proc {
 	p, e := d.FindProcByOrdinal(ordinal)
 	if e != nil {
@@ -136,7 +128,6 @@ func (d *DLL) MustFindProcByOrdinal(ordinal uintptr) *Proc {
 }
 
 // Release 从内存中卸载 DLL d。
-// 翻译提示:func (d *DLL) 释放() (错误 error) {}
 func (d *DLL) Release() (err error) {
 	return FreeLibrary(d.Handle)
 }
