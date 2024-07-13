@@ -37,4 +37,3 @@
 [type Ticker struct {]
 hm=定时器结构
 cz=type Ticker
-qm=

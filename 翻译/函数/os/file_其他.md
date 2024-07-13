@@ -36,15 +36,15 @@
 
 [Stdin = NewFile(uintptr(syscall.Stdin), "/dev/stdin")]
 qm=常量_标准输入
-cz=Stdin #等号# NewFile(uintptr(syscall.Stdin), "/dev/stdin")
+zz=\bStdin +#等号# +.*\(uintptr\(syscall\.Stdin\)
 
 [Stdout = NewFile(uintptr(syscall.Stdout), "/dev/stdout")]
 qm=常量_标准输出
-cz=Stdout #等号# NewFile(uintptr(syscall.Stdout), "/dev/stdout")
+zz=\bStdout +#等号# +.*\(uintptr\(syscall\.Stdout\)
 
 [Stderr = NewFile(uintptr(syscall.Stderr), "/dev/stderr")]
 qm=常量_标准错误
-cz=Stderr #等号# NewFile(uintptr(syscall.Stderr), "/dev/stderr")
+zz=\bStderr +#等号# +.*\(uintptr\(syscall\.Stderr\)
 
 [O_RDONLY int = syscall.O_RDONLY]
 qm=常量_文件标志_只读打开

@@ -37,14 +37,11 @@
 [type Location struct {]
 hm=时区结构
 cz=type Location
-qm=
 
 [var UTC *Location = &Location{*time.UTC}]
-qm=
 cz=var UTC
 hm=常量_时区_UTC
 
 [var Local *Location = &Location{*time.Local}]
-qm=
 cz=var Local
 hm=常量_时区_本地系统

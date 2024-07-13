@@ -37,99 +37,79 @@
 [type ParseError struct {]
 hm=解析错误结构
 cz=type ParseError
-qm=
 
 [Layout = "01/02 03:04:05PM '06 -0700"]
 qm=常量_时间格式_Layout
 cz=Layout #等号# "01/02 03:04:05PM '06 -0700"
-hm=
 
 [ANSIC = "Mon Jan _2 15:04:05 2006"]
 qm=常量_时间格式_ANSIC
 cz=ANSIC #等号# "Mon Jan _2 15:04:05 2006"
-hm=
 
 [UnixDate = "Mon Jan _2 15:04:05 MST 2006"]
 qm=常量_时间格式_Unix
 cz=UnixDate #等号# "Mon Jan _2 15:04:05 MST 2006"
-hm=
 
 [RubyDate = "Mon Jan 02 15:04:05 -0700 2006"]
 qm=常量_时间格式_Ruby
 cz=RubyDate #等号# "Mon Jan 02 15:04:05 -0700 2006"
-hm=
 
 [RFC822 = "02 Jan 06 15:04 MST"]
 qm=常量_时间格式_RFC822
 cz=RFC822 #等号# "02 Jan 06 15:04 MST"
-hm=
 
 [RFC822Z = "02 Jan 06 15:04 -0700"]
 qm=常量_时间格式_RFC822Z
 cz=RFC822Z #等号# "02 Jan 06 15:04 -0700"
-hm=
 
 [RFC850 = "Monday, 02-Jan-06 15:04:05 MST"]
 qm=常量_时间格式_RFC850
 cz=RFC850 #等号# "Monday, 02-Jan-06 15:04:05 MST"
-hm=
 
 [RFC1123 = "Mon, 02 Jan 2006 15:04:05 MST"]
 qm=常量_时间格式_RFC1123
 cz=RFC1123 #等号# "Mon, 02 Jan 2006 15:04:05 MST"
-hm=
 
 [RFC1123Z = "Mon, 02 Jan 2006 15:04:05 -0700"]
 qm=常量_时间格式_RFC1123Z
 cz=RFC1123Z #等号# "Mon, 02 Jan 2006 15:04:05 -0700"
-hm=
 
 [RFC3339 = "2006-01-02T15:04:05Z07:00"]
 qm=常量_时间格式_RFC3339
 cz=RFC3339 #等号# "2006-01-02T15:04:05Z07:00"
-hm=
 
 [RFC3339Nano = "2006-01-02T15:04:05.999999999Z07:00"]
 qm=常量_时间格式_RFC3339Nano
 cz=RFC3339Nano #等号# "2006-01-02T15:04:05.999999999Z07:00"
-hm=
 
 [Kitchen = "3:04PM"]
 qm=常量_时间格式_厨房时间
 cz=Kitchen #等号# "3:04PM"
-hm=
 
 [Stamp = "Jan _2 15:04:05"]
 qm=常量_时间格式_时间戳
 cz=Stamp #等号# "Jan _2 15:04:05"
-hm=
 
 [StampMilli = "Jan _2 15:04:05.000"]
 qm=常量_时间格式_时间戳毫秒
 cz=StampMilli #等号# "Jan _2 15:04:05.000"
-hm=
 
 [StampMicro = "Jan _2 15:04:05.000000"]
 qm=常量_时间格式_时间戳微秒
 cz=StampMicro #等号# "Jan _2 15:04:05.000000"
-hm=
 
 [StampNano = "Jan _2 15:04:05.000000000"]
 qm=常量_时间格式_时间戳纳秒
 cz=StampNano #等号# "Jan _2 15:04:05.000000000"
-hm=
 
 [DateTime = "2006-01-02 15:04:05"]
 qm=常量_时间格式_日期时间
 cz=DateTime #等号# "2006-01-02 15:04:05"
-hm=
 
 [DateOnly = "2006-01-02"]
 qm=常量_时间格式_日期
 cz=DateOnly #等号# "2006-01-02"
-hm=
 
 [TimeOnly = "15:04:05"]
 qm=常量_时间格式_时间
 cz=TimeOnly #等号# "15:04:05"
-hm=

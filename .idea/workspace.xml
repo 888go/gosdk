@@ -5,95 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-05-19">
-      <change afterPath="$PROJECT_DIR$/internal/internal.rar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gosdk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gosdk.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/bytes.rar" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/bytes.rar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/example_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/bytes/example_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bytes/reader_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fmt/fmt.rar" beforeDir="false" afterPath="$PROJECT_DIR$/fmt/fmt.rar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fmt/print.go" beforeDir="false" afterPath="$PROJECT_DIR$/fmt/print.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/cfg/cfg.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/cfg/cfg.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/goroot/gc.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/goroot/gccgo.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/goroot/importcfg.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/platform/supported.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/platform/supported.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/execenv/execenv_default.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/execenv/execenv_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/asm_aix_ppc64.s" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/asm_darwin.s" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/asm_solaris.s" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_aix.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_fstatat.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_fstatat2.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_libc.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_libc2.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_solaris.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_sysnum_darwin.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_sysnum_dragonfly.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_sysnum_freebsd.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_sysnum_fstatat64_linux.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_sysnum_fstatat_linux.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_sysnum_linux.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_sysnum_netbsd.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_sysnum_newfstatat_linux.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/at_sysnum_openbsd.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/constants.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/copy_file_range_linux.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/eaccess_linux.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/eaccess_other.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/fcntl_linux_32bit.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/getentropy_darwin.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/getentropy_openbsd.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/getentropy_openbsd_mips64.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/getrandom.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/getrandom_dragonfly.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/getrandom_freebsd.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/getrandom_linux.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/getrandom_solaris.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/ioctl_aix.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/kernel_version_linux.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/kernel_version_other.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/net.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/net_darwin.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/net_js.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/nonblocking.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/nonblocking_js.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/nonblocking_libc.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/pty_darwin.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/sysnum_linux_386.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/sysnum_linux_amd64.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/sysnum_linux_arm.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/sysnum_linux_generic.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/sysnum_linux_mips64x.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/sysnum_linux_mipsx.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/sysnum_linux_ppc64x.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/sysnum_linux_s390x.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/unix/user_darwin.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/memory_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/mksyscall.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/net_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/psapi_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/registry/key.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/registry/mksyscall.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/registry/syscall.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/registry/value.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/registry/zsyscall_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/reparse_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/security_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/symlink_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/syscall_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/sysdll/sysdll.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/syscall/windows/zsyscall_windows.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/testenv/exec.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/testenv/exec.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/testenv/noopt.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/testenv/noopt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/testenv/opt.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/testenv/opt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/testenv/testenv.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/testenv/testenv.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/os/os_windows_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/os/os_windows_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/strings/reader_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/strings/strings.rar" beforeDir="false" afterPath="$PROJECT_DIR$/strings/strings.rar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/strings/strings_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/strings/strings_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/windows/registry/registry_test_package.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/windows/registry/registry_test_package.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/os/file_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/os/file_其他.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/os/path_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/os/path_其他.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/os/stat_方法.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/os/stat_方法.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/time/format_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/time/format_其他.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/time/sleep_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/time/sleep_其他.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/time/tick_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/time/tick_其他.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/time/time_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/time/time_其他.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/翻译/函数/time/zoneinfo_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/time/zoneinfo_其他.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +174,7 @@
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/SVN/GO/code/gosdk",
+    "last_opened_file_path": "E:/SVN/GO/code/debug/gosdk/gosdk1",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",

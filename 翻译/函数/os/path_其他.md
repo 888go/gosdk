@@ -34,12 +34,6 @@
 # //zj:
 # 备注结束
 
-[PathSeparator = '\\']
-qm=常量_路径_分隔符
-
-[PathListSeparator = ';']
-qm=常量_路径_列表分隔符
-
 [PathSeparator = os.PathSeparator]
 qm=常量_系统_路径分隔符
 cz=PathSeparator #等号# os.PathSeparator

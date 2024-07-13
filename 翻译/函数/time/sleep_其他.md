@@ -37,4 +37,3 @@
 [type Timer struct {]
 hm=延时器结构
 cz=type Timer
-qm=

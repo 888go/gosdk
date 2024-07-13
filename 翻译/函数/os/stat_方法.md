@@ -36,10 +36,8 @@
 
 [func Stat(name string) (FileInfo, error) {]
 ff=取文件信息
-FileInfo=文件信息
 name=路径
 
 [func Lstat(name string) (FileInfo, error) {]
 ff=获取符号链接文件信息
-FileInfo=文件信息
 name=错误
