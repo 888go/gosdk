@@ -14,9 +14,9 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/888go/gosdk/internal/cfg"
-	"github.com/888go/gosdk/internal/goroot"
-	"github.com/888go/gosdk/internal/platform"
+	"internal/cfg"
+	"internal/goroot"
+	"internal/platform"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -31,16 +31,12 @@ import (
 // (for example, "linux-amd64" or "windows-386-gce").
 // If the test is not running on the build infrastructure,
 // Builder returns the empty string.
-
-// ff:
 func Builder() string {
 	return os.Getenv("GO_BUILDER_NAME")
 }
 
 // HasGoBuild reports whether the current system can build programs with “go build”
 // and then run them with os.StartProcess or exec.Command.
-
-// ff:
 func HasGoBuild() bool {
 	if os.Getenv("GO_GCFLAGS") != "" {
 		// It's too much work to require every caller of the go command
@@ -59,9 +55,6 @@ func HasGoBuild() bool {
 // MustHaveGoBuild checks that the current system can build programs with “go build”
 // and then run them with os.StartProcess or exec.Command.
 // If not, MustHaveGoBuild calls t.Skip with an explanation.
-
-// ff:
-// t:
 func MustHaveGoBuild(t testing.TB) {
 	if os.Getenv("GO_GCFLAGS") != "" {
 		t.Skipf("skipping test: 'go build' not compatible with setting $GO_GCFLAGS")
@@ -72,8 +65,6 @@ func MustHaveGoBuild(t testing.TB) {
 }
 
 // HasGoRun reports whether the current system can run programs with “go run.”
-
-// ff:
 func HasGoRun() bool {
 	// For now, having go run and having go build are the same.
 	return HasGoBuild()
@@ -81,9 +72,6 @@ func HasGoRun() bool {
 
 // MustHaveGoRun checks that the current system can run programs with “go run.”
 // If not, MustHaveGoRun calls t.Skip with an explanation.
-
-// ff:
-// t:
 func MustHaveGoRun(t testing.TB) {
 	if !HasGoRun() {
 		t.Skipf("skipping test: 'go run' not available on %s/%s", runtime.GOOS, runtime.GOARCH)
@@ -94,9 +82,6 @@ func MustHaveGoRun(t testing.TB) {
 // It is a convenience wrapper around GoTool.
 // If the tool is unavailable GoToolPath calls t.Skip.
 // If the tool should be available and isn't, GoToolPath calls t.Fatal.
-
-// ff:
-// t:
 func GoToolPath(t testing.TB) string {
 	MustHaveGoBuild(t)
 	path, err := GoTool()
@@ -194,9 +179,6 @@ func findGOROOT() (string, error) {
 //
 // If GOROOT cannot be found, GOROOT skips t if t is non-nil,
 // or panics otherwise.
-
-// ff:
-// t:
 func GOROOT(t testing.TB) string {
 	path, err := findGOROOT()
 	if err != nil {
@@ -210,8 +192,6 @@ func GOROOT(t testing.TB) string {
 }
 
 // GoTool reports the path to the Go tool.
-
-// ff:
 func GoTool() (string, error) {
 	if !HasGoBuild() {
 		return "", errors.New("platform cannot run go tool")
@@ -236,8 +216,6 @@ func GoTool() (string, error) {
 }
 
 // HasSrc reports whether the entire source tree is available under GOROOT.
-
-// ff:
 func HasSrc() bool {
 	switch runtime.GOOS {
 	case "ios":
@@ -248,8 +226,6 @@ func HasSrc() bool {
 
 // HasExternalNetwork reports whether the current system can use
 // external (non-localhost) networks.
-
-// ff:
 func HasExternalNetwork() bool {
 	return !testing.Short() && runtime.GOOS != "js"
 }
@@ -257,9 +233,6 @@ func HasExternalNetwork() bool {
 // MustHaveExternalNetwork checks that the current system can use
 // external (non-localhost) networks.
 // If not, MustHaveExternalNetwork calls t.Skip with an explanation.
-
-// ff:
-// t:
 func MustHaveExternalNetwork(t testing.TB) {
 	if runtime.GOOS == "js" {
 		t.Skipf("skipping test: no external network on %s", runtime.GOOS)
@@ -272,16 +245,11 @@ func MustHaveExternalNetwork(t testing.TB) {
 var haveCGO bool
 
 // HasCGO reports whether the current system can use cgo.
-
-// ff:
 func HasCGO() bool {
 	return haveCGO
 }
 
 // MustHaveCGO calls t.Skip if cgo is not available.
-
-// ff:
-// t:
 func MustHaveCGO(t testing.TB) {
 	if !haveCGO {
 		t.Skipf("skipping test: no cgo")
@@ -290,8 +258,6 @@ func MustHaveCGO(t testing.TB) {
 
 // CanInternalLink reports whether the current system can link programs with
 // internal linking.
-
-// ff:
 func CanInternalLink() bool {
 	return !platform.MustLinkExternal(runtime.GOOS, runtime.GOARCH)
 }
@@ -299,9 +265,6 @@ func CanInternalLink() bool {
 // MustInternalLink checks that the current system can link programs with internal
 // linking.
 // If not, MustInternalLink calls t.Skip with an explanation.
-
-// ff:
-// t:
 func MustInternalLink(t testing.TB) {
 	if !CanInternalLink() {
 		t.Skipf("skipping test: internal linking on %s/%s is not supported", runtime.GOOS, runtime.GOARCH)
@@ -309,8 +272,6 @@ func MustInternalLink(t testing.TB) {
 }
 
 // HasSymlink reports whether the current system can use os.Symlink.
-
-// ff:
 func HasSymlink() bool {
 	ok, _ := hasSymlink()
 	return ok
@@ -318,9 +279,6 @@ func HasSymlink() bool {
 
 // MustHaveSymlink reports whether the current system can use os.Symlink.
 // If not, MustHaveSymlink calls t.Skip with an explanation.
-
-// ff:
-// t:
 func MustHaveSymlink(t testing.TB) {
 	ok, reason := hasSymlink()
 	if !ok {
@@ -329,8 +287,6 @@ func MustHaveSymlink(t testing.TB) {
 }
 
 // HasLink reports whether the current system can use os.Link.
-
-// ff:
 func HasLink() bool {
 	// From Android release M (Marshmallow), hard linking files is blocked
 	// and an attempt to call link() on a file will return EACCES.
@@ -340,9 +296,6 @@ func HasLink() bool {
 
 // MustHaveLink reports whether the current system can use os.Link.
 // If not, MustHaveLink calls t.Skip with an explanation.
-
-// ff:
-// t:
 func MustHaveLink(t testing.TB) {
 	if !HasLink() {
 		t.Skipf("skipping test: hardlinks are not supported on %s/%s", runtime.GOOS, runtime.GOARCH)
@@ -351,10 +304,6 @@ func MustHaveLink(t testing.TB) {
 
 var flaky = flag.Bool("flaky", false, "run known-flaky tests too")
 
-
-// ff:
-// issue:
-// t:
 func SkipFlaky(t testing.TB, issue int) {
 	t.Helper()
 	if !*flaky {
@@ -362,9 +311,6 @@ func SkipFlaky(t testing.TB, issue int) {
 	}
 }
 
-
-// ff:
-// t:
 func SkipFlakyNet(t testing.TB) {
 	t.Helper()
 	if v, _ := strconv.ParseBool(os.Getenv("GO_BUILDER_FLAKY_NET")); v {
@@ -373,8 +319,6 @@ func SkipFlakyNet(t testing.TB) {
 }
 
 // CPUIsSlow reports whether the CPU running the test is suspected to be slow.
-
-// ff:
 func CPUIsSlow() bool {
 	switch runtime.GOARCH {
 	case "arm", "mips", "mipsle", "mips64", "mips64le":
@@ -387,9 +331,6 @@ func CPUIsSlow() bool {
 // suspected to be slow.
 //
 // (This is useful for CPU-intensive tests that otherwise complete quickly.)
-
-// ff:
-// t:
 func SkipIfShortAndSlow(t testing.TB) {
 	if testing.Short() && CPUIsSlow() {
 		t.Helper()
@@ -398,9 +339,6 @@ func SkipIfShortAndSlow(t testing.TB) {
 }
 
 // SkipIfOptimizationOff skips t if optimization is disabled.
-
-// ff:
-// t:
 func SkipIfOptimizationOff(t testing.TB) {
 	if OptimizationOff() {
 		t.Helper()
@@ -411,11 +349,6 @@ func SkipIfOptimizationOff(t testing.TB) {
 // WriteImportcfg writes an importcfg file used by the compiler or linker to
 // dstPath containing entries for the packages in std and cmd in addition
 // to the package to package file mappings in additionalPackageFiles.
-
-// ff:
-// additionalPackageFiles:
-// dstPath:
-// t:
 func WriteImportcfg(t testing.TB, dstPath string, additionalPackageFiles map[string]string) {
 	importcfg, err := goroot.Importcfg()
 	for k, v := range additionalPackageFiles {

@@ -18,8 +18,6 @@ import (
 
 // HasExec reports whether the current system can start new processes
 // using os.StartProcess or (more commonly) exec.Command.
-
-// ff:
 func HasExec() bool {
 	switch runtime.GOOS {
 	case "js", "ios":
@@ -31,9 +29,6 @@ func HasExec() bool {
 // MustHaveExec checks that the current system can start new processes
 // using os.StartProcess or (more commonly) exec.Command.
 // If not, MustHaveExec calls t.Skip with an explanation.
-
-// ff:
-// t:
 func MustHaveExec(t testing.TB) {
 	if !HasExec() {
 		t.Skipf("skipping test: cannot exec subprocess on %s/%s", runtime.GOOS, runtime.GOARCH)
@@ -45,10 +40,6 @@ var execPaths sync.Map // path -> error
 // MustHaveExecPath checks that the current system can start the named executable
 // using os.StartProcess or (more commonly) exec.Command.
 // If not, MustHaveExecPath calls t.Skip with an explanation.
-
-// ff:
-// path:
-// t:
 func MustHaveExecPath(t testing.TB, path string) {
 	MustHaveExec(t)
 
@@ -65,9 +56,6 @@ func MustHaveExecPath(t testing.TB, path string) {
 // CleanCmdEnv will fill cmd.Env with the environment, excluding certain
 // variables that could modify the behavior of the Go tools such as
 // GODEBUG and GOTRACEBACK.
-
-// ff:
-// cmd:
 func CleanCmdEnv(cmd *exec.Cmd) *exec.Cmd {
 	if cmd.Env != nil {
 		panic("environment already set")
@@ -95,12 +83,6 @@ func CleanCmdEnv(cmd *exec.Cmd) *exec.Cmd {
 //     for an arbitrary grace period before the test's deadline expires,
 //   - fails the test if the command does not complete before the test's deadline, and
 //   - sets a Cleanup function that verifies that the test did not leak a subprocess.
-
-// ff:
-// args:
-// name:
-// ctx:
-// t:
 func CommandContext(t testing.TB, ctx context.Context, name string, args ...string) *exec.Cmd {
 	t.Helper()
 	MustHaveExec(t)
@@ -187,11 +169,6 @@ func CommandContext(t testing.TB, ctx context.Context, name string, args ...stri
 
 // Command is like exec.Command, but applies the same changes as
 // testenv.CommandContext (with a default Context).
-
-// ff:
-// args:
-// name:
-// t:
 func Command(t testing.TB, name string, args ...string) *exec.Cmd {
 	t.Helper()
 	return CommandContext(t, context.Background(), name, args...)

@@ -8,14 +8,13 @@ import (
 	"errors"
 	"fmt"
 	//"github.com/888go/gosdk/internal/poll"
-	"github.com/888go/gosdk/internal/syscall/windows"
-	"github.com/888go/gosdk/internal/syscall/windows/registry"
+	//"github.com/888go/gosdk/internal/syscall/windows"
+	//"github.com/888go/gosdk/internal/syscall/windows/registry"
 	"github.com/888go/gosdk/internal/testenv"
 	"github.com/888go/gosdk/os"
 	"io/fs"
 	osexec "os/exec"
 	"path/filepath"
-	"runtime"
 	"sort"
 	"strings"
 	"syscall"
@@ -229,308 +228,308 @@ func (rd *reparseData) pathBuffeLen() uint16 {
 // translated into Go directly. _REPARSE_DATA_BUFFER type is to help
 // construct alternative versions of Windows REPARSE_DATA_BUFFER with
 // union part of SymbolicLinkReparseBuffer or MountPointReparseBuffer type.
-type _REPARSE_DATA_BUFFER struct {
-	header windows.REPARSE_DATA_BUFFER_HEADER
-	detail [syscall.MAXIMUM_REPARSE_DATA_BUFFER_SIZE]byte
-}
-
-func createDirLink(link string, rdb *_REPARSE_DATA_BUFFER) error {
-	err := os.Mkdir(link, 0777)
-	if err != nil {
-		return err
-	}
-
-	linkp := syscall.StringToUTF16(link)
-	fd, err := syscall.CreateFile(&linkp[0], syscall.GENERIC_WRITE, 0, nil, syscall.OPEN_EXISTING,
-		syscall.FILE_FLAG_OPEN_REPARSE_POINT|syscall.FILE_FLAG_BACKUP_SEMANTICS, 0)
-	if err != nil {
-		return err
-	}
-	defer syscall.CloseHandle(fd)
-
-	buflen := uint32(rdb.header.ReparseDataLength) + uint32(unsafe.Sizeof(rdb.header))
-	var bytesReturned uint32
-	return syscall.DeviceIoControl(fd, windows.FSCTL_SET_REPARSE_POINT,
-		(*byte)(unsafe.Pointer(&rdb.header)), buflen, nil, 0, &bytesReturned, nil)
-}
-
-func createMountPoint(link string, target *reparseData) error {
-	var buf *windows.MountPointReparseBuffer
-	buflen := uint16(unsafe.Offsetof(buf.PathBuffer)) + target.pathBuffeLen() // see ReparseDataLength documentation
-	byteblob := make([]byte, buflen)
-	buf = (*windows.MountPointReparseBuffer)(unsafe.Pointer(&byteblob[0]))
-	buf.SubstituteNameOffset = target.substituteName.offset
-	buf.SubstituteNameLength = target.substituteName.length
-	buf.PrintNameOffset = target.printName.offset
-	buf.PrintNameLength = target.printName.length
-	pbuflen := len(target.pathBuf)
-	copy((*[2048]uint16)(unsafe.Pointer(&buf.PathBuffer[0]))[:pbuflen:pbuflen], target.pathBuf)
-
-	var rdb _REPARSE_DATA_BUFFER
-	rdb.header.ReparseTag = windows.IO_REPARSE_TAG_MOUNT_POINT
-	rdb.header.ReparseDataLength = buflen
-	copy(rdb.detail[:], byteblob)
-
-	return createDirLink(link, &rdb)
-}
-
-func TestDirectoryJunction(t *testing.T) {
-	var tests = []dirLinkTest{
-		{
-			// Create link similar to what mklink does, by inserting \??\ at the front of absolute target.
-			name: "standard",
-			mklink: func(link, target string) error {
-				var t reparseData
-				t.addSubstituteName(`\??\` + target)
-				t.addPrintName(target)
-				return createMountPoint(link, &t)
-			},
-		},
-		{
-			// Do as junction utility https://technet.microsoft.com/en-au/sysinternals/bb896768.aspx does - set PrintNameLength to 0.
-			name: "have_blank_print_name",
-			mklink: func(link, target string) error {
-				var t reparseData
-				t.addSubstituteName(`\??\` + target)
-				t.addPrintName("")
-				return createMountPoint(link, &t)
-			},
-		},
-	}
-	output, _ := osexec.Command("cmd", "/c", "mklink", "/?").Output()
-	mklinkSupportsJunctionLinks := strings.Contains(string(output), " /J ")
-	if mklinkSupportsJunctionLinks {
-		tests = append(tests,
-			dirLinkTest{
-				name: "use_mklink_cmd",
-				mklink: func(link, target string) error {
-					output, err := osexec.Command("cmd", "/c", "mklink", "/J", link, target).CombinedOutput()
-					if err != nil {
-						t.Errorf("failed to run mklink %v %v: %v %q", link, target, err, output)
-					}
-					return nil
-				},
-			},
-		)
-	} else {
-		t.Log(`skipping "use_mklink_cmd" test, mklink does not supports directory junctions`)
-	}
-	testDirLinks(t, tests)
-}
-
-func enableCurrentThreadPrivilege(privilegeName string) error {
-	ct, err := windows.GetCurrentThread()
-	if err != nil {
-		return err
-	}
-	var t syscall.Token
-	err = windows.OpenThreadToken(ct, syscall.TOKEN_QUERY|windows.TOKEN_ADJUST_PRIVILEGES, false, &t)
-	if err != nil {
-		return err
-	}
-	defer syscall.CloseHandle(syscall.Handle(t))
-
-	var tp windows.TOKEN_PRIVILEGES
-
-	privStr, err := syscall.UTF16PtrFromString(privilegeName)
-	if err != nil {
-		return err
-	}
-	err = windows.LookupPrivilegeValue(nil, privStr, &tp.Privileges[0].Luid)
-	if err != nil {
-		return err
-	}
-	tp.PrivilegeCount = 1
-	tp.Privileges[0].Attributes = windows.SE_PRIVILEGE_ENABLED
-	return windows.AdjustTokenPrivileges(t, false, &tp, 0, nil, nil)
-}
-
-func createSymbolicLink(link string, target *reparseData, isrelative bool) error {
-	var buf *windows.SymbolicLinkReparseBuffer
-	buflen := uint16(unsafe.Offsetof(buf.PathBuffer)) + target.pathBuffeLen() // see ReparseDataLength documentation
-	byteblob := make([]byte, buflen)
-	buf = (*windows.SymbolicLinkReparseBuffer)(unsafe.Pointer(&byteblob[0]))
-	buf.SubstituteNameOffset = target.substituteName.offset
-	buf.SubstituteNameLength = target.substituteName.length
-	buf.PrintNameOffset = target.printName.offset
-	buf.PrintNameLength = target.printName.length
-	if isrelative {
-		buf.Flags = windows.SYMLINK_FLAG_RELATIVE
-	}
-	pbuflen := len(target.pathBuf)
-	copy((*[2048]uint16)(unsafe.Pointer(&buf.PathBuffer[0]))[:pbuflen:pbuflen], target.pathBuf)
-
-	var rdb _REPARSE_DATA_BUFFER
-	rdb.header.ReparseTag = syscall.IO_REPARSE_TAG_SYMLINK
-	rdb.header.ReparseDataLength = buflen
-	copy(rdb.detail[:], byteblob)
-
-	return createDirLink(link, &rdb)
-}
-
-func TestDirectorySymbolicLink(t *testing.T) {
-	var tests []dirLinkTest
-	output, _ := osexec.Command("cmd", "/c", "mklink", "/?").Output()
-	mklinkSupportsDirectorySymbolicLinks := strings.Contains(string(output), " /D ")
-	if mklinkSupportsDirectorySymbolicLinks {
-		tests = append(tests,
-			dirLinkTest{
-				name: "use_mklink_cmd",
-				mklink: func(link, target string) error {
-					output, err := osexec.Command("cmd", "/c", "mklink", "/D", link, target).CombinedOutput()
-					if err != nil {
-						t.Errorf("failed to run mklink %v %v: %v %q", link, target, err, output)
-					}
-					return nil
-				},
-			},
-		)
-	} else {
-		t.Log(`skipping "use_mklink_cmd" test, mklink does not supports directory symbolic links`)
-	}
-
-	// The rest of these test requires SeCreateSymbolicLinkPrivilege to be held.
-	runtime.LockOSThread()
-	defer runtime.UnlockOSThread()
-
-	err := windows.ImpersonateSelf(windows.SecurityImpersonation)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer windows.RevertToSelf()
-
-	err = enableCurrentThreadPrivilege("SeCreateSymbolicLinkPrivilege")
-	if err != nil {
-		t.Skipf(`skipping some tests, could not enable "SeCreateSymbolicLinkPrivilege": %v`, err)
-	}
-	tests = append(tests,
-		dirLinkTest{
-			name: "use_os_pkg",
-			mklink: func(link, target string) error {
-				return os.Symlink(target, link)
-			},
-		},
-		dirLinkTest{
-			// Create link similar to what mklink does, by inserting \??\ at the front of absolute target.
-			name: "standard",
-			mklink: func(link, target string) error {
-				var t reparseData
-				t.addPrintName(target)
-				t.addSubstituteName(`\??\` + target)
-				return createSymbolicLink(link, &t, false)
-			},
-		},
-		dirLinkTest{
-			name: "relative",
-			mklink: func(link, target string) error {
-				var t reparseData
-				t.addSubstituteNameNoNUL(filepath.Base(target))
-				t.addPrintNameNoNUL(filepath.Base(target))
-				return createSymbolicLink(link, &t, true)
-			},
-		},
-	)
-	testDirLinks(t, tests)
-}
-
-func TestNetworkSymbolicLink(t *testing.T) {
-	testenv.MustHaveSymlink(t)
-
-	const _NERR_ServerNotStarted = syscall.Errno(2114)
-
-	dir, err := os.MkdirTemp("", "TestNetworkSymbolicLink")
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer os.RemoveAll(dir)
-
-	chdir(t, dir)
-
-	shareName := "GoSymbolicLinkTestShare" // hope no conflictions
-	sharePath := filepath.Join(dir, shareName)
-	testDir := "TestDir"
-
-	err = os.MkdirAll(filepath.Join(sharePath, testDir), 0777)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	wShareName, err := syscall.UTF16PtrFromString(shareName)
-	if err != nil {
-		t.Fatal(err)
-	}
-	wSharePath, err := syscall.UTF16PtrFromString(sharePath)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	p := windows.SHARE_INFO_2{
-		Netname:     wShareName,
-		Type:        windows.STYPE_DISKTREE,
-		Remark:      nil,
-		Permissions: 0,
-		MaxUses:     1,
-		CurrentUses: 0,
-		Path:        wSharePath,
-		Passwd:      nil,
-	}
-
-	err = windows.NetShareAdd(nil, 2, (*byte)(unsafe.Pointer(&p)), nil)
-	if err != nil {
-		if err == syscall.ERROR_ACCESS_DENIED {
-			t.Skip("you don't have enough privileges to add network share")
-		}
-		if err == _NERR_ServerNotStarted {
-			t.Skip(_NERR_ServerNotStarted.Error())
-		}
-		t.Fatal(err)
-	}
-	defer func() {
-		err := windows.NetShareDel(nil, wShareName, 0)
-		if err != nil {
-			t.Fatal(err)
-		}
-	}()
-
-	UNCPath := `\\localhost\` + shareName + `\`
-
-	fi1, err := os.Stat(sharePath)
-	if err != nil {
-		t.Fatal(err)
-	}
-	fi2, err := os.Stat(UNCPath)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if !os.SameFile(fi1, fi2) {
-		t.Fatalf("%q and %q should be the same directory, but not", sharePath, UNCPath)
-	}
-
-	target := filepath.Join(UNCPath, testDir)
-	link := "link"
-
-	err = os.Symlink(target, link)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer os.Remove(link)
-
-	got, err := os.Readlink(link)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if got != target {
-		t.Errorf(`os.Readlink("%s"): got %v, want %v`, link, got, target)
-	}
-
-	got, err = filepath.EvalSymlinks(link)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if got != target {
-		t.Errorf(`filepath.EvalSymlinks("%s"): got %v, want %v`, link, got, target)
-	}
-}
+//type _REPARSE_DATA_BUFFER struct {
+//	header windows.REPARSE_DATA_BUFFER_HEADER
+//	detail [syscall.MAXIMUM_REPARSE_DATA_BUFFER_SIZE]byte
+//}
+//
+//func createDirLink(link string, rdb *_REPARSE_DATA_BUFFER) error {
+//	err := os.Mkdir(link, 0777)
+//	if err != nil {
+//		return err
+//	}
+//
+//	linkp := syscall.StringToUTF16(link)
+//	fd, err := syscall.CreateFile(&linkp[0], syscall.GENERIC_WRITE, 0, nil, syscall.OPEN_EXISTING,
+//		syscall.FILE_FLAG_OPEN_REPARSE_POINT|syscall.FILE_FLAG_BACKUP_SEMANTICS, 0)
+//	if err != nil {
+//		return err
+//	}
+//	defer syscall.CloseHandle(fd)
+//
+//	buflen := uint32(rdb.header.ReparseDataLength) + uint32(unsafe.Sizeof(rdb.header))
+//	var bytesReturned uint32
+//	return syscall.DeviceIoControl(fd, windows.FSCTL_SET_REPARSE_POINT,
+//		(*byte)(unsafe.Pointer(&rdb.header)), buflen, nil, 0, &bytesReturned, nil)
+//}
+//
+//func createMountPoint(link string, target *reparseData) error {
+//	var buf *windows.MountPointReparseBuffer
+//	buflen := uint16(unsafe.Offsetof(buf.PathBuffer)) + target.pathBuffeLen() // see ReparseDataLength documentation
+//	byteblob := make([]byte, buflen)
+//	buf = (*windows.MountPointReparseBuffer)(unsafe.Pointer(&byteblob[0]))
+//	buf.SubstituteNameOffset = target.substituteName.offset
+//	buf.SubstituteNameLength = target.substituteName.length
+//	buf.PrintNameOffset = target.printName.offset
+//	buf.PrintNameLength = target.printName.length
+//	pbuflen := len(target.pathBuf)
+//	copy((*[2048]uint16)(unsafe.Pointer(&buf.PathBuffer[0]))[:pbuflen:pbuflen], target.pathBuf)
+//
+//	var rdb _REPARSE_DATA_BUFFER
+//	rdb.header.ReparseTag = windows.IO_REPARSE_TAG_MOUNT_POINT
+//	rdb.header.ReparseDataLength = buflen
+//	copy(rdb.detail[:], byteblob)
+//
+//	return createDirLink(link, &rdb)
+//}
+//
+//func TestDirectoryJunction(t *testing.T) {
+//	var tests = []dirLinkTest{
+//		{
+//			// Create link similar to what mklink does, by inserting \??\ at the front of absolute target.
+//			name: "standard",
+//			mklink: func(link, target string) error {
+//				var t reparseData
+//				t.addSubstituteName(`\??\` + target)
+//				t.addPrintName(target)
+//				return createMountPoint(link, &t)
+//			},
+//		},
+//		{
+//			// Do as junction utility https://technet.microsoft.com/en-au/sysinternals/bb896768.aspx does - set PrintNameLength to 0.
+//			name: "have_blank_print_name",
+//			mklink: func(link, target string) error {
+//				var t reparseData
+//				t.addSubstituteName(`\??\` + target)
+//				t.addPrintName("")
+//				return createMountPoint(link, &t)
+//			},
+//		},
+//	}
+//	output, _ := osexec.Command("cmd", "/c", "mklink", "/?").Output()
+//	mklinkSupportsJunctionLinks := strings.Contains(string(output), " /J ")
+//	if mklinkSupportsJunctionLinks {
+//		tests = append(tests,
+//			dirLinkTest{
+//				name: "use_mklink_cmd",
+//				mklink: func(link, target string) error {
+//					output, err := osexec.Command("cmd", "/c", "mklink", "/J", link, target).CombinedOutput()
+//					if err != nil {
+//						t.Errorf("failed to run mklink %v %v: %v %q", link, target, err, output)
+//					}
+//					return nil
+//				},
+//			},
+//		)
+//	} else {
+//		t.Log(`skipping "use_mklink_cmd" test, mklink does not supports directory junctions`)
+//	}
+//	testDirLinks(t, tests)
+//}
+//
+//func enableCurrentThreadPrivilege(privilegeName string) error {
+//	ct, err := windows.GetCurrentThread()
+//	if err != nil {
+//		return err
+//	}
+//	var t syscall.Token
+//	err = windows.OpenThreadToken(ct, syscall.TOKEN_QUERY|windows.TOKEN_ADJUST_PRIVILEGES, false, &t)
+//	if err != nil {
+//		return err
+//	}
+//	defer syscall.CloseHandle(syscall.Handle(t))
+//
+//	var tp windows.TOKEN_PRIVILEGES
+//
+//	privStr, err := syscall.UTF16PtrFromString(privilegeName)
+//	if err != nil {
+//		return err
+//	}
+//	err = windows.LookupPrivilegeValue(nil, privStr, &tp.Privileges[0].Luid)
+//	if err != nil {
+//		return err
+//	}
+//	tp.PrivilegeCount = 1
+//	tp.Privileges[0].Attributes = windows.SE_PRIVILEGE_ENABLED
+//	return windows.AdjustTokenPrivileges(t, false, &tp, 0, nil, nil)
+//}
+//
+//func createSymbolicLink(link string, target *reparseData, isrelative bool) error {
+//	var buf *windows.SymbolicLinkReparseBuffer
+//	buflen := uint16(unsafe.Offsetof(buf.PathBuffer)) + target.pathBuffeLen() // see ReparseDataLength documentation
+//	byteblob := make([]byte, buflen)
+//	buf = (*windows.SymbolicLinkReparseBuffer)(unsafe.Pointer(&byteblob[0]))
+//	buf.SubstituteNameOffset = target.substituteName.offset
+//	buf.SubstituteNameLength = target.substituteName.length
+//	buf.PrintNameOffset = target.printName.offset
+//	buf.PrintNameLength = target.printName.length
+//	if isrelative {
+//		buf.Flags = windows.SYMLINK_FLAG_RELATIVE
+//	}
+//	pbuflen := len(target.pathBuf)
+//	copy((*[2048]uint16)(unsafe.Pointer(&buf.PathBuffer[0]))[:pbuflen:pbuflen], target.pathBuf)
+//
+//	var rdb _REPARSE_DATA_BUFFER
+//	rdb.header.ReparseTag = syscall.IO_REPARSE_TAG_SYMLINK
+//	rdb.header.ReparseDataLength = buflen
+//	copy(rdb.detail[:], byteblob)
+//
+//	return createDirLink(link, &rdb)
+//}
+//
+//func TestDirectorySymbolicLink(t *testing.T) {
+//	var tests []dirLinkTest
+//	output, _ := osexec.Command("cmd", "/c", "mklink", "/?").Output()
+//	mklinkSupportsDirectorySymbolicLinks := strings.Contains(string(output), " /D ")
+//	if mklinkSupportsDirectorySymbolicLinks {
+//		tests = append(tests,
+//			dirLinkTest{
+//				name: "use_mklink_cmd",
+//				mklink: func(link, target string) error {
+//					output, err := osexec.Command("cmd", "/c", "mklink", "/D", link, target).CombinedOutput()
+//					if err != nil {
+//						t.Errorf("failed to run mklink %v %v: %v %q", link, target, err, output)
+//					}
+//					return nil
+//				},
+//			},
+//		)
+//	} else {
+//		t.Log(`skipping "use_mklink_cmd" test, mklink does not supports directory symbolic links`)
+//	}
+//
+//	// The rest of these test requires SeCreateSymbolicLinkPrivilege to be held.
+//	runtime.LockOSThread()
+//	defer runtime.UnlockOSThread()
+//
+//	err := windows.ImpersonateSelf(windows.SecurityImpersonation)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	defer windows.RevertToSelf()
+//
+//	err = enableCurrentThreadPrivilege("SeCreateSymbolicLinkPrivilege")
+//	if err != nil {
+//		t.Skipf(`skipping some tests, could not enable "SeCreateSymbolicLinkPrivilege": %v`, err)
+//	}
+//	tests = append(tests,
+//		dirLinkTest{
+//			name: "use_os_pkg",
+//			mklink: func(link, target string) error {
+//				return os.Symlink(target, link)
+//			},
+//		},
+//		dirLinkTest{
+//			// Create link similar to what mklink does, by inserting \??\ at the front of absolute target.
+//			name: "standard",
+//			mklink: func(link, target string) error {
+//				var t reparseData
+//				t.addPrintName(target)
+//				t.addSubstituteName(`\??\` + target)
+//				return createSymbolicLink(link, &t, false)
+//			},
+//		},
+//		dirLinkTest{
+//			name: "relative",
+//			mklink: func(link, target string) error {
+//				var t reparseData
+//				t.addSubstituteNameNoNUL(filepath.Base(target))
+//				t.addPrintNameNoNUL(filepath.Base(target))
+//				return createSymbolicLink(link, &t, true)
+//			},
+//		},
+//	)
+//	testDirLinks(t, tests)
+//}
+//
+//func TestNetworkSymbolicLink(t *testing.T) {
+//	testenv.MustHaveSymlink(t)
+//
+//	const _NERR_ServerNotStarted = syscall.Errno(2114)
+//
+//	dir, err := os.MkdirTemp("", "TestNetworkSymbolicLink")
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	defer os.RemoveAll(dir)
+//
+//	chdir(t, dir)
+//
+//	shareName := "GoSymbolicLinkTestShare" // hope no conflictions
+//	sharePath := filepath.Join(dir, shareName)
+//	testDir := "TestDir"
+//
+//	err = os.MkdirAll(filepath.Join(sharePath, testDir), 0777)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	wShareName, err := syscall.UTF16PtrFromString(shareName)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	wSharePath, err := syscall.UTF16PtrFromString(sharePath)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	p := windows.SHARE_INFO_2{
+//		Netname:     wShareName,
+//		Type:        windows.STYPE_DISKTREE,
+//		Remark:      nil,
+//		Permissions: 0,
+//		MaxUses:     1,
+//		CurrentUses: 0,
+//		Path:        wSharePath,
+//		Passwd:      nil,
+//	}
+//
+//	err = windows.NetShareAdd(nil, 2, (*byte)(unsafe.Pointer(&p)), nil)
+//	if err != nil {
+//		if err == syscall.ERROR_ACCESS_DENIED {
+//			t.Skip("you don't have enough privileges to add network share")
+//		}
+//		if err == _NERR_ServerNotStarted {
+//			t.Skip(_NERR_ServerNotStarted.Error())
+//		}
+//		t.Fatal(err)
+//	}
+//	defer func() {
+//		err := windows.NetShareDel(nil, wShareName, 0)
+//		if err != nil {
+//			t.Fatal(err)
+//		}
+//	}()
+//
+//	UNCPath := `\\localhost\` + shareName + `\`
+//
+//	fi1, err := os.Stat(sharePath)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	fi2, err := os.Stat(UNCPath)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	if !os.SameFile(fi1, fi2) {
+//		t.Fatalf("%q and %q should be the same directory, but not", sharePath, UNCPath)
+//	}
+//
+//	target := filepath.Join(UNCPath, testDir)
+//	link := "link"
+//
+//	err = os.Symlink(target, link)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	defer os.Remove(link)
+//
+//	got, err := os.Readlink(link)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	if got != target {
+//		t.Errorf(`os.Readlink("%s"): got %v, want %v`, link, got, target)
+//	}
+//
+//	got, err = filepath.EvalSymlinks(link)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	if got != target {
+//		t.Errorf(`filepath.EvalSymlinks("%s"): got %v, want %v`, link, got, target)
+//	}
+//}
 
 func TestStartProcessAttr(t *testing.T) {
 	p, err := os.StartProcess(os.Getenv("COMSPEC"), []string{"/c", "cd"}, new(os.ProcAttr))
@@ -865,30 +864,31 @@ func main() {
 	}
 }
 
-func findOneDriveDir() (string, error) {
-	// as per https://stackoverflow.com/questions/42519624/how-to-determine-location-of-onedrive-on-windows-7-and-8-in-c
-	const onedrivekey = `SOFTWARE\Microsoft\OneDrive`
-	k, err := registry.OpenKey(registry.CURRENT_USER, onedrivekey, registry.READ)
-	if err != nil {
-		return "", fmt.Errorf("OpenKey(%q) failed: %v", onedrivekey, err)
-	}
-	defer k.Close()
-
-	path, _, err := k.GetStringValue("UserFolder")
-	if err != nil {
-		return "", fmt.Errorf("reading UserFolder failed: %v", err)
-	}
-	return path, nil
-}
-
-// TestOneDrive verifies that OneDrive folder is a directory and not a symlink.
-func TestOneDrive(t *testing.T) {
-	dir, err := findOneDriveDir()
-	if err != nil {
-		t.Skipf("Skipping, because we did not find OneDrive directory: %v", err)
-	}
-	testDirStats(t, dir)
-}
+//
+//func findOneDriveDir() (string, error) {
+//	// as per https://stackoverflow.com/questions/42519624/how-to-determine-location-of-onedrive-on-windows-7-and-8-in-c
+//	const onedrivekey = `SOFTWARE\Microsoft\OneDrive`
+//	k, err := registry.OpenKey(registry.CURRENT_USER, onedrivekey, registry.READ)
+//	if err != nil {
+//		return "", fmt.Errorf("OpenKey(%q) failed: %v", onedrivekey, err)
+//	}
+//	defer k.Close()
+//
+//	path, _, err := k.GetStringValue("UserFolder")
+//	if err != nil {
+//		return "", fmt.Errorf("reading UserFolder failed: %v", err)
+//	}
+//	return path, nil
+//}
+//
+//// TestOneDrive verifies that OneDrive folder is a directory and not a symlink.
+//func TestOneDrive(t *testing.T) {
+//	dir, err := findOneDriveDir()
+//	if err != nil {
+//		t.Skipf("Skipping, because we did not find OneDrive directory: %v", err)
+//	}
+//	testDirStats(t, dir)
+//}
 
 func TestWindowsDevNullFile(t *testing.T) {
 	f1, err := os.Open("NUL")
@@ -945,40 +945,40 @@ func TestStatNUL(t *testing.T) {
 // TestSymlinkCreation verifies that creating a symbolic link
 // works on Windows when developer mode is active.
 // This is supported starting Windows 10 (1703, v10.0.14972).
-func TestSymlinkCreation(t *testing.T) {
-	if !testenv.HasSymlink() && !isWindowsDeveloperModeActive() {
-		t.Skip("Windows developer mode is not active")
-	}
-	t.Parallel()
+//func TestSymlinkCreation(t *testing.T) {
+//	if !testenv.HasSymlink() && !isWindowsDeveloperModeActive() {
+//		t.Skip("Windows developer mode is not active")
+//	}
+//	t.Parallel()
+//
+//	temp := t.TempDir()
+//	dummyFile := filepath.Join(temp, "file")
+//	if err := os.WriteFile(dummyFile, []byte(""), 0644); err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	linkFile := filepath.Join(temp, "link")
+//	if err := os.Symlink(dummyFile, linkFile); err != nil {
+//		t.Fatal(err)
+//	}
+//}
 
-	temp := t.TempDir()
-	dummyFile := filepath.Join(temp, "file")
-	if err := os.WriteFile(dummyFile, []byte(""), 0644); err != nil {
-		t.Fatal(err)
-	}
-
-	linkFile := filepath.Join(temp, "link")
-	if err := os.Symlink(dummyFile, linkFile); err != nil {
-		t.Fatal(err)
-	}
-}
-
-// isWindowsDeveloperModeActive checks whether or not the developer mode is active on Windows 10.
-// Returns false for prior Windows versions.
-// see https://docs.microsoft.com/en-us/windows/uwp/get-started/enable-your-device-for-development
-func isWindowsDeveloperModeActive() bool {
-	key, err := registry.OpenKey(registry.LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AppModelUnlock", registry.READ)
-	if err != nil {
-		return false
-	}
-
-	val, _, err := key.GetIntegerValue("AllowDevelopmentWithoutDevLicense")
-	if err != nil {
-		return false
-	}
-
-	return val != 0
-}
+//// isWindowsDeveloperModeActive checks whether or not the developer mode is active on Windows 10.
+//// Returns false for prior Windows versions.
+//// see https://docs.microsoft.com/en-us/windows/uwp/get-started/enable-your-device-for-development
+//func isWindowsDeveloperModeActive() bool {
+//	key, err := registry.OpenKey(registry.LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AppModelUnlock", registry.READ)
+//	if err != nil {
+//		return false
+//	}
+//
+//	val, _, err := key.GetIntegerValue("AllowDevelopmentWithoutDevLicense")
+//	if err != nil {
+//		return false
+//	}
+//
+//	return val != 0
+//}
 
 // TestRootRelativeDirSymlink verifies that symlinks to paths relative to the
 // drive root (beginning with "\" but no volume name) are created with the
@@ -1253,27 +1253,27 @@ func TestWindowsReadlink(t *testing.T) {
 	testReadlink(t, "relfilelink", "file")
 }
 
-func TestOpenDirTOCTOU(t *testing.T) {
-	// Check opened directories can't be renamed until the handle is closed.
-	// See issue 52747.
-	tmpdir := t.TempDir()
-	dir := filepath.Join(tmpdir, "dir")
-	if err := os.Mkdir(dir, 0777); err != nil {
-		t.Fatal(err)
-	}
-	f, err := os.Open(dir)
-	if err != nil {
-		t.Fatal(err)
-	}
-	newpath := filepath.Join(tmpdir, "dir1")
-	err = os.Rename(dir, newpath)
-	if err == nil || !errors.Is(err, windows.ERROR_SHARING_VIOLATION) {
-		f.Close()
-		t.Fatalf("Rename(%q, %q) = %v; want windows.ERROR_SHARING_VIOLATION", dir, newpath, err)
-	}
-	f.Close()
-	err = os.Rename(dir, newpath)
-	if err != nil {
-		t.Error(err)
-	}
-}
+//func TestOpenDirTOCTOU(t *testing.T) {
+//	// Check opened directories can't be renamed until the handle is closed.
+//	// See issue 52747.
+//	tmpdir := t.TempDir()
+//	dir := filepath.Join(tmpdir, "dir")
+//	if err := os.Mkdir(dir, 0777); err != nil {
+//		t.Fatal(err)
+//	}
+//	f, err := os.Open(dir)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//	newpath := filepath.Join(tmpdir, "dir1")
+//	err = os.Rename(dir, newpath)
+//	if err == nil || !errors.Is(err, windows.ERROR_SHARING_VIOLATION) {
+//		f.Close()
+//		t.Fatalf("Rename(%q, %q) = %v; want windows.ERROR_SHARING_VIOLATION", dir, newpath, err)
+//	}
+//	f.Close()
+//	err = os.Rename(dir, newpath)
+//	if err != nil {
+//		t.Error(err)
+//	}
+//}

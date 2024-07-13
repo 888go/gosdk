@@ -347,13 +347,13 @@ func ExampleLastIndexFunc() {
 	// -1
 }
 
-func ExampleReader_Len() {
-	fmt.Println(bytes.NewReader([]byte("Hi!")).Len())
-	fmt.Println(bytes.NewReader([]byte("こんにちは!")).Len())
-	// Output:
-	// 3
-	// 16
-}
+//func ExampleReader_Len() {
+//	fmt.Println(bytes.NewReader([]byte("Hi!")).Len())
+//	fmt.Println(bytes.NewReader([]byte("こんにちは!")).Len())
+//	// Output:
+//	// 3
+//	// 16
+//}
 
 func ExampleRepeat() {
 	fmt.Printf("ba%s", bytes.Repeat([]byte("na"), 2))

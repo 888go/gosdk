@@ -34,4 +34,4 @@
 # 备注结束
 
 [package registry_test]
-bm=注册表类_test
+bm=win注册表类_test

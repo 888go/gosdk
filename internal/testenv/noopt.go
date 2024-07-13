@@ -7,8 +7,6 @@
 package testenv
 
 // OptimizationOff reports whether optimization is disabled.
-
-// ff:
 func OptimizationOff() bool {
 	return true
 }

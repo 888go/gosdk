@@ -36,9 +36,9 @@ import (
 
 // FormatString 返回一个字符串，表示 State 所捕获的完整格式化指令，后面跟着参数动词。（State 自身不包含动词。）结果以百分号开头，后面跟着任何标志、宽度和精度。缺失的标志、宽度和精度将被省略。这个函数允许 Formatter 重新构建引发 Format 调用的原始指令。
 // md5:8c85abb2482198f7
-//func FormatString(state fmt.State, verb rune) string { //md5:0a7c4dff05129806
-//	return fmt.FormatString(state, verb)
-//}
+func FormatString(state fmt.State, verb rune) string { //md5:0a7c4dff05129806
+	return fmt.FormatString(state, verb)
+}
 
 // Fprintf 根据格式说明符进行格式化，并将结果写入到 w。它返回写入的字节数和遇到的任何写入错误。
 // md5:11dd19b9f67ba7d6
