@@ -28,8 +28,8 @@
 <原文结束>
 
 # <翻译开始>
-// 尝试调用 shlwapi.dll 中的 IsOS 函数，通过序数进行解析，如
-// 下文所示：
-// https://msdn.microsoft.com/en-us/library/windows/desktop/bb773795.aspx
+	// 尝试调用 shlwapi.dll 中的 IsOS 函数，通过序数进行解析，如
+	// 下文所示：
+	// https:	//msdn.microsoft.com/en-us/library/windows/desktop/bb773795.aspx
 # <翻译结束>
 

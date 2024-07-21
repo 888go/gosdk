@@ -29,7 +29,7 @@
 <原文结束>
 
 # <翻译开始>
-// 使用TempDir()来确保我们在本地文件系统上，这样Getgroups返回的组ID将被允许应用于文件。在NFS上，Getgroups获取的组基本上没有用。
+	// 使用TempDir()来确保我们在本地文件系统上，这样Getgroups返回的组ID将被允许应用于文件。在NFS上，Getgroups获取的组基本上没有用。
 # <翻译结束>
 
 
@@ -39,7 +39,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果不是root用户，不能改变uid，但可以尝试改变gid。首先尝试使用当前组。
+	// 如果不是root用户，不能改变uid，但可以尝试改变gid。首先尝试使用当前组。
 # <翻译结束>
 
 
@@ -157,8 +157,8 @@
 <原文结束>
 
 # <翻译开始>
-// 使用较长的时间以避免出现异常。
-// 无论如何我们都不会等待这么长时间。
+		// 使用较长的时间以避免出现异常。
+		// 无论如何我们都不会等待这么长时间。
 # <翻译结束>
 
 
@@ -210,7 +210,7 @@
 <原文结束>
 
 # <翻译开始>
-// 在Linux上，如果使用了copy_file_range系统调用，此操作将失败，因为它不支持以O_APPEND打开的目标文件，详情见
-// https://man7.org/linux/man-pages/man2/copy_file_range.2.html#ERRORS
+	// 在Linux上，如果使用了copy_file_range系统调用，此操作将失败，因为它不支持以O_APPEND打开的目标文件，详情见
+	// https:	//man7.org/linux/man-pages/man2/copy_file_range.2.html#ERRORS
 # <翻译结束>
 

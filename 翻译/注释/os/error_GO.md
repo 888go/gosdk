@@ -125,8 +125,8 @@
 <原文结束>
 
 # <翻译开始>
-// ErrInvalid 表示一个无效的参数。
-// 当接收者为nil时，File类型的方法将返回此错误。
+	// ErrInvalid 表示一个无效的参数。
+	// 当接收者为nil时，File类型的方法将返回此错误。
 # <翻译结束>
 
 
@@ -136,7 +136,7 @@
 <原文结束>
 
 # <翻译开始>
-// ErrNoDeadline       = errNoDeadline()       // "文件类型不支持超时截止"
-// ErrDeadlineExceeded = errDeadlineExceeded() // "I/O超时"
+	// ErrNoDeadline       = errNoDeadline()       	// "文件类型不支持超时截止"
+	// ErrDeadlineExceeded = errDeadlineExceeded() 	// "I/O超时"
 # <翻译结束>
 

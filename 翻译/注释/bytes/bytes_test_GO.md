@@ -334,8 +334,8 @@
 <原文结束>
 
 # <翻译开始>
-// TrimLeftFunc 返回的nils表现出奇特的行为，但我们需要保持向后兼容性。
-// md5:b1a69a537dcc0f5f
+	// TrimLeftFunc 返回的nils表现出奇特的行为，但我们需要保持向后兼容性。
+	// md5:b1a69a537dcc0f5f
 # <翻译结束>
 
 

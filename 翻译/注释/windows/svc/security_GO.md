@@ -48,8 +48,8 @@
 <原文结束>
 
 # <翻译开始>
-// 下面的技巧看起来有些复杂，但实际上正是.NET框架对同名函数所采用的方法：
-// https://github.com/dotnet/extensions/blob/f4066026ca06984b07e90e61a6390ac38152ba93/src/Hosting/WindowsServices/src/WindowsServiceHelpers.cs#L26-L31
-// 具体来说，它会检查父进程是否具有会话ID为零，并且名为“services”。
+	// 下面的技巧看起来有些复杂，但实际上正是.NET框架对同名函数所采用的方法：
+	// https:	//github.com/dotnet/extensions/blob/f4066026ca06984b07e90e61a6390ac38152ba93/src/Hosting/WindowsServices/src/WindowsServiceHelpers.cs#L26-L31
+	// 具体来说，它会检查父进程是否具有会话ID为零，并且名为“services”。
 # <翻译结束>
 

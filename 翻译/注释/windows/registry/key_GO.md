@@ -56,8 +56,8 @@
 <原文结束>
 
 # <翻译开始>
-// 注册表键的安全性和访问权限。
-// 详情请参阅 https://msdn.microsoft.com/en-us/library/windows/desktop/ms724878.aspx
+	// 注册表键的安全性和访问权限。
+	// 详情请参阅 https:	//msdn.microsoft.com/en-us/library/windows/desktop/ms724878.aspx
 /*
 CREATE_LINK : 预留给系统使用。
 CREATE_SUB_KEY : 创建注册表项的子项是必需的。
@@ -104,10 +104,10 @@ win64系统上运行32位软件,会被自动定位到32位的注册表, 设置ac
 <原文结束>
 
 # <翻译开始>
-// Windows 定义了一些始终处于打开状态的预定义根键。
-// 应用程序可以将这些键作为访问注册表的入口点。
-// 通常，这些键用于 OpenKey 中以打开新的键，
-// 但它们也可用于任何需要 Key 的地方。
+	// Windows 定义了一些始终处于打开状态的预定义根键。
+	// 应用程序可以将这些键作为访问注册表的入口点。
+	// 通常，这些键用于 OpenKey 中以打开新的键，
+	// 但它们也可用于任何需要 Key 的地方。
 # <翻译结束>
 
 
@@ -173,9 +173,9 @@ win64系统上运行32位软件,会被自动定位到32位的注册表, 设置ac
 <原文结束>
 
 # <翻译开始>
-// 必须反复调用并确保完成RegEnumKeyEx。
-// 在此期间，该goroutine不能从其当前线程迁移离开。
-// 参见https://golang.org/issue/49320和https://golang.org/issue/49466。
+	// 必须反复调用并确保完成RegEnumKeyEx。
+	// 在此期间，该goroutine不能从其当前线程迁移离开。
+	// 参见https:	//golang.org/issue/49320和https:	//golang.org/issue/49466。
 # <翻译结束>
 
 
@@ -185,8 +185,8 @@ win64系统上运行32位软件,会被自动定位到32位的注册表, 设置ac
 <原文结束>
 
 # <翻译开始>
-// 注册表键大小限制为255字节，具体描述如下：
-// https://msdn.microsoft.com/library/windows/desktop/ms724872.aspx
+	// 注册表键大小限制为255字节，具体描述如下：
+	// https:	//msdn.microsoft.com/library/windows/desktop/ms724872.aspx
 # <翻译结束>
 
 

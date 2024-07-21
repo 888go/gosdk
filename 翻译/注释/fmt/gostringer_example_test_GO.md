@@ -49,9 +49,9 @@
 <原文结束>
 
 # <翻译开始>
-// 如果没有实现GoString()方法，`fmt.Printf("%#v", p1)` 的输出将会类似于
-// Person{Name:"Warren", Age:31, Addr:(*main.Address)(0x10448240)}
-// md5:06accd0b6f883adc
+	// 如果没有实现GoString()方法，`fmt.Printf("%#v", p1)` 的输出将会类似于
+	// Person{Name:"Warren", Age:31, Addr:(*main.Address)(0x10448240)}
+	// md5:06accd0b6f883adc
 # <翻译结束>
 
 
@@ -61,8 +61,8 @@
 <原文结束>
 
 # <翻译开始>
-// 如果没有实现GoString()方法，`fmt.Printf("%#v", p2)`的输出将会类似于
-// Person{Name:"Theia", Age:0x4, Addr:(*main.Address)(nil)}
-// md5:df5825dd4a82752c
+	// 如果没有实现GoString()方法，`fmt.Printf("%#v", p2)`的输出将会类似于
+	// Person{Name:"Theia", Age:0x4, Addr:(*main.Address)(nil)}
+	// md5:df5825dd4a82752c
 # <翻译结束>
 

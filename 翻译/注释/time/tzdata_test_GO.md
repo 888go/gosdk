@@ -19,10 +19,10 @@
 <原文结束>
 
 # <翻译开始>
-// 比较ref和sample的name和zone字段。
-// tx字段随着tzdata更新而更快变化。
-// 预期cache字段会有所不同。
-// md5:de893c4f4d242062
+		// 比较ref和sample的name和zone字段。
+		// tx字段随着tzdata更新而更快变化。
+		// 预期cache字段会有所不同。
+		// md5:de893c4f4d242062
 # <翻译结束>
 
 

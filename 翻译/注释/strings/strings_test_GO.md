@@ -217,8 +217,8 @@
 <原文结束>
 
 # <翻译开始>
-// 用于覆盖runtime/asm_amd64.s中indexShortStr代码的测试用例
-// 2字节 needle
+	// 用于覆盖runtime/asm_amd64.s中indexShortStr代码的测试用例
+	// 2字节 needle
 # <翻译结束>
 
 

@@ -19,7 +19,7 @@
 <原文结束>
 
 # <翻译开始>
-// noVetErrorf 是一个别名，用于fmt.Errorf，它不会触发vet警告对于%w格式字符串。
-// md5:dd2f5d23ee1c6b2d
+	// noVetErrorf 是一个别名，用于fmt.Errorf，它不会触发vet警告对于%w格式字符串。
+	// md5:dd2f5d23ee1c6b2d
 # <翻译结束>
 

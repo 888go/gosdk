@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cf4ec06-eee2-4839-8065-b794f402a493" name="更改" comment="2024-05-19">
-      <change beforePath="$PROJECT_DIR$/.idea/gosdk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gosdk.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/file_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/os/file_其他.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/path_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/os/path_其他.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/os/stat_方法.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/os/stat_方法.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/time/format_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/time/format_其他.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/time/sleep_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/time/sleep_其他.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/time/tick_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/time/tick_其他.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/time/time_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/time/time_其他.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/翻译/函数/time/zoneinfo_其他.md" beforeDir="false" afterPath="$PROJECT_DIR$/翻译/函数/time/zoneinfo_其他.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,7 +164,7 @@
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/SVN/GO/code/debug/gosdk/gosdk1",
+    "last_opened_file_path": "E:/SVN/GO/code/WanCheng/qmgo",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",

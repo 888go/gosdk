@@ -66,9 +66,9 @@
 <原文结束>
 
 # <翻译开始>
-// RE2的\B会考虑每个字节位置，
-// 因此它会在UTF-8序列的中间看到"非单词边界"。这个包只考虑字符（runes）之间的位置，所以与RE2的看法不同。忽略这些情况。
-// md5:b8dc5d0311460a2a
+				// RE2的\B会考虑每个字节位置，
+				// 因此它会在UTF-8序列的中间看到"非单词边界"。这个包只考虑字符（runes）之间的位置，所以与RE2的看法不同。忽略这些情况。
+				// md5:b8dc5d0311460a2a
 # <翻译结束>
 
 
@@ -131,11 +131,11 @@
 <原文结束>
 
 # <翻译开始>
-// http://www2.research.att.com/~astopen/man/man1/testregex.html
-//
-// 输入格式
-//   输入行可以是空白行，以#开头的注释，或是测试规格说明。一个规格说明由五个字段组成，这些字段通过一个或多个制表符分隔。NULL表示空字符串，而NIL表示0指针。
-// md5:0f45fd7ae460a781
+		// http:		//www2.research.att.com/~astopen/man/man1/testregex.html
+		//
+		// 输入格式
+		//   输入行可以是空白行，以#开头的注释，或是测试规格说明。一个规格说明由五个字段组成，这些字段通过一个或多个制表符分隔。NULL表示空字符串，而NIL表示0指针。
+		// md5:0f45fd7ae460a781
 # <翻译结束>
 
 
@@ -203,63 +203,63 @@
 <原文结束>
 
 # <翻译开始>
-// 字段1：要应用的正则表达式标志，每个REG_feature标志对应一个字符。如果实现不支持REG_feature，则跳过测试。如果第一个字符不是[BELSKLP]，则说明这是一个全局控制行。可以指定一个或多个[BELSKLP]，测试将针对每种模式重复进行。
-//
-//     B 	basic			BRE	（grep, ed, sed）
-//     E 	REG_EXTENDED		ERE	（egrep）
-//     A	REG_AUGMENTED		ARE	（egrep带否定）
-//     S	REG_SHELL		SRE	（sh glob）
-//     K	REG_SHELL|REG_AUGMENTED	KRE	（ksh glob）
-//     L	REG_LITERAL		LRE	（fgrep）
-//
-//     a	REG_LEFT|REG_RIGHT	隐含^...$
-//     b	REG_NOTBOL		左侧不匹配^
-//     c	REG_COMMENT		忽略空格和#...\n
-//     d	REG_SHELL_DOT		显式匹配开头的 .
-//     e	REG_NOTEOL		右侧不匹配$
-//     f	REG_MULTIPLE		多行分隔的模式
-//     g	FNM_LEADING_DIR		testfnmatch仅匹配直到/
-//     h	REG_MULTIREF		多数字后引用
-//     i	REG_ICASE		不区分大小写
-//     j	REG_SPAN		. 匹配 \n
-//     k	REG_ESCAPE		使用\转义 [...] 分隔符
-//     l	REG_LEFT		隐含^...
-//     m	REG_MINIMAL		最小匹配
-//     n	REG_NEWLINE		显式匹配 \n
-//     o	REG_ENCLOSED		(|&) 在[@|&](...)内部有特殊含义
-//     p	REG_SHELL_PATH		显式匹配 /
-//     q	REG_DELIMITED		分隔符模式
-//     r	REG_RIGHT		隐含...$
-//     s	REG_SHELL_ESCAPED	\ 不特殊
-//     t	REG_MUSTDELIM		所有分隔符必须指定
-//     u	标准未指定行为 — 错误不计数
-//     v	REG_CLASS_ESCAPE	在[...]内\有特殊含义
-//     w	REG_NOSUB		无子表达式匹配数组
-//     x	REG_LENIENT		允许某些错误
-//     y	REG_LEFT		regexec() 隐含^...
-//     z	REG_NULL		允许空子表达式
-//     $	                        在字段2和3中展开C \c转义
-//     /	                        字段2是regsubcomp()表达式
-//     =	                        字段3是regdecomp()表达式
-//
-// 字段1控制行：
-//
-//     C		将LC_COLLATE和LC_CTYPE设置为字段2中的locale
-//
-//     ?test ...	如果通过且不等于EXPECTED，则输出字段5，否则保持沉默
-//     &test ...	如果当前和上一次都通过，则输出字段5
-//     |test ...	如果当前通过而上一次失败，则输出字段5
-//     ; ...		如果上一次失败，则输出字段2
-//     {test ...	如果失败则跳过，直到}
-//     }		结束跳过
-//
-//     : comment		复制注释作为输出的NOTE
-//     :comment:test	:comment: 忽略
-//     N[OTE] comment	复制注释作为输出的NOTE
-//     T[EST] comment	注释
-//
-//     number		使用number作为nmatch的值（默认为20）
-// md5:566579b7293133ee
+		// 字段1：要应用的正则表达式标志，每个REG_feature标志对应一个字符。如果实现不支持REG_feature，则跳过测试。如果第一个字符不是[BELSKLP]，则说明这是一个全局控制行。可以指定一个或多个[BELSKLP]，测试将针对每种模式重复进行。
+		//
+		//     B 	basic			BRE	（grep, ed, sed）
+		//     E 	REG_EXTENDED		ERE	（egrep）
+		//     A	REG_AUGMENTED		ARE	（egrep带否定）
+		//     S	REG_SHELL		SRE	（sh glob）
+		//     K	REG_SHELL|REG_AUGMENTED	KRE	（ksh glob）
+		//     L	REG_LITERAL		LRE	（fgrep）
+		//
+		//     a	REG_LEFT|REG_RIGHT	隐含^...$
+		//     b	REG_NOTBOL		左侧不匹配^
+		//     c	REG_COMMENT		忽略空格和#...\n
+		//     d	REG_SHELL_DOT		显式匹配开头的 .
+		//     e	REG_NOTEOL		右侧不匹配$
+		//     f	REG_MULTIPLE		多行分隔的模式
+		//     g	FNM_LEADING_DIR		testfnmatch仅匹配直到/
+		//     h	REG_MULTIREF		多数字后引用
+		//     i	REG_ICASE		不区分大小写
+		//     j	REG_SPAN		. 匹配 \n
+		//     k	REG_ESCAPE		使用\转义 [...] 分隔符
+		//     l	REG_LEFT		隐含^...
+		//     m	REG_MINIMAL		最小匹配
+		//     n	REG_NEWLINE		显式匹配 \n
+		//     o	REG_ENCLOSED		(|&) 在[@|&](...)内部有特殊含义
+		//     p	REG_SHELL_PATH		显式匹配 /
+		//     q	REG_DELIMITED		分隔符模式
+		//     r	REG_RIGHT		隐含...$
+		//     s	REG_SHELL_ESCAPED	\ 不特殊
+		//     t	REG_MUSTDELIM		所有分隔符必须指定
+		//     u	标准未指定行为 — 错误不计数
+		//     v	REG_CLASS_ESCAPE	在[...]内\有特殊含义
+		//     w	REG_NOSUB		无子表达式匹配数组
+		//     x	REG_LENIENT		允许某些错误
+		//     y	REG_LEFT		regexec() 隐含^...
+		//     z	REG_NULL		允许空子表达式
+		//     $	                        在字段2和3中展开C \c转义
+		//     /	                        字段2是regsubcomp()表达式
+		//     =	                        字段3是regdecomp()表达式
+		//
+		// 字段1控制行：
+		//
+		//     C		将LC_COLLATE和LC_CTYPE设置为字段2中的locale
+		//
+		//     ?test ...	如果通过且不等于EXPECTED，则输出字段5，否则保持沉默
+		//     &test ...	如果当前和上一次都通过，则输出字段5
+		//     |test ...	如果当前通过而上一次失败，则输出字段5
+		//     ; ...		如果上一次失败，则输出字段2
+		//     {test ...	如果失败则跳过，直到}
+		//     }		结束跳过
+		//
+		//     : comment		复制注释作为输出的NOTE
+		//     :comment:test	:comment: 忽略
+		//     N[OTE] comment	复制注释作为输出的NOTE
+		//     T[EST] comment	注释
+		//
+		//     number		使用number作为nmatch的值（默认为20）
+		// md5:566579b7293133ee
 # <翻译结束>
 
 
@@ -269,9 +269,9 @@
 <原文结束>
 
 # <翻译开始>
-// 忽略所有控制运算符。
-// 只运行所有内容。
-// md5:15f2b9c91f5b5bcf
+			// 忽略所有控制运算符。
+			// 只运行所有内容。
+			// md5:15f2b9c91f5b5bcf
 # <翻译结束>
 
 
@@ -300,8 +300,8 @@
 <原文结束>
 
 # <翻译开始>
-// 字段2：正则表达式模式；SAME 使用上一个规范中的模式。
-// md5:fad45707bad425d8
+		// 字段2：正则表达式模式；SAME 使用上一个规范中的模式。
+		// md5:fad45707bad425d8
 # <翻译结束>
 
 
@@ -368,8 +368,8 @@
 <原文结束>
 
 # <翻译开始>
-//   字段4：测试结果。这可以是POSIX错误代码（REG_被省略）之一，或者是匹配数组，其中包含(m,n)条目，m和n是字段3字符串中的第一个和最后一个+1位置，如果使用REG_NOSUB并且期望成功，则为NULL。BADPAT可以替代任何regcomp(3)错误代码。在每次测试之前，匹配数组初始化为(-2,-2)。所有从0到nmatch-1的数组元素都必须在结果中指定。未指定的端点（偏移量-1）用?表示。未设置的端点（偏移量-2）用X表示。{x}(o:n)表示一个匹配(?{...})表达式，其中x是{...}包围的文本，o是从1开始的表达式序号，n是主体字符串中未匹配部分的长度。如果x以数字开头，则返回re_execf()的返回值，否则返回0。
-// md5:db6bc64391ced64a
+	//   字段4：测试结果。这可以是POSIX错误代码（REG_被省略）之一，或者是匹配数组，其中包含(m,n)条目，m和n是字段3字符串中的第一个和最后一个+1位置，如果使用REG_NOSUB并且期望成功，则为NULL。BADPAT可以替代任何regcomp(3)错误代码。在每次测试之前，匹配数组初始化为(-2,-2)。所有从0到nmatch-1的数组元素都必须在结果中指定。未指定的端点（偏移量-1）用?表示。未设置的端点（偏移量-2）用X表示。{x}(o:n)表示一个匹配(?{...})表达式，其中x是{...}包围的文本，o是从1开始的表达式序号，n是主体字符串中未匹配部分的长度。如果x以数字开头，则返回re_execf()的返回值，否则返回0。
+	// md5:db6bc64391ced64a
 # <翻译结束>
 
 

@@ -170,7 +170,7 @@
 <原文结束>
 
 # <翻译开始>
-// System 指定是否必须从 Windows 系统目录加载 DLL，从而绕过常规的 DLL 搜索路径。
+	// System 指定是否必须从 Windows 系统目录加载 DLL，从而绕过常规的 DLL 搜索路径。
 # <翻译结束>
 
 
@@ -200,8 +200,8 @@
 <原文结束>
 
 # <翻译开始>
-// 非竞态版本的：
-// if d.dll != nil {
+	// 非竞态版本的：
+	// if d.dll != nil {
 # <翻译结束>
 
 
@@ -212,9 +212,9 @@
 <原文结束>
 
 # <翻译开始>
-// kernel32.dll 是特殊的，因为它正是 LoadLibraryEx 函数的来源。
-// 内核已经对其名称进行了特例处理，因此它始终
-// 从 system32 加载。
+	// kernel32.dll 是特殊的，因为它正是 LoadLibraryEx 函数的来源。
+	// 内核已经对其名称进行了特例处理，因此它始终
+	// 从 system32 加载。
 # <翻译结束>
 
 
@@ -224,8 +224,8 @@
 <原文结束>
 
 # <翻译开始>
-// 非竞态版本的：
-// d.dll = dll
+	// 非竞态版本的：
+	// d.dll = dll
 # <翻译结束>
 
 
@@ -305,8 +305,8 @@
 <原文结束>
 
 # <翻译开始>
-// 非竞态版本的：
-// if p.proc == nil {
+	// 非竞态版本的：
+	// if p.proc == nil {
 # <翻译结束>
 
 
@@ -316,8 +316,8 @@
 <原文结束>
 
 # <翻译开始>
-// 非竞态版本的：
-// p.proc = proc
+			// 非竞态版本的：
+			// p.proc = proc
 # <翻译结束>
 
 
@@ -372,11 +372,11 @@
 <原文结束>
 
 # <翻译开始>
-// MSDN文档（https://msdn.microsoft.com/en-us/library/ms684179(v=vs.85).aspx）中指出：
-// “在Windows 7、Windows Server 2008 R2、Windows Vista以及Windows Server 2008系统上，若已安装KB2533623更新补丁，
-// 则可使用LOAD_LIBRARY_SEARCH_*标志。要检测这些标志是否可用，可通过调用GetProcAddress函数获取AddDllDirectory、
-// RemoveDllDirectory或SetDefaultDllDirectories函数的地址。若GetProcAddress调用成功，则表明可以将LOAD_LIBRARY_SEARCH_*
-// 标志与LoadLibraryEx函数一起使用。”
+	// MSDN文档（https:	//msdn.microsoft.com/en-us/library/ms684179(v=vs.85).aspx）中指出：
+	// “在Windows 7、Windows Server 2008 R2、Windows Vista以及Windows Server 2008系统上，若已安装KB2533623更新补丁，
+	// 则可使用LOAD_LIBRARY_SEARCH_*标志。要检测这些标志是否可用，可通过调用GetProcAddress函数获取AddDllDirectory、
+	// RemoveDllDirectory或SetDefaultDllDirectories函数的地址。若GetProcAddress调用成功，则表明可以将LOAD_LIBRARY_SEARCH_*
+	// 标志与LoadLibraryEx函数一起使用。”
 # <翻译结束>
 
 
@@ -409,8 +409,8 @@
 <原文结束>
 
 # <翻译开始>
-// Windows XP 或未打补丁的 Windows 系统
-// 尝试从系统文件夹加载“foo.dll”，但其系统上的 LoadLibraryEx 函数尚不支持该操作，
-// 故对其进行模拟实现。
+			// Windows XP 或未打补丁的 Windows 系统
+			// 尝试从系统文件夹加载“foo.dll”，但其系统上的 LoadLibraryEx 函数尚不支持该操作，
+			// 故对其进行模拟实现。
 # <翻译结束>
 

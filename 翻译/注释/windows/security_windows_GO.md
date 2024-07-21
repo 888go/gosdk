@@ -727,7 +727,7 @@
 <原文结束>
 
 # <翻译开始>
-// SECURITY_DESCRIPTOR 结构体内含有指针，这意味着 checkptr 预期其应被正确对齐。当我们将一个由 Windows 分配的结构体复制到由 Go 分配的一个时，确保 Go 的内存分配按指针大小对齐。
+	// SECURITY_DESCRIPTOR 结构体内含有指针，这意味着 checkptr 预期其应被正确对齐。当我们将一个由 Windows 分配的结构体复制到由 Go 分配的一个时，确保 Go 的内存分配按指针大小对齐。
 # <翻译结束>
 
 

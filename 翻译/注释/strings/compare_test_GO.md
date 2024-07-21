@@ -29,8 +29,8 @@
 <原文结束>
 
 # <翻译开始>
-// unsafeString将[]byte无分配地转换为string。
-// 在结果字符串使用期间，调用者不得修改b。
+	// unsafeString将[]byte无分配地转换为string。
+	// 在结果字符串使用期间，调用者不得修改b。
 # <翻译结束>
 
 
