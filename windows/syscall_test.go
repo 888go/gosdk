@@ -37,7 +37,6 @@ func TestEnv(t *testing.T) {
 func TestGetProcAddressByOrdinal(t *testing.T) {
 // 尝试调用 shlwapi.dll 中的 IsOS 函数，通过序数进行解析，如
 // 下文所示：
-// https://msdn.microsoft.com/en-us/library/windows/desktop/bb773795.aspx
 	h, err := windows.LoadLibrary("shlwapi.dll")
 	if err != nil {
 		t.Fatalf("Failed to load shlwapi.dll: %s", err)
@@ -82,7 +81,6 @@ func TestGetWindowsDirectory(t *testing.T) {
 func TestFindProcByOrdinal(t *testing.T) {
 // 尝试调用 shlwapi.dll 中的 IsOS 函数，通过序数进行解析，如
 // 下文所示：
-// https://msdn.microsoft.com/en-us/library/windows/desktop/bb773795.aspx
 	dll, err := windows.LoadDLL("shlwapi.dll")
 	if err != nil {
 		t.Fatalf("Failed to load shlwapi.dll: %s", err)

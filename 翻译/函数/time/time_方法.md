@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -151,6 +152,9 @@ ff=取UTC时间
 [func (t Time) Local() Time {]
 ff=取系统时间
 
+[func (t Time) Location() *Location {]
+ff=取时区
+
 [func (t Time) Zone() (name string, offset int) {]
 ff=取时区名称
 offset=秒偏移量
@@ -170,10 +174,21 @@ ff=取Unix毫秒时间戳
 [func (t Time) UnixMicro() int64 {]
 ff=取Unix微秒时间戳
 
+[func (t Time) UnixNano() int64 {]
+ff=取Unix纳秒时间戳
+
 [func Unix(sec int64, nsec int64) Time {]
+ff=创建并按时间戳
 nsec=可选毫秒
 sec=可选秒
-ff=创建并按时间戳
+
+[func UnixMilli(msec int64) Time {]
+ff=创建并按毫秒时间戳
+msec=毫秒时间戳
+
+[func UnixMicro(usec int64) Time {]
+ff=创建并按微秒时间戳
+usec=微秒时间戳
 
 [func (t Time) IsDST() bool {]
 ff=是否为夏令时
@@ -196,17 +211,3 @@ d=时长
 [func (t Time) Round(d Duration) Time {]
 ff=截断并按四舍五入
 d=时长
-
-[func (t Time) UnixNano() int64 {]
-ff=取Unix纳秒时间戳
-
-[func UnixMilli(msec int64) Time {]
-msec=毫秒时间戳
-ff=创建并按毫秒时间戳
-
-[func UnixMicro(usec int64) Time {]
-ff=创建并按微秒时间戳
-usec=微秒时间戳
-
-[func (t Time) Location() *Location {]
-ff=取时区

@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -39,10 +40,10 @@ ff=读目录2
 n=返回数量
 
 [func (f *File) Readdirnames(n int) (names #左中括号##右中括号#string, err error) {]
+ff=读目录文件名
+err=错误
 names=文件名s
 n=返回数量
-err=错误
-ff=读目录文件名
 
 [func (f *File) ReadDir(n int) (#左中括号##右中括号#DirEntry, error) {]
 ff=读目录

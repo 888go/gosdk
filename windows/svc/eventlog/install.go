@@ -28,6 +28,11 @@ const addKeyName = `SYSTEM\CurrentControlSet\Services\EventLog\Application`
 // 则事件消息文件以 REG_EXPAND_SZ 值的形式安装，
 // 否则以 REG_SZ 形式安装。使用 log.Error、log.Warning 和
 // log.Info 的按位组合指定新事件源支持的事件。
+// ff:
+// src:
+// msgFile:
+// useExpandKey:
+// eventsSupported:
 func Install(src, msgFile string, useExpandKey bool, eventsSupported uint32) error {
 	appkey, err := registry.OpenKey(registry.LOCAL_MACHINE, addKeyName, registry.CREATE_SUB_KEY)
 	if err != nil {
@@ -65,11 +70,16 @@ func Install(src, msgFile string, useExpandKey bool, eventsSupported uint32) err
 
 // InstallAsEventCreate 与 Install 相同，但使用
 // %SystemRoot%\System32\EventCreate.exe 作为事件消息文件。
+// ff:
+// src:
+// eventsSupported:
 func InstallAsEventCreate(src string, eventsSupported uint32) error {
 	return Install(src, "%SystemRoot%\\System32\\EventCreate.exe", true, eventsSupported)
 }
 
 // Remove 删除由相应 Install 安装的所有注册表元素。
+// ff:
+// src:
 func Remove(src string) error {
 	appkey, err := registry.OpenKey(registry.LOCAL_MACHINE, addKeyName, registry.SET_VALUE)
 	if err != nil {

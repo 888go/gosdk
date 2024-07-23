@@ -755,10 +755,15 @@ type Timeval struct {
 	Usec int32
 }
 
+// ff:
+// tv:
 func (tv *Timeval) Nanoseconds() int64 {
 	return (int64(tv.Sec)*1e6 + int64(tv.Usec)) * 1e3
 }
 
+// ff:
+// nsec:
+// tv:
 func NsecToTimeval(nsec int64) (tv Timeval) {
 	tv.Sec = int32(nsec / 1e9)
 	tv.Usec = int32(nsec % 1e9 / 1e3)
@@ -786,6 +791,8 @@ type Filetime struct {
 }
 
 // Nanoseconds 函数返回 Filetime 结构体 ft 自 Unix 纪元（UTC 时间 1970年1月1日 00:00:00）以来的纳秒数。
+// ff:
+// ft:
 func (ft *Filetime) Nanoseconds() int64 {
 	// 自1601年1月1日起的100纳秒间隔
 	nsec := int64(ft.HighDateTime)<<32 + int64(ft.LowDateTime)
@@ -796,6 +803,9 @@ func (ft *Filetime) Nanoseconds() int64 {
 	return nsec
 }
 
+// ff:
+// nsec:
+// ft:
 func NsecToFiletime(nsec int64) (ft Filetime) {
 	// 转换为100纳秒
 	nsec /= 100
@@ -2016,6 +2026,8 @@ type SocketAddress struct {
 }
 
 // IP 返回一个 IPv4 或 IPv6 地址，如果基础 SocketAddress 两者都不是，则返回 nil。
+// ff:
+// addr:
 func (addr *SocketAddress) IP() net.IP {
 	if uintptr(addr.SockaddrLength) >= unsafe.Sizeof(RawSockaddrInet4{}) && addr.Sockaddr.Addr.Family == AF_INET {
 		return (*RawSockaddrInet4)(unsafe.Pointer(addr.Sockaddr)).Addr[:]
@@ -2138,7 +2150,6 @@ const (
 )
 
 // 以下为与控制台相关的常量，用于`SetConsoleMode`函数的`mode`参数。具体信息请参阅
-// https://docs.microsoft.com/en-us/windows/console/setconsolemode 。
 
 const (
 	ENABLE_PROCESSED_INPUT        = 0x1

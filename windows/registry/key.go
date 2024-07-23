@@ -19,7 +19,7 @@
 //		log.Fatal(err)
 //	}
 //	fmt.Printf("Windows 系统根目录为 %q\n", s)
-package registry
+package registry//bm:win注册表类
 
 import (
 	"io"
@@ -85,6 +85,8 @@ const (
 )
 
 // Close 关闭已打开的键 k。
+// ff:关闭
+// k:
 func (k Key) Close() error {
 	return syscall.RegCloseKey(syscall.Handle(k))
 }
@@ -98,6 +100,11 @@ func (k Key) Close() error {
 // win64系统上运行32位软件,会被自动定位到32位的注册表, 设置access(访问权限)参数可以指定访问.具体参考精易"注册表操作Ex"类
 // 如,访问64位注册表 WOW64_64KEY | ALL_ACCESS
 // 如,访问32位注册表 WOW64_32KEY | ALL_ACCESS
+// ff:打开表项
+// k:
+// path:路径
+// access:访问权限
+// Key:
 func OpenKey(k Key, path string, access uint32) (Key, error) {
 	p, err := syscall.UTF16PtrFromString(path)
 	if err != nil {
@@ -112,6 +119,10 @@ func OpenKey(k Key, path string, access uint32) (Key, error) {
 }
 
 // OpenRemoteKey 用于在另一台计算机（pcname）上打开一个预定义的注册表键。待打开的键由参数 k 指定，但其值只能是 LOCAL_MACHINE、PERFORMANCE_DATA 或 USERS 之一。若 pcname 为空字符串（""），则 OpenRemoteKey 返回本地计算机的键。
+// ff:打开远程表项
+// pcname:计算机名
+// k:
+// Key:
 func OpenRemoteKey(pcname string, k Key) (Key, error) {
 	var err error
 	var p *uint16
@@ -131,6 +142,9 @@ func OpenRemoteKey(pcname string, k Key) (Key, error) {
 
 // ReadSubKeyNames 返回键 k 的所有子键名称。
 // 参数 n 用于控制返回的子键名称数量，其作用方式与 os.File.Readdirnames 类似。
+// ff:取所有子项名称
+// k:
+// n:
 func (k Key) ReadSubKeyNames(n int) ([]string, error) {
 // 必须反复调用并确保完成RegEnumKeyEx。
 // 在此期间，该goroutine不能从其当前线程迁移离开。
@@ -140,7 +154,6 @@ func (k Key) ReadSubKeyNames(n int) ([]string, error) {
 
 	names := make([]string, 0)
 // 注册表键大小限制为255字节，具体描述如下：
-// https://msdn.microsoft.com/library/windows/desktop/ms724872.aspx
 	buf := make([]uint16, 256) // 另外预留用于终止零字节的空间
 loopItems:
 	for i := uint32(0); ; i++ {
@@ -183,6 +196,13 @@ loopItems:
 // win64系统上运行32位软件,会被自动定位到32位的注册表, 设置access(访问权限)参数可以指定访问.具体参考精易"注册表操作Ex"类
 // 如,访问64位注册表 WOW64_64KEY | ALL_ACCESS
 // 如,访问32位注册表 WOW64_32KEY | ALL_ACCESS
+// ff:创建表项
+// k:
+// path:路径
+// access:访问权限
+// newk:
+// openedExisting:是否已存在
+// err:错误
 func CreateKey(k Key, path string, access uint32) (newk Key, openedExisting bool, err error) {
 	var h syscall.Handle
 	var d uint32
@@ -195,6 +215,9 @@ func CreateKey(k Key, path string, access uint32) (newk Key, openedExisting bool
 }
 
 // DeleteKey 删除键k的子键路径及其值。
+// ff:删除表项
+// k:
+// path:路径
 func DeleteKey(k Key, path string) error {
 	return regDeleteKey(syscall.Handle(k), syscall.StringToUTF16Ptr(path))
 }
@@ -210,11 +233,15 @@ type KeyInfo struct {
 }
 
 // ModTime 返回键的最后写入时间。
+// ff:取写入时间
+// ki:
 func (ki *KeyInfo) ModTime() time.Time {
 	return time.Unix(0, ki.lastWriteTime.Nanoseconds())
 }
 
 // Stat 获取关于已打开键 k 的信息。
+// ff:取对象信息
+// k:
 func (k Key) Stat() (*KeyInfo, error) {
 	var ki KeyInfo
 	err := syscall.RegQueryInfoKey(syscall.Handle(k), nil, nil, nil,

@@ -14,6 +14,7 @@
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
 # 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
@@ -27,7 +28,7 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
 # re.F.String()
 # }
@@ -35,9 +36,9 @@
 # 备注结束
 
 [func Count(s, substr string) int {]
+ff=取统计数
 substr=检索文本
 s=原文本
-ff=取统计数
 
 [func Contains(s, substr string) bool {]
 ff=是否包含
@@ -53,8 +54,6 @@ s=原文本
 ff=是否包含Unicode字符
 r=检索字符
 s=原文本
-
- 
 
 [func LastIndex(s, substr string) int {]
 ff=取文本最后索引
@@ -142,10 +141,6 @@ ff=生成重复文本
 count=重复次数
 s=原文本
 
-[func Title(s string) string {]
-ff=弃用Title
-s=原文本
-
 [func ToUpper(s string) string {]
 ff=到大写
 s=原文本
@@ -176,6 +171,10 @@ c=大小写规则
 [func ToValidUTF8(s, replacement string) string {]
 ff=替换无效UTF8字节
 replacement=替换符
+s=原文本
+
+[func Title(s string) string {]
+ff=弃用Title
 s=原文本
 
 [func TrimLeftFunc(s string, f func(rune) bool) string {]

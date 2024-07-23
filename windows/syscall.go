@@ -21,6 +21,8 @@ import (
 )
 
 // ByteSliceFromString 返回一个以NUL为终止符的字节切片，其中包含字符串s的文本。如果s在任何位置包含NUL字节，则返回(nil, syscall.EINVAL)。
+// ff:
+// s:
 func ByteSliceFromString(s string) ([]byte, error) {
 	if strings.IndexByte(s, 0) != -1 {
 		return nil, syscall.EINVAL
@@ -31,6 +33,8 @@ func ByteSliceFromString(s string) ([]byte, error) {
 }
 
 // BytePtrFromString返回一个指向以NUL为终止符的字节数组的指针，该数组包含字符串s的文本内容。如果s在任何位置包含NUL字节，则返回(nil, syscall.EINVAL)。
+// ff:
+// s:
 func BytePtrFromString(s string) (*byte, error) {
 	a, err := ByteSliceFromString(s)
 	if err != nil {
@@ -40,6 +44,8 @@ func BytePtrFromString(s string) (*byte, error) {
 }
 
 // ByteSliceToString 将切片 s 所表示的文本转换为字符串形式，其中去除终止空字符（NUL）及其后的所有字节。
+// ff:
+// s:
 func ByteSliceToString(s []byte) string {
 	if i := bytes.IndexByte(s, 0); i != -1 {
 		s = s[:i]
@@ -50,6 +56,8 @@ func ByteSliceToString(s []byte) string {
 // BytePtrToString 接收一个指向文本序列的指针，并返回相应的字符串。
 // 若该指针为 nil，则返回空字符串。它假设文本序列以零字节结束；
 // 若未出现零字节，程序可能会崩溃。
+// ff:
+// p:
 func BytePtrToString(p *byte) string {
 	if p == nil {
 		return ""
@@ -71,18 +79,30 @@ func BytePtrToString(p *byte) string {
 // 参见 mksyscall.pl。
 var _zero uintptr
 
+// ff:
+// ts:
+// sec:
+// nsec:
 func (ts *Timespec) Unix() (sec int64, nsec int64) {
 	return int64(ts.Sec), int64(ts.Nsec)
 }
 
+// ff:
+// tv:
+// sec:
+// nsec:
 func (tv *Timeval) Unix() (sec int64, nsec int64) {
 	return int64(tv.Sec), int64(tv.Usec) * 1000
 }
 
+// ff:
+// ts:
 func (ts *Timespec) Nano() int64 {
 	return int64(ts.Sec)*1e9 + int64(ts.Nsec)
 }
 
+// ff:
+// tv:
 func (tv *Timeval) Nano() int64 {
 	return int64(tv.Sec)*1e9 + int64(tv.Usec)*1000
 }

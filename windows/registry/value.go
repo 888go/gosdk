@@ -49,6 +49,13 @@ var (
 // 若该值不存在，返回的错误为 ErrNotExist。
 //
 // GetValue 是一个低级函数。若已知值的类型，请使用相应的 Get*Value 函数代替。
+// ff:取值
+// k:
+// name:名称
+// buf:缓冲区
+// n:
+// valtype:值类型
+// err:错误
 func (k Key) GetValue(name string, buf []byte) (n int, valtype uint32, err error) {
 	pname, err := syscall.UTF16PtrFromString(name)
 	if err != nil {
@@ -91,6 +98,12 @@ func (k Key) getValue(name string, buf []byte) (data []byte, valtype uint32, err
 // GetStringValue 用于获取与已打开键 k 关联的指定值名的字符串值。同时返回该值的类型。
 // 若该值不存在，GetStringValue 将返回 ErrNotExist 错误。
 // 若该值非 SZ 或 EXPAND_SZ 类型，它将返回正确的值类型以及 ErrUnexpectedType 错误。
+// ff:取文本值
+// k:
+// name:名称
+// val:值
+// valtype:值类型
+// err:错误
 func (k Key) GetStringValue(name string) (val string, valtype uint32, err error) {
 	data, typ, err2 := k.getValue(name, make([]byte, 64))
 	if err2 != nil {
@@ -111,6 +124,9 @@ func (k Key) GetStringValue(name string) (val string, valtype uint32, err error)
 // GetMUIStringValue 用于获取与已打开键 k 关联的指定值名所对应的本地化字符串值。
 // 若该值名不存在，或无法解析其本地化字符串值，则 GetMUIStringValue 返回 ErrNotExist。
 // 若系统不支持 regLoadMUIString，GetMUIStringValue 将引发恐慌。因此在调用此函数前，请使用 LoadRegLoadMUIString 检查系统是否支持 regLoadMUIString。
+// ff:取文本值PANI
+// k:
+// name:名称
 func (k Key) GetMUIStringValue(name string) (string, error) {
 	pname, err := syscall.UTF16PtrFromString(name)
 	if err != nil {
@@ -161,6 +177,8 @@ func (k Key) GetMUIStringValue(name string) (string, error) {
 
 // ExpandString 将环境变量字符串展开，并用当前用户所定义的值进行替换。
 // 对于 EXPAND_SZ 类型的字符串，应使用 ExpandString 进行展开。
+// ff:解析环境变量
+// value:值
 func ExpandString(value string) (string, error) {
 	if value == "" {
 		return "", nil
@@ -185,6 +203,12 @@ func ExpandString(value string) (string, error) {
 // GetStringsValue 用于从与已打开键 k 关联的指定值名中检索 []string 值。同时返回该值的类型。
 // 若值不存在，GetStringsValue 返回 ErrNotExist 错误。
 // 若值并非 MULTI_SZ 类型，它将返回正确的值类型及 ErrUnexpectedType 错误。
+// ff:取文本切片值
+// k:
+// name:名称
+// val:切片值
+// valtype:值类型
+// err:错误
 func (k Key) GetStringsValue(name string) (val []string, valtype uint32, err error) {
 	data, typ, err2 := k.getValue(name, make([]byte, 64))
 	if err2 != nil {
@@ -217,6 +241,12 @@ func (k Key) GetStringsValue(name string) (val []string, valtype uint32, err err
 // GetIntegerValue 用于获取与已打开键 k 关联的指定值名的整数值。同时返回该值的类型。
 // 若该值不存在，GetIntegerValue 将返回 ErrNotExist 错误。
 // 若该值不是 DWORD 或 QWORD 类型，它将返回正确的值类型以及 ErrUnexpectedType 错误。
+// ff:取整数64位值
+// k:
+// name:名称
+// val:值
+// valtype:值类型
+// err:错误
 func (k Key) GetIntegerValue(name string) (val uint64, valtype uint32, err error) {
 	data, typ, err2 := k.getValue(name, make([]byte, 8))
 	if err2 != nil {
@@ -244,6 +274,12 @@ func (k Key) GetIntegerValue(name string) (val uint64, valtype uint32, err error
 // GetBinaryValue 用于获取与已打开键 k 关联的指定值名称的二进制值。同时返回该值的类型。
 // 若该值不存在，GetBinaryValue 将返回 ErrNotExist 错误。
 // 若该值并非 BINARY 类型，它将返回正确的值类型以及 ErrUnexpectedType 错误。
+// ff:取字节集值
+// k:
+// name:名称
+// val:值
+// valtype:值类型
+// err:错误
 func (k Key) GetBinaryValue(name string) (val []byte, valtype uint32, err error) {
 	data, typ, err2 := k.getValue(name, make([]byte, 64))
 	if err2 != nil {
@@ -267,11 +303,19 @@ func (k Key) setValue(name string, valtype uint32, data []byte) error {
 }
 
 // SetDWordValue 将键 k 下的某个名称值的数据和类型设置为 value 和 DWORD。
+// ff:取整数32位值
+// k:
+// name:名称
+// value:值
 func (k Key) SetDWordValue(name string, value uint32) error {
 	return k.setValue(name, DWORD, (*[4]byte)(unsafe.Pointer(&value))[:])
 }
 
 // SetQWordValue 将键 k 下名为 value 的数据及其类型设置为 QWORD。
+// ff:设置整数64位值
+// k:
+// name:名称
+// value:值
 func (k Key) SetQWordValue(name string, value uint64) error {
 	return k.setValue(name, QWORD, (*[8]byte)(unsafe.Pointer(&value))[:])
 }
@@ -286,16 +330,28 @@ func (k Key) setStringValue(name string, valtype uint32, value string) error {
 }
 
 // SetStringValue 将键 k 下的 name 值的数据和类型设置为 value 和 SZ。该值中不得包含零字节。
+// ff:设置文本值
+// k:
+// name:名称
+// value:值
 func (k Key) SetStringValue(name, value string) error {
 	return k.setStringValue(name, SZ, value)
 }
 
 // SetExpandStringValue 用于设置键 k 下名称值的数据和类型为 value 和 EXPAND_SZ。value 中不得包含零字节。
+// ff:设置文本值并按环境变量
+// k:
+// name:名称
+// value:值
 func (k Key) SetExpandStringValue(name, value string) error {
 	return k.setStringValue(name, EXPAND_SZ, value)
 }
 
 // SetStringsValue 将键 k 下名为 value 的值的数据类型及内容设置为 MULTI_SZ。其中，value 字符串中不得包含零字节。
+// ff:设置文本切片值
+// k:
+// name:名称
+// value:切片值
 func (k Key) SetStringsValue(name string, value []string) error {
 	ss := ""
 	for _, s := range value {
@@ -312,17 +368,27 @@ func (k Key) SetStringsValue(name string, value []string) error {
 }
 
 // SetBinaryValue 将键 k 下名为 name 的值的数据和类型设置为 value 和 BINARY。
+// ff:设置字节集值
+// k:
+// name:名称
+// value:值
 func (k Key) SetBinaryValue(name string, value []byte) error {
 	return k.setValue(name, BINARY, value)
 }
 
 // DeleteValue 从键 k 中移除一个命名值。
+// ff:删除值
+// k:
+// name:名称
 func (k Key) DeleteValue(name string) error {
 	return regDeleteValue(syscall.Handle(k), syscall.StringToUTF16Ptr(name))
 }
 
 // ReadValueNames 返回键 k 的值名称。
 // 参数 n 用于控制返回的名称数量，其作用方式与 os.File.Readdirnames 类似。
+// ff:取所有子项值
+// k:
+// n:返回数量
 func (k Key) ReadValueNames(n int) ([]string, error) {
 	ki, err := k.Stat()
 	if err != nil {

@@ -29,7 +29,6 @@ func errnoErr(e syscall.Errno) error {
 	case errnoERROR_IO_PENDING:
 		return errERROR_IO_PENDING
 	}
-// TODO: 在收集到Windows上常见的错误值数据后，此处应添加更多内容。（可能在运行all.bat时进行？）
 	return e
 }
 

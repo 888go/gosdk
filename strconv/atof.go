@@ -23,6 +23,9 @@ var optimize = true // set to false to force slow-path conversions for testing
 //
 // [浮点数字面量]: https://go.dev/ref/spec#Floating-point_literals
 // md5:07a94f81ad4011bc
+// ff:文本到小数64位
+// s:文本
+// bitSize:小数精度
 func ParseFloat(s string, bitSize int) (float64, error) { //md5:0c9ee835e542b3ea
 	return strconv.ParseFloat(s, bitSize)
 }

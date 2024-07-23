@@ -136,8 +136,6 @@ func TestWaitid(t *testing.T) {
 		t.Fatal(err)
 	}
 }
-
-// https://go.dev/issue/50599: if Env is not set explicitly, setting Dir should
 // implicitly update PWD to the correct path, and Environ should list the
 // updated value.
 func TestImplicitPWD(t *testing.T) {

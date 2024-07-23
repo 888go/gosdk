@@ -29,6 +29,10 @@ import (
 
 // Scan 从标准输入扫描文本，将连续的空格分隔值存储到连续的参数中。换行符被视为空格。它返回成功扫描的项目数。如果这个数字小于参数的数量，err将报告原因。
 // md5:bd4dc5cc6ece5796
+// ff:标准输入到指针
+// a:变量指针
+// n:长度
+// err:错误
 func Scan(a ...any) (n int, err error) { //md5:74dd83898b33025f
 	return fmt.Scan(a...)
 }
@@ -36,6 +40,10 @@ func Scan(a ...any) (n int, err error) { //md5:74dd83898b33025f
 // Scanln 与 Scan 类似，但是在遇到换行符时会停止扫描，
 // 并且在最后一个项目之后必须有换行符或 EOF。
 // md5:372edec2e2e5d8af
+// ff:标准输入到指针ln
+// a:变量指针
+// n:长度
+// err:错误
 func Scanln(a ...any) (n int, err error) { //md5:1db5e088af11db20
 	return fmt.Scanln(a...)
 }
@@ -45,18 +53,33 @@ func Scanln(a ...any) (n int, err error) { //md5:1db5e088af11db20
 // 输入中的换行符必须与格式中的换行符匹配。
 // 有一个例外： verbs `%c` 总是扫描输入中的下一个字符，即使它是空格（或制表符等）或换行符。
 // md5:4ba6b79df6c03793
+// ff:格式化标准输入到指针
+// format:格式化模板
+// a:变量指针
+// n:长度
+// err:错误
 func Scanf(format string, a ...any) (n int, err error) { //md5:068a4471effc676f
 	return fmt.Scanf(format, a...)
 }
 
 // Sscan 从参数字符串中扫描连续的空格分隔的值，将它们存储到相继的参数中。换行符被视为空格。它返回成功扫描的项目数量。如果这个数量少于参数的数量，err将报告原因。
 // md5:c0024cfc4a1ed5a9
+// ff:文本扫描到指针
+// str:文本
+// a:变量指针
+// n:长度
+// err:错误
 func Sscan(str string, a ...any) (n int, err error) { //md5:7088329337523b63
 	return fmt.Sscan(str, a...)
 }
 
 // Sscanln类似于Sscan，但会在遇到换行符时停止扫描，并且在最后一个项目之后必须有一个换行符或文件结束。
 // md5:c499c724c1b91c48
+// ff:文本扫描到指针ln
+// str:文本
+// a:变量指针
+// n:长度
+// err:错误
 func Sscanln(str string, a ...any) (n int, err error) { //md5:8f83ae0440512197
 	return fmt.Sscanln(str, a...)
 }
@@ -64,24 +87,46 @@ func Sscanln(str string, a ...any) (n int, err error) { //md5:8f83ae0440512197
 // Sscanf 函数根据格式解析参数字符串，将连续的空格分隔值依次存储到后续的参数中。它返回成功解析的项目数量。
 // 输入中的换行符必须与格式中的换行符匹配。
 // md5:761d1a51af0c9d81
+// ff:格式化文本到指针
+// str:文本
+// format:格式化模板
+// a:变量指针
+// n:长度
+// err:错误
 func Sscanf(str string, format string, a ...any) (n int, err error) { //md5:1eca9e23b2ed8572
 	return fmt.Sscanf(str, format, a...)
 }
 
 // Fscan 从 r 中读取文本，将连续的空格分隔的值依次存储到后续的参数中。换行符被视为空格。它返回成功扫描的项目数。如果这个数量小于参数的数量，err 将报告失败的原因。
 // md5:d7a2e5b032c871d0
+// ff:IO读取器到指针
+// r:IO读取器
+// a:变量指针
+// n:长度
+// err:错误
 func Fscan(r io.Reader, a ...any) (n int, err error) { //md5:42967ce1be4193c0
 	return fmt.Fscan(r, a...)
 }
 
 // Fscanln类似于Fscan，但在遇到换行符时停止扫描。在最后一个项目之后，必须有换行符或文件结束（EOF）。
 // md5:e547e532977d7b36
+// ff:IO读取器到指针ln
+// r:IO读取器
+// a:变量指针
+// n:长度
+// err:错误
 func Fscanln(r io.Reader, a ...any) (n int, err error) { //md5:2f2632f681df7704
 	return fmt.Fscanln(r, a...)
 }
 
 // Fscanf 从 r 读取文本，根据格式将连续的空格分隔的值存储到相继的参数中。它返回成功解析的项数。输入中的换行符必须与格式中的换行符匹配。
 // md5:9779449977491090
+// ff:格式化IO读取器到指针
+// r:IO读取器
+// format:格式化模板
+// a:变量指针
+// n:长度
+// err:错误
 func Fscanf(r io.Reader, format string, a ...any) (n int, err error) { //md5:3b3a67d5e3089bc5
 	return fmt.Fscanf(r, format, a...)
 }

@@ -7,7 +7,7 @@ import "time"
 //
 // Location 用于在打印 Time 值时提供时区，并进行可能跨越夏令时边界的计算。
 // md5:db05da442bb7e413
-type Location struct {
+type Location struct {//hm:时区结构  cz:type Location  
 	F time.Location
 } //md5:b2741259c471a509
 
@@ -23,7 +23,7 @@ type Location struct {
 //) // md5:cd28ad5922a22ce1
 
 // UTC 表示协调世界时间（Universal Coordinated Time）。. md5:991e0d09aaa17cec
-var UTC *Location = &Location{*time.UTC} //md5:cb0833e2130b743d
+var UTC *Location = &Location{*time.UTC}//hm:常量_时区_UTC  cz:var UTC   //md5:cb0833e2130b743d
 
 // Local 表示系统的本地时区。
 // 在Unix系统上，Local会查询TZ环境变量来找到要使用的时区。
@@ -31,16 +31,21 @@ var UTC *Location = &Location{*time.UTC} //md5:cb0833e2130b743d
 // TZ="" 意味着使用UTC时间。
 // TZ="foo" 意味着在系统时区目录中使用名为foo的文件。
 // md5:38f2b49de5174f53
-var Local *Location = &Location{*time.Local} //md5:57aa689da8ee76b4
+var Local *Location = &Location{*time.Local}//hm:常量_时区_本地系统  cz:var Local   //md5:57aa689da8ee76b4
 
 // String 返回与 LoadLocation 或 FixedZone 的 name 参数对应的时区信息的描述性名称。
 // md5:120873679bee5884
+// ff:
+// l:
 func (l *Location) String() string { //md5:c44612032555be76
 	return l.F.String()
 }
 
 // FixedZone返回一个Location，它始终使用给定的时区名称和偏移量（UTC的东秒数）。
 // md5:2175485bbe6a45d6
+// ff:固定时区
+// name:时区名称
+// offset:偏移量
 func FixedZone(name string, offset int) *Location { //md5:839d95c9de0383bc
 	l := time.FixedZone(name, offset)
 	if l == nil {
@@ -64,6 +69,8 @@ func FixedZone(name string, offset int) *Location { //md5:839d95c9de0383bc
 //   - 如果导入了 time/tzdata 包，则使用该包
 //
 // md5:aec8c6a750b5813b
+// ff:加载时区
+// name:时区名称
 func LoadLocation(name string) (*Location, error) { //md5:506ad5b64122238f
 	l, err := time.LoadLocation(name)
 	if err != nil {

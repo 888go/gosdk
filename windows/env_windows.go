@@ -11,23 +11,37 @@ import (
 	"unsafe"
 )
 
+// ff:取环境变量
+// key:名称
+// value:值
+// found:是否成功
 func Getenv(key string) (value string, found bool) {
 	return syscall.Getenv(key)
 }
 
+// ff:设置环境变量
+// key:名称
+// value:值
 func Setenv(key, value string) error {
 	return syscall.Setenv(key, value)
 }
 
+// ff:删除所有环境变量
 func Clearenv() {
 	syscall.Clearenv()
 }
 
+// ff:取所有环境变量
 func Environ() []string {
 	return syscall.Environ()
 }
 
 // 返回与令牌关联的默认环境，而非当前进程的环境。如果inheritExisting为真，则此环境同时也继承当前进程的环境。
+// ff:取所有环境变量
+// token:
+// inheritExisting:继承现有进程
+// env:所有环境变量
+// err:错误
 func (token Token) Environ(inheritExisting bool) (env []string, err error) {
 	var block *uint16
 	err = CreateEnvironmentBlock(&block, token, inheritExisting)
@@ -50,6 +64,8 @@ func (token Token) Environ(inheritExisting bool) (env []string, err error) {
 	return env, nil
 }
 
+// ff:删除环境变量
+// key:名称
 func Unsetenv(key string) error {
 	return syscall.Unsetenv(key)
 }

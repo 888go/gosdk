@@ -6,7 +6,7 @@ import (
 )
 
 // NumError 记录了一次转换失败的情况。. md5:4bc87fcc15d03a84
-type NumError struct {
+type NumError struct {//hm:转换失败结构  cz:type NumError  
 	F strconv.NumError
 } //md5:0cd5b5c6c9f477b9
 
@@ -14,15 +14,19 @@ type NumError struct {
 const IntSize = strconv.IntSize //md5:19007de8c1f03835
 
 // ErrRange表示值超出了目标类型的范围。. md5:f2114ade03b9c908
-var ErrRange = errors.New("value out of range") //md5:879a72936976b39e
+var ErrRange = errors.New("value out of range")//hm:常量_错误_超出类型范围  cz:var ErrRange   //md5:879a72936976b39e
 
 // ErrSyntax表示值的语法不符合目标类型的要求。. md5:a7b31dd1093b5f09
 var ErrSyntax = errors.New("invalid syntax") //md5:5371aebaa9b3d94e
 
+// ff:取错误文本
+// e:
 func (e *NumError) Error() string { //md5:d92759861dd6caa4
 	return e.F.Error()
 }
 
+// ff:取错误对象
+// e:
 func (e *NumError) Unwrap() error { //md5:35635a0deb05e0a6
 	return e.F.Unwrap()
 }
@@ -31,6 +35,10 @@ func (e *NumError) Unwrap() error { //md5:35635a0deb05e0a6
 //
 // 不允许有符号前缀。
 // md5:46e1e2e7065dee31
+// ff:文本到正整数64位
+// s:文本
+// base:进制
+// bitSize:位宽
 func ParseUint(s string, base int, bitSize int) (uint64, error) { //md5:f4c2829256142922
 	return strconv.ParseUint(s, base, bitSize)
 }
@@ -48,11 +56,19 @@ func ParseUint(s string, base int, bitSize int) (uint64, error) { //md5:f4c28292
 //
 // [整数字面量]：https://go.dev/ref/spec#Integer_literals
 // md5:c7272ea65b20e967
+// ff:文本到整数64位
+// s:文本
+// base:进制
+// bitSize:位宽
+// i:返回值
+// err:错误
 func ParseInt(s string, base int, bitSize int) (i int64, err error) { //md5:8bc39378cce23cd2
 	return strconv.ParseInt(s, base, bitSize)
 }
 
 // Atoi等同于ParseInt(s, 10, 0)，转换为int类型。. md5:53cc58b8acf08aaf
+// ff:文本到整数
+// s:文本
 func Atoi(s string) (int, error) { //md5:576d8377bb1d7532
 	return strconv.Atoi(s)
 }

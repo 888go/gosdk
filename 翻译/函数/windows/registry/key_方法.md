@@ -1,22 +1,24 @@
 # 备注开始
 # **_方法.md 文件备注:
 # ff= 方法,重命名方法名称
-# 如:
-# //ff:取文本
+# 如://ff:取文本
+#
+# yx=true,此方法优先翻译
+# 如: //yx=true
 
 # **_package.md 文件备注:
 # bm= 包名,更换新的包名称 
-# 如: 
-# package gin //bm:gin类
+# 如: package gin //bm:gin类
 
 # **_其他.md 文件备注:
 # qm= 前面,跳转到前面进行重命名.文档内如果有多个相同的,会一起重命名.
 # hm= 后面,跳转到后面进行重命名.文档内如果有多个相同的,会一起重命名.
 # cz= 查找,配合前面/后面使用,
-# 如:
-# type Regexp struct {//qm:正则 cz:Regexp struct
+# zz= 正则查找,配合前面/后面使用, 有设置正则查找,就不用设置上面的查找
+# 如: type Regexp struct {//qm:正则 cz:Regexp struct
 #
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
+# 如:
 # type Regexp struct {//th:type Regexp222 struct
 #
 # cf= 重复,用于重命名多次,
@@ -26,12 +28,15 @@
 
 # **_追加.md 文件备注:
 # 在代码内追加代码,如:
-# //zj:
+# //zj:前面一行的代码,如果为空,追加到末尾行
 # func (re *Regexp) X取文本() string { 
-#    re.F.String()
+# re.F.String()
 # }
 # //zj:
 # 备注结束
+
+[func (k Key) Close() error {]
+ff=关闭
 
 [func OpenKey(k Key, path string, access uint32) (Key, error) {]
 ff=打开表项
@@ -61,6 +66,3 @@ ff=取写入时间
 
 [func (k Key) Stat() (*KeyInfo, error) {]
 ff=取对象信息
-
-[func (k Key) Close() error {]
-ff=关闭

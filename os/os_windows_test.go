@@ -1018,7 +1018,6 @@ func TestRootRelativeDirSymlink(t *testing.T) {
 // TestWorkingDirectoryRelativeSymlink verifies that symlinks to paths relative
 // to the current working directory for the drive, such as "C:File.txt", are
 // correctly converted to absolute links of the correct symlink type (per
-// https://docs.microsoft.com/en-us/windows/win32/fileio/creating-symbolic-links).
 func TestWorkingDirectoryRelativeSymlink(t *testing.T) {
 	testenv.MustHaveSymlink(t)
 
